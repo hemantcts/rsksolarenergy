@@ -4,6 +4,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import StickyBar from '../components/StickyBar.astro';
+import DesktopCallButton from '../components/DesktopCallButton.astro';
 import { BUSINESS } from '../config/business';
 import { abs, breadcrumbs, graph, localBusiness, type Crumb } from '../lib/seo';
 import { assertLaunchReady } from '../lib/launch-guard';
@@ -78,5 +79,6 @@ const nodes = [localBusiness(), ...(crumbs.length ? [breadcrumbs(trail)] : []), 
     </main>
     <Footer />
     <StickyBar />
+    <DesktopCallButton />
   </body>
 </html>
