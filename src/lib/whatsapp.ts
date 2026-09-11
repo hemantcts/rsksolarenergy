@@ -26,6 +26,10 @@ export function topicMessage(topic: string): string {
   return `Hi RSK, I read your page on ${topic}. I would like to discuss my case.`;
 }
 
+export function locationMessage(city: string): string {
+  return `Hi RSK, I am in ${city} and would like to know about rooftop solar. I can send my electricity bill.`;
+}
+
 export function dealerMessage(): string {
   return [
     'Hi RSK, I would like to apply for a UTL Solar dealership.',
