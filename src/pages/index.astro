@@ -15,6 +15,10 @@ import { monthlyBill } from '../lib/calculator/tariff';
 import { digits, inr } from '../lib/calculator/format';
 import { REVIEWS, reviewMonth } from '../data/reviews';
 import { CATEGORIES, PRODUCT_IMAGES, productsIn } from '../data/products';
+import { BRAND_CATEGORIES } from '../data/brands';
+import { VIDEOS, youtubeThumbnail } from '../data/videos';
+import SocialLinks from '../components/SocialLinks.astro';
+import Icon from '../components/Icon.astro';
 import { billMessage } from '../lib/whatsapp';
 import { website } from '../lib/seo';
 
@@ -26,6 +30,9 @@ const bill700 = billAt(700);
 const minOnGridKw = cfg.sizing.minKwByType['on-grid'];
 const [d0, d1] = cfg.subsidy.disbursementDays;
 const reviews = REVIEWS.slice(0, 4);
+// One teaser tile per non-solar category, skipping UTL Solar (already shown above) — a taste of
+// the wider catalogue, not the full list, which lives on /brands-and-partners/.
+const brandTeaser = BRAND_CATEGORIES.flatMap((c) => c.brands).filter((b) => b.name !== 'UTL Solar');
 
 // "Solar panel dealer/distributor in Mohali" is the dominant real search pattern for this
 // niche — it's what Sulekha, Justdial and IndiaMart rank pages for, not an invented phrase —
@@ -329,6 +336,57 @@ const description = `Enter your PSPCL bill and see your system size, the PM Sury
           </p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Also stocked: a teaser of other brands, full list on its own page. -->
+  <section class="sec-tight bg-white border-t border-rule" aria-labelledby="also-stock-h">
+    <div class="wrap grid-12 items-center">
+      <div class="lg:col-span-4">
+        <h2 id="also-stock-h" class="t-h2">Also stocked at RSK</h2>
+        <p class="mt-4 text-slate">Fans, coolers, appliances and tubewell motors, alongside our solar equipment.</p>
+        <p class="mt-4"><a href="/brands-and-partners/" class="underline">See every brand we stock</a></p>
+      </div>
+      <ul class="mt-8 grid grid-cols-3 gap-4 sm:grid-cols-6 lg:col-span-7 lg:col-start-6 lg:mt-0">
+        {
+          brandTeaser.map((b) => (
+            <li class="flex h-16 items-center justify-center border border-rule bg-white p-3">
+              {b.logo ? <Image src={b.logo} alt={b.name} width={160} class="h-auto max-h-8 w-auto max-w-full object-contain" /> : <span class="t-small text-center">{b.name}</span>}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Follow: social links (only real, confirmed profiles) and videos, if any are added. -->
+  <section class="sec-tight border-t border-rule" aria-labelledby="follow-h">
+    <div class="wrap grid-12 items-center">
+      <div class="lg:col-span-4">
+        <h2 id="follow-h" class="t-h2">Follow RSK</h2>
+        <p class="mt-4 text-slate">Installation photos and updates from Phase 8-B, Mohali.</p>
+        <SocialLinks class="mt-5" />
+      </div>
+      {
+        VIDEOS.length > 0 && (
+          <ul class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:col-span-7 lg:col-start-6 lg:mt-0">
+            {VIDEOS.map((v) => {
+              const thumb = v.platform === 'youtube' ? youtubeThumbnail(v.url) : null;
+              return (
+                <li>
+                  <a href={v.url} rel="noopener" target="_blank" class="relative block aspect-video overflow-hidden border border-rule bg-ink no-underline">
+                    {thumb && <img src={thumb} alt="" loading="lazy" class="h-full w-full object-cover" />}
+                    <span class="absolute inset-0 flex items-center justify-center text-white">
+                      <Icon name="play" size={32} />
+                    </span>
+                  </a>
+                  <p class="t-small mt-2">{v.title}</p>
+                </li>
+              );
+            })}
+          </ul>
+        )
+      }
     </div>
   </section>
 

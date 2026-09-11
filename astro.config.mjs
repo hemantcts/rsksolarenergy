@@ -22,7 +22,7 @@ export default defineConfig({
     csp: {
       directives: [
         "default-src 'self'",
-        "img-src 'self' data:",
+        "img-src 'self' data: https://i.ytimg.com",
         "font-src 'self'",
         "connect-src 'self'",
         "base-uri 'self'",

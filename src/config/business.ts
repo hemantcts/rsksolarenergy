@@ -73,8 +73,9 @@ export const BUSINESS = {
    * link is never shown until it is genuinely confirmed (CLAUDE.md §6, same rule as Justdial's URL).
    */
   social: {
-    facebook: null as string | null,
-    instagram: null as string | null,
+    facebook: 'https://www.facebook.com/rsksolarenergy/' as string | null,
+    instagram: 'https://www.instagram.com/rsksolarenergy' as string | null,
+    // TODO: RSK's YouTube channel URL, once supplied.
     youtube: null as string | null,
   },
 
