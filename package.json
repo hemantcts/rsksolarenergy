@@ -6,15 +6,18 @@
   "description": "rsksolarenergy.com — static site for RSK Solar Energy, UTL Solar distributor, Phase 8-B Mohali",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
-    "build:draft": "cross-env ALLOW_PLACEHOLDERS=1 astro build",
+    "build": "npm run generate && astro build",
+    "build:draft": "npm run generate && cross-env ALLOW_PLACEHOLDERS=1 astro build",
     "preview": "astro preview",
     "check": "astro check",
     "test": "vitest run",
     "test:watch": "vitest",
     "budget": "node scripts/check-budget.mjs",
     "launch-check": "node scripts/launch-check.mjs",
-    "og": "node scripts/make-images.mjs"
+    "og": "node scripts/make-images.mjs",
+    "htaccess": "node scripts/make-htaccess.mjs",
+    "llms-txt": "node scripts/make-llms-txt.mjs",
+    "generate": "npm run htaccess && npm run llms-txt"
   },
   "engines": {
     "node": ">=22"

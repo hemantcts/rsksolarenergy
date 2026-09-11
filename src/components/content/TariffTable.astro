@@ -1,0 +1,48 @@
+---
+import { SOLAR_CONFIG, type TariffBand } from '../../config/solar-config';
+
+interface Props {
+  category?: 'domestic' | 'commercial';
+}
+const { category = 'domestic' } = Astro.props;
+const p = SOLAR_CONFIG.pspcl;
+const bands: readonly TariffBand[] = category === 'domestic' ? p.domestic : p.commercial;
+const loadLabel = (i: number) => {
+  const prev = i === 0 ? 0 : bands[i - 1]!.maxLoadKw;
+  const max = bands[i]!.maxLoadKw;
+  if (max === Infinity) return `Above ${prev} kW`;
+  return i === 0 ? `Up to ${max} kW` : `${prev} to ${max} kW`;
+};
+const slabLabel = (upTo: number, prevUpTo: number) => (upTo === Infinity ? (prevUpTo ? `Above ${prevUpTo} units` : 'All units') : `First ${upTo} units`);
+---
+
+<div class="table-scroll not-prose my-8">
+  <table class="spec-table min-w-lg">
+    <caption>PSPCL {category === 'domestic' ? 'domestic' : 'non-residential (NRS)'} tariff, {p.tariffYear}</caption>
+    <thead>
+      <tr>
+        <th scope="col">Sanctioned load</th>
+        <th scope="col">Units</th>
+        <th scope="col" class="num">₹ per unit</th>
+        <th scope="col" class="num">Fixed, ₹ per kW a month</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        bands.map((b, i) =>
+          b.slabs.map((s, j) => (
+            <tr>
+              <th scope="row">{j === 0 ? loadLabel(i) : ''}</th>
+              <td>{slabLabel(s.upTo, j > 0 ? b.slabs[j - 1]!.upTo : 0)}</td>
+              <td class="num">{s.rate.toFixed(2)}</td>
+              <td class="num">{j === 0 ? b.fixedPerKwMonth : ''}</td>
+            </tr>
+          )),
+        )
+      }
+    </tbody>
+  </table>
+  <p class="t-small mt-3 text-slate">
+    Effective {p.effectiveFrom.split('-').reverse().join('.')} to {p.effectiveTo.split('-').reverse().join('.')}. Electricity duty of about {p.electricityDutyPercent}% is added on top. Always check the figures against your own bill.
+  </p>
+</div>

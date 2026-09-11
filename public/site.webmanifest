@@ -1,0 +1,13 @@
+{
+  "name": "RSK Solar Energy",
+  "short_name": "RSK Solar",
+  "description": "Rooftop solar in Mohali and Punjab, priced after subsidy.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#F3F5F6",
+  "theme_color": "#0D1B2A",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

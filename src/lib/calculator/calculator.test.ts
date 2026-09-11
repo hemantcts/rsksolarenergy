@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { SOLAR_CONFIG, type SolarConfig } from '../../config/solar-config';
 import { calculate, grossCost, lifetimeSaving } from './calculate';
 import { inr, inrRange, inrWords, yearsRange } from './format';
-import { largestSizeWithin, nearestSize, sizeAtLeast } from './sizing';
+import { largestSizeWithin, nearestSize, sizeAtLeast, sizesForType } from './sizing';
 import { computeSubsidy, residentialSubsidy, societySubsidy } from './subsidy';
 import { minimumBillAboveThreshold, monthlyBill, telescopicCharge, unitsFromBill, type TariffContext } from './tariff';
 import type { CalcInput, Category } from './types';
@@ -181,6 +181,17 @@ describe('sizing helpers', () => {
     expect(largestSizeWithin(5, T)).toBe(5);
     expect(largestSizeWithin(0.5, T)).toBeNull();
   });
+  it('sizesForType restricts on-grid and hybrid to 3 kW+, off-grid keeps the full ladder', () => {
+    expect(sizesForType('on-grid', T)).toEqual([3, 4, 5, 6, 8, 10]);
+    expect(sizesForType('hybrid', T)).toEqual([3, 4, 5, 6, 8, 10]);
+    expect(sizesForType('off-grid', T)).toEqual([1, 2, 3, 4, 5, 6, 8, 10]);
+  });
+  it('a sizes override is never undercut by the full ladder', () => {
+    const onGrid = sizesForType('on-grid', T);
+    expect(nearestSize(0.3, T, onGrid)).toBe(3);
+    expect(sizeAtLeast(0.5, T, onGrid)).toBe(3);
+    expect(largestSizeWithin(2, T, onGrid)).toBeNull();
+  });
 });
 
 describe('calculate — the free-units threshold (299 / 300 / 301)', () => {
@@ -193,10 +204,10 @@ describe('calculate — the free-units threshold (299 / 300 / 301)', () => {
   it('300 units → free-units outcome', () => {
     expect(calculate(units(300), T).outcome).toBe('free-units');
   });
-  it('301 units → ok, and a small system takes the bill to zero', () => {
+  it('301 units → ok, and our smallest on-grid system (3 kW) takes the bill to zero', () => {
     const r = calculate(units(301), T);
     expect(r.outcome).toBe('ok');
-    expect(r.systemKw).toBe(1);
+    expect(r.systemKw).toBe(3);
     expect(r.zeroBill).toBe(true);
     expect(r.paybackYears).not.toBeNull();
   });
@@ -210,10 +221,11 @@ describe('calculate — the free-units threshold (299 / 300 / 301)', () => {
 
 describe('calculate — sizing strategy', () => {
   it('domestic 450 units: zero-bill sizing beats full offset', () => {
-    // (450 − 250) / 100 = 2 kW brings net units to 250, under the line. Full offset would be 5 kW.
+    // (450 − 250) / 100 = 2 kW would bring net units to 250, but RSK's smallest on-grid
+    // system is 3 kW, which comfortably clears the line too. Full offset would be 5 kW.
     const r = calculate(units(450), T);
     expect(r.strategy).toBe('zero-bill');
-    expect(r.systemKw).toBe(2);
+    expect(r.systemKw).toBe(3);
     expect(r.offsetKw).toBe(5);
     expect(r.zeroBill).toBe(true);
     expect(r.notes).toContainEqual({ code: 'zero-bill-sizing', offsetKw: 5 });
@@ -258,6 +270,35 @@ describe('calculate — sanctioned load', () => {
   });
 });
 
+describe('calculate — RSK sells on-grid and hybrid from 3 kW, off-grid from 1 kW', () => {
+  it('a home just over the line never gets a sub-3kW on-grid system, even though less would zero the bill', () => {
+    const r = calculate(units(310, 'domestic', { systemType: 'on-grid' }), T);
+    expect(r.systemKw).toBe(3);
+    expect(r.systemKw).toBeGreaterThanOrEqual(T.sizing.minKwByType['on-grid']);
+    expect(r.zeroBill).toBe(true);
+  });
+  it('the same home on hybrid also floors at 3 kW', () => {
+    const r = calculate(units(310, 'domestic', { systemType: 'hybrid' }), T);
+    expect(r.systemKw).toBe(3);
+  });
+  it('the same home on off-grid can go as low as 1 kW', () => {
+    const r = calculate(units(310, 'domestic', { systemType: 'off-grid' }), T);
+    expect(r.systemKw).toBe(1);
+    expect(r.zeroBill).toBe(true);
+  });
+  it('a sanctioned load under 3 kW rules out on-grid and hybrid entirely', () => {
+    for (const systemType of ['on-grid', 'hybrid'] as const) {
+      const r = calculate(units(500, 'domestic', { systemType, sanctionedLoadKw: 2 }), T);
+      expect(r.outcome).toBe('load-too-small');
+    }
+  });
+  it('the same 2 kW sanctioned load is enough for off-grid', () => {
+    const r = calculate(units(500, 'domestic', { systemType: 'off-grid', sanctionedLoadKw: 2 }), T);
+    expect(r.outcome).toBe('ok');
+    expect(r.systemKw).toBeLessThanOrEqual(2);
+  });
+});
+
 describe('calculate — subsidy gates flow through', () => {
   it('commercial and industrial get ₹0 subsidy', () => {
     expect(calculate(units(800, 'commercial'), T).subsidy.amount).toBe(0);
@@ -277,8 +318,8 @@ describe('calculate — subsidy gates flow through', () => {
   });
   it('net cost = gross − subsidy', () => {
     const r = calculate(units(450), T);
-    expect(r.grossCost).toEqual([100000, 120000]);
-    expect(r.netCost).toEqual([40000, 60000]);
+    expect(r.grossCost).toEqual([150000, 180000]);
+    expect(r.netCost).toEqual([72000, 102000]);
   });
   it('agricultural → its own outcome', () => {
     expect(calculate(units(900, 'agricultural'), T).outcome).toBe('agricultural');
@@ -292,7 +333,7 @@ describe('calculate — savings and payback', () => {
     expect(r.billBefore.total).toBeCloseTo(before, 6);
     expect(r.billAfter.total).toBe(0);
     expect(r.annualSaving).toBeCloseTo(before * 12, 6);
-    expect(r.paybackYears![0]).toBeCloseTo(40000 / r.annualSaving, 6);
+    expect(r.paybackYears![0]).toBeCloseTo(72000 / r.annualSaving, 6);
   });
   it('lifetime saving applies escalation and degradation', () => {
     const f = 1.03 * 0.995;

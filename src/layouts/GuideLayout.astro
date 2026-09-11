@@ -1,0 +1,80 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Faq from '../components/Faq.astro';
+import CtaBlock from '../components/content/CtaBlock.astro';
+import type { Crumb, QA } from '../lib/seo';
+
+interface Props {
+  title: string;
+  description: string;
+  h1: string;
+  lead: string;
+  crumbs: Crumb[];
+  schema?: object[];
+  faq?: QA[];
+  related?: { href: string; label: string }[];
+  cta?: { heading: string; label: string; message: string };
+  updated?: string;
+  ogType?: 'website' | 'article';
+}
+const { title, description, h1, lead, crumbs, schema = [], faq = [], related = [], cta, updated, ogType } = Astro.props;
+const updatedText = updated
+  ? new Date(`${updated}T00:00:00Z`).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
+  : null;
+---
+
+<BaseLayout title={title} description={description} crumbs={crumbs} schema={schema} ogType={ogType}>
+  <article>
+    <header class="wrap pt-8 pb-10 lg:pt-12 lg:pb-14">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, ...crumbs]} />
+      <h1 class="t-h1 mt-6 max-w-4xl">{h1}</h1>
+      <p class="t-lead measure mt-5">{lead}</p>
+      {updatedText && <p class="t-small mt-4 text-slate">Updated {updatedText}</p>}
+      <div class="settle mt-10 border-t border-ink"></div>
+    </header>
+
+    <div class="wrap grid-12 pb-16 lg:pb-24">
+      <div class="prose lg:col-span-7">
+        <slot />
+      </div>
+      <aside class="lg:col-span-4 lg:col-start-9" aria-label="Contact RSK">
+        <div class="lg:sticky lg:top-8">
+          <CtaBlock {...(cta ? { heading: cta.heading, label: cta.label, message: cta.message } : {})} />
+          <slot name="aside" />
+        </div>
+      </aside>
+    </div>
+
+    {
+      faq.length > 0 && (
+        <div class="sec border-t border-rule bg-white">
+          <div class="wrap grid-12">
+            <div class="lg:col-span-8">
+              <Faq items={faq} />
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    {
+      related.length > 0 && (
+        <nav class="sec-tight border-t border-rule" aria-labelledby="related-h">
+          <div class="wrap grid-12">
+            <h2 id="related-h" class="t-h3 lg:col-span-3">Read next</h2>
+            <ul class="ruled lg:col-span-8 lg:col-start-5">
+              {related.map((r) => (
+                <li>
+                  <a href={r.href} class="font-medium underline">
+                    {r.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
+      )
+    }
+  </article>
+</BaseLayout>

@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { SIZE_PAGES, sizePath } from '../data/sizes';
+---
+
+<BaseLayout title="Page not found | RSK Solar Energy" description="This page does not exist. Try the solar calculator, the subsidy guide or the product catalogue." noindex>
+  <section class="wrap grid-12 sec">
+    <div class="lg:col-span-7">
+      <h1 class="t-h1">This page does not exist</h1>
+      <p class="t-lead mt-5">
+        The site was rebuilt in 2026 and some old addresses have moved. These are the pages people usually want:
+      </p>
+      <ul class="ruled mt-8">
+        <li><a href="/solar-calculator/" class="font-semibold underline">Solar calculator</a>: size, subsidy and payback from your bill</li>
+        <li><a href="/pm-surya-ghar-subsidy-punjab/" class="font-semibold underline">PM Surya Ghar subsidy in Punjab</a></li>
+        <li><a href="/products/" class="font-semibold underline">UTL product catalogue</a></li>
+        <li>
+          System prices:{' '}
+          {SIZE_PAGES.map((s, i) => (
+            <>
+              {i > 0 && ', '}
+              <a href={sizePath(s.kw)} class="underline">{s.kw} kW</a>
+            </>
+          ))}
+        </li>
+      </ul>
+      <div class="mt-10"><WhatsAppButton label="Ask us on WhatsApp instead" /></div>
+    </div>
+  </section>
+</BaseLayout>

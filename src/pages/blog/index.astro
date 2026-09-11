@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.published.localeCompare(a.data.published));
+const fmt = (d: string) => new Date(`${d}T00:00:00Z`).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+---
+
+<BaseLayout
+  title="Solar Guides for Punjab Homes and Businesses | RSK Solar Energy"
+  description="Plain guides to rooftop solar in Punjab: the 300 free units, sizing a system, the PM Surya Ghar subsidy and net metering with PSPCL."
+  crumbs={[{ name: 'Guides', path: '/blog/' }]}
+>
+  <header class="wrap pt-8 pb-10 lg:pt-12">
+    <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Guides', path: '/blog/' }]} />
+    <h1 class="t-h1 mt-6">Guides</h1>
+    <p class="t-lead measure mt-5">Rooftop solar in Punjab, explained with real numbers from the PSPCL tariff.</p>
+  </header>
+  <section class="wrap pb-24">
+    <ul class="ruled">
+      {
+        posts.map((p) => (
+          <li class="grid gap-x-6 gap-y-2 py-7 md:grid-cols-12">
+            <p class="t-small text-slate md:col-span-3">
+              <time datetime={p.data.published}>{fmt(p.data.published)}</time>
+              <span class="block">{p.data.category}</span>
+            </p>
+            <div class="md:col-span-8">
+              <h2 class="t-h2">
+                <a href={`/blog/${p.id}/`} class="no-underline hover:underline">
+                  {p.data.title}
+                </a>
+              </h2>
+              <p class="mt-2 text-slate">{p.data.description}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-10">More: <a href="/pm-surya-ghar-subsidy-punjab/" class="underline">PM Surya Ghar subsidy guide</a>, <a href="/on-grid-vs-off-grid-vs-hybrid/" class="underline">on-grid vs off-grid vs hybrid</a>.</p>
+  </section>
+</BaseLayout>

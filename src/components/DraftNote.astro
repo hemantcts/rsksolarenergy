@@ -1,0 +1,13 @@
+---
+/** Shown next to any price while pricing is still placeholder data. Disappears once RSK's prices are in. */
+import { SOLAR_CONFIG } from '../config/solar-config';
+const show = SOLAR_CONFIG.pricing.status === 'placeholder';
+---
+
+{
+  show && (
+    <p class="calc-draft t-small" role="note">
+      <strong>Draft prices.</strong> These are placeholders until RSK confirms its price list. Do not quote them.
+    </p>
+  )
+}

@@ -1,0 +1,25 @@
+---
+import { BUSINESS } from '../config/business';
+import Icon from './Icon.astro';
+
+interface Props {
+  /** Must include a display utility (e.g. "inline-flex", "hidden sm:inline-flex") — the base
+   * class deliberately omits one so a responsive toggle here never fights a hardcoded display. */
+  class: string;
+  compact?: boolean;
+}
+const { class: className, compact = false } = Astro.props;
+const { rating, reviewCount, mapsUrl } = BUSINESS.google;
+---
+
+<a
+  href={mapsUrl}
+  rel="noopener"
+  target="_blank"
+  class:list={['t-small items-center gap-1.5 leading-none no-underline hover:underline', className]}
+  aria-label={`Rated ${rating.toFixed(1)} out of 5 from ${reviewCount} Google reviews`}
+>
+  <Icon name="star" size={15} />
+  <span class="t-value">{rating.toFixed(1)}</span>
+  <span class="text-slate">{compact ? `(${reviewCount})` : `${reviewCount} Google reviews`}</span>
+</a>

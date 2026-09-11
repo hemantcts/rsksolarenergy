@@ -1,0 +1,36 @@
+---
+import { getCollection, render } from 'astro:content';
+import GuideLayout from '../layouts/GuideLayout.astro';
+import { article, faqPage, service } from '../lib/seo';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map((entry) => ({ params: { guide: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const path = `/${entry.id}/`;
+const schema = [
+  d.kind === 'service' && d.serviceType
+    ? service({ name: d.h1, description: d.description, path, serviceType: d.serviceType })
+    : article({ title: d.h1, description: d.description, path, published: d.updated, updated: d.updated }),
+  ...(d.faq.length ? [faqPage(d.faq)] : []),
+];
+---
+
+<GuideLayout
+  title={d.title}
+  description={d.description}
+  h1={d.h1}
+  lead={d.lead}
+  crumbs={[{ name: d.crumb, path }]}
+  schema={schema}
+  faq={d.faq}
+  related={d.related}
+  updated={d.updated}
+  {...(d.cta ? { cta: d.cta } : {})}
+>
+  <Content />
+</GuideLayout>

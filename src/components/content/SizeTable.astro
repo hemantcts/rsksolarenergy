@@ -1,0 +1,55 @@
+---
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { digits, inr, inrRange } from '../../lib/calculator/format';
+import { SIZE_PAGES, sizePath } from '../../data/sizes';
+import DraftNote from '../DraftNote.astro';
+
+interface Props {
+  highlight?: number;
+}
+const { highlight } = Astro.props;
+---
+
+<div class="not-prose">
+  <div class="table-scroll">
+    <table class="spec-table min-w-176">
+      <caption class="sr-only">Standard rooftop system sizes with generation, roof area, subsidy and price</caption>
+      <thead>
+        <tr>
+          <th scope="col">System</th>
+          <th scope="col" class="num">Units a month</th>
+          <th scope="col" class="num">Roof area</th>
+          <th scope="col" class="num">Home subsidy</th>
+          <th scope="col" class="num">On-grid, after subsidy</th>
+          <th scope="col" class="num">Zero bill for homes using up to</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          SIZE_PAGES.map((s) => (
+            <tr aria-current={s.kw === highlight ? 'true' : undefined} class={s.kw === highlight ? 'font-semibold' : ''}>
+              <th scope="row">
+                {s.kw === highlight ? (
+                  <span>{s.kw} kW system</span>
+                ) : (
+                  <a href={sizePath(s.kw)} class="underline">
+                    {s.kw} kW system
+                  </a>
+                )}
+              </th>
+              <td class="num">{digits(s.monthlyUnits)}</td>
+              <td class="num">{digits(s.roofSqFt)} sq ft</td>
+              <td class="num">{inr(s.subsidy)}</td>
+              <td class="num">{inrRange(s.netOnGrid)}</td>
+              <td class="num">{digits(s.zeroBillRange[1])} units</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="t-small mt-3 text-slate">
+    Generation at {digits(SOLAR_CONFIG.generation.annualYieldPerKwp * SOLAR_CONFIG.generation.deratingFactor)} units per kW per year, after losses. Zero-bill figures assume a general-category home and that PSPCL applies the {SOLAR_CONFIG.freeUnits.perMonth} free units to net units.
+  </p>
+  <div class="mt-3"><DraftNote /></div>
+</div>

@@ -7,6 +7,7 @@ import {
   monthlyGenerationPerKw,
   nearestSize,
   sizeAtLeast,
+  sizesForType,
 } from './sizing';
 import { minimumBillAboveThreshold, monthlyBill, unitsFromBill, type TariffContext } from './tariff';
 import type { BillBreakdown, CalcInput, CalcResult, Note, Range, SystemType } from './types';
@@ -147,17 +148,20 @@ export function calculate(input: CalcInput, config: SolarConfig = SOLAR_CONFIG):
     return { ...base, outcome: 'free-units', monthlyUnits, estimated, notes };
   }
 
-  // 3. Sizing.
+  // 3. Sizing. RSK's installed size ladder for this system type — on-grid and hybrid start at
+  //    config.sizing.minKwByType['on-grid'|'hybrid'] (3 kW), off-grid from 1 kW.
+  const sizes = sizesForType(systemType, config);
   const perKwMonth = monthlyGenerationPerKw(config);
-  const offsetKw = nearestSize(kwForMonthlyUnits(monthlyUnits, config), config);
+  const offsetKw = nearestSize(kwForMonthlyUnits(monthlyUnits, config), config, sizes);
   let requiredKw = offsetKw;
   let strategy: CalcResult['strategy'] = 'offset';
 
   if (category === 'domestic' && config.freeUnits.appliesToNetUnits) {
     // Bring net units under the free-units line with headroom; beyond that, extra capacity
-    // saves almost nothing because the bill is already zero.
+    // saves almost nothing because the bill is already zero. Never below the smallest size
+    // RSK installs for this system type, even if less would technically do the job.
     const target = Math.min(config.sizing.zeroBillTargetUnits, config.freeUnits.perMonth);
-    const zeroBillKw = sizeAtLeast((monthlyUnits - target) / perKwMonth, config);
+    const zeroBillKw = sizeAtLeast((monthlyUnits - target) / perKwMonth, config, sizes);
     if (zeroBillKw < offsetKw) {
       requiredKw = zeroBillKw;
       strategy = 'zero-bill';
@@ -170,7 +174,7 @@ export function calculate(input: CalcInput, config: SolarConfig = SOLAR_CONFIG):
   if (isPositiveFinite(input.roofAreaSqFt)) {
     const roofKw = input.roofAreaSqFt / config.generation.sqFtPerKw;
     if (systemKw > roofKw) {
-      const fits = largestSizeWithin(roofKw, config);
+      const fits = largestSizeWithin(roofKw, config, sizes);
       if (fits == null) return { ...base, outcome: 'load-too-small', monthlyUnits, estimated, notes };
       notes.push({ code: 'capped-by-roof', requiredKw: systemKw, roofKw });
       systemKw = fits;
@@ -178,7 +182,7 @@ export function calculate(input: CalcInput, config: SolarConfig = SOLAR_CONFIG):
   }
   const loadLimit = (loadKw * config.netMetering.maxSystemPercentOfSanctionedLoad) / 100;
   if (loadKnown && systemKw > loadLimit) {
-    const fits = largestSizeWithin(loadLimit, config);
+    const fits = largestSizeWithin(loadLimit, config, sizes);
     if (fits == null) return { ...base, outcome: 'load-too-small', monthlyUnits, estimated, notes };
     notes.push({ code: 'capped-by-load', requiredKw: systemKw, loadKw });
     systemKw = fits;

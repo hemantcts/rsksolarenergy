@@ -1,0 +1,42 @@
+---
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { residentialSubsidy } from '../../lib/calculator/subsidy';
+import { digits, inr } from '../../lib/calculator/format';
+
+interface Props {
+  society?: boolean;
+}
+const { society = true } = Astro.props;
+const s = SOLAR_CONFIG.subsidy;
+const rows = [1, 2, 3, 4, 5, 10].map((kw) => ({ kw, amount: residentialSubsidy(kw, SOLAR_CONFIG) }));
+---
+
+<div class="table-scroll not-prose my-8">
+  <table class="spec-table">
+    <caption>PM Surya Ghar subsidy for a home system</caption>
+    <thead>
+      <tr><th scope="col">System size</th><th scope="col" class="num">Subsidy</th></tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((r) => (
+          <tr>
+            <th scope="row">{r.kw} kW</th>
+            <td class="num">{inr(r.amount)}</td>
+          </tr>
+        ))
+      }
+      {
+        society && (
+          <tr>
+            <th scope="row">Housing society or RWA, common facilities</th>
+            <td class="num">₹{digits(s.society.perKw)} per kW, up to {s.society.maxKw} kW</td>
+          </tr>
+        )
+      }
+    </tbody>
+  </table>
+  <p class="t-small mt-3 text-slate">
+    ₹{digits(s.residential.firstBandPerKw)} per kW for the first {s.residential.firstBandKw} kW and ₹{digits(s.residential.secondBandPerKw)} for the third, capped at {inr(s.residential.cap)}. Source: MNRE, PM Surya Ghar central financial assistance.
+  </p>
+</div>

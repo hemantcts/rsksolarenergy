@@ -59,7 +59,7 @@ export type Outcome =
   | 'bill-below-threshold'
   /** Agricultural connections get free power in Punjab. */
   | 'agricultural'
-  /** Sanctioned load below the smallest system size. */
+  /** Sanctioned load or roof area below the smallest system RSK installs for this system type. */
   | 'load-too-small'
   | 'invalid';
 

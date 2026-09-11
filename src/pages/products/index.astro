@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import WhatsAppButton from '../../components/WhatsAppButton.astro';
+import { CATEGORIES, PRODUCTS, keyFacts, productsIn } from '../../data/products';
+import { productMessage, whatsappUrl } from '../../lib/whatsapp';
+import { abs } from '../../lib/seo';
+
+const itemList = {
+  '@type': 'ItemList',
+  name: 'UTL Solar products supplied by RSK Solar Energy',
+  numberOfItems: PRODUCTS.length,
+  itemListElement: PRODUCTS.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(`/products/${p.slug}/`), name: p.title })),
+};
+---
+
+<BaseLayout
+  title="UTL Solar Products: Panels, Inverters, Batteries | RSK Solar Mohali"
+  description={`${PRODUCTS.length} UTL Solar products with full specifications: panels, inverters and PCUs, batteries, charge controllers and complete kits. Ask for price and stock on WhatsApp.`}
+  crumbs={[{ name: 'Products', path: '/products/' }]}
+  schema={[itemList]}
+>
+  <header class="wrap pt-8 pb-10 lg:pt-12">
+    <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Products', path: '/products/' }]} />
+    <div class="grid-12 mt-6 items-end">
+      <div class="lg:col-span-7">
+        <h1 class="t-h1">UTL Solar products</h1>
+        <p class="t-lead mt-5">
+          {PRODUCTS.length} products from the UTL range, each with its full specification. We do not sell online: ask on WhatsApp and we reply with today's price and stock.
+        </p>
+      </div>
+      <div class="lg:col-span-4 lg:col-start-9">
+        <WhatsAppButton label="Ask for a price on WhatsApp" message="Hi RSK, I would like prices and stock for UTL products. Items and quantities: " />
+      </div>
+    </div>
+    <nav aria-label="Product categories" class="mt-10 border-t border-ink pt-4">
+      <ul class="t-small flex flex-wrap gap-x-6 gap-y-2">
+        {
+          CATEGORIES.map((c) => (
+            <li>
+              <a href={`#${c.id}`} class="underline">
+                {c.name}
+              </a>{' '}
+              <span class="t-value text-slate">{productsIn(c.id).length}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </header>
+
+  {
+    CATEGORIES.map((c, i) => (
+      <section id={c.id} class:list={['sec-tight scroll-mt-4', i % 2 === 0 ? 'bg-white' : '']} aria-labelledby={`${c.id}-h`}>
+        <div class="wrap grid-12">
+          <div class="lg:col-span-3">
+            <h2 id={`${c.id}-h`} class="t-h2">
+              {c.name}
+            </h2>
+            <p class="mt-3 text-slate">{c.blurb}</p>
+          </div>
+          <ul class="ruled lg:col-span-9">
+            {productsIn(c.id).map((p) => (
+              <li class="grid gap-x-6 gap-y-3 md:grid-cols-12">
+                <div class="md:col-span-5">
+                  <a href={`/products/${p.slug}/`} class="t-h3 underline decoration-rule underline-offset-4 hover:decoration-ink">
+                    {p.title}
+                  </a>
+                  {p.model && <span class="t-small mt-1 block text-slate">Model <span class="t-value text-ink">{p.model}</span></span>}
+                </div>
+                <dl class="t-small grid grid-cols-[auto_1fr] content-start gap-x-4 gap-y-1 md:col-span-5">
+                  {keyFacts(p).map((f) => (
+                    <>
+                      <dt class="text-slate">{f.label}</dt>
+                      <dd class="t-value">{f.value}</dd>
+                    </>
+                  ))}
+                </dl>
+                <div class="md:col-span-2 md:text-right">
+                  <a href={whatsappUrl(productMessage(p.title, p.model ?? undefined))} class="btn-tertiary t-small" rel="noopener" target="_blank">
+                    Ask price
+                  </a>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    ))
+  }
+</BaseLayout>

@@ -1,0 +1,302 @@
+---
+/**
+ * The calculator. 'hero' is the compact homepage version; 'full' is /solar-calculator/.
+ * The full variant server-renders a worked example so the page is indexable and useful without JS.
+ */
+import { calculate } from '../lib/calculator/calculate';
+import { renderResult, toQuery } from '../lib/calculator/render';
+import type { CalcInput } from '../lib/calculator/types';
+import { BUSINESS } from '../config/business';
+
+interface Props {
+  variant: 'hero' | 'full';
+  id: string;
+  /** Pre-filled and pre-calculated example (full variant). */
+  example?: CalcInput;
+  exampleCaption?: string;
+}
+const { variant, id, example, exampleCaption } = Astro.props;
+const full = variant === 'full';
+const outputId = `${id}-result`;
+const exampleHtml = example ? renderResult(calculate(example), example, { variant, shareQuery: toQuery(example) }) : '';
+const kind = example?.consumption.kind ?? 'bill';
+const period = String(example?.consumption.periodMonths ?? 2);
+const value = example ? String(example.consumption.value) : '';
+const category = example?.category ?? 'domestic';
+
+const CATEGORY_OPTIONS = [
+  { value: 'domestic', label: 'Home' },
+  { value: 'commercial', label: 'Shop, office, clinic or school' },
+  { value: 'industrial', label: 'Factory or industry' },
+  { value: 'society', label: 'Housing society (common areas)' },
+  { value: 'agricultural', label: 'Farm (agricultural connection)' },
+];
+---
+
+<form
+  class="calc-form"
+  data-calculator
+  data-variant={variant}
+  data-output={outputId}
+  data-kind={kind}
+  action="/solar-calculator/"
+  method="get"
+  novalidate
+  aria-label="Solar savings calculator"
+>
+  <fieldset class="calc-fieldset">
+    <legend class="field-label">What do you want to enter?</legend>
+    <div class="segmented">
+      <label><input type="radio" name="kind" value="bill" checked={kind === 'bill'} />Bill amount</label>
+      <label><input type="radio" name="kind" value="units" checked={kind === 'units'} />Units used</label>
+    </div>
+  </fieldset>
+
+  <div class="calc-row">
+    <div class="calc-value">
+      <label for={`${id}-value`} class="field-label" data-value-label data-bill-label="Your PSPCL bill amount" data-units-label="Units consumed, as printed on your bill">
+        {kind === 'bill' ? 'Your PSPCL bill amount' : 'Units consumed, as printed on your bill'}
+      </label>
+      <div class="calc-input-wrap">
+        <span class="calc-prefix" aria-hidden="true">₹</span>
+        <input
+          id={`${id}-value`}
+          name="value"
+          class="input"
+          type="text"
+          inputmode="decimal"
+          autocomplete="off"
+          placeholder={kind === 'bill' ? '8,400' : '900'}
+          value={value}
+          aria-describedby={`${id}-value-hint`}
+          required
+        />
+        <span class="calc-suffix" aria-hidden="true">units</span>
+      </div>
+      <span id={`${id}-value-hint`} class="field-hint">Home bills from PSPCL usually cover two months. Enter the figure as printed.</span>
+    </div>
+    <fieldset class="calc-period">
+      <legend class="field-label">The bill covers</legend>
+      <div class="segmented">
+        <label><input type="radio" name="period" value="2" checked={period === '2'} />2 months</label>
+        <label><input type="radio" name="period" value="1" checked={period === '1'} />1 month</label>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="calc-row">
+    <div class="calc-category">
+      <label for={`${id}-category`} class="field-label">Connection type</label>
+      <select id={`${id}-category`} name="category" class="select">
+        {CATEGORY_OPTIONS.map((o) => <option value={o.value} selected={o.value === category}>{o.label}</option>)}
+      </select>
+    </div>
+
+    {
+      full && (
+        <div class="calc-load">
+          <label for={`${id}-load`} class="field-label">
+            Sanctioned load <span class="font-normal text-slate">(optional)</span>
+          </label>
+          <div class="input-suffix">
+            <input id={`${id}-load`} name="load" class="input" type="text" inputmode="decimal" autocomplete="off" placeholder="5" aria-describedby={`${id}-load-hint`} />
+            <span aria-hidden="true">kW</span>
+          </div>
+          <span id={`${id}-load-hint`} class="field-hint">
+            Printed on your bill. A subsidised system cannot be larger than this.
+          </span>
+        </div>
+      )
+    }
+  </div>
+
+  {
+    full && (
+      <>
+        <fieldset>
+          <legend class="field-label">System type</legend>
+          <div class="segmented">
+            <label><input type="radio" name="type" value="on-grid" checked />On-grid</label>
+            <label><input type="radio" name="type" value="hybrid" />Hybrid</label>
+            <label><input type="radio" name="type" value="off-grid" />Off-grid</label>
+          </div>
+          <span class="field-hint">
+            Not sure? Choose on-grid. <a href="/on-grid-vs-off-grid-vs-hybrid/" class="underline">How the three differ</a>
+          </span>
+        </fieldset>
+
+        <fieldset data-domestic-only hidden={category !== 'domestic'}>
+          <legend class="field-label">Free-units category</legend>
+          <div class="segmented">
+            <label><input type="radio" name="scheme" value="general" checked />General</label>
+            <label><input type="radio" name="scheme" value="reserved" />SC, BC, BPL or Freedom Fighter</label>
+          </div>
+          <span class="field-hint">
+            Above 300 units a month, general-category homes pay for every unit. The other categories pay only for units above 300.
+          </span>
+        </fieldset>
+
+        <details class="calc-more">
+          <summary>More details (optional)</summary>
+          <div class="calc-more-body">
+            <div>
+              <label for={`${id}-roof`} class="field-label">Usable roof area</label>
+              <div class="input-suffix">
+                <input id={`${id}-roof`} name="roof" class="input" type="text" inputmode="decimal" autocomplete="off" placeholder="300" />
+                <span aria-hidden="true">sq ft</span>
+              </div>
+              <span class="field-hint">Shade-free area. About 100 sq ft per kW.</span>
+            </div>
+            <div>
+              <label for={`${id}-district`} class="field-label">Where is the property?</label>
+              <select id={`${id}-district`} name="district" class="select">
+                <option value="">Choose, so we can add it to your message</option>
+                {[...BUSINESS.serviceArea, 'Elsewhere in Punjab'].map((d) => <option value={d}>{d}</option>)}
+              </select>
+            </div>
+            <label class="calc-check" data-domestic-only hidden={category !== 'domestic'}>
+              <input type="checkbox" name="tenant" />
+              <span>I rent this house (the subsidy needs the owner to apply)</span>
+            </label>
+          </div>
+        </details>
+      </>
+    )
+  }
+
+  <button type="submit" class="btn btn-primary calc-submit">Calculate my savings</button>
+</form>
+
+{full && exampleCaption && <p class="calc-caption" data-result-caption={outputId} data-yours="Your estimate">{exampleCaption}</p>}
+<div id={outputId} class="calc-result" tabindex="-1" aria-live="polite" hidden={!exampleHtml} set:html={exampleHtml} />
+
+<script>
+  import '../scripts/calculator';
+</script>
+
+<style>
+  .calc-form {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .calc-fieldset {
+    max-width: 22rem;
+  }
+  fieldset {
+    min-width: 0;
+  }
+  .calc-row {
+    display: grid;
+    gap: 1.25rem;
+  }
+  @media (min-width: 40rem) {
+    .calc-row {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+  .calc-input-wrap {
+    position: relative;
+  }
+  .calc-input-wrap .input {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 1.375rem;
+    font-variant-numeric: tabular-nums;
+    min-height: 3.5rem;
+  }
+  .calc-prefix,
+  .calc-suffix {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-slate);
+    pointer-events: none;
+  }
+  .calc-prefix {
+    left: 0.875rem;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 1.375rem;
+  }
+  .calc-suffix {
+    right: 0.875rem;
+    display: none;
+  }
+  [data-kind='bill'] .calc-input-wrap .input {
+    padding-left: 2.375rem;
+  }
+  [data-kind='units'] .calc-prefix {
+    display: none;
+  }
+  [data-kind='units'] .calc-suffix {
+    display: block;
+  }
+  [data-kind='units'] .calc-input-wrap .input {
+    padding-right: 4.5rem;
+  }
+  .calc-period .segmented label {
+    min-height: 3.5rem;
+  }
+  .calc-submit {
+    width: 100%;
+    min-height: 3.5rem;
+    font-size: 1.0625rem;
+  }
+  @media (min-width: 40rem) {
+    .calc-submit {
+      width: auto;
+      justify-self: start;
+      padding-inline: 2rem;
+    }
+  }
+  .calc-more {
+    border-top: 1px solid var(--color-rule);
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .calc-more summary {
+    padding-block: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .calc-more-body {
+    display: grid;
+    gap: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+  @media (min-width: 40rem) {
+    .calc-more-body {
+      grid-template-columns: 1fr 1fr;
+    }
+    .calc-more-body .calc-check {
+      grid-column: 1 / -1;
+    }
+  }
+  .calc-check {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    cursor: pointer;
+  }
+  .calc-check input {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.2rem;
+    accent-color: var(--color-ink);
+  }
+  .calc-caption {
+    margin-top: 2.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-ink);
+    font-weight: 500;
+    color: var(--color-slate);
+  }
+  .calc-result:not([hidden]) {
+    display: block;
+  }
+  form + .calc-result {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-ink);
+  }
+</style>

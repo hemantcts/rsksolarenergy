@@ -1,0 +1,27 @@
+---
+/** Logo, phone number, rating badge, one signal CTA. Nothing else (DESIGN.md §6). */
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/logo.png';
+import { PRIMARY_PHONE } from '../config/business';
+import { billMessage } from '../lib/whatsapp';
+import RatingBadge from './RatingBadge.astro';
+import WhatsAppButton from './WhatsAppButton.astro';
+import Icon from './Icon.astro';
+---
+
+<header class="border-b border-rule">
+  <div class="wrap flex h-16 items-center justify-between gap-4 md:h-20">
+    <a href="/" class="shrink-0" aria-label="RSK Solar Energy, home">
+      <Image src={logo} alt="RSK Solar Energy" width={156} densities={[1, 2]} format="png" loading="eager" fetchpriority="high" class="h-auto w-33 md:w-39" />
+    </a>
+    <div class="flex items-center gap-5 lg:gap-7">
+      <RatingBadge class="hidden sm:inline-flex" />
+      <RatingBadge class="inline-flex sm:hidden" compact />
+      <a href={`tel:${PRIMARY_PHONE.tel}`} class="hidden items-center gap-2 font-medium no-underline hover:underline md:inline-flex">
+        <Icon name="phone" size={18} />
+        <span class="t-value">{PRIMARY_PHONE.display}</span>
+      </a>
+      <WhatsAppButton label="WhatsApp us your bill" message={billMessage()} class="hidden md:inline-flex" />
+    </div>
+  </div>
+</header>

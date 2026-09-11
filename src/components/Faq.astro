@@ -1,0 +1,29 @@
+---
+import type { QA } from '../lib/seo';
+
+/** Visible FAQ. The page adds the matching FAQPage schema via faqPage() with the same items. */
+interface Props {
+  items: QA[];
+  heading?: string;
+  id?: string;
+}
+const { items, heading = 'Questions we are asked', id = 'faq' } = Astro.props;
+---
+
+<section aria-labelledby={`${id}-h`}>
+  <h2 id={`${id}-h`} class="t-h2 mb-6">{heading}</h2>
+  <div class="faq">
+    {
+      items.map((i) => (
+        <details>
+          <summary>{i.q}</summary>
+          <div class="answer">
+            {i.a.split(/\n\n+/).map((para) => (
+              <p>{para}</p>
+            ))}
+          </div>
+        </details>
+      ))
+    }
+  </div>
+</section>

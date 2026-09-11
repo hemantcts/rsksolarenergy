@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBlock from '../components/content/CtaBlock.astro';
+import { BUSINESS, formatAddressLines } from '../config/business';
+import { F } from '../lib/facts';
+
+const facts: [string, string][] = [
+  ['Founded', String(BUSINESS.foundedYear)],
+  ['Based at', formatAddressLines().join(', ')],
+  ['Distributor of', BUSINESS.brand],
+  ['Commercial and industrial installations', `${BUSINESS.installs.commercial} (as of ${BUSINESS.installs.asOf})`],
+  ['Residential installations', `${BUSINESS.installs.residential} (as of ${BUSINESS.installs.asOf})`],
+  ['Google rating', `${BUSINESS.google.rating.toFixed(1)} from ${BUSINESS.google.reviewCount} reviews`],
+  ['Area served', `${BUSINESS.serviceArea.join(', ')} and the rest of Punjab`],
+  ['GST', BUSINESS.registrations.gst],
+  ['Udyam (MSME) registration', BUSINESS.registrations.msme],
+];
+---
+
+<BaseLayout
+  title="About RSK Solar Energy, UTL Solar Distributor in Mohali"
+  description={`RSK Solar Energy: UTL Solar distributor and rooftop solar installer in Phase 8-B, Mohali, since ${BUSINESS.foundedYear}. Homes, businesses and housing societies across Punjab.`}
+  crumbs={[{ name: 'About', path: '/about/' }]}
+>
+  <header class="wrap pt-8 pb-10 lg:pt-12">
+    <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'About', path: '/about/' }]} />
+    <h1 class="t-h1 mt-6 max-w-4xl">RSK Solar Energy, Phase 8-B Mohali</h1>
+    <p class="t-lead measure mt-5">
+      A {BUSINESS.brand} distributor and rooftop solar installer, founded in {BUSINESS.foundedYear}. We supply UTL products across Punjab, and design and install on-grid, hybrid and off-grid systems for homes, businesses and housing societies.
+    </p>
+  </header>
+
+  <section class="wrap grid-12 pb-16" aria-labelledby="facts-h">
+    <div class="lg:col-span-7">
+      <h2 id="facts-h" class="sr-only">RSK in figures</h2>
+      <table class="spec-table">
+        <tbody>
+          {
+            facts.map(([k, v]) => (
+              <tr>
+                <th scope="row" class="text-slate">
+                  {k}
+                </th>
+                <td class="text-right font-medium">{v}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      <p class="mt-4"><a href={BUSINESS.google.mapsUrl} class="btn-tertiary" rel="noopener" target="_blank">Find us on Google Maps</a></p>
+    </div>
+    <aside class="lg:col-span-4 lg:col-start-9">
+      <CtaBlock />
+    </aside>
+  </section>
+
+  <section class="on-ink sec-open bg-ink text-white" aria-labelledby="how-h">
+    <div class="wrap grid-12">
+      <h2 id="how-h" class="t-h2 lg:col-span-4">How we work</h2>
+      <ul class="ruled lg:col-span-7 lg:col-start-6">
+        <li>
+          <h3 class="t-h3">We tell you when solar will not pay back.</h3>
+          <p class="mt-2 text-rule">
+            A home using {F.free} units a month or less already pays nothing in Punjab. We say so, even though it costs us the sale.
+          </p>
+        </li>
+        <li>
+          <h3 class="t-h3">We size to your bill, not to your roof.</h3>
+          <p class="mt-2 text-rule">
+            Under Punjab's free-units rule, the right system is often the smallest one that brings your net units under {F.free}. A bigger system adds cost, not savings.
+          </p>
+        </li>
+        <li>
+          <h3 class="t-h3">We show the numbers and the assumptions.</h3>
+          <p class="mt-2 text-rule">
+            Our <a href="/solar-calculator/" class="underline">calculator</a> uses the current PSPCL tariff and states every assumption it makes. You see the full result without giving a phone number.
+          </p>
+        </li>
+        <li>
+          <h3 class="t-h3">We are upfront about the subsidy.</h3>
+          <p class="mt-2 text-rule">You pay the full cost first; the PM Surya Ghar subsidy reaches your bank {F.days} days after inspection. No surprises.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="what-h">
+    <div class="wrap grid-12">
+      <h2 id="what-h" class="t-h2 lg:col-span-4">What we do</h2>
+      <ul class="ruled lg:col-span-7 lg:col-start-6">
+        <li><a href="/products/" class="font-semibold underline">Supply UTL Solar products</a><span class="mt-1 block text-slate">Panels, inverters and PCUs, batteries, charge controllers and complete kits.</span></li>
+        <li><a href="/solar-calculator/" class="font-semibold underline">Rooftop systems for homes</a><span class="mt-1 block text-slate">On-grid systems with the PM Surya Ghar subsidy, and hybrid systems for backup.</span></li>
+        <li><a href="/commercial-solar-punjab/" class="font-semibold underline">Commercial and industrial systems</a><span class="mt-1 block text-slate">Shops, offices, clinics, schools and factories.</span></li>
+        <li><a href="/housing-society-solar/" class="font-semibold underline">Housing societies and RWAs</a><span class="mt-1 block text-slate">Common facilities, with ₹18,000 per kW subsidy.</span></li>
+        <li><a href="/off-grid-solar-systems/" class="font-semibold underline">Off-grid systems</a><span class="mt-1 block text-slate">Farmhouses and sites without reliable supply.</span></li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,105 @@
+---
+import { Image } from 'astro:assets';
+import logoLight from '../assets/brand/logo-light.png';
+import { BUSINESS, formatAddressLines } from '../config/business';
+import { SOLAR_CONFIG } from '../config/solar-config';
+import { sizePath } from '../data/sizes';
+import Icon from './Icon.astro';
+
+const groups = [
+  {
+    title: 'Price and subsidy',
+    links: [
+      { href: '/solar-calculator/', label: 'Solar calculator' },
+      { href: '/pm-surya-ghar-subsidy-punjab/', label: 'PM Surya Ghar subsidy in Punjab' },
+      ...SOLAR_CONFIG.sizing.sizePagesKw.map((kw) => ({ href: sizePath(kw), label: `${kw} kW system price` })),
+    ],
+  },
+  {
+    title: 'Systems',
+    links: [
+      { href: '/on-grid-vs-off-grid-vs-hybrid/', label: 'On-grid vs off-grid vs hybrid' },
+      { href: '/hybrid-solar-systems/', label: 'Hybrid solar systems' },
+      { href: '/off-grid-solar-systems/', label: 'Off-grid solar systems' },
+      { href: '/solar-panels/', label: 'Solar panels' },
+      { href: '/commercial-solar-punjab/', label: 'Commercial and industrial solar' },
+      { href: '/housing-society-solar/', label: 'Housing society solar' },
+    ],
+  },
+  {
+    title: 'RSK',
+    links: [
+      { href: '/products/', label: 'UTL product catalogue' },
+      { href: '/utl-solar-distributor-punjab/', label: 'UTL Solar distributor' },
+      { href: '/about/', label: 'About RSK' },
+      { href: '/blog/', label: 'Guides' },
+      { href: '/privacy-policy/', label: 'Privacy' },
+    ],
+  },
+];
+const year = new Date().getFullYear();
+---
+
+<footer class="on-ink bg-ink text-white">
+  <div class="wrap sec">
+    <div class="grid-12">
+      <div class="lg:col-span-4">
+        <Image src={logoLight} alt="RSK Solar Energy" width={180} densities={[1, 2]} format="png" class="h-auto w-45" />
+        <p class="mt-6 max-w-sm text-rule">
+          UTL Solar distributor and rooftop solar installer in Phase 8-B, Mohali, since {BUSINESS.foundedYear}. Serving {BUSINESS.serviceArea.slice(0, -1).join(', ')} and {BUSINESS.serviceArea.at(-1)}, and the rest of Punjab.
+        </p>
+        <address class="mt-8 not-italic">
+          <p class="flex gap-3">
+            <Icon name="pin" size={20} class="mt-1 shrink-0 text-rule" />
+            <span>{formatAddressLines().map((l) => <span class="block">{l}</span>)}</span>
+          </p>
+          <p class="mt-3 ml-8">
+            <a href={BUSINESS.google.mapsUrl} rel="noopener" target="_blank" class="underline">Open in Google Maps</a>
+          </p>
+          <ul class="mt-6 space-y-2">
+            {
+              BUSINESS.phones.map((p) => (
+                <li class="flex items-center gap-3">
+                  <Icon name="phone" size={18} class="text-rule" />
+                  <a href={`tel:${p.tel}`} class="t-value no-underline hover:underline">
+                    {p.display}
+                  </a>
+                </li>
+              ))
+            }
+            <li class="flex items-center gap-3">
+              <Icon name="mail" size={18} class="text-rule" />
+              <a href={`mailto:${BUSINESS.email}`} class="no-underline hover:underline">{BUSINESS.email}</a>
+            </li>
+          </ul>
+        </address>
+      </div>
+
+      {
+        groups.map((g) => (
+          <nav class="lg:col-span-2 lg:col-start-auto" aria-label={g.title}>
+            <h2 class="t-small font-semibold text-rule">{g.title}</h2>
+            <ul class="mt-4 space-y-2.5">
+              {g.links.map((l) => (
+                <li>
+                  <a href={l.href} class="no-underline hover:underline">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+    </div>
+
+    <div class="mt-16 flex flex-col gap-2 border-t border-slate pt-6 t-small text-rule md:flex-row md:justify-between">
+      <p>© {year} {BUSINESS.name}. Distributor of {BUSINESS.brand} products.</p>
+      <p>Tariff figures: PSPCL {SOLAR_CONFIG.pspcl.tariffYear}. Subsidy: MNRE PM Surya Ghar.</p>
+    </div>
+    <div class="mt-3 flex flex-col gap-1 t-small text-rule sm:flex-row sm:gap-6">
+      <p>GST <span class="t-value text-white">{BUSINESS.registrations.gst}</span></p>
+      <p>Udyam (MSME) <span class="t-value text-white">{BUSINESS.registrations.msme}</span></p>
+    </div>
+  </div>
+</footer>

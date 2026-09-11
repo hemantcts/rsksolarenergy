@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Calculator from '../components/Calculator.astro';
+import Faq from '../components/Faq.astro';
+import SizeTable from '../components/content/SizeTable.astro';
+import TariffTable from '../components/content/TariffTable.astro';
+import CtaBlock from '../components/content/CtaBlock.astro';
+import { SOLAR_CONFIG } from '../config/solar-config';
+import { F } from '../lib/facts';
+import { faqPage, type QA } from '../lib/seo';
+import type { CalcInput } from '../lib/calculator/types';
+
+const cfg = SOLAR_CONFIG;
+const example: CalcInput = { consumption: { kind: 'units', value: 900, periodMonths: 2 }, category: 'domestic' };
+
+const faq: QA[] = [
+  {
+    q: 'Is my bill really zero if I use under 300 units a month?',
+    a: `Yes, for homes using electricity for residential purposes. Punjab gives ${F.free} free units a month (${F.freeCycle} on a two-month bill), with no energy charges, fixed charges, meter rent or government levies. That is why the calculator will not show you a payback figure if you are under the line: there is no bill for solar to reduce.`,
+  },
+  {
+    q: 'Why does the calculator recommend a smaller system than other quotes?',
+    a: `Because of the free-units rule. A general-category home over ${F.free} units pays for every unit. Once solar brings the net units under ${F.free}, the bill is already zero, so capacity beyond that adds almost nothing to your saving. The calculator shows both figures: the size that takes your bill to zero, and the size that would cover all of your use.`,
+  },
+  {
+    q: 'Does the subsidy reduce the price I pay the installer?',
+    a: `No. You pay the full system cost. The PM Surya Ghar subsidy is credited to your bank account ${F.days} days after PSPCL inspects the system.`,
+  },
+  {
+    q: 'What is sanctioned load and where do I find it?',
+    a: 'The maximum load your connection is approved for, in kW. It is printed on your PSPCL bill. A rooftop system cannot be larger than your sanctioned load, so the calculator caps the system at it and tells you if you need load enhancement first.',
+  },
+  {
+    q: 'How accurate is the estimate?',
+    a: 'It is a first estimate, and it tells you what it assumed. Units entered from your bill are exact; an amount in rupees is converted to units using the PSPCL tariff and is an estimate. Generation depends on roof direction and shading, which only a site survey can confirm. Where a figure is uncertain, the calculator shows a range.',
+  },
+  {
+    q: 'Do I have to give my phone number to see the result?',
+    a: 'No. The full result is shown to everyone. If you want to discuss it, the WhatsApp button sends us the figures so you do not have to repeat them.',
+  },
+];
+---
+
+<BaseLayout
+  title="Solar Calculator Punjab: Size, PM Surya Ghar Subsidy, Payback | RSK"
+  description="Enter your PSPCL bill or units. Get the right system size, the PM Surya Ghar subsidy, your cost after subsidy and payback, using the FY 2026-27 Punjab tariff."
+  crumbs={[{ name: 'Solar calculator', path: '/solar-calculator/' }]}
+  schema={[faqPage(faq)]}
+>
+  <section class="wrap grid-12 pt-8 pb-16 lg:pt-12 lg:pb-24">
+    <div class="lg:col-span-7">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Solar calculator', path: '/solar-calculator/' }]} />
+      <h1 class="t-h1 mt-6">Solar calculator for Punjab</h1>
+      <p class="t-lead mt-5 measure">
+        Size, PM Surya Ghar subsidy, cost after subsidy and payback, worked out from your PSPCL bill with the {cfg.pspcl.tariffYear} tariff and Punjab's free-units rules. No phone number needed to see the result.
+      </p>
+      <div class="settle mt-8 mb-8 border-t border-ink"></div>
+      <Calculator variant="full" id="calc" example={example} exampleCaption="Example: a home using 900 units on a two-month bill. Enter your own figures above." />
+    </div>
+
+    <aside class="lg:col-span-4 lg:col-start-9" aria-label="How to read your bill">
+      <div class="lg:sticky lg:top-8">
+        <h2 class="t-h3">Where to find the figures on your bill</h2>
+        <ul class="ruled mt-4 t-small">
+          <li><strong class="block">Units consumed</strong>The difference between the current and previous meter readings. On a two-month bill, enter the full figure and choose 2 months.</li>
+          <li><strong class="block">Sanctioned load</strong>In kW, near your consumer number and tariff category.</li>
+          <li><strong class="block">Category</strong>DS means domestic supply (a home). NRS is non-residential: shops and offices.</li>
+        </ul>
+        <div class="mt-8">
+          <CtaBlock heading="Rather we did it?" body="Send a photo of your bill and we reply with the size, the cost after subsidy and anything your connection needs first." />
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="sec bg-white" aria-labelledby="how-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="how-h" class="t-h2">How the calculator works it out</h2>
+      </div>
+      <div class="prose lg:col-span-7 lg:col-start-6">
+        <ol>
+          <li><strong>Your units.</strong> If you enter a rupee amount, it walks the PSPCL tariff backwards, taking off fixed charges and duty, to find the units. Entering the units from your bill is more accurate.</li>
+          <li><strong>The free-units test.</strong> A home at or under {F.free} units a month already pays nothing. You get an honest answer instead of a savings figure.</li>
+          <li><strong>The size.</strong> For homes over the line, it finds the smallest system that brings your net units under {F.zeroTarget} a month, leaving headroom for summer, and compares it with the size that would cover all your use. Businesses are sized to cover their use.</li>
+          <li><strong>The limits.</strong> The system is capped at your sanctioned load and, if you enter it, your roof area.</li>
+          <li><strong>The subsidy.</strong> PM Surya Ghar applies to homes and housing societies with on-grid systems. If a rule rules you out, it tells you which one.</li>
+          <li><strong>The saving.</strong> Your bill before and after solar, from the same tariff, including the free-units cliff, fixed charges and duty. Payback is the cost after subsidy divided by the yearly saving.</li>
+        </ol>
+        <h3>Assumptions, shown rather than hidden</h3>
+        <ul>
+          <li>{F.yieldRaw} units per kW per year, less a {Math.round((1 - cfg.generation.deratingFactor) * 100)}% allowance for heat, dust, wiring and inverter losses: {F.perKwYear} units per kW per year.</li>
+          <li>Tariffs rise {cfg.projection.tariffEscalationPercent}% a year and panels lose {cfg.projection.panelDegradationPercent}% of output a year, for the {cfg.projection.horizonYears}-year saving.</li>
+          <li>If you leave sanctioned load empty, fixed charges are worked out for {cfg.sizing.defaultSanctionedLoadKw} kW.</li>
+          <li>PSPCL applies the {F.free} free units to your net units after solar. We confirm this for your connection before quoting.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-tight" aria-labelledby="tariff-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="tariff-h" class="t-h2">The tariff it uses</h2>
+        <p class="mt-4 text-slate">
+          General-category homes over {F.free} units pay energy charges on every unit. Reserved categories (SC, BC, non-SC BPL, Freedom Fighter) pay only for units above {F.free}.
+        </p>
+      </div>
+      <div class="lg:col-span-7 lg:col-start-6">
+        <TariffTable category="domestic" />
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-white" aria-labelledby="netmeter-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="netmeter-h" class="t-h2">Net metering in Punjab, briefly</h2>
+      </div>
+      <div class="prose lg:col-span-7 lg:col-start-6">
+        <p>
+          An on-grid system is connected through a bi-directional net meter fitted by PSPCL. It records the units you draw from the grid and the units your roof exports. You are billed on the difference.
+        </p>
+        <p>
+          In Punjab a rooftop system can be up to 100% of your sanctioned load. Exported units are settled under PSERC's net metering rules and are worth less than the units you use yourself, so the calculator gives surplus exports no value. That keeps the estimate on the safe side and is another reason not to oversize.
+        </p>
+        <h3>Documents to keep ready</h3>
+        <ul>
+          <li>A recent electricity bill with your consumer number and sanctioned load</li>
+          <li>Aadhaar card and proof of ownership of the house</li>
+          <li>A bank account in the applicant's name, with passbook or cancelled cheque</li>
+        </ul>
+        <p>The full process, and the mistakes that get applications rejected, are in the <a href="/pm-surya-ghar-subsidy-punjab/">PM Surya Ghar subsidy guide</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="sizes-h">
+    <div class="wrap">
+      <h2 id="sizes-h" class="t-h2 mb-8">Standard sizes at a glance</h2>
+      <SizeTable />
+    </div>
+  </section>
+
+  <section class="sec border-t border-rule bg-white">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-8"><Faq items={faq} /></div>
+    </div>
+  </section>
+</BaseLayout>

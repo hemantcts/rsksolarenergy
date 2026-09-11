@@ -1,0 +1,9 @@
+# Permissive by design (CLAUDE.md §6). Search and AI crawlers are welcome.
+User-agent: *
+Allow: /
+
+Sitemap: https://rsksolarenergy.com/sitemap-index.xml
+
+# Plain-language site map for AI answer engines (ChatGPT, Perplexity, Gemini, Claude).
+# https://llmstxt.org
+# llms.txt: https://rsksolarenergy.com/llms.txt

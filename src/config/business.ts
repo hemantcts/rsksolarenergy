@@ -22,18 +22,14 @@ export const BUSINESS = {
   // TODO: exact coordinates from the Google Business Profile pin.
   geo: null as null | { lat: number; lng: number },
 
+  /** Primary number listed first — confirmed by RSK. */
   phones: [
-    { display: '+91 94170 30347', tel: '+919417030347' },
     { display: '+91 90419 96918', tel: '+919041996918' },
+    { display: '+91 94170 30347', tel: '+919417030347' },
   ],
 
-  /**
-   * WhatsApp number for every enquiry link.
-   * TODO: CONFIRM. The spec names 94170 30347, but the WhatsApp widget on the
-   * old site was configured with 90419 96918. Whichever line has WhatsApp
-   * Business installed should go here.
-   */
-  whatsapp: '919417030347',
+  /** WhatsApp number for every enquiry link. Confirmed by RSK as the primary line. */
+  whatsapp: '919041996918',
 
   email: 'rsksolarenergy@gmail.com',
 
@@ -62,6 +58,14 @@ export const BUSINESS = {
 
   serviceArea: ['Mohali', 'Kharar', 'Zirakpur', 'Derabassi', 'Chandigarh', 'Panchkula'],
   brand: 'UTL Solar',
+
+  /** Registration numbers, shown in the footer and About for credibility. Confirmed by RSK. */
+  registrations: {
+    gst: '03GKGPK1207P1Z4',
+    // As supplied by RSK. Udyam registration numbers are usually printed "UDYAM-..." (no H) —
+    // worth checking this against the certificate before launch.
+    msme: 'UDHYAM-PB-20-0093804',
+  },
 } as const;
 
 export const PRIMARY_PHONE = BUSINESS.phones[0];

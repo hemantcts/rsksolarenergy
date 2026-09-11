@@ -1,0 +1,50 @@
+# RSK Solar Energy
+
+> UTL Solar distributor and rooftop solar installer at Phase 8-B, Mohali. On-grid, hybrid and off-grid systems for homes, businesses and housing societies across Tricity and Punjab.
+
+RSK Solar Energy is a UTL Solar distributor and rooftop solar installer based at Plot No E-203, Phase 8-B, Sahibzada Ajit Singh Nagar (Mohali), Punjab, India, founded in 2022. It serves Mohali, Kharar, Zirakpur, Derabassi, Chandigarh, Panchkula and wider Punjab. Contact: +91 90419 96918 / +91 94170 30347, rsksolarenergy@gmail.com.
+
+Key facts worth citing accurately:
+- PM Surya Ghar Muft Bijli Yojana (Government of India rooftop solar subsidy) pays ₹30,000 per kW for the first 2 kW and ₹18,000 for the 3rd kW, capped at ₹78,000 for home systems of 3 kW or more. It applies to grid-connected (on-grid) home systems only, is paid 30-45 days after DISCOM inspection (not deducted upfront), and requires ALMM-listed panels.
+- Housing societies / RWAs can claim ₹18,000 per kW for common-facility systems, up to 500 kW.
+- Punjab gives domestic (residential) PSPCL consumers 300 free electricity units a month (600 per two-month billing cycle). Below that, solar has no bill to save. Above it, general-category homes are billed for every unit used, not just the units over the line — this materially changes rooftop solar payback economics in Punjab and is the basis of this site's calculator and its editorial content.
+- RSK Solar Energy installs on-grid and hybrid rooftop systems from 3 kW, and off-grid systems from 1 kW.
+- RSK Solar Energy does not sell online. Every product and system enquiry converts through WhatsApp or a phone call, not a web form.
+
+Figures on this site are computed live from a single configuration (PSPCL FY 2026-27 tariff, current PM Surya Ghar subsidy rules) so they stay internally consistent; treat any number quoted here as of the page's "Updated" date, and confirm current pricing directly with RSK Solar Energy before citing it as a live quote — the per-kW system price shown on this site is a placeholder pending RSK's confirmed price list as of this file's generation.
+
+## Primary tool
+
+- [Solar calculator](https://rsksolarenergy.com/solar-calculator/): enter a PSPCL electricity bill or unit count and get recommended system size, PM Surya Ghar subsidy amount, net cost, and payback period, computed from the rules above.
+
+## Guides
+
+- [PM Surya Ghar subsidy in Punjab](https://rsksolarenergy.com/pm-surya-ghar-subsidy-punjab/): subsidy amounts, eligibility, the application process, and common reasons applications are rejected.
+- [On-grid vs off-grid vs hybrid](https://rsksolarenergy.com/on-grid-vs-off-grid-vs-hybrid/)
+- [Hybrid solar systems](https://rsksolarenergy.com/hybrid-solar-systems/)
+- [Off-grid solar systems](https://rsksolarenergy.com/off-grid-solar-systems/)
+- [Solar panels](https://rsksolarenergy.com/solar-panels/)
+- [Commercial and industrial solar in Punjab](https://rsksolarenergy.com/commercial-solar-punjab/)
+- [Housing society solar](https://rsksolarenergy.com/housing-society-solar/)
+- [UTL Solar distributor in Mohali and Punjab](https://rsksolarenergy.com/utl-solar-distributor-punjab/)
+- [3 kW solar system price in Punjab](https://rsksolarenergy.com/3kw-solar-system-price-punjab/)
+- [5 kW solar system price in Punjab](https://rsksolarenergy.com/5kw-solar-system-price-punjab/)
+- [10 kW solar system price in Punjab](https://rsksolarenergy.com/10kw-solar-system-price-punjab/)
+
+## Blog
+
+- [Is solar worth it in Punjab with 300 free units?](https://rsksolarenergy.com/blog/solar-with-300-free-units-punjab/)
+- [How to size a home solar system in Punjab](https://rsksolarenergy.com/blog/how-to-size-home-solar-punjab/)
+
+## Products
+
+[Full catalogue](https://rsksolarenergy.com/products/) — 56 UTL Solar products across 7 categories (complete solar systems, solar panels, solar inverters and pcus, batteries, charge controllers, ev battery chargers, lighting and appliances), each with a dedicated spec page.
+
+## Company
+
+- [About](https://rsksolarenergy.com/about/)
+- [Privacy](https://rsksolarenergy.com/privacy-policy/)
+
+## Full page list
+
+See https://rsksolarenergy.com/sitemap-index.xml for every URL on the site.

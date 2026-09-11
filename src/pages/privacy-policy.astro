@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { BUSINESS } from '../config/business';
+---
+
+<BaseLayout
+  title="Privacy Policy | RSK Solar Energy"
+  description="What this website collects, and what it does not. No cookies, no tracking, no forms that store your details."
+  crumbs={[{ name: 'Privacy', path: '/privacy-policy/' }]}
+>
+  <article class="wrap pt-8 pb-24 lg:pt-12">
+    <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Privacy', path: '/privacy-policy/' }]} />
+    <h1 class="t-h1 mt-6">Privacy</h1>
+    <div class="prose mt-8">
+      <p><strong>Short version:</strong> this website does not set cookies, does not track you, and does not store anything you type into it.</p>
+      <h2>The calculator</h2>
+      <p>
+        The calculator runs entirely in your browser. The figures you enter are not sent to us or to anyone else. If you use the share button, the figures are placed in the link so that whoever opens it sees the same estimate.
+      </p>
+      <h2>WhatsApp, phone and email</h2>
+      <p>
+        When you tap a WhatsApp button, your phone opens WhatsApp with a message already written. Nothing is sent until you press send in WhatsApp. What you send reaches {BUSINESS.name} and is handled by WhatsApp under its own privacy policy. Calls and emails reach us directly.
+      </p>
+      <p>We use the details you send only to reply to your enquiry and to quote for your system. We do not sell or share them.</p>
+      <h2>Server logs</h2>
+      <p>
+        Like any website, the server that hosts this site keeps standard access logs (IP address, pages requested, browser type) for security and troubleshooting. They are not used to identify visitors.
+      </p>
+      <h2>Links to other sites</h2>
+      <p>Links to Google Maps, the PM Surya Ghar portal and other sites take you to services with their own privacy policies.</p>
+      <h2>Contact</h2>
+      <p>
+        {BUSINESS.name}, {BUSINESS.address.street}, {BUSINESS.address.locality}, {BUSINESS.address.region}. Email <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>, phone <a href={`tel:${BUSINESS.phones[0].tel}`}>{BUSINESS.phones[0].display}</a>.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,51 @@
+---
+/** UTL complete kits from the catalogue, with their own listed specifications. */
+import { PRODUCTS, type Product } from '../../data/products';
+
+interface Props {
+  type: 'hybrid' | 'off-grid';
+  /** Filters out catalogue kits below this size — used where the table represents systems RSK
+   * actually installs (RSK's on-grid/hybrid floor is 3 kW; off-grid has no such floor). */
+  minKw?: number;
+}
+const { type, minKw } = Astro.props;
+const kits = PRODUCTS.filter((p) => p.category === 'solar-systems' && p.slug.includes(type === 'hybrid' ? 'hybrid' : 'off-grid'))
+  .filter((p) => minKw == null || parseFloat(p.title) >= minKw)
+  .sort((a, b) => parseFloat(a.title) - parseFloat(b.title));
+const spec = (p: Product, re: RegExp) => {
+  const row = p.specs?.rows.find((r): r is { label: string; values: string[] } => 'label' in r && re.test(r.label));
+  return row?.values.join(' ') ?? '—';
+};
+---
+
+<div class="table-scroll not-prose my-8">
+  <table class="spec-table min-w-176">
+    <caption>UTL {type} kits we supply, as listed by UTL</caption>
+    <thead>
+      <tr>
+        <th scope="col">Kit</th>
+        <th scope="col">Inverter</th>
+        <th scope="col">Panels</th>
+        <th scope="col">Batteries</th>
+        <th scope="col" class="num">Average generation</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        kits.map((k) => (
+          <tr>
+            <th scope="row">
+              <a href={`/products/${k.slug}/`} class="underline">
+                {k.title}
+              </a>
+            </th>
+            <td>{spec(k, /inverter|pcu/i)}</td>
+            <td>{spec(k, /panel quantity|solar panel$/i)}</td>
+            <td>{spec(k, /battery$|solar battery/i)}</td>
+            <td class="num">{spec(k, /generation/i)}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

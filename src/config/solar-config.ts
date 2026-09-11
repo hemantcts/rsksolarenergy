@@ -121,12 +121,19 @@ export const SOLAR_CONFIG = {
 
   sizing: {
     /**
-     * Sizes the calculator may recommend, kW. Finer than the size pages because surplus
-     * export currently earns nothing (exportCreditPerUnit = 0), so over-rounding wastes money.
+     * The full size ladder, kW. Finer than the size pages because surplus export currently
+     * earns nothing (exportCreditPerUnit = 0), so over-rounding wastes money.
+     * Off-grid is offered across the whole ladder. On-grid and hybrid are filtered down to
+     * `minKwByType` below — RSK does not install on-grid or hybrid systems under 3 kW.
      */
     standardSizesKw: [1, 2, 3, 4, 5, 6, 8, 10],
-    /** Sizes that have their own /Nkw-solar-system-price-punjab/ page. */
-    sizePagesKw: [1, 2, 3, 5, 10],
+    /**
+     * Smallest system RSK will install, per system type. Confirmed by RSK: on-grid and hybrid
+     * start at 3 kW; off-grid is available from 1 kW (quoted by RSK as "1 kVA").
+     */
+    minKwByType: { 'on-grid': 3, hybrid: 3, 'off-grid': 1 } as Record<'on-grid' | 'hybrid' | 'off-grid', number>,
+    /** Sizes that have their own /Nkw-solar-system-price-punjab/ page. On-grid only, since it's the primary product. */
+    sizePagesKw: [3, 5, 10],
     /** Above the largest standard size, round up to this step (commercial). */
     largeStepKw: 5,
     /**
