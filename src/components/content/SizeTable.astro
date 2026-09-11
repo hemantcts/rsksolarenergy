@@ -36,7 +36,7 @@ const { highlight } = Astro.props;
                     {s.kw} kW system
                   </a>
                 )}
-                {!s.offersOnGrid && <span class="t-small block font-normal text-slate">hybrid, on-grid not offered this small</span>}
+                {!s.offersOnGrid && <span class="t-small block font-normal text-slate">on-grid not offered this small</span>}
               </th>
               <td class="num">{digits(s.monthlyUnits)}</td>
               <td class="num">{digits(s.roofSqFt)} sq ft</td>
