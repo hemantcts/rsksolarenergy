@@ -1,0 +1,402 @@
+import { describe, expect, it } from 'vitest';
+import { SOLAR_CONFIG, type SolarConfig } from '../../config/solar-config';
+import { calculate, grossCost, lifetimeSaving } from './calculate';
+import { inr, inrRange, inrWords, yearsRange } from './format';
+import { largestSizeWithin, nearestSize, sizeAtLeast } from './sizing';
+import { computeSubsidy, residentialSubsidy, societySubsidy } from './subsidy';
+import { minimumBillAboveThreshold, monthlyBill, telescopicCharge, unitsFromBill, type TariffContext } from './tariff';
+import type { CalcInput, Category } from './types';
+
+/**
+ * Fixed fixture so exact-value assertions do not break when RSK updates real rates.
+ * Invariant tests further down run against the live SOLAR_CONFIG as well.
+ */
+const T: SolarConfig = {
+  ...SOLAR_CONFIG,
+  pspcl: {
+    ...SOLAR_CONFIG.pspcl,
+    domestic: [
+      { maxLoadKw: 2, slabs: [{ upTo: 300, rate: 4 }, { upTo: Infinity, rate: 7 }], fixedPerKwMonth: 50 },
+      { maxLoadKw: 7, slabs: [{ upTo: 300, rate: 4 }, { upTo: Infinity, rate: 7 }], fixedPerKwMonth: 70 },
+      { maxLoadKw: 20, slabs: [{ upTo: 300, rate: 5 }, { upTo: Infinity, rate: 7 }], fixedPerKwMonth: 100 },
+    ],
+    commercial: [
+      { maxLoadKw: 20, slabs: [{ upTo: 500, rate: 6 }, { upTo: Infinity, rate: 7 }], fixedPerKwMonth: 100 },
+      { maxLoadKw: Infinity, slabs: [{ upTo: Infinity, rate: 6.5 }], fixedPerKwMonth: 140 },
+    ],
+    electricityDutyPercent: 10,
+    fuelAdjustmentPerUnit: 0,
+  },
+  generation: { ...SOLAR_CONFIG.generation, annualYieldPerKwp: 1500, deratingFactor: 0.8 }, // 100 units/kW/month
+  pricing: {
+    ...SOLAR_CONFIG.pricing,
+    onGrid: [{ upToKw: Infinity, perKw: [50000, 60000] }],
+    hybrid: [{ upToKw: Infinity, perKw: [80000, 90000] }],
+    offGrid: [{ upToKw: Infinity, perKw: [70000, 80000] }],
+  },
+};
+
+const units = (value: number, category: Category = 'domestic', extra: Partial<CalcInput> = {}): CalcInput => ({
+  consumption: { kind: 'units', value, periodMonths: 1 },
+  category,
+  ...extra,
+});
+const bill = (value: number, category: Category = 'domestic', extra: Partial<CalcInput> = {}): CalcInput => ({
+  consumption: { kind: 'bill', value, periodMonths: 1 },
+  category,
+  ...extra,
+});
+
+const ctx = (over: Partial<TariffContext> = {}): TariffContext => ({
+  category: 'domestic',
+  scheme: 'general',
+  loadKw: 5,
+  config: T,
+  ...over,
+});
+
+describe('telescopic slabs', () => {
+  const slabs = T.pspcl.domestic[1]!.slabs;
+  it('charges each band at its own rate', () => {
+    expect(telescopicCharge(0, 300, slabs)).toBe(1200);
+    expect(telescopicCharge(0, 301, slabs)).toBe(1207);
+    expect(telescopicCharge(0, 400, slabs)).toBe(1900);
+  });
+  it('supports a partial range (reserved-category billing)', () => {
+    expect(telescopicCharge(300, 400, slabs)).toBe(700);
+  });
+  it('handles the NRS boundary at 500 units', () => {
+    const nrs = T.pspcl.commercial[0]!.slabs;
+    expect(telescopicCharge(0, 500, nrs)).toBe(3000);
+    expect(telescopicCharge(0, 501, nrs)).toBe(3007);
+  });
+});
+
+describe('monthly bill — Punjab free units', () => {
+  it('299 and 300 units cost nothing at all, including fixed charges', () => {
+    expect(monthlyBill(299, ctx()).total).toBe(0);
+    expect(monthlyBill(300, ctx()).total).toBe(0);
+  });
+  it('301 units (general) charges every unit plus fixed charges and duty', () => {
+    const b = monthlyBill(301, ctx());
+    expect(b.chargeableUnits).toBe(301);
+    expect(b.energy).toBe(1207);
+    expect(b.fixed).toBe(350);
+    expect(b.total).toBeCloseTo((1207 + 350) * 1.1, 6);
+  });
+  it('301 units (reserved category) charges only the unit above 300', () => {
+    const b = monthlyBill(301, ctx({ scheme: 'reserved' }));
+    expect(b.chargeableUnits).toBe(1);
+    expect(b.energy).toBe(7);
+    expect(b.fixed).toBe(350);
+  });
+  it('commercial pays from the first unit — no free units', () => {
+    expect(monthlyBill(100, ctx({ category: 'commercial' })).energy).toBe(600);
+  });
+  it('picks the tariff band by sanctioned load', () => {
+    expect(monthlyBill(400, ctx({ loadKw: 2 })).fixed).toBe(100);
+    expect(monthlyBill(400, ctx({ loadKw: 10 })).energy).toBe(300 * 5 + 100 * 7);
+  });
+  it('agricultural is never billed', () => {
+    expect(monthlyBill(5000, ctx({ category: 'agricultural' })).total).toBe(0);
+  });
+});
+
+describe('bill → units', () => {
+  it('round-trips unit counts across the domestic slab boundary', () => {
+    for (const u of [301, 350, 450, 600, 1200, 5000]) {
+      const r = unitsFromBill(monthlyBill(u, ctx()).total, ctx());
+      expect(r).toEqual({ kind: 'units', units: u });
+    }
+  });
+  it('round-trips commercial across the 500-unit boundary', () => {
+    for (const u of [50, 499, 500, 501, 2000]) {
+      const r = unitsFromBill(monthlyBill(u, ctx({ category: 'commercial' })).total, ctx({ category: 'commercial' }));
+      expect(r).toEqual({ kind: 'units', units: u });
+    }
+  });
+  it('a ₹0 domestic bill means at or under the free-units line', () => {
+    expect(unitsFromBill(0, ctx())).toEqual({ kind: 'zero-bill' });
+  });
+  it('flags a domestic bill that cannot exist under the tariff', () => {
+    const r = unitsFromBill(500, ctx());
+    expect(r.kind).toBe('below-threshold');
+    if (r.kind === 'below-threshold') expect(r.minimumBill).toBeCloseTo(minimumBillAboveThreshold(ctx()), 6);
+  });
+});
+
+describe('PM Surya Ghar subsidy', () => {
+  it.each([
+    [1, 30000],
+    [2, 60000],
+    [3, 78000],
+    [4, 78000],
+    [5, 78000],
+    [10, 78000],
+    [1.5, 45000],
+    [2.5, 69000],
+  ])('%s kW residential → ₹%s', (kwIn, amount) => {
+    expect(residentialSubsidy(kwIn, T)).toBe(amount);
+  });
+  it('zero and negative sizes get nothing', () => {
+    expect(residentialSubsidy(0, T)).toBe(0);
+    expect(residentialSubsidy(-3, T)).toBe(0);
+  });
+  it('housing societies get ₹18,000/kW capped at 500 kW', () => {
+    expect(societySubsidy(20, T)).toBe(360000);
+    expect(societySubsidy(600, T)).toBe(500 * 18000);
+  });
+  it.each(['commercial', 'industrial', 'agricultural'] as const)('%s → ₹0 with reason', (c) => {
+    expect(computeSubsidy(3, c, 'on-grid', true, T)).toEqual({ amount: 0, scheme: 'none', ineligibleReason: 'category' });
+  });
+  it.each(['off-grid', 'hybrid'] as const)('%s → ₹0 with reason', (t) => {
+    expect(computeSubsidy(3, 'domestic', t, true, T)).toEqual({ amount: 0, scheme: 'none', ineligibleReason: 'system-type' });
+  });
+  it('tenant (does not own the roof) → ₹0 with reason', () => {
+    expect(computeSubsidy(3, 'domestic', 'on-grid', false, T).ineligibleReason).toBe('ownership');
+  });
+});
+
+describe('sizing helpers', () => {
+  // Sizes: 1, 2, 3, 4, 5, 6, 8, 10, then 15, 20, 25 ...
+  it('nearest offered size, ties to the larger', () => {
+    expect(nearestSize(0.3, T)).toBe(1);
+    expect(nearestSize(2.4, T)).toBe(2);
+    expect(nearestSize(2.5, T)).toBe(3);
+    expect(nearestSize(4, T)).toBe(4);
+    expect(nearestSize(6.9, T)).toBe(6);
+    expect(nearestSize(7, T)).toBe(8);
+    expect(nearestSize(12.4, T)).toBe(10);
+    expect(nearestSize(23, T)).toBe(25);
+  });
+  it('size at least', () => {
+    expect(sizeAtLeast(1.01, T)).toBe(2);
+    expect(sizeAtLeast(3, T)).toBe(3);
+    expect(sizeAtLeast(6.2, T)).toBe(8);
+    expect(sizeAtLeast(10.5, T)).toBe(15);
+  });
+  it('largest size within a limit', () => {
+    expect(largestSizeWithin(4.5, T)).toBe(4);
+    expect(largestSizeWithin(7, T)).toBe(6);
+    expect(largestSizeWithin(5, T)).toBe(5);
+    expect(largestSizeWithin(0.5, T)).toBeNull();
+  });
+});
+
+describe('calculate — the free-units threshold (299 / 300 / 301)', () => {
+  it('299 units → free-units outcome, no payback, no savings pitch', () => {
+    const r = calculate(units(299), T);
+    expect(r.outcome).toBe('free-units');
+    expect(r.paybackYears).toBeNull();
+    expect(r.annualSaving).toBe(0);
+  });
+  it('300 units → free-units outcome', () => {
+    expect(calculate(units(300), T).outcome).toBe('free-units');
+  });
+  it('301 units → ok, and a small system takes the bill to zero', () => {
+    const r = calculate(units(301), T);
+    expect(r.outcome).toBe('ok');
+    expect(r.systemKw).toBe(1);
+    expect(r.zeroBill).toBe(true);
+    expect(r.paybackYears).not.toBeNull();
+  });
+  it('a 2-month bill of 600 units is 300 a month → free units', () => {
+    expect(calculate({ ...units(600), consumption: { kind: 'units', value: 600, periodMonths: 2 } }, T).outcome).toBe('free-units');
+  });
+  it('a ₹0 bill → free-units', () => {
+    expect(calculate(bill(0), T).outcome).toBe('free-units');
+  });
+});
+
+describe('calculate — sizing strategy', () => {
+  it('domestic 450 units: zero-bill sizing beats full offset', () => {
+    // (450 − 250) / 100 = 2 kW brings net units to 250, under the line. Full offset would be 5 kW.
+    const r = calculate(units(450), T);
+    expect(r.strategy).toBe('zero-bill');
+    expect(r.systemKw).toBe(2);
+    expect(r.offsetKw).toBe(5);
+    expect(r.zeroBill).toBe(true);
+    expect(r.notes).toContainEqual({ code: 'zero-bill-sizing', offsetKw: 5 });
+    expect(r.notes).toContainEqual({ code: 'net-units-assumption' });
+  });
+  it('commercial sizes to offset annual use', () => {
+    const r = calculate(units(1000, 'commercial', { sanctionedLoadKw: 20 }), T);
+    expect(r.strategy).toBe('offset');
+    expect(r.systemKw).toBe(10);
+  });
+  it('large commercial goes past 10 kW in 5 kW steps and is flagged', () => {
+    const r = calculate(units(4000, 'commercial', { sanctionedLoadKw: 100 }), T);
+    expect(r.systemKw).toBe(40);
+    expect(r.notes).toContainEqual({ code: 'large-system' });
+  });
+});
+
+describe('calculate — sanctioned load', () => {
+  it('recommended size exactly equal to sanctioned load is not capped', () => {
+    const r = calculate(units(1000, 'commercial', { sanctionedLoadKw: 10 }), T);
+    expect(r.systemKw).toBe(10);
+    expect(r.notes.find((n) => n.code === 'capped-by-load')).toBeUndefined();
+  });
+  it('one step above sanctioned load is capped with a load-enhancement note', () => {
+    const r = calculate(units(1000, 'commercial', { sanctionedLoadKw: 9 }), T);
+    expect(r.systemKw).toBe(8);
+    expect(r.notes).toContainEqual({ code: 'capped-by-load', requiredKw: 10, loadKw: 9 });
+  });
+  it('unknown load: no cap, assumed load is reported', () => {
+    const r = calculate(units(1000, 'commercial'), T);
+    expect(r.systemKw).toBe(10);
+    expect(r.loadKnown).toBe(false);
+    expect(r.notes).toContainEqual({ code: 'load-assumed', assumedKw: T.sizing.defaultSanctionedLoadKw });
+  });
+  it('load below the smallest size → load-too-small', () => {
+    expect(calculate(units(500, 'commercial', { sanctionedLoadKw: 0.5 }), T).outcome).toBe('load-too-small');
+  });
+  it('roof area caps the system', () => {
+    const r = calculate(units(1000, 'commercial', { roofAreaSqFt: 350 }), T);
+    expect(r.systemKw).toBe(3);
+    expect(r.notes.some((n) => n.code === 'capped-by-roof')).toBe(true);
+  });
+});
+
+describe('calculate — subsidy gates flow through', () => {
+  it('commercial and industrial get ₹0 subsidy', () => {
+    expect(calculate(units(800, 'commercial'), T).subsidy.amount).toBe(0);
+    expect(calculate(units(800, 'industrial'), T).subsidy.amount).toBe(0);
+  });
+  it('off-grid and hybrid get ₹0 subsidy, with the reason noted', () => {
+    for (const systemType of ['off-grid', 'hybrid'] as const) {
+      const r = calculate(units(800, 'domestic', { systemType }), T);
+      expect(r.subsidy.amount).toBe(0);
+      expect(r.notes).toContainEqual({ code: 'subsidy-ineligible', reason: 'system-type' });
+    }
+  });
+  it('the 3 kW cap holds for a large home system', () => {
+    const r = calculate(units(1400, 'domestic', { sanctionedLoadKw: 20 }), T);
+    expect(r.systemKw).toBeGreaterThan(3);
+    expect(r.subsidy.amount).toBe(78000);
+  });
+  it('net cost = gross − subsidy', () => {
+    const r = calculate(units(450), T);
+    expect(r.grossCost).toEqual([100000, 120000]);
+    expect(r.netCost).toEqual([40000, 60000]);
+  });
+  it('agricultural → its own outcome', () => {
+    expect(calculate(units(900, 'agricultural'), T).outcome).toBe('agricultural');
+  });
+});
+
+describe('calculate — savings and payback', () => {
+  it('saving equals the bill avoided', () => {
+    const r = calculate(units(450), T);
+    const before = monthlyBill(450, ctx()).total;
+    expect(r.billBefore.total).toBeCloseTo(before, 6);
+    expect(r.billAfter.total).toBe(0);
+    expect(r.annualSaving).toBeCloseTo(before * 12, 6);
+    expect(r.paybackYears![0]).toBeCloseTo(40000 / r.annualSaving, 6);
+  });
+  it('lifetime saving applies escalation and degradation', () => {
+    const f = 1.03 * 0.995;
+    const expected = (1000 * (1 - f ** 25)) / (1 - f);
+    expect(lifetimeSaving(1000, T)).toBeCloseTo(expected, 6);
+  });
+  it('commercial saving is the energy charge avoided, fixed charges unchanged', () => {
+    const r = calculate(units(1000, 'commercial', { sanctionedLoadKw: 20 }), T);
+    expect(r.billAfter.fixed).toBe(r.billBefore.fixed);
+    expect(r.annualSaving).toBeGreaterThan(0);
+  });
+});
+
+describe('calculate — bill path and unit path agree', () => {
+  it.each([350, 450, 700, 1200])('domestic %s units', (u) => {
+    const byUnits = calculate(units(u, 'domestic', { sanctionedLoadKw: 5 }), T);
+    const byBill = calculate(bill(monthlyBill(u, ctx()).total, 'domestic', { sanctionedLoadKw: 5 }), T);
+    expect(byBill.monthlyUnits).toBe(u);
+    expect(byBill.systemKw).toBe(byUnits.systemKw);
+    expect(byBill.annualSaving).toBeCloseTo(byUnits.annualSaving, 6);
+    expect(byBill.estimated).toBe(true);
+    expect(byBill.notes).toContainEqual({ code: 'estimated-from-bill' });
+  });
+  it('a domestic bill below the smallest possible bill → bill-below-threshold', () => {
+    const r = calculate(bill(800), T);
+    expect(r.outcome).toBe('bill-below-threshold');
+    expect(r.minimumBillAboveThreshold).toBeGreaterThan(800);
+    expect(r.paybackYears).toBeNull();
+  });
+});
+
+describe('calculate — bad input', () => {
+  it.each([
+    ['zero units', units(0)],
+    ['negative units', units(-100)],
+    ['NaN', units(Number.NaN)],
+    ['Infinity', units(Number.POSITIVE_INFINITY)],
+    ['absurd units', units(10_000_000)],
+    ['absurd bill', bill(9e9)],
+    ['non-numeric', units('abc' as unknown as number)],
+    ['negative load', units(400, 'domestic', { sanctionedLoadKw: -2 })],
+    ['zero roof', units(400, 'domestic', { roofAreaSqFt: 0 })],
+    ['commercial bill below fixed charges', bill(50, 'commercial', { sanctionedLoadKw: 20 })],
+  ])('%s → invalid with a message', (_, input) => {
+    const r = calculate(input, T);
+    expect(r.outcome).toBe('invalid');
+    expect(r.error).toMatch(/\w/);
+    expect(r.paybackYears).toBeNull();
+  });
+});
+
+describe('INVARIANT: a domestic user at or under the threshold never sees a payback figure', () => {
+  for (const config of [T, SOLAR_CONFIG]) {
+    it(`holds for every unit count 0–300 and every option (${config === T ? 'fixture' : 'live config'})`, () => {
+      for (let u = 0; u <= 300; u++) {
+        for (const scheme of ['general', 'reserved'] as const) {
+          for (const systemType of ['on-grid', 'hybrid', 'off-grid'] as const) {
+            for (const periodMonths of [1, 2] as const) {
+              const r = calculate(
+                { consumption: { kind: 'units', value: u * periodMonths, periodMonths }, category: 'domestic', scheme, systemType },
+                config,
+              );
+              expect(r.paybackYears).toBeNull();
+              expect(r.outcome).not.toBe('ok');
+            }
+          }
+        }
+      }
+    });
+    it(`holds for every small bill (${config === T ? 'fixture' : 'live config'})`, () => {
+      const min = minimumBillAboveThreshold({ category: 'domestic', scheme: 'general', loadKw: 5, config });
+      for (let b = 0; b < min; b += 25) {
+        const r = calculate(bill(b, 'domestic', { sanctionedLoadKw: 5 }), config);
+        expect(r.paybackYears).toBeNull();
+      }
+    });
+  }
+});
+
+describe('live config sanity', () => {
+  it('every standard size prices and subsidises without error', () => {
+    for (const s of SOLAR_CONFIG.sizing.standardSizesKw) {
+      const [lo, hi] = grossCost(s, 'on-grid');
+      expect(lo).toBeGreaterThan(0);
+      expect(hi).toBeGreaterThanOrEqual(lo);
+    }
+  });
+  it('a typical Mohali home (500 units, 2-month bill of 1,000 units) gets a sensible result', () => {
+    const r = calculate({ consumption: { kind: 'units', value: 1000, periodMonths: 2 }, category: 'domestic' });
+    expect(r.outcome).toBe('ok');
+    expect(r.systemKw).toBeGreaterThanOrEqual(2);
+    expect(r.systemKw).toBeLessThanOrEqual(5);
+    expect(r.paybackYears![0]).toBeGreaterThan(0);
+    expect(r.paybackYears![1]).toBeLessThan(15);
+  });
+});
+
+describe('format', () => {
+  it('uses Indian digit grouping', () => {
+    expect(inr(107000)).toBe('₹1,07,000');
+    expect(inrRange([107000, 120000])).toBe('₹1,07,000 – 1,20,000');
+    expect(inrRange([107400, 107400])).toBe('₹1,07,000');
+    expect(inrWords(1140000)).toBe('₹11.4 lakh');
+    expect(inrWords(12000000)).toBe('₹1.2 crore');
+    expect(yearsRange([3.52, 3.94])).toBe('3.5 – 3.9 years');
+  });
+});

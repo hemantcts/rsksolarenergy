@@ -1,0 +1,36 @@
+{
+  "name": "rsksolarenergy",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "rsksolarenergy.com — static site for RSK Solar Energy, UTL Solar distributor, Phase 8-B Mohali",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "build:draft": "cross-env ALLOW_PLACEHOLDERS=1 astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "budget": "node scripts/check-budget.mjs",
+    "launch-check": "node scripts/launch-check.mjs",
+    "og": "node scripts/make-images.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "8.0.1",
+    "@astrojs/sitemap": "3.7.4",
+    "@tailwindcss/vite": "4.3.3",
+    "astro": "7.3.2",
+    "tailwindcss": "4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "cross-env": "10.1.0",
+    "sharp": "0.35.4",
+    "typescript": "5.9.3",
+    "vitest": "5.0.0"
+  }
+}
