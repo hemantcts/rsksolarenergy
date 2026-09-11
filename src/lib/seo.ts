@@ -139,6 +139,22 @@ export function article(opts: { title: string; description: string; path: string
   };
 }
 
+/**
+ * Individual customer Review nodes for the reviews page. Deliberately NOT an AggregateRating —
+ * see the note on localBusiness() above. Google's guidance is comfortable with genuine,
+ * individually-authored reviews that are visibly present on the page, which these are.
+ */
+export function review(r: { name: string; date: string; rating: number; text: string }) {
+  return {
+    '@type': 'Review',
+    itemReviewed: { '@id': BUSINESS_ID },
+    author: { '@type': 'Person', name: r.name },
+    datePublished: r.date,
+    reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5 },
+    reviewBody: r.text,
+  };
+}
+
 export function graph(nodes: object[]) {
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': nodes }).replace(/</g, '\\u003c');
 }

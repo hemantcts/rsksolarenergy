@@ -29,7 +29,7 @@ const primaryLabel = TYPE_LABEL[s.primaryType];
 // Worked example: a general-category home at the top of this size's zero-bill range, on the
 // type this page actually offers at this size.
 const exampleUnits = s.zeroBillRange[1];
-const example = calculate({ consumption: { kind: 'units', value: exampleUnits, periodMonths: 1 }, category: 'domestic', systemType: s.primaryType });
+const example = calculate({ consumption: { kind: 'units', value: exampleUnits, periodMonths: 1 }, category: 'domestic', systemType: s.primaryType, sanctionedLoadKw: 5 });
 
 const title = `${kw} kW Solar System Price in Punjab 2026, After Subsidy | RSK Solar`;
 const description = `${kw} kW ${primaryLabel.toLowerCase()} solar in Punjab: ${inrRange(s.primaryGross)} installed, ${inrRange(s.primaryNet)} after the ${inr(s.subsidy)} PM Surya Ghar subsidy. About ${digits(s.monthlyUnits)} units a month.`;

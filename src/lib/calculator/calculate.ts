@@ -108,8 +108,13 @@ export function validate(input: CalcInput): string | null {
     return 'That bill is larger than any single connection. Check the amount.';
   }
   const load = input.sanctionedLoadKw;
+  // Required for every category except agricultural, which never uses it (Punjab supplies
+  // farm connections free — calculate() returns before load matters).
+  if (input.category !== 'agricultural' && load == null) {
+    return 'Enter your sanctioned load in kW. It is printed on your PSPCL bill, and a rooftop system cannot exceed it, so we need it to size the system correctly.';
+  }
   if (load != null && (!Number.isFinite(load) || load <= 0 || load > INPUT_LIMITS.maxLoadKw)) {
-    return 'Sanctioned load should be a number in kW, as printed on your bill. Leave it empty if you are unsure.';
+    return 'Sanctioned load should be a number in kW, as printed on your bill.';
   }
   const roof = input.roofAreaSqFt;
   if (roof != null && (!Number.isFinite(roof) || roof <= 0)) {

@@ -37,12 +37,23 @@ export const BUSINESS = {
   hours: null as null | { days: string; opens: string; closes: string }[],
 
   google: {
-    rating: 5.0,
-    reviewCount: 33,
-    // Recorded from the review widget on the old site, September 2026.
-    ratingCheckedOn: '2026-09-11',
+    rating: 4.9,
+    reviewCount: 38,
+    // Confirmed by RSK from the live Google Business Profile card, 2026-09-12.
+    ratingCheckedOn: '2026-09-12',
     mapsUrl: 'https://maps.google.com/?cid=3900928441643699717',
     reviewUrl: 'https://search.google.com/local/writereview?placeid=ChIJK-ncoCnvDzkRBQ5k6r_hIjY',
+  },
+
+  /**
+   * Secondary review platform. RSK also has a Justdial listing.
+   * TODO: get the Justdial profile URL from RSK so this can link out directly.
+   */
+  justdial: {
+    rating: 5.0,
+    reviewCount: 40,
+    ratingCheckedOn: '2026-09-12',
+    url: null as string | null,
   },
 
   /**

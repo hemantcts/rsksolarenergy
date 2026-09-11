@@ -40,14 +40,18 @@ const T: SolarConfig = {
   },
 };
 
+// Sanctioned load is required by validate() for every category except agricultural, so every
+// test gets a default 5 kW unless it overrides or deliberately omits it via `extra`.
 const units = (value: number, category: Category = 'domestic', extra: Partial<CalcInput> = {}): CalcInput => ({
   consumption: { kind: 'units', value, periodMonths: 1 },
   category,
+  sanctionedLoadKw: 5,
   ...extra,
 });
 const bill = (value: number, category: Category = 'domestic', extra: Partial<CalcInput> = {}): CalcInput => ({
   consumption: { kind: 'bill', value, periodMonths: 1 },
   category,
+  sanctionedLoadKw: 5,
   ...extra,
 });
 
@@ -261,11 +265,17 @@ describe('calculate — sanctioned load', () => {
     expect(r.systemKw).toBe(8);
     expect(r.notes).toContainEqual({ code: 'capped-by-load', requiredKw: 10, loadKw: 9 });
   });
-  it('unknown load: no cap, assumed load is reported', () => {
-    const r = calculate(units(1000, 'commercial'), T);
-    expect(r.systemKw).toBe(10);
-    expect(r.loadKnown).toBe(false);
-    expect(r.notes).toContainEqual({ code: 'load-assumed', assumedKw: T.sizing.defaultSanctionedLoadKw });
+  it('sanctioned load is required — missing it is invalid, not assumed', () => {
+    const r = calculate(units(1000, 'commercial', { sanctionedLoadKw: undefined }), T);
+    expect(r.outcome).toBe('invalid');
+    expect(r.error).toMatch(/sanctioned load/i);
+  });
+  it('sanctioned load is required for every category except agricultural', () => {
+    for (const category of ['domestic', 'commercial', 'industrial', 'society'] as const) {
+      expect(calculate(units(1000, category, { sanctionedLoadKw: undefined }), T).outcome).toBe('invalid');
+    }
+    // Agricultural never uses load — Punjab supplies farm connections free.
+    expect(calculate(units(1000, 'agricultural', { sanctionedLoadKw: undefined }), T).outcome).toBe('agricultural');
   });
   it('load below the smallest size → load-too-small', () => {
     expect(calculate(units(500, 'commercial', { sanctionedLoadKw: 0.5 }), T).outcome).toBe('load-too-small');
@@ -432,7 +442,7 @@ describe('INVARIANT: a domestic user at or under the threshold never sees a payb
           for (const systemType of ['on-grid', 'hybrid', 'off-grid'] as const) {
             for (const periodMonths of [1, 2] as const) {
               const r = calculate(
-                { consumption: { kind: 'units', value: u * periodMonths, periodMonths }, category: 'domestic', scheme, systemType },
+                { consumption: { kind: 'units', value: u * periodMonths, periodMonths }, category: 'domestic', scheme, systemType, sanctionedLoadKw: 5 },
                 config,
               );
               expect(r.paybackYears).toBeNull();
@@ -461,7 +471,7 @@ describe('live config sanity', () => {
     }
   });
   it('a typical Mohali home (500 units, 2-month bill of 1,000 units) gets a sensible result', () => {
-    const r = calculate({ consumption: { kind: 'units', value: 1000, periodMonths: 2 }, category: 'domestic' });
+    const r = calculate({ consumption: { kind: 'units', value: 1000, periodMonths: 2 }, category: 'domestic', sanctionedLoadKw: 5 });
     expect(r.outcome).toBe('ok');
     expect(r.systemKw).toBeGreaterThanOrEqual(2);
     expect(r.systemKw).toBeLessThanOrEqual(5);

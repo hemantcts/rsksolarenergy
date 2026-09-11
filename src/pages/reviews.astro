@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBlock from '../components/content/CtaBlock.astro';
+import Icon from '../components/Icon.astro';
+import { BUSINESS } from '../config/business';
+import { REVIEWS, reviewMonth } from '../data/reviews';
+import { breadcrumbs, graph, localBusiness, review } from '../lib/seo';
+
+const title = `Customer Reviews | ${BUSINESS.name}`;
+const description = `${BUSINESS.google.rating.toFixed(1)} stars from ${BUSINESS.google.reviewCount} Google reviews. Real reviews from RSK Solar Energy customers in Mohali and Tricity, copied verbatim.`;
+const path = '/reviews/';
+const schema = [breadcrumbs([{ name: 'Reviews', path }]), ...REVIEWS.map((r) => review({ name: r.name, date: r.date, rating: r.rating, text: r.text }))];
+---
+
+<BaseLayout title={title} description={description} crumbs={[{ name: 'Reviews', path }]} schema={schema}>
+  <header class="wrap pt-8 pb-10 lg:pt-12">
+    <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Reviews', path }]} />
+    <h1 class="t-h1 mt-6">What customers say</h1>
+    <p class="t-lead measure mt-5">
+      Real reviews, copied here as they were written. No reviews have been edited or invented for this page.
+    </p>
+  </header>
+
+  <section class="wrap grid-12 pb-10" aria-label="Review platform ratings">
+    <div class="lg:col-span-5 border border-rule p-6">
+      <a href={BUSINESS.google.mapsUrl} rel="noopener" target="_blank" class="no-underline">
+        <p class="t-small text-slate">Google</p>
+        <p class="mt-2 flex items-baseline gap-3">
+          <span class="t-readout">{BUSINESS.google.rating.toFixed(1)}</span>
+          <span class="flex items-center gap-1"><Icon name="star" size={16} /><span>{BUSINESS.google.reviewCount} reviews</span></span>
+        </p>
+        <p class="mt-3 underline">Read on Google Maps</p>
+      </a>
+    </div>
+    <div class="lg:col-span-5 lg:col-start-7 border border-rule p-6">
+      <p class="t-small text-slate">Justdial</p>
+      <p class="mt-2 flex items-baseline gap-3">
+        <span class="t-readout">{BUSINESS.justdial.rating.toFixed(1)}</span>
+        <span class="flex items-center gap-1"><Icon name="star" size={16} /><span>{BUSINESS.justdial.reviewCount} reviews</span></span>
+      </p>
+      <p class="t-small mt-3 text-slate">RSK Solar Energy, Mohali Sector 74</p>
+    </div>
+  </section>
+
+  <section class="sec bg-white" aria-labelledby="reviews-h">
+    <div class="wrap grid-12">
+      <h2 id="reviews-h" class="sr-only">Customer reviews</h2>
+      <ul class="ruled lg:col-span-8">
+        {
+          REVIEWS.map((r) => (
+            <li class="py-8">
+              <div class="flex items-center gap-1" aria-label={`${r.rating} out of 5 stars`}>
+                {Array.from({ length: r.rating }).map(() => (
+                  <Icon name="star" size={16} />
+                ))}
+              </div>
+              <blockquote class="mt-3">
+                <p class="t-lead">{r.text}</p>
+              </blockquote>
+              <p class="t-small mt-3 text-slate">
+                {r.name}, Google review, {reviewMonth(r.date)}
+                {r.install && <span class="block">Installed: {r.install}</span>}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+      <aside class="lg:col-span-3 lg:col-start-10">
+        <div class="lg:sticky lg:top-8">
+          <CtaBlock heading="Ready to talk?" label="Ask us on WhatsApp" />
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

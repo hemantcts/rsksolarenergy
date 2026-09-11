@@ -84,7 +84,7 @@ const faq: QA[] = [
           <li><strong>Your units.</strong> If you enter a rupee amount, it walks the PSPCL tariff backwards, taking off fixed charges and duty, to find the units. Entering the units from your bill is more accurate.</li>
           <li><strong>The free-units test.</strong> A home at or under {F.free} units a month already pays nothing. You get an honest answer instead of a savings figure.</li>
           <li><strong>The size.</strong> For homes over the line, it finds the smallest system that brings your net units under {F.zeroTarget} a month, leaving headroom for summer, and compares it with the size that would cover all your use. Businesses are sized to cover their use.</li>
-          <li><strong>The limits.</strong> The system is capped at your sanctioned load and, if you enter it, your roof area.</li>
+          <li><strong>The limits.</strong> The system is capped at your sanctioned load, which the calculator asks for directly, and at your roof area if you enter it.</li>
           <li><strong>The subsidy.</strong> PM Surya Ghar applies to homes and housing societies with on-grid systems. If a rule rules you out, it tells you which one.</li>
           <li><strong>The saving.</strong> Your bill before and after solar, from the same tariff, including the free-units cliff, fixed charges and duty. Payback is the cost after subsidy divided by the yearly saving.</li>
         </ol>
@@ -92,7 +92,6 @@ const faq: QA[] = [
         <ul>
           <li>{F.yieldRaw} units per kW per year, less a {Math.round((1 - cfg.generation.deratingFactor) * 100)}% allowance for heat, dust, wiring and inverter losses: {F.perKwYear} units per kW per year.</li>
           <li>Tariffs rise {cfg.projection.tariffEscalationPercent}% a year and panels lose {cfg.projection.panelDegradationPercent}% of output a year, for the {cfg.projection.horizonYears}-year saving.</li>
-          <li>If you leave sanctioned load empty, fixed charges are worked out for {cfg.sizing.defaultSanctionedLoadKw} kW.</li>
           <li>PSPCL applies the {F.free} free units to your net units after solar. We confirm this for your connection before quoting.</li>
         </ul>
       </div>

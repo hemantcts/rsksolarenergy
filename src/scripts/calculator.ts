@@ -62,6 +62,15 @@ function syncForm(form: HTMLFormElement) {
   const label = form.querySelector<HTMLElement>('[data-value-label]');
   if (label) label.textContent = kind === 'bill' ? label.dataset.billLabel ?? '' : label.dataset.unitsLabel ?? '';
   form.querySelectorAll<HTMLElement>('[data-domestic-only]').forEach((el) => (el.hidden = category !== 'domestic'));
+
+  // Sanctioned load is required everywhere except agricultural (Punjab farm connections are
+  // free, so it's never used for that category — see calculate.ts's validate()).
+  form.querySelectorAll<HTMLElement>('[data-needs-load]').forEach((el) => {
+    const needsLoad = category !== 'agricultural';
+    el.hidden = !needsLoad;
+    const input = el.querySelector<HTMLInputElement>('input');
+    if (input) input.required = needsLoad;
+  });
 }
 
 /** Count-up on figures (MOTION.md §3.1): under 1s, digits only, width locked, final value for screen readers. */
