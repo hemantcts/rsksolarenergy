@@ -307,20 +307,6 @@
     outline-color: var(--color-ink);
   }
 
-  /* A restrained hover lift for bordered content blocks (brand/partner cards etc.) — transform
-   * and border-color only, per MOTION.md §5, so it costs nothing on the low-end Android this
-   * site is built for and does nothing at all under prefers-reduced-motion. */
-  .lift-on-hover {
-    transition:
-      transform 150ms ease,
-      border-color 150ms ease;
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    .lift-on-hover:hover {
-      transform: translateY(-3px);
-      border-color: var(--color-ink);
-    }
-  }
   .btn-secondary {
     background: transparent;
     color: var(--color-ink);
