@@ -387,6 +387,9 @@
   .on-ink .spec-table tbody th {
     color: var(--color-rule);
   }
+  .rating-count {
+    color: var(--color-slate);
+  }
   .on-ink .rating-count {
     color: var(--color-rule);
   }
