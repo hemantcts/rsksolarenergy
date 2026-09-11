@@ -13,8 +13,9 @@ export type SpecRow = { section: string } | { label: string; values: string[] };
 
 export interface Product {
   slug: string;
-  /** Slug on the old WordPress site, for the 301 map. */
-  oldSlug: string;
+  /** Slug on the old rsksolarenergy.com WordPress site, for the 301 map. Null for products that
+   * were never on the old RSK site (e.g. added from UTL's own catalogue). */
+  oldSlug: string | null;
   title: string;
   category: ProductCategory;
   brand: string;
@@ -23,7 +24,9 @@ export interface Product {
   description: string[];
   features: string[];
   specs: { columns: string[] | null; rows: SpecRow[] } | null;
-  /** Image URL on the old site. TODO: migrate product photos (see TODO-content.md). */
+  /** Where this listing's text was sourced from, for provenance. */
+  source: 'rsk-old-site' | 'utl-catalogue';
+  /** Reference product image URL, not yet migrated/hosted. TODO: real photos (see TODO-content.md). */
   oldImage: string;
 }
 

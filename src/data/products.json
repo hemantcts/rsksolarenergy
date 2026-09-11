@@ -12,7 +12,28 @@
     ],
     "features": [],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/03/led-battery.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/03/led-battery.png",
+    "source": "rsk-old-site"
+  },
+  {
+    "slug": "smf-battery",
+    "oldSlug": null,
+    "title": "SMF Battery",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Sealed Maintenance Free batteries is completely sealed and does not require adding water. The electrolyte utilized is a part of the type of gel that fills in the plates of batteries.",
+    "description": [
+      "Sealed Maintenance Free batteries is completely sealed and does not require adding water. The electrolyte utilized is a part of the type of gel that fills in the plates of batteries. SMF batteries that are durable and deliver the rated performance. These batteries are used as a part of UPS and Inverter. All of the SMF inverter batteries have airtight development. UTL offers SMF batteries with great performance. The battery emits no gas or fumes so it can be placed near to the UPS or any other electronic system. This way it saves the transmission loss and lowers the cost of wires from UPS to batteries. The batteries are light weighted so these are easy to install and much secure for indoor use they don’t need any separate room. They can easily be installed in a single cabinet. These batteries are instant power sources so there is no delay between reception and utilization. SMF batteries can be installed in any arrangement without hampering its performance. The lower internal resistance of SMF batteries by UTL can allow up to 10 times more than their rated discharge current.",
+      "UTL has made a high quality and compactly designed pollution-free SMF battery which has a long life and does not require any maintenance."
+    ],
+    "features": [
+      "Perfectly Compact Design",
+      "Maintenance Free Performance"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://i0.wp.com/www.upsinverter.com/wp-content/uploads/2020/06/381.jpg?fit=600%2C600&ssl=1"
   },
   {
     "slug": "utl-150ah-solar-inverter-battery-ust-1560",
@@ -105,7 +126,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/04-1kW24V-Off-Grid-Solar-System.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/04-1kW24V-Off-Grid-Solar-System.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "utl-170ah-inverter-battery-usb-17100",
@@ -197,7 +219,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/03/usb-batteries-transformed-1.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/03/usb-batteries-transformed-1.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "utl-solar-tubular-battery",
@@ -227,7 +250,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/03/ust-battery.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/03/ust-battery.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "pwm-solar-management-unit-12v-24v-40a",
@@ -319,7 +343,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/PWM-Solar-Management-Unit-12V24V-40A-1.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/PWM-Solar-Management-Unit-12V24V-40A-1.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "pwm-solar-management-unit-12v-24v-50a",
@@ -411,7 +436,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/PWM-Solar-Management-Unit-12V24V-40A.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/PWM-Solar-Management-Unit-12V24V-40A.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "r-mppt-solar-management-unit-12v-24v-40a",
@@ -642,7 +668,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/r-MPPT-Solar-Management-Unit-12V24V-40A.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/r-MPPT-Solar-Management-Unit-12V24V-40A.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "solar-charge-controller-high-rating",
@@ -1003,7 +1030,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Solar-Charge-Controller-High-Rating.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Solar-Charge-Controller-High-Rating.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "solar-charge-controller-medium-rating",
@@ -1301,7 +1329,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Solar-Charge-Controller-Medium-Rating.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Solar-Charge-Controller-Medium-Rating.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "solar-charge-controller-normal-rating",
@@ -1671,7 +1700,32 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Solar-Charge-Controller-Normal-Rating.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Solar-Charge-Controller-Normal-Rating.png",
+    "source": "rsk-old-site"
+  },
+  {
+    "slug": "utl-solar-charge-controller-24v-10-amp",
+    "oldSlug": null,
+    "title": "UTL Solar Charge controller - 24V - 10 Amp",
+    "category": "charge-controllers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Controller Based PWM Technology. Works Efficiently. LED Indication.",
+    "description": [],
+    "features": [
+      "Controller Based PWM Technology.",
+      "Works Efficiently.",
+      "LED Indication.",
+      "Over Charging Current Protection.",
+      "Over Charging Voltage Protection.",
+      "Battery Reverse Protection.",
+      "Overload Protection.",
+      "SPV Reverse Polarity Protection.",
+      "Reverse current flow from Battery Solar Array Protection."
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://www.upsinverter.com/wp-content/uploads/2024/03/Solar-Charge-Controller-min-1.jpeg"
   },
   {
     "slug": "e-rickshaw-battery-charger",
@@ -1694,7 +1748,8 @@
       "Protections"
     ],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/03/e-charger-transformed-1.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/03/e-charger-transformed-1.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "utl-li-ion-48v-8a-battery-charger",
@@ -1709,7 +1764,62 @@
     ],
     "features": [],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/03/e-charger-transformed-1.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/03/e-charger-transformed-1.png",
+    "source": "rsk-old-site"
+  },
+  {
+    "slug": "alfa-pcu-solar-pcu",
+    "oldSlug": null,
+    "title": "ALFA+ Pro MPPT Off-grid Solar PCU 1kVA/24V",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Alfa+ Solar PCU 1kVA/24V that is mainly used in Hospitals, schools, industries petrol pumps, banks and also in home. It continuously monitor battery and solar voltage as well as grid and output voltage with their current.",
+    "description": [
+      "Alfa+ Solar PCU 1kVA/24V that is mainly used in Hospitals, schools, industries petrol pumps, banks and also in home. It continuously monitor battery and solar voltage as well as grid and output voltage with their current.",
+      "PCU (Power Conditioning Unit) is an integrated unit that consists of a grid charger, inverter, MPPT Solar Charger. It continuously monitors Battery and Solar voltage as well as Grid and Output voltage with their currents. MPPT based Solar charger extracts the maximum power from the solar panels whereby it increases the efficiency of the system. MPPT charger has multistage charging which maintains the battery charging voltage such that it increases the lifespan of the battery. Alfa+ Solar PCU 1kVA/24V is a Model of Power Conditioning Unit (PCU) which uses Solar (primary) and Grid (secondary), to charge the batteries. Since the usage of power from the grid is secondary, grid power is only used when solar energy is not present and the battery voltage level reduces to 11.5V/Battery (Default 11.5V, Configurable). Grid power is also needed when solar power generation is less and the battery voltage is reduced to 11.5V/Battery (Default 11.5V, Configurable)",
+      "In UTL’s Alfa PCU you have a great feature that is battery selection mode by this we can select any type of battery as per requirement i.e Flat plate/Tubular/SMF/Lead-acid Battery and can set charging voltage and charging current as per requirement."
+    ],
+    "features": [
+      "Battery selection mode",
+      "Operating Mode Selection",
+      "LCD display with Energy Meter and Data Logging (optional)",
+      "Pure sine wave",
+      "User-configurable by LCD",
+      "PCU Mode – Priority Solar →Battery → Grid",
+      "Smart Mode -Priority Solar → Grid → Battery",
+      "Hybrid Mode – Priority for load Grid →Solar →Battery, Priority for battery charging Solar → Grid"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://www.upsinverter.com/wp-content/uploads/2024/07/ALFA-PRO-SOLAR-PCU-1.png"
+  },
+  {
+    "slug": "alfa-solar-pcu-2kva-48v",
+    "oldSlug": null,
+    "title": "Alfa+ Pro Solar PCU 2kVA/48V",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Alfa+ Solar PCU 2kVA/48V that is mainly used in Hospitals, schools, industries petrol pumps, banks and also in home. It continuously monitor battery and solar voltage as well as grid and output voltage with their current.",
+    "description": [
+      "Alfa+ Solar PCU 2kVA/48V that is mainly used in Hospitals, schools, industries petrol pumps, banks and also in home. It continuously monitor battery and solar voltage as well as grid and output voltage with their current.",
+      "PCU (Power Conditioning Unit) is an integrated unit that consists of a grid charger, inverter, MPPT Solar Charger. It continuously monitors Battery and Solar voltage as well as Grid and Output voltage with their currents. MPPT based Solar charger extracts the maximum power from the solar panels whereby it increases the efficiency of the system. MPPT charger has multistage charging which maintains the battery charging voltage such that it increases the lifespan of the battery. Alfa+ Solar PCU 2kVA/48V is a Model of Power Conditioning Unit (PCU) which uses Solar (primary) and Grid (secondary), to charge the batteries. Since the usage of power from the grid is secondary, grid power is only used when solar energy is not present and the battery voltage level reduces to 11.5V/Battery (Default 11.5V, Configurable). Grid power is also needed when solar power generation is less and the battery voltage is reduced to 11.5V/Battery (Default 11.5V, Configurable)",
+      "In UTL’s Alfa PCU you have a great feature that is battery selection mode by this we can select any type of battery as per requirement i.e Flat plate/Tubular/SMF/Lead-acid Battery and can set charging voltage and charging current as per requirement."
+    ],
+    "features": [
+      "Battery selection mode",
+      "Operating Mode Selection",
+      "LCD display with Energy Meter and Data Logging (optional)",
+      "Pure sine wave",
+      "User-configurable by LCD",
+      "PCU Mode – Priority Solar →Battery → Grid",
+      "Smart Mode -Priority Solar → Grid → Battery",
+      "Hybrid Mode – Priority for load Grid →Solar →Battery, Priority for battery charging Solar → Grid"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://www.upsinverter.com/wp-content/uploads/2024/07/ALFA-PRO-SOLAR-PCU-1.png"
   },
   {
     "slug": "alfa-solar-pcu-1kva-24v",
@@ -2193,7 +2303,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-Alfa-Solar-PCU-1kVA24V.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-Alfa-Solar-PCU-1kVA24V.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "combo-home-inverter-c-775",
@@ -2217,7 +2328,8 @@
       "5th Gen. power device"
     ],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/c-775-transformed-1.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/c-775-transformed-1.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "combo-home-inverter-c-1075",
@@ -2234,7 +2346,8 @@
     ],
     "features": [],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/c-1075-transformed-1.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/c-1075-transformed-1.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "gamma-plus-mppt-solar-inverter-1-kva-12-volt",
@@ -2250,7 +2363,8 @@
     ],
     "features": [],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/03-1kW24V-Off-Grid-Solar-System.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/03-1kW24V-Off-Grid-Solar-System.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "gamma-plus-mppt-solar-inverter-2-kva-24-volt",
@@ -2266,7 +2380,43 @@
     ],
     "features": [],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Gamma-Plus-MPPT-Solar-Inverter-2-kVA-24-Volt.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Gamma-Plus-MPPT-Solar-Inverter-2-kVA-24-Volt.png",
+    "source": "rsk-old-site"
+  },
+  {
+    "slug": "gamma-plus-mppt-solar-inverter-2600-24-volt",
+    "oldSlug": null,
+    "title": "Gamma+ 2600 r-MPPT Solar Inverter 24V (2kVA)",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Gamma + PCU (Power Conditioning Unit) is an integrated unit consists of grid charger, inverter, MPPT Solar Charger. It continuously monitors Battery and Solar voltage as well as Grid and Output voltage with their currents.",
+    "description": [
+      "Gamma + PCU (Power Conditioning Unit) is an integrated unit consists of grid charger, inverter, MPPT Solar Charger. It continuously monitors Battery and Solar voltage as well as Grid and Output voltage with their currents. MPPT based solar charger extracts the maximum power from the solar panels whereby it increases the efficiency of the system. MPPT charger has multistage charging which maintains the battery charging voltage such that it increases the lifespan of battery.",
+      "Gamma+ is very easy to install. It fits your budget and also helps to cut your electricity costs. So, it is double advantage to the user!! Unlike other sources of energy, Gamma+ and the Solar Panel do not emit harmful gases and residue. Thus, it helps in keeping the environment clean and healthy.",
+      "Rating Available: 2600/24 Volt"
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://www.upsinverter.com/wp-content/uploads/2021/09/1500va-2000va.jpg"
+  },
+  {
+    "slug": "gamma-plus-mppt-solar-inverter-3-kva-24-volt-lithium",
+    "oldSlug": null,
+    "title": "GAMMA+ MPPT Solar Inverter 3kVA/24V (Support Lithium Battery)",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Gamma + PCU (Power Conditioning Unit) is an integrated unit consists of grid charger, inverter, MPPT Solar Charger. It continuously monitors Battery and Solar voltage as well as Grid and Output voltage with their currents.",
+    "description": [
+      "Gamma + PCU (Power Conditioning Unit) is an integrated unit consists of grid charger, inverter, MPPT Solar Charger. It continuously monitors Battery and Solar voltage as well as Grid and Output voltage with their currents. MPPT based solar charger extracts the maximum power from the solar panels whereby it increases the efficiency of the system. MPPT charger has multistage charging which maintains the battery charging voltage such that it increases the lifespan of battery.",
+      "Gamma+ is very easy to install. It fits your budget and also helps to cut your electricity costs. So, it is double advantage to the user!! Unlike other sources of energy, Gamma+ and the Solar Panel do not emit harmful gases and residue. Thus, it helps in keeping the environment clean and healthy."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://www.upsinverter.com/wp-content/uploads/2023/05/3350-min.jpg"
   },
   {
     "slug": "heliac-solar-inverter-1050-50a-12v",
@@ -2442,7 +2592,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-Heliac-Solar-Inverter-1050-50A12V.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-Heliac-Solar-Inverter-1050-50A12V.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "heliac-solar-inverter-1500-50a-12v",
@@ -2618,7 +2769,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-Heliac-Solar-Inverter-1050-50A12V.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-Heliac-Solar-Inverter-1050-50A12V.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "heliac-solar-inverter-2000-50a-24v",
@@ -2794,7 +2946,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-Heliac-Solar-Inverter-1050-50A12V.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-Heliac-Solar-Inverter-1050-50A12V.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "heliac-solar-inverter-2500-50a-24v",
@@ -2970,7 +3123,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-Heliac-Solar-Inverter-1050-50A12V.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-Heliac-Solar-Inverter-1050-50A12V.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "heliac-solar-inverter-3000-70a-24v",
@@ -3146,7 +3300,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-Heliac-Solar-Inverter-1050-50A12V.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-Heliac-Solar-Inverter-1050-50A12V.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "heliac-solar-inverter-4000-60a-48v",
@@ -3322,7 +3477,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-Heliac-Solar-Inverter-1050-50A12V.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-Heliac-Solar-Inverter-1050-50A12V.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "shamsi-solar-inverter-675-va-12v",
@@ -3350,7 +3506,8 @@
       "LED Display for Operation & Fault"
     ],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Shamsi-Solar-Inverter-1075VA12V-1-1.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Shamsi-Solar-Inverter-1075VA12V-1-1.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "shamsi-solar-inverter-875-va-12v",
@@ -3378,7 +3535,8 @@
       "LED Display for Operation & Fault"
     ],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Shamsi-Solar-Inverter-1075VA12V-1.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Shamsi-Solar-Inverter-1075VA12V-1.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "shamsi-solar-inverter-1075va-12v",
@@ -3406,7 +3564,8 @@
       "LED Display for Operation & Fault"
     ],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Shamsi-Solar-Inverter-1075VA12V.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Shamsi-Solar-Inverter-1075VA12V.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "shamsi-solar-inverter-1475va-24v",
@@ -3434,7 +3593,140 @@
       "LED Display for Operation & Fault"
     ],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Shamsi-Solar-Inverter-1075VA12V-1-1.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Shamsi-Solar-Inverter-1075VA12V-1-1.png",
+    "source": "rsk-old-site"
+  },
+  {
+    "slug": "sigma-plus-solar-pcu-1kva-24v",
+    "oldSlug": null,
+    "title": "Sigma Plus Solar PCU 1kVA/24V",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL hybrid Solar inverter has only one inverter named Sigma + Grid Export Solar PCU. It is solar power conditioning unit which is a single phase output solar inverter system.",
+    "description": [
+      "UTL hybrid Solar inverter has only one inverter named Sigma + Grid Export Solar PCU. It is solar power conditioning unit which is a single phase output solar inverter system. It works as a Bi-directional inverter which means power will be exported into the grid or power will be imported from the Grid.",
+      "Stand-alone: Solar Inverter operates from solar battery and produces AC output. The solar battery charged by solar power in first priority and from grid second priority.",
+      "Grid Interactive: Solar inverter operates from solar battery and produces AC output and also operates in parallel with the grid supply. Any excess solar power will be exported into the grid. Whenever sufficient solar power is not available to run the load, the required power is shared from the grid. The maximum power feed into the grid is depends on the system rating."
+    ],
+    "features": [
+      "DSP based unique pure sine wave design.",
+      "Inbuilt high-efficiency rMPPT charge controller.",
+      "Stand-alone & grid-interactive working modes.",
+      "IEC 61683, 61727, 60529, 60068-2 (1,2,14,30) & 62116 certified.",
+      "Inbuilt AC & DC energy meter with USB based communication.",
+      "GSM/GPRS based remote monitoring & controlling (Optional).",
+      "LCD display with all AC and DC parameters.",
+      "Robust design with reverse AC voltage protection.",
+      "Priority-based working modes – Smart/PCU/Hybrid.",
+      "Maximum preference for solar power.",
+      "20 years of product life & 5 years warranty.",
+      "Easy to install, maintain & access.",
+      "Stand-alone",
+      "Grid Interactive"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://www.upsinverter.com/wp-content/uploads/2022/06/Sigma-Pro-1.png"
+  },
+  {
+    "slug": "sigma-plus-solar-pcu-1kva-48v",
+    "oldSlug": null,
+    "title": "Sigma Plus Solar PCU 1kVA/48V",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL hybrid Solar inverter has only one inverter named Sigma + Grid Export Solar PCU. It is solar power conditioning unit which is a single phase output solar inverter system.",
+    "description": [
+      "UTL hybrid Solar inverter has only one inverter named Sigma + Grid Export Solar PCU. It is solar power conditioning unit which is a single phase output solar inverter system. It works as a Bi-directional inverter which means power will be exported into the grid or power will be imported from the Grid.",
+      "Stand-alone: Solar Inverter operates from solar battery and produces AC output. The solar battery charged by solar power in first priority and from grid second priority.",
+      "Grid Interactive: Solar inverter operates from solar battery and produces AC output and also operates in parallel with the grid supply. Any excess solar power will be exported into the grid. Whenever sufficient solar power is not available to run the load, the required power is shared from the grid. The maximum power feed into the grid is depends on the system rating."
+    ],
+    "features": [
+      "DSP based unique pure sine wave design.",
+      "Inbuilt high-efficiency rMPPT charge controller.",
+      "Stand-alone & grid-interactive working modes.",
+      "IEC 61683, 61727, 60529, 60068-2 (1,2,14,30) & 62116 certified.",
+      "Inbuilt AC & DC energy meter with USB based communication.",
+      "GSM/GPRS based remote monitoring & controlling (Optional).",
+      "LCD display with all AC and DC parameters.",
+      "Robust design with reverse AC voltage protection.",
+      "Priority-based working modes – Smart/PCU/Hybrid.",
+      "Maximum preference for solar power.",
+      "20 years of product life & 5 years warranty.",
+      "Easy to install, maintain & access.",
+      "Stand-alone",
+      "Grid Interactive"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://www.upsinverter.com/wp-content/uploads/2022/06/Sigma-Pro-1.png"
+  },
+  {
+    "slug": "sigma-plus-solar-pcu-2kva-48v",
+    "oldSlug": null,
+    "title": "Sigma Plus Solar PCU 2kVA/48V",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL hybrid Solar inverter has only one inverter named Sigma + Grid Export Solar PCU. It is solar power conditioning unit which is a single phase output solar inverter system.",
+    "description": [
+      "UTL hybrid Solar inverter has only one inverter named Sigma + Grid Export Solar PCU. It is solar power conditioning unit which is a single phase output solar inverter system. It works as a Bi-directional inverter which means power will be exported into the grid or power will be imported from the Grid.",
+      "Stand-alone: Solar Inverter operates from solar battery and produces AC output. The solar battery charged by solar power in first priority and from grid second priority.",
+      "Grid Interactive: Solar inverter operates from solar battery and produces AC output and also operates in parallel with the grid supply. Any excess solar power will be exported into the grid. Whenever sufficient solar power is not available to run the load, the required power is shared from the grid. The maximum power feed into the grid is depends on the system rating."
+    ],
+    "features": [
+      "DSP based unique pure sine wave design.",
+      "Inbuilt high-efficiency rMPPT charge controller.",
+      "Stand-alone & grid-interactive working modes.",
+      "IEC 61683, 61727, 60529, 60068-2 (1,2,14,30) & 62116 certified.",
+      "Inbuilt AC & DC energy meter with USB based communication.",
+      "GSM/GPRS based remote monitoring & controlling (Optional).",
+      "LCD display with all AC and DC parameters.",
+      "Robust design with reverse AC voltage protection.",
+      "Priority-based working modes – Smart/PCU/Hybrid.",
+      "Maximum preference for solar power.",
+      "20 years of product life & 5 years warranty.",
+      "Easy to install, maintain & access.",
+      "Stand-alone",
+      "Grid Interactive"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://www.upsinverter.com/wp-content/uploads/2022/06/Sigma-Pro-1.png"
+  },
+  {
+    "slug": "sigma-plus-solar-pcu-4kva-48v",
+    "oldSlug": null,
+    "title": "Sigma Plus Solar PCU 4kVA/48V",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL hybrid Solar inverter has only one inverter named Sigma + Grid Export Solar PCU. It is solar power conditioning unit which is a single phase output solar inverter system.",
+    "description": [
+      "UTL hybrid Solar inverter has only one inverter named Sigma + Grid Export Solar PCU. It is solar power conditioning unit which is a single phase output solar inverter system. It works as a Bi-directional inverter which means power will be exported into the grid or power will be imported from the Grid.",
+      "Stand-alone: Solar Inverter operates from solar battery and produces AC output. The solar battery charged by solar power in first priority and from grid second priority.",
+      "Grid Interactive: Solar inverter operates from solar battery and produces AC output and also operates in parallel with the grid supply. Any excess solar power will be exported into the grid. Whenever sufficient solar power is not available to run the load, the required power is shared from the grid. The maximum power feed into the grid is depends on the system rating."
+    ],
+    "features": [
+      "DSP based unique pure sine wave design.",
+      "Inbuilt high-efficiency rMPPT charge controller.",
+      "Stand-alone & grid-interactive working modes.",
+      "IEC 61683, 61727, 60529, 60068-2 (1,2,14,30) & 62116 certified.",
+      "Inbuilt AC & DC energy meter with USB based communication.",
+      "GSM/GPRS based remote monitoring & controlling (Optional).",
+      "LCD display with all AC and DC parameters.",
+      "Robust design with reverse AC voltage protection.",
+      "Priority-based working modes – Smart/PCU/Hybrid.",
+      "Maximum preference for solar power.",
+      "20 years of product life & 5 years warranty.",
+      "Easy to install, maintain & access.",
+      "Stand-alone",
+      "Grid Interactive"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://www.upsinverter.com/wp-content/uploads/2022/06/Sigma-Pro-1.png"
   },
   {
     "slug": "sigma-plus-solar-pcu-5kva-48v",
@@ -3450,7 +3742,217 @@
     ],
     "features": [],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/03/sigma-pcu.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/03/sigma-pcu.png",
+    "source": "rsk-old-site"
+  },
+  {
+    "slug": "sigma-plus-solar-inverter-5kva-48v",
+    "oldSlug": null,
+    "title": "Sigma Pro 5kVA/48V Grid Export Solar Hybrid Inverter",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Sigma Pro 5kVA/48V grid-export hybrid solar inverter, rMPPT technology, pure sine wave output, 5-year warranty.",
+    "description": [
+      "Make everyday power more reliable with the Sigma Pro 5kVA hybrid solar inverter, built to manage solar energy efficiently while keeping your lights on during outages. Manufactured by UTL Solar, it works seamlessly in both on-grid and off-grid modes, helping lower electricity bills and provide dependable backup power. The pure sine wave output ensures safe operation of sensitive appliances.",
+      "Advanced rMPPT technology improves solar energy capture for better system performance. With a 5kVA capacity, 48V operation, and support for higher solar input, it suits homes and small commercial spaces. Quiet operation, strong build quality, and a 5-year warranty ensure long-term reliability."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "PV Input Voltage range(Min.-Max.)",
+          "values": [
+            "80-195 VOC"
+          ]
+        },
+        {
+          "label": "MPPT Switching Element",
+          "values": [
+            "IGBT"
+          ]
+        },
+        {
+          "label": "Inverter Switching Element",
+          "values": [
+            "MOSFET"
+          ]
+        },
+        {
+          "label": "Peak MPPT Efficiency",
+          "values": [
+            "95%"
+          ]
+        },
+        {
+          "label": "Max Charging Current from Grid (Import)",
+          "values": [
+            "6-15A"
+          ]
+        },
+        {
+          "label": "Max PV Power Recommended",
+          "values": [
+            "3kW"
+          ]
+        },
+        {
+          "label": "Noise @ 1 meter",
+          "values": [
+            "50 dB"
+          ]
+        },
+        {
+          "label": "Load Current",
+          "values": [
+            "18A"
+          ]
+        },
+        {
+          "label": "Solar Charger Controller Rating",
+          "values": [
+            "100A"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/UGE8096.jpg.jpeg"
+  },
+  {
+    "slug": "sigma-plus-solar-pcu-5kva-96v",
+    "oldSlug": null,
+    "title": "Sigma Pro Solar PCU 5kVA/96V - (UGE5096)",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL hybrid Solar inverter has only one inverter named Sigma Pro Grid Export Solar PCU. It is solar power conditioning unit which is a single phase output solar inverter system.",
+    "description": [
+      "UTL hybrid Solar inverter has only one inverter named Sigma Pro Grid Export Solar PCU. It is solar power conditioning unit which is a single phase output solar inverter system. It works as a Bi-directional inverter which means power will be exported into the grid or power will be imported from the Grid.",
+      "Stand-alone: Solar Inverter operates from solar battery and produces AC output. The solar battery charged by solar power in first priority and from grid second priority.",
+      "Grid Interactive: Solar inverter operates from solar battery and produces AC output and also operates in parallel with the grid supply. Any excess solar power will be exported into the grid. Whenever sufficient solar power is not available to run the load, the required power is shared from the grid. The maximum power feed into the grid is depends on the system rating."
+    ],
+    "features": [
+      "DSP based unique pure sine wave design.",
+      "Inbuilt high-efficiency rMPPT charge controller.",
+      "Stand-alone & grid-interactive working modes.",
+      "IEC 61683, 61727, 60529, 60068-2 (1,2,14,30) & 62116 certified.",
+      "Inbuilt AC & DC energy meter.",
+      "Wifi based remote monitoring.",
+      "LCD display with all AC and DC parameters.",
+      "Robust design with reverse AC voltage protection.",
+      "Priority-based working modes – Smart/PCU/Hybrid.",
+      "Maximum preference for solar power.",
+      "5 years warranty.",
+      "Easy to install, maintain & access.",
+      "Lead Acid, Lithium-ion Battery Supported",
+      "Stand-alone",
+      "Grid Interactive"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://www.upsinverter.com/wp-content/uploads/2022/06/Sigma-Pro-1.png"
+  },
+  {
+    "slug": "smart-inverter-5kva-48v",
+    "oldSlug": null,
+    "title": "Smart Inverter 5kVA/48V",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "dsPIC based design Pure Sine Wave Output. Configurable charging voltage and current. No Load Shutdown Enable/Disable.",
+    "description": [],
+    "features": [
+      "dsPIC based design Pure Sine Wave Output.",
+      "Configurable charging voltage and current.",
+      "No Load Shutdown Enable/Disable.",
+      "Input Range Selection.",
+      "Robust design – 20 years product life, 2 years of warranty."
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://www.upsinverter.com/wp-content/uploads/2022/06/smart-inverter1.jpg"
+  },
+  {
+    "slug": "smart-inverter-5kva-96v",
+    "oldSlug": null,
+    "title": "Smart Inverter 5kVA/96V",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "dsPIC based design Pure Sine Wave Output. Configurable charging voltage and current. No Load Shutdown Enable/Disable.",
+    "description": [],
+    "features": [
+      "dsPIC based design Pure Sine Wave Output.",
+      "Configurable charging voltage and current.",
+      "No Load Shutdown Enable/Disable.",
+      "Input Range Selection.",
+      "Robust design – 20 years product life, 2 years of warranty."
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://www.upsinverter.com/wp-content/uploads/2022/06/smart-inverter1.jpg"
+  },
+  {
+    "slug": "smart-inverter-7-5kva-96v",
+    "oldSlug": null,
+    "title": "Smart Inverter 7.5kVA/96V",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "dsPIC based design Pure Sine Wave Output. Configurable charging voltage and current. No Load Shutdown Enable/Disable.",
+    "description": [],
+    "features": [
+      "dsPIC based design Pure Sine Wave Output.",
+      "Configurable charging voltage and current.",
+      "No Load Shutdown Enable/Disable.",
+      "Input Range Selection.",
+      "Robust design – 20 years product life, 2 years of warranty."
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://www.upsinverter.com/wp-content/uploads/2022/06/smart-inverter1.jpg"
+  },
+  {
+    "slug": "smart-inverter-10kva-120v",
+    "oldSlug": null,
+    "title": "Smart Inverter 10kVA/120V",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "dsPIC based design Pure Sine Wave Output. Configurable charging voltage and current. No Load Shutdown Enable/Disable.",
+    "description": [],
+    "features": [
+      "dsPIC based design Pure Sine Wave Output.",
+      "Configurable charging voltage and current.",
+      "No Load Shutdown Enable/Disable.",
+      "Input Range Selection.",
+      "Robust design – 20 years product life, 2 years of warranty."
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://www.upsinverter.com/wp-content/uploads/2022/06/smart-inverter1.jpg"
+  },
+  {
+    "slug": "smart-inverter-10kva-180v",
+    "oldSlug": null,
+    "title": "Smart Inverter 10kVA/180V",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "dsPIC based design Pure Sine Wave Output. Configurable charging voltage and current. No Load Shutdown Enable/Disable.",
+    "description": [],
+    "features": [
+      "dsPIC based design Pure Sine Wave Output.",
+      "Configurable charging voltage and current.",
+      "No Load Shutdown Enable/Disable.",
+      "Input Range Selection.",
+      "Robust design – 20 years product life, 2 years of warranty."
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://www.upsinverter.com/wp-content/uploads/2022/06/smart-inverter1.jpg"
   },
   {
     "slug": "solar-pcu-2kva-24v-gamma-solar-pcu",
@@ -3638,7 +4140,39 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Solar-PCU-2kVA24V-Gamma-Solar-PCU.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Solar-PCU-2kVA24V-Gamma-Solar-PCU.png",
+    "source": "rsk-old-site"
+  },
+  {
+    "slug": "sun-lion-1000",
+    "oldSlug": null,
+    "title": "SUN LION 1000 (with in-built Lithium battery)",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Looking for a solar inverter with battery backup and long life? Sun Li-ON 1000 might just be the perfect fit for your needs.",
+    "description": [
+      "Looking for a solar inverter with battery backup and long life? Sun Li-ON 1000 might just be the perfect fit for your needs. You can get started with a single 340W Solar Panel or 540W solar panel and connect the lithium integrated inverter to enjoy reliable back up and more savings. This mini inverter is compact, wall mountable and zero maintenance along with longer battery lifecycle . Sun LiON is a 12V system with 50Ah in-built LifePo4 Lithium-ion battery that supports both 12V and 24V solar panels."
+    ],
+    "features": [
+      "Inbuilt rMPPT Solar Charge Controller",
+      "Support 12V & 24V Solar Panel with 12V System",
+      "Battery Charging at Low Voltage (90V) Mains Input",
+      "Inbuilt Lithium LiFePo4 Battery",
+      "Compatible with IT Load",
+      "Zero Battery Maintenance & Long Battery Life",
+      "Modified Sine wave output",
+      "Easy Installation & low maintenance",
+      "Battery Charging with Multi stage (Bulk, Absorption & Float)",
+      "Protections : RBP, RSPV, OVL, BL, BH, S.Ckt, I/P HV& LV, OHT",
+      "Priority Mode Selection- 1) Hybrid 2) Smart",
+      "For Saving Energy & Money",
+      "Can Operated without Solar",
+      "Multi Color LCD Display for Operation & Fault"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/04/sunlion-1000-main-solar-inverter.webp"
   },
   {
     "slug": "sunpack-solar-home-pcu",
@@ -3654,7 +4188,187 @@
     ],
     "features": [],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Sunpack-Solar-Home-PCU.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Sunpack-Solar-Home-PCU.png",
+    "source": "rsk-old-site"
+  },
+  {
+    "slug": "utl-gamma-plus-3400-24v-mppt-solar-inverter",
+    "oldSlug": null,
+    "title": "UTL Gamma+ 3400 rMPPT Solar Inverter",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": "GPP 3400",
+    "summary": "Gamma+ 3400 rMPPT solar inverter, 3 kVA at 24V, for home and small commercial use. Built-in r-MPPT charge controller, pure sine wave output, and a smart LCD display.",
+    "description": [
+      "The Gamma Plus 3400 is a 3 kVA, 24 V MPPT solar inverter from UTL Solar that blends smart energy management, rugged reliability, and industry-leading r-MPPT technology. Designed for both residential and commercial setups, it ensures maximum solar energy conversion and seamless power supply, even under dynamic sunlight conditions. Gamma 3400 is compatible with both tubular and lithium-ion batteries and due to its r-MPPT technology, It delivers the backup equivalent of two batteries while using a single battery. If you are looking for an affordable solar inverter for your home, you can go for the latest Gamma Plus 3400."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Model Name",
+          "values": [
+            "GPP 3400"
+          ]
+        },
+        {
+          "label": "Technology",
+          "values": [
+            "rMPPT"
+          ]
+        },
+        {
+          "label": "Max. output current",
+          "values": [
+            "9A"
+          ]
+        },
+        {
+          "label": "Solar Power Maximum",
+          "values": [
+            "3000W"
+          ]
+        },
+        {
+          "label": "Max. Battery Capacity",
+          "values": [
+            "200AH"
+          ]
+        },
+        {
+          "label": "Operating DC Voltage",
+          "values": [
+            "24 volt"
+          ]
+        },
+        {
+          "label": "Harmonic Voltage",
+          "values": [
+            "<3% (Linear Load)"
+          ]
+        },
+        {
+          "label": "Typical efficiency",
+          "values": [
+            ">82%"
+          ]
+        },
+        {
+          "label": "Output Waveform",
+          "values": [
+            "Pure sine wave"
+          ]
+        },
+        {
+          "label": "Input Voltage Range (Min – Max) Voc",
+          "values": [
+            "60V-106V"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/04/Gamma-3400-solar-inverter.jpeg"
+  },
+  {
+    "slug": "gamma-solar-inverter-1kva-24volt",
+    "oldSlug": null,
+    "title": "UTL GAMMA+ rMPPT Solar Inverter 1kVA 24V",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Gamma + PCU (Power Conditioning Unit) is an integrated unit consists of grid charger, inverter, MPPT Solar Charger. It continuously monitors Battery and Solar voltage as well as Grid and Output voltage with their currents.",
+    "description": [
+      "Gamma + PCU (Power Conditioning Unit) is an integrated unit consists of grid charger, inverter, MPPT Solar Charger. It continuously monitors Battery and Solar voltage as well as Grid and Output voltage with their currents. MPPT based solar charger extracts the maximum power from the solar panels whereby it increases the efficiency of the system. MPPT charger has multistage charging which maintains the battery charging voltage such that it increases the lifespan of battery.",
+      "Gamma+ is very easy to install. It fits your budget and also helps to cut your electricity costs. So, it is double advantage to the user!! Unlike other sources of energy, Gamma+ and the Solar Panel do not emit harmful gases and residue. Thus, it helps in keeping the environment clean and healthy.",
+      "Rating Available: 1kVA/12V & 1kVA-24V"
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://www.upsinverter.com/wp-content/uploads/2021/02/1012-1024.jpg"
+  },
+  {
+    "slug": "sigma-plus-solar-inverter-3kva-48v",
+    "oldSlug": null,
+    "title": "UTL Sigma Pro 3kVA/48V Grid Export Hybrid Solar Inverter – UGE 3048",
+    "category": "inverters",
+    "brand": "UTL Solar",
+    "model": "UGE 3048",
+    "summary": "Sigma Pro 3kVA/48V grid-export hybrid solar inverter (model UGE 3048), rMPPT technology, pure sine wave output.",
+    "description": [
+      "The Sigma Pro hybrid solar inverter is built to deliver stable and efficient power for everyday energy needs. It provides a pure sine wave output that ensures smooth operation of sensitive appliances such as televisions, computers, and home electronics. The inverter uses advanced rMPPT technology to maximise solar power generation, helping the system capture more energy even during changing sunlight conditions.",
+      "With a 3kVA capacity and 48V operating voltage, it supports regular household and small commercial loads with consistent performance. Grid export functionality allows excess solar power to be sent back to the utility grid through net metering which reduces electricity bills. Smart power management automatically prioritises solar energy during the day and switches intelligently between grid and battery support when required. Built with a durable design and user-friendly LCD display, the inverter enables easy system monitoring and control."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "PV Input Voltage range(Min.-Max.)",
+          "values": [
+            "80-195 VOC"
+          ]
+        },
+        {
+          "label": "MPPT Switching Element",
+          "values": [
+            "IGBT"
+          ]
+        },
+        {
+          "label": "Inverter Switching Element",
+          "values": [
+            "MOSFET"
+          ]
+        },
+        {
+          "label": "Peak MPPT Efficiency",
+          "values": [
+            "95%"
+          ]
+        },
+        {
+          "label": "Max Charging Current from Grid (Import)",
+          "values": [
+            "6-15A"
+          ]
+        },
+        {
+          "label": "Max PV Power Recommended",
+          "values": [
+            "3kW"
+          ]
+        },
+        {
+          "label": "Noise @ 1 meter",
+          "values": [
+            "50 dB"
+          ]
+        },
+        {
+          "label": "Load Current",
+          "values": [
+            "13.5A"
+          ]
+        },
+        {
+          "label": "Solar Charger Controller Rating",
+          "values": [
+            "60A"
+          ]
+        },
+        {
+          "label": "Data Logging",
+          "values": [
+            "30 Days Data Storage"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/UGE3024-Hybrid.jpg.jpeg"
   },
   {
     "slug": "li-ion-led-rechargeable-torch",
@@ -3674,7 +4388,8 @@
       "6 Month Warranty*"
     ],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Li-ion-LED-Rechargeable-Torch.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Li-ion-LED-Rechargeable-Torch.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "mini-led-lantern",
@@ -3696,7 +4411,8 @@
       "IP41 protected"
     ],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Mini-LED-Lantern.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Mini-LED-Lantern.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "sinfin-solar-air-conditioner",
@@ -3709,7 +4425,8 @@
     "description": [],
     "features": [],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/solar-air-conditioner-sinfin.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/solar-air-conditioner-sinfin.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "solar-led-lightning-system",
@@ -3728,7 +4445,8 @@
       "Long working time after full charge"
     ],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Solar-LED-lightning-System.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Solar-LED-lightning-System.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "solar-power-pack-12v-10a",
@@ -3984,7 +4702,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Solar-Power-Pack-12V10A.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Solar-Power-Pack-12V10A.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "40-watt-solar-panel",
@@ -4008,7 +4727,8 @@
       "Anodized aluminum alloy frame for protection."
     ],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/40-Watt-Solar-Panel.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/40-Watt-Solar-Panel.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "60-watt-solar-panel",
@@ -4032,7 +4752,8 @@
       "Anodized aluminum alloy frame for protection."
     ],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/40-Watt-Solar-Panel.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/40-Watt-Solar-Panel.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "100-watt-solar-panel",
@@ -4198,7 +4919,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/100-Watt-Solar-Panel.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/100-Watt-Solar-Panel.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "160-watt-solar-panel",
@@ -4364,7 +5086,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/160-Watt-Solar-Panel.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/160-Watt-Solar-Panel.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "265watt-solar-panel",
@@ -4388,7 +5111,8 @@
       "Anodized aluminum alloy frame for protection."
     ],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/02-2kW24V-Off-Grid-Solar-System.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/02-2kW24V-Off-Grid-Solar-System.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "330-watt-solar-panel",
@@ -4412,7 +5136,8 @@
       "Anodized aluminum alloy frame for protection."
     ],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/02-2kW24V-Off-Grid-Solar-System.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/02-2kW24V-Off-Grid-Solar-System.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "335-watt-solar-panel",
@@ -4525,7 +5250,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/335-Watt-Solar-Panel.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/335-Watt-Solar-Panel.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "mono-perc-solar-panels",
@@ -4623,7 +5349,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Mono-Perc-Solar-Panels.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Mono-Perc-Solar-Panels.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "mono-solar-panel-165-watt",
@@ -4763,7 +5490,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Mono-Perc-Solar-Panels.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Mono-Perc-Solar-Panels.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "mono-solar-panel-200-watt",
@@ -4867,7 +5595,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Mono-Perc-Solar-Panels.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Mono-Perc-Solar-Panels.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "mono-solar-panel-390-watt",
@@ -5008,7 +5737,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Mono-Perc-Solar-Panels.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Mono-Perc-Solar-Panels.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "mono-solar-panel-400-watt",
@@ -5105,7 +5835,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Mono-Perc-Solar-Panels.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Mono-Perc-Solar-Panels.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "1kw-12v-off-grid-solar-system",
@@ -5185,7 +5916,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-1kW24V-Off-Grid-Solar-System.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-1kW24V-Off-Grid-Solar-System.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "1kw-24v-hybrid-solar-system",
@@ -5271,7 +6003,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-2kW48V-Hybrid-Solar-System.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-2kW48V-Hybrid-Solar-System.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "1kw-24v-off-grid-solar-system",
@@ -5351,7 +6084,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-1kW24V-Off-Grid-Solar-System.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-1kW24V-Off-Grid-Solar-System.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "2kw-24v-off-grid-solar-system",
@@ -5430,7 +6164,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-2kW24V-Off-Grid-Solar-System.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-2kW24V-Off-Grid-Solar-System.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "2kw-48v-hybrid-solar-system",
@@ -5510,7 +6245,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-2kW48V-Hybrid-Solar-System.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-2kW48V-Hybrid-Solar-System.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "3kw-48v-hybrid-solar-system",
@@ -5589,7 +6325,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-2kW48V-Hybrid-Solar-System.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-2kW48V-Hybrid-Solar-System.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "3kw-48v-off-grid-solar-system",
@@ -5668,7 +6405,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-2kW24V-Off-Grid-Solar-System.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-2kW24V-Off-Grid-Solar-System.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "5kw-48v-off-grid-solar-system",
@@ -5747,7 +6485,8 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-2kW24V-Off-Grid-Solar-System.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-2kW24V-Off-Grid-Solar-System.png",
+    "source": "rsk-old-site"
   },
   {
     "slug": "5kw-96v-hybrid-solar-system",
@@ -5826,6 +6565,7 @@
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-2kW48V-Hybrid-Solar-System.png"
+    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-2kW48V-Hybrid-Solar-System.png",
+    "source": "rsk-old-site"
   }
 ]

@@ -5,7 +5,7 @@
 # Redirects from the old WordPress site (CLAUDE.md §5).
 # ---------------------------------------------------------------------------
 
-# Products — all 57, old slug (including the 6 lorem-ipsum ones) to the real one.
+# Products from the old site — 56, old slug (including the 6 lorem-ipsum ones) to the real one.
 Redirect 301 /product/proin-gravida-nibh-vel-veli-4/ /products/12v-28ah-e-bike-rechargeable-battery/
 Redirect 301 /product/utl-150ah-solar-inverter-battery-ust-1560/ /products/utl-150ah-solar-inverter-battery-ust-1560/
 Redirect 301 /product/proin-gravida-nibh-vel-veli/ /products/utl-170ah-inverter-battery-usb-17100/
