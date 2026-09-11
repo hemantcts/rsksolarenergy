@@ -7,6 +7,8 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 import SizeTable from '../components/content/SizeTable.astro';
 import utlLogo from '../assets/brand/utl-logo.png';
 import kangLogo from '../assets/brand/kang-logo.png';
+import googleLogo from '../assets/brand/google-logo.png';
+import justdialLogo from '../assets/brand/justdial-logo.png';
 import { BUSINESS, PRIMARY_PHONE } from '../config/business';
 import { SOLAR_CONFIG } from '../config/solar-config';
 import { monthlyBill } from '../lib/calculator/tariff';
@@ -225,11 +227,17 @@ const description = `Enter your PSPCL bill and see your system size, the PM Sury
     <div class="wrap grid-12">
       <div class="lg:col-span-4">
         <h2 id="reviews-h" class="t-h2">What customers say</h2>
-        <p class="mt-8 flex items-baseline gap-3">
-          <span class="t-readout text-signal">{BUSINESS.google.rating.toFixed(1)}</span>
-          <span class="text-rule">out of 5 from {BUSINESS.google.reviewCount} Google reviews</span>
-        </p>
-        <p class="mt-2 text-rule">Also {BUSINESS.justdial.rating.toFixed(1)} from {BUSINESS.justdial.reviewCount} reviews on Justdial.</p>
+        <div class="mt-8 flex items-center gap-3">
+          <Image src={googleLogo} alt="Google" width={28} height={28} class="h-7 w-7 shrink-0" />
+          <p class="flex items-baseline gap-3">
+            <span class="t-readout text-signal">{BUSINESS.google.rating.toFixed(1)}</span>
+            <span class="text-rule">out of 5 from {BUSINESS.google.reviewCount} Google reviews</span>
+          </p>
+        </div>
+        <div class="mt-4 flex items-center gap-3">
+          <Image src={justdialLogo} alt="Justdial" width={220} height={57} class="h-5 w-auto shrink-0" />
+          <p class="text-rule">{BUSINESS.justdial.rating.toFixed(1)} from {BUSINESS.justdial.reviewCount} reviews</p>
+        </div>
         <p class="mt-6 flex flex-col gap-2">
           <a href="/reviews/" class="underline">Read every review</a>
           <a href={BUSINESS.google.mapsUrl} class="underline" rel="noopener" target="_blank">Open our Google listing</a>

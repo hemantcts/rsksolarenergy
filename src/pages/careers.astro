@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { BUSINESS, PRIMARY_PHONE } from '../config/business';
+
+const path = '/careers/';
+
+const roles = [
+  { name: 'Solar installation technician', blurb: 'Rooftop mounting, wiring and commissioning for on-grid, hybrid and off-grid systems.' },
+  { name: 'Site surveyor / electrician', blurb: 'Assessing roofs and connections before a system is designed and quoted.' },
+  { name: 'Sales and customer support', blurb: 'Talking homeowners and businesses through sizing, subsidy and pricing.' },
+  { name: 'Warehouse and dispatch', blurb: 'Handling and dispatching panels, inverters, batteries and accessories.' },
+];
+---
+
+<BaseLayout
+  title={`Careers at RSK Solar Energy | Jobs in Solar, Mohali`}
+  description="RSK Solar Energy is growing across Punjab. Send your resume for installation, sales, survey and warehouse roles in Mohali and Tricity."
+  crumbs={[{ name: 'Careers', path }]}
+>
+  <header class="wrap pt-8 pb-10 lg:pt-12">
+    <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Careers', path }]} />
+    <h1 class="t-h1 mt-6">Careers at RSK Solar Energy</h1>
+    <p class="t-lead measure mt-5">
+      We are a growing {BUSINESS.brand} distributor and installer based in Phase 8-B, Mohali. We are not running a formal recruitment drive with fixed openings right now, but we hear from people interested in solar often enough that we would rather tell you how to reach us than leave you guessing.
+    </p>
+  </header>
+
+  <section class="sec-tight bg-white" aria-labelledby="roles-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="roles-h" class="t-h2">Where we usually need people</h2>
+        <p class="mt-4 text-slate">
+          These are the kinds of roles that come up as we take on more installations across Punjab. Send your resume even if nothing is open today — we keep it on file and reach out when a role matches.
+        </p>
+      </div>
+      <ul class="ruled lg:col-span-7 lg:col-start-6">
+        {
+          roles.map((r) => (
+            <li>
+              <span class="t-h3 block">{r.name}</span>
+              <span class="mt-1 block text-slate">{r.blurb}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec-tight" aria-labelledby="apply-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-7">
+        <h2 id="apply-h" class="t-h2">How to apply</h2>
+        <p class="mt-4 text-slate">
+          Send your resume and the role you are interested in by WhatsApp or email, with your location and experience (if any) in solar, electrical work, or sales. We reply if there is a fit, now or when a role opens.
+        </p>
+        <p class="mt-4 text-slate">
+          {BUSINESS.name}, {BUSINESS.address.street}, {BUSINESS.address.locality}, {BUSINESS.address.region}.
+        </p>
+      </div>
+      <div class="mt-6 flex flex-col gap-3 lg:col-span-4 lg:col-start-9 lg:mt-0">
+        <WhatsAppButton label="Send your resume on WhatsApp" message="Hi RSK, I would like to apply for a role at RSK Solar Energy. Here is a bit about my experience:" variant="secondary" />
+        <a class="btn btn-secondary" href={`mailto:${BUSINESS.email}?subject=Application%20-%20RSK%20Solar%20Energy`}>Email your resume</a>
+        <a class="btn-tertiary" href={`tel:${PRIMARY_PHONE.tel}`}>Or call {PRIMARY_PHONE.display}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

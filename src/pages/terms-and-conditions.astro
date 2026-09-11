@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { BUSINESS } from '../config/business';
+
+const path = '/terms-and-conditions/';
+const lastUpdated = '12 September 2026';
+---
+
+<BaseLayout
+  title={`Terms & Conditions | ${BUSINESS.name}`}
+  description="The terms that apply to using this website, and to the estimates, content and links it contains."
+  crumbs={[{ name: 'Terms & Conditions', path }]}
+>
+  <article class="wrap pt-8 pb-24 lg:pt-12">
+    <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Terms & Conditions', path }]} />
+    <h1 class="t-h1 mt-6">Terms &amp; Conditions</h1>
+    <p class="t-small mt-3 text-slate">Last updated {lastUpdated}.</p>
+
+    <div class="prose mt-8">
+      <p>
+        This page sets out the terms for using this website (rsksolarenergy.com), operated by {BUSINESS.name}, {BUSINESS.address.street}, {BUSINESS.address.locality}, {BUSINESS.address.region}. By using this website, you accept these terms. If you do not accept them, please do not use the website.
+      </p>
+
+      <h2>1. Information on this website is indicative, not a quotation</h2>
+      <p>
+        Prices, system sizes, subsidy amounts, generation estimates, payback periods and savings figures shown on this website — including in the calculator, size tables and guides — are estimates based on stated assumptions (current PSPCL tariffs, standard generation factors, and published subsidy rules). They are provided for general guidance only and do not constitute a binding quotation, offer, or financial or legal advice. Actual prices, subsidy amounts, generation and savings depend on your specific site, connection, equipment availability, and rules in force at the time of purchase, and can change without notice. A firm price and specification are confirmed only in a written quotation issued directly to you.
+      </p>
+
+      <h2>2. Government schemes and third-party rules</h2>
+      <p>
+        References to PM Surya Ghar, net metering, PSPCL tariffs, PM-KUSUM and similar government or utility schemes describe our understanding of publicly available rules at the time of writing. These schemes are administered by MNRE, PSPCL, PEDA and other bodies outside our control, and their rules, rates, subsidy amounts and processing times can change. We update this website when we become aware of changes, but we do not guarantee that every page reflects the latest rule at every moment, and we are not liable for any loss arising from a scheme change, delay, rejection or discontinuation that is outside our control. Please confirm current scheme terms with the relevant government body or with us directly before making a purchase decision based on them.
+      </p>
+
+      <h2>3. No warranty on website content</h2>
+      <p>
+        We take care to keep this website accurate, but it is provided "as is" without warranties of any kind, express or implied, as to its accuracy, completeness or fitness for a particular purpose. To the fullest extent permitted by law, {BUSINESS.name} disclaims liability for any error, omission, or interruption in the content or availability of this website, and for any loss or damage arising from your reliance on information found on it, except where such liability cannot be excluded under Indian law.
+      </p>
+
+      <h2>4. Reviews and testimonials</h2>
+      <p>
+        Customer reviews shown on this website (including on the <a href="/reviews/">reviews page</a>) are genuine reviews left by customers on Google or Justdial, reproduced as written. They reflect the experience of the individual reviewer and are not a guarantee that you will have the same experience.
+      </p>
+
+      <h2>5. Third-party links and brands</h2>
+      <p>
+        This website links to and references third-party sites and services, including Google, Justdial, WhatsApp, the PM Surya Ghar portal, and dealer-network partners such as Kang Electricals. We do not control these third parties, are not responsible for their content, availability or conduct, and linking to them does not imply endorsement in either direction. {BUSINESS.name} is an authorised distributor of {BUSINESS.brand} products but is an independent business, not owned or operated by UTL.
+      </p>
+
+      <h2>6. Intellectual property</h2>
+      <p>
+        The text, layout and original photography on this website belong to {BUSINESS.name} unless stated otherwise. Product images and brand marks (including the {BUSINESS.brand} and Kang Electricals logos) belong to their respective owners and are used to identify genuine products and partners we distribute or work with. You may not copy or reuse content from this website for commercial purposes without permission.
+      </p>
+
+      <h2>7. Quotations, orders and payment</h2>
+      <p>
+        Any quotation we issue is valid only for the period stated on it and is subject to site survey, equipment availability and confirmation of your connection details. An order is confirmed only once both parties agree on price, specification and payment terms in writing (including over WhatsApp or email). See our <a href="/refund-and-cancellation-policy/">Refund &amp; Cancellation Policy</a> for how cancellations are handled, and our <a href="/make-a-payment/">payment details</a> page for how to pay us directly.
+      </p>
+
+      <h2>8. Limitation of liability</h2>
+      <p>
+        To the fullest extent permitted by law, {BUSINESS.name}'s liability arising from your use of this website, or from any product or installation we supply, is limited to the amount you actually paid us for the relevant product or service. We are not liable for indirect or consequential loss, including loss of electricity savings, loss of subsidy, or business interruption, except where such exclusion is not permitted under Indian law. Nothing in these terms excludes or limits liability that cannot lawfully be excluded, including liability for fraud or for death or personal injury caused by our negligence.
+      </p>
+
+      <h2>9. Governing law</h2>
+      <p>These terms are governed by the laws of India. Any dispute arising from the use of this website or from a purchase from {BUSINESS.name} is subject to the exclusive jurisdiction of the courts at Mohali (S.A.S. Nagar), Punjab.</p>
+
+      <h2>10. Changes to these terms</h2>
+      <p>We may update these terms from time to time; the date at the top of this page shows when it was last revised.</p>
+
+      <h2>11. Contact</h2>
+      <p>
+        Questions about these terms: {BUSINESS.name}, {BUSINESS.address.street}, {BUSINESS.address.locality}, {BUSINESS.address.region}. Email <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>, phone <a href={`tel:${BUSINESS.phones[0].tel}`}>{BUSINESS.phones[0].display}</a>.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,82 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import upiQr from '../assets/brand/upi-qr.png';
+import { BUSINESS, PRIMARY_PHONE } from '../config/business';
+
+const path = '/make-a-payment/';
+const upiId = 'rsksolarenergy@icici';
+
+const bankDetails: [string, string][] = [
+  ['Account name', 'RSK SOLAR ENERGY'],
+  ['Account number', '167505000343'],
+  ['IFSC', 'ICIC0001675'],
+  ['Bank', 'ICICI Bank'],
+  ['UPI ID', upiId],
+];
+---
+
+<BaseLayout
+  title={`Make a Payment | ${BUSINESS.name}`}
+  description="RSK Solar Energy's bank account and UPI details for paying an agreed quotation or advance."
+  crumbs={[{ name: 'Make a Payment', path }]}
+>
+  <article class="wrap pt-8 pb-24 lg:pt-12">
+    <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Make a Payment', path }]} />
+    <h1 class="t-h1 mt-6">Make a payment</h1>
+    <p class="t-lead measure mt-5">
+      Use these details only to pay an amount you have already agreed with RSK Solar Energy on WhatsApp, phone or email — for an advance, a balance, or equipment you have ordered.
+    </p>
+
+    <div class="mt-8 border border-ink bg-white p-5 lg:p-6">
+      <p class="t-h3">Before you pay, please check</p>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-slate">
+        <li>You have a quotation or order confirmation from us stating the amount, for the system or product you are buying.</li>
+        <li>The account name shown when you pay reads <strong>RSK SOLAR ENERGY</strong>. If your banking app shows a different name, stop and call us before paying.</li>
+        <li>We will never call or message you asking for your card number, CVV, OTP or net-banking password. We do not need any of these to receive a payment from you — do not share them with anyone claiming to be from RSK.</li>
+        <li>After paying, send us a screenshot of the payment on WhatsApp so we can match it to your order.</li>
+      </ul>
+    </div>
+
+    <div class="mt-10 grid-12 grid">
+      <div class="lg:col-span-6">
+        <h2 class="t-h2">Bank transfer (NEFT / RTGS / IMPS)</h2>
+        <table class="spec-table mt-5">
+          <tbody>
+            {
+              bankDetails.slice(0, 4).map(([k, v]) => (
+                <tr>
+                  <th scope="row" class="text-slate">
+                    {k}
+                  </th>
+                  <td class="text-right font-medium">{v}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-12 lg:col-span-5 lg:col-start-8 lg:mt-0">
+        <h2 class="t-h2">UPI</h2>
+        <p class="mt-3 text-slate">Scan the code, or pay directly to the UPI ID below.</p>
+        <div class="mt-5 flex items-start gap-6">
+          <div class="w-40 shrink-0 border border-rule bg-white p-2">
+            <Image src={upiQr} alt={`UPI QR code for ${upiId}`} width={320} height={320} class="h-auto w-full" />
+          </div>
+          <div>
+            <p class="t-small text-slate">UPI ID</p>
+            <p class="t-value mt-1 break-all">{upiId}</p>
+            <p class="t-small mt-4 text-slate">Payee name</p>
+            <p class="t-value mt-1">RSK Solar Energy</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="mt-12 text-slate">
+      Questions about a payment or an invoice: call <a href={`tel:${PRIMARY_PHONE.tel}`} class="underline">{PRIMARY_PHONE.display}</a> or email <a href={`mailto:${BUSINESS.email}`} class="underline">{BUSINESS.email}</a>. See our <a href="/refund-and-cancellation-policy/" class="underline">Refund &amp; Cancellation Policy</a> for how cancellations are handled.
+    </p>
+  </article>
+</BaseLayout>

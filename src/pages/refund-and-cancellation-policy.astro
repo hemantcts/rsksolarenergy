@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { BUSINESS } from '../config/business';
+
+const path = '/refund-and-cancellation-policy/';
+const lastUpdated = '12 September 2026';
+---
+
+<BaseLayout
+  title={`Refund & Cancellation Policy | ${BUSINESS.name}`}
+  description="How advance payments, order cancellations and refunds work when you buy solar equipment or an installation from RSK Solar Energy."
+  crumbs={[{ name: 'Refund & Cancellation Policy', path }]}
+>
+  <article class="wrap pt-8 pb-24 lg:pt-12">
+    <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Refund & Cancellation Policy', path }]} />
+    <h1 class="t-h1 mt-6">Refund &amp; Cancellation Policy</h1>
+    <p class="t-small mt-3 text-slate">Last updated {lastUpdated}.</p>
+
+    <div class="prose mt-8">
+      <p>
+        This policy explains how we handle cancellations and refunds for orders placed with {BUSINESS.name}, whether for equipment supply alone or a full installation. It applies alongside our <a href="/terms-and-conditions/">Terms &amp; Conditions</a>. Where it conflicts with a written quotation or agreement you have signed with us, the signed agreement takes priority.
+      </p>
+
+      <h2>Before you pay an advance</h2>
+      <p>
+        We do not take payment until you have agreed the system size, specification and price with us, and a site visit has confirmed the details relevant to your connection (where one is needed). Ask us anything about the order before you pay — it is easier to change a plan before work starts than after.
+      </p>
+
+      <h2>Cancelling before equipment is ordered</h2>
+      <p>
+        If you cancel before we have ordered equipment specifically for your order or begun any site work, we refund any advance you have paid, less any bank or payment-gateway charges actually incurred in collecting and returning the payment.
+      </p>
+
+      <h2>Cancelling after equipment is ordered or work has begun</h2>
+      <p>
+        Once we have ordered equipment for your specific order, booked a crew, or begun site work, we will have incurred real cost. In that case, we deduct the cost of equipment already ordered or delivered, any restocking charge our supplier applies, and the cost of work already done, from your refund. We will tell you the amount involved before deducting it, and refund the balance, if any.
+      </p>
+
+      <h2>Manufacturing and product defects</h2>
+      <p>
+        Panels, inverters, batteries and other {BUSINESS.brand} products carry the manufacturer's own warranty. If a product is defective, we coordinate the manufacturer's warranty process on your behalf; this policy does not limit any right you have under that warranty or under consumer protection law. It is not a general right to return equipment that is working as intended.
+      </p>
+
+      <h2>How refunds are paid</h2>
+      <p>
+        Refunds are paid to the same bank account or payment method the original payment was made from, normally within 7–14 working days of the refund being agreed. We do not refund in cash for payments received by bank transfer or UPI.
+      </p>
+
+      <h2>PM Surya Ghar subsidy</h2>
+      <p>
+        The subsidy is credited by government agencies directly to your bank account after inspection, not paid to us and passed on. If a subsidy is delayed, reduced or rejected for reasons outside our control (for example, a change in scheme rules, or a mismatch in your own paperwork), that is a matter between you and the disbursing authority; see our <a href="/pm-surya-ghar-subsidy-punjab/">subsidy guide</a> for how the process works.
+      </p>
+
+      <h2>How to request a cancellation or refund</h2>
+      <p>
+        Contact us on WhatsApp or by phone with your order details as soon as possible. We aim to confirm the outcome of a cancellation request within 3 working days.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        {BUSINESS.name}, {BUSINESS.address.street}, {BUSINESS.address.locality}, {BUSINESS.address.region}. Email <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>, phone <a href={`tel:${BUSINESS.phones[0].tel}`}>{BUSINESS.phones[0].display}</a>.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

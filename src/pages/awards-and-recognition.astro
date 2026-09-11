@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBlock from '../components/content/CtaBlock.astro';
+import { BUSINESS } from '../config/business';
+
+const path = '/awards-and-recognition/';
+---
+
+<BaseLayout
+  title={`Awards & Recognition | ${BUSINESS.name}`}
+  description="Awards, recognition and event appearances for RSK Solar Energy, Mohali's UTL Solar distributor."
+  crumbs={[{ name: 'Awards & Recognition', path }]}
+  noindex={true}
+>
+  <header class="wrap pt-8 pb-10 lg:pt-12">
+    <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Awards & Recognition', path }]} />
+    <h1 class="t-h1 mt-6">Awards &amp; recognition</h1>
+    <p class="t-lead measure mt-5">
+      This page is reserved for RSK's award and event photos. It goes live once the specific awards, dates and photographs are added — we don't publish a recognition page with placeholder claims.
+    </p>
+  </header>
+
+  <section class="sec-tight" aria-labelledby="pending-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-7">
+        <h2 id="pending-h" class="t-h2">Coming soon</h2>
+        <p class="mt-4 text-slate">
+          In the meantime, see real customer feedback on our <a href="/reviews/" class="underline">reviews page</a>, or read more <a href="/about/" class="underline">about RSK</a>.
+        </p>
+      </div>
+      <aside class="mt-8 lg:col-span-4 lg:col-start-9 lg:mt-0">
+        <CtaBlock />
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

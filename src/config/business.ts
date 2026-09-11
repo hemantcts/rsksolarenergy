@@ -68,6 +68,16 @@ export const BUSINESS = {
   serviceArea: ['Mohali', 'Kharar', 'Zirakpur', 'Derabassi', 'Chandigarh', 'Panchkula'],
   brand: 'UTL Solar',
 
+  /**
+   * Social profile URLs. Left null until RSK supplies the real profile/channel URLs — a social
+   * link is never shown until it is genuinely confirmed (CLAUDE.md §6, same rule as Justdial's URL).
+   */
+  social: {
+    facebook: null as string | null,
+    instagram: null as string | null,
+    youtube: null as string | null,
+  },
+
   /** Registration numbers, shown in the footer and About for credibility. Confirmed by RSK. */
   registrations: {
     gst: '03GKGPK1207P1Z4',
