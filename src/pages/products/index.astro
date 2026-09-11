@@ -1,8 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import WhatsAppButton from '../../components/WhatsAppButton.astro';
-import { CATEGORIES, PRODUCTS, keyFacts, productsIn } from '../../data/products';
+import { CATEGORIES, PRODUCTS, PRODUCT_IMAGES, keyFacts, productsIn } from '../../data/products';
 import { productMessage, whatsappUrl } from '../../lib/whatsapp';
 import { abs } from '../../lib/seo';
 
@@ -62,7 +63,10 @@ const itemList = {
           <ul class="ruled lg:col-span-9">
             {productsIn(c.id).map((p) => (
               <li class="grid gap-x-6 gap-y-3 md:grid-cols-12">
-                <div class="md:col-span-5">
+                <a href={`/products/${p.slug}/`} class="block w-20 shrink-0 border border-rule bg-white md:col-span-2 md:w-full" aria-hidden="true" tabindex="-1">
+                  {PRODUCT_IMAGES[p.slug] && <Image src={PRODUCT_IMAGES[p.slug]} alt="" width={160} height={160} loading="lazy" class="aspect-square w-full object-contain p-2" />}
+                </a>
+                <div class="md:col-span-3">
                   <a href={`/products/${p.slug}/`} class="t-h3 underline decoration-rule underline-offset-4 hover:decoration-ink">
                     {p.title}
                   </a>

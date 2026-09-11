@@ -11,7 +11,13 @@
   --color-paper: #f3f5f6;
   --color-white: #ffffff;
   --color-rule: #c9d3d8;
-  --color-signal: #f5b700;
+  /* Primary brand/action colour: the exact green sampled from the RSK logo (#10824c), not an
+   * invented "eco-green". White text on it, not ink — at this depth of green, ink text falls
+   * short of AA contrast (~3.6:1) while white clears it (~4.9:1). */
+  --color-signal: #10824c;
+  --color-signal-hover: #0b6b3d;
+  /* Minor accent only (DESIGN.md §3) — at most a small highlight, never a CTA fill. */
+  --color-accent: #f5b700;
   --color-transparent: transparent;
   --color-current: currentColor;
 
@@ -104,7 +110,7 @@
 
   ::selection {
     background: var(--color-signal);
-    color: var(--color-ink);
+    color: var(--color-white);
   }
 
   input,
@@ -290,12 +296,30 @@
   }
   .btn-primary {
     background: var(--color-signal);
-    color: var(--color-ink);
+    color: var(--color-white);
     border: 1px solid var(--color-signal);
   }
   .btn-primary:hover {
-    background: #e0a800; /* signal, one step darker, hover state only */
-    border-color: #e0a800;
+    background: var(--color-signal-hover);
+    border-color: var(--color-signal-hover);
+  }
+  .btn-primary:focus-visible {
+    outline-color: var(--color-ink);
+  }
+
+  /* A restrained hover lift for bordered content blocks (brand/partner cards etc.) — transform
+   * and border-color only, per MOTION.md §5, so it costs nothing on the low-end Android this
+   * site is built for and does nothing at all under prefers-reduced-motion. */
+  .lift-on-hover {
+    transition:
+      transform 150ms ease,
+      border-color 150ms ease;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .lift-on-hover:hover {
+      transform: translateY(-3px);
+      border-color: var(--color-ink);
+    }
   }
   .btn-secondary {
     background: transparent;

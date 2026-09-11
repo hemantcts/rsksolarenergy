@@ -1,13 +1,12 @@
 ---
-/** Shown next to any price while pricing is still placeholder data. Disappears once RSK's prices are in. */
-import { SOLAR_CONFIG } from '../config/solar-config';
-const show = SOLAR_CONFIG.pricing.status === 'placeholder';
+/**
+ * Customer-facing caveat shown next to every price on the site. Every figure here is an
+ * estimate — RSK's actual quote depends on the roof, mounting structure, cable runs and panel
+ * selection, so this note is permanent, not a temporary "draft data" banner.
+ */
 ---
 
-{
-  show && (
-    <p class="calc-draft t-small" role="note">
-      <strong>Draft prices.</strong> These are placeholders until RSK confirms its price list. Do not quote them.
-    </p>
-  )
-}
+<p class="calc-draft t-small" role="note">
+  <strong>Estimated price range.</strong> Prices are indicative and subject to change. Contact us for the latest pricing and a customised quotation.
+</p>
+

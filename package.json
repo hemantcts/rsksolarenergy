@@ -7,7 +7,6 @@
   "scripts": {
     "dev": "astro dev",
     "build": "npm run generate && astro build",
-    "build:draft": "npm run generate && cross-env ALLOW_PLACEHOLDERS=1 astro build",
     "preview": "astro preview",
     "check": "astro check",
     "test": "vitest run",

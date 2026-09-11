@@ -33,6 +33,9 @@ const fmt = (d: string) => new Date(`${d}T00:00:00Z`).toLocaleDateString('en-IN'
                 </a>
               </h2>
               <p class="mt-2 text-slate">{p.data.description}</p>
+              {p.data.tags.length > 0 && (
+                <p class="t-small mt-2 text-slate">{p.data.tags.join(', ')}</p>
+              )}
             </div>
           </li>
         ))

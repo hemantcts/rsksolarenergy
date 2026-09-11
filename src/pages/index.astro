@@ -48,7 +48,7 @@ const description = `UTL Solar distributor in Phase 8-B, Mohali. Enter your PSPC
       </div>
 
       <aside class="on-ink bleed-x bleed-right-lg bg-ink text-white lg:col-span-5" aria-labelledby="identity-panel-h">
-        <div class="cell-grid h-full lg:grid-rows-[repeat(5,auto)_1fr]">
+        <div class="cell-grid h-full lg:grid-rows-[repeat(7,auto)_1fr]">
           <div class="col-span-4 px-6 pt-10 pb-8 lg:px-10 lg:pt-16">
             <p class="t-small text-rule">{BUSINESS.brand} distributor</p>
             <h2 id="identity-panel-h" class="t-h2 mt-2">RSK Solar Energy</h2>
@@ -61,24 +61,45 @@ const description = `UTL Solar distributor in Phase 8-B, Mohali. Enter your PSPC
             <span class="t-small text-rule">Founded</span>
           </div>
           <div class="col-span-2 px-6 py-5 lg:px-10">
-            <span class="t-value block text-2xl">{BUSINESS.installs.commercial}</span>
-            <span class="t-small text-rule">Commercial &amp; industrial installs</span>
-          </div>
-          <div class="col-span-2 px-6 py-5 lg:px-10">
-            <span class="t-value block text-2xl">{BUSINESS.installs.residential}</span>
-            <span class="t-small text-rule">Residential installs</span>
-          </div>
-          <div class="col-span-2 px-6 py-5 lg:px-10">
             <RatingBadge class="inline-flex" />
             <span class="t-small mt-1 block text-rule">on Google</span>
           </div>
+          <div class="col-span-2 px-6 py-5 lg:px-10">
+            <a href="/commercial-solar-punjab/" class="no-underline">
+              <span class="t-value block text-2xl">{BUSINESS.installs.commercial}</span>
+              <span class="t-small text-rule underline">Commercial &amp; industrial installs</span>
+            </a>
+          </div>
+          <div class="col-span-2 px-6 py-5 lg:px-10">
+            <a href="/solar-calculator/" class="no-underline">
+              <span class="t-value block text-2xl">{BUSINESS.installs.residential}</span>
+              <span class="t-small text-rule underline">Residential installs</span>
+            </a>
+          </div>
+          <div class="col-span-4 px-6 py-5 lg:px-10">
+            <a href="/solar-pumps/" class="no-underline">
+              <span class="t-value block text-2xl">{BUSINESS.installs.solarPumps}</span>
+              <span class="t-small text-rule underline">Solar pump &amp; tubewell installations for farmers</span>
+            </a>
+          </div>
+          {
+            reviews[0] && (
+              <div class="col-span-4 px-6 py-6 lg:px-10">
+                <blockquote>
+                  <p class="text-rule">&ldquo;{reviews[0].text}&rdquo;</p>
+                </blockquote>
+                <p class="t-small mt-3 text-rule">
+                  {reviews[0].name}, Google review{reviews[0].install && ` — ${reviews[0].install}`}
+                </p>
+              </div>
+            )
+          }
           <div class="col-span-4 px-6 py-6 text-rule lg:px-10">
             <p class="t-small">Installation figures as of {BUSINESS.installs.asOf}.</p>
             <p class="mt-4"><a href="/about/" class="underline">More about RSK</a></p>
             <p class="mt-2"><a href="/products/" class="underline">What we supply</a></p>
+            <p class="mt-2"><a href="/reviews/" class="underline">Read every review</a></p>
           </div>
-          {/* Empty cells continue the panel grid to the bottom of the hero on desktop. */}
-          {[1, 2, 3, 4].map(() => <div class="hidden lg:block lg:min-h-24" />)}
         </div>
       </aside>
     </div>
@@ -251,6 +272,36 @@ const description = `UTL Solar distributor in Phase 8-B, Mohali. Enter your PSPC
           ))
         }
       </ul>
+    </div>
+  </section>
+
+  <!-- Brands and dealer network: the UTL association, and a real named dealer partner. -->
+  <section class="sec-tight bg-white border-t border-rule" aria-labelledby="brands-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="brands-h" class="t-h2">Brands and dealer network</h2>
+        <p class="mt-4 text-slate">Who we distribute for, and who we work with across Punjab.</p>
+      </div>
+      <div class="lg:col-span-7 lg:col-start-6 grid gap-6 sm:grid-cols-2">
+        <div class="border border-rule p-6 lift-on-hover">
+          <p class="t-small text-slate">Authorised distributor of</p>
+          <p class="t-h2 mt-2">UTL Solar</p>
+          <p class="mt-3 text-slate">
+            RSK Solar Energy distributes and installs {BUSINESS.brand} panels, inverters, batteries and complete systems. RSK is an independent distributor — not a UTL-owned outlet.
+          </p>
+          <p class="mt-4"><a href="/utl-solar-distributor-punjab/" class="underline">About our UTL distributorship</a></p>
+        </div>
+        <div class="border border-rule p-6 lift-on-hover">
+          <p class="t-small text-slate">Dealer network partner</p>
+          <p class="t-h2 mt-2">Kang Electricals</p>
+          <p class="mt-3 text-slate">
+            Based in Morinda, Punjab, Kang Electricals stocks solar products, electric bikes and home appliances, including UTL — an important part of RSK's dealer network in the Rupnagar area.
+          </p>
+          <p class="mt-4">
+            <a href="https://kangelectricals.in/" rel="noopener" target="_blank" class="underline">Visit kangelectricals.in</a>
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 

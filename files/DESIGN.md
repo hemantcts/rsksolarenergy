@@ -45,22 +45,35 @@ families, blue-sky-and-panel stock imagery.
 
 ## 3. Colour
 
+> **Correction, 2026-09-12 — RSK override.** This section originally specified yellow
+> (`#F5B700`) as `--signal` and explicitly ruled out green ("the category default...
+> signals generic renewables brochure"). RSK has since directed that the site use the
+> actual green from the RSK logo as the primary brand/action colour, with yellow
+> permitted only as a minor accent. The reasoning below about *why* an invented,
+> generic eco-green would be wrong still holds — the difference is that `#10824C` is
+> not an invented eco-green, it is RSK's own mark, sampled directly from the logo
+> file. Values updated accordingly; the "no green" rule is superseded.
+
 Six values. That is the whole palette.
 
 ```css
---ink:    #0D1B2A;  /* Deep panel blue-black. Text, headings, dark surfaces. */
---slate:  #3E5563;  /* Secondary text, captions, inactive states.            */
---paper:  #F3F5F6;  /* Cool page ground. Section alternation.                */
---white:  #FFFFFF;  /* Cards, tables, elevated surfaces.                     */
---rule:   #C9D3D8;  /* Hairlines, table rules, grid lines, borders.          */
---signal: #F5B700;  /* Generated energy. Primary CTA. Used sparingly.        */
+--ink:    #0D1B2A;  /* Deep panel blue-black. Text, headings, dark surfaces.        */
+--slate:  #3E5563;  /* Secondary text, captions, inactive states.                   */
+--paper:  #F3F5F6;  /* Cool page ground. Section alternation.                       */
+--white:  #FFFFFF;  /* Cards, tables, elevated surfaces.                            */
+--rule:   #C9D3D8;  /* Hairlines, table rules, grid lines, borders.                 */
+--signal: #10824C;  /* RSK's own logo green. Primary CTA/brand colour. Text: white. */
 ```
+
+`#F5B700` (the original yellow) remains available as `--accent`, for a minor highlight
+only — never a button fill, never more than one small use per viewport.
 
 ### Rules
 
-**`--signal` is a fill, never text.** Ink on signal (`#0D1B2A` on `#F5B700`) is high
-contrast and reads as instrument-panel / warning-label, which is the right vernacular.
-Signal as text colour fails contrast and looks cheap.
+**`--signal` is a fill, and its text is white, not ink.** At this depth of green, ink
+text falls short of AA contrast (~3.6:1); white clears it (~4.9:1). This is the one
+respect in which the signal rule changed along with the colour — the original yellow
+was light enough for dark text; this green is not.
 
 **Signal appears at most twice per viewport.** Primary CTA, and the one number that
 matters most in that section. That is it. The moment it decorates, it stops signalling.
@@ -71,11 +84,14 @@ serif display and a clay accent is currently the single most recognisable
 AI-generated-design signature, and it is also wrong for this subject.
 
 **No gradients.** Not on buttons, not on backgrounds, not as decoration. Flat fills
-only. Solar sites reach for orange-to-yellow gradients by reflex; that reflex is the
-thing to avoid.
+only. Solar sites reach for green-to-yellow gradients by reflex; that reflex is still
+the thing to avoid, signal colour or not.
 
-**No green.** The eco-green palette is the category default and it signals "generic
-renewables brochure" — exactly the read to escape.
+**Not an invented eco-green.** The objection was never to green as a hue — it was to
+reaching for a generic, unsourced "renewable energy" green with no connection to the
+brand. `#10824C` is different: it is RSK's own mark, sampled from the logo file, not
+picked off a category mood board. Do not lighten, saturate or otherwise "improve" it
+away from the sampled value.
 
 ### Dark surfaces
 Use `--ink` as a full-bleed section ground for moments that want weight: the

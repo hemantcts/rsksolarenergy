@@ -56,15 +56,13 @@ export const BUSINESS = {
     url: null as string | null,
   },
 
-  /**
-   * Installation counts. Source: RSK's own 2023 website copy.
-   * They are lower bounds and still true, but should be updated.
-   * TODO: current figures from RSK.
-   */
+  /** Installation counts. Confirmed by RSK, 2026-09-12. */
   installs: {
-    commercial: '80+',
-    residential: '50+',
-    asOf: '2023',
+    commercial: '240+',
+    residential: '150+',
+    /** Solar water pumps and tubewells for agricultural customers. */
+    solarPumps: '100+',
+    asOf: '2026',
   },
 
   serviceArea: ['Mohali', 'Kharar', 'Zirakpur', 'Derabassi', 'Chandigarh', 'Panchkula'],

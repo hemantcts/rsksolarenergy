@@ -1,4 +1,16 @@
 import raw from './products.json';
+import type { ImageMetadata } from 'astro';
+
+/**
+ * Real product photos, sourced from the old RSK site and from UTL's own catalogue site
+ * (upsinverter.com), re-encoded to webp and hosted locally rather than hotlinked — see
+ * fetch-product-images.mjs in _archive/old-site-scrape for how these were produced. Not stock:
+ * every image is the actual product it's shown against.
+ */
+const imageModules = import.meta.glob<{ default: ImageMetadata }>('/src/assets/products/*.webp', { eager: true });
+export const PRODUCT_IMAGES: Record<string, ImageMetadata> = Object.fromEntries(
+  Object.entries(imageModules).map(([path, mod]) => [path.split('/').pop()!.replace(/\.webp$/, ''), mod.default]),
+);
 
 export type ProductCategory =
   | 'solar-systems'

@@ -42,4 +42,5 @@ export const F = {
   founded: String(BUSINESS.foundedYear),
   installsCommercial: BUSINESS.installs.commercial,
   installsResidential: BUSINESS.installs.residential,
+  installsSolarPumps: BUSINESS.installs.solarPumps,
 } as const;

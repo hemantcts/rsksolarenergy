@@ -107,9 +107,9 @@ const schema = [
       <p class="calc-fineprint mt-4">
         <strong>You pay the full price first.</strong> The subsidy is credited to your bank account {cfg.subsidy.disbursementDays[0]}–{cfg.subsidy.disbursementDays[1]} days after the PSPCL inspection.
       </p>
-      {!s.primaryGrossConfirmed && <div class="mt-4"><DraftNote /></div>}
+      <div class="mt-4"><DraftNote /></div>
       {s.primaryGrossConfirmed && (
-        <p class="t-small mt-4 text-slate">Price confirmed by RSK from an itemised quote, not a placeholder estimate.</p>
+        <p class="t-small mt-4 text-slate">This size is priced from one of RSK's own itemised quotes.</p>
       )}
     </div>
     <aside class="lg:col-span-4 lg:col-start-9">

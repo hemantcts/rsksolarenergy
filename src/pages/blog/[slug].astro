@@ -27,11 +27,12 @@ const path = `/blog/${entry.id}/`;
   faq={d.faq}
   updated={d.updated ?? d.published}
   ogType="article"
-  related={[
+  related={d.related.length ? d.related : [
     { href: '/solar-calculator/', label: 'Work out your own numbers in the calculator' },
     { href: '/pm-surya-ghar-subsidy-punjab/', label: 'PM Surya Ghar subsidy in Punjab' },
     { href: '/blog/', label: 'All guides' },
   ]}
+  {...(d.cta ? { cta: d.cta } : {})}
 >
   <Content />
 </GuideLayout>

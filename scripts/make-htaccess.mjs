@@ -69,13 +69,23 @@ Redirect 301 /hybrid-solar-systems-with-battery-backup-innovative-and-sustainabl
   Header always set Content-Security-Policy "frame-ancestors 'none'"
 </IfModule>
 
-# HTTPS + www→apex (adjust if RSK prefers www).
+# HTTPS + www→apex (adjust if RSK prefers www), then trailing-slash canonicalisation.
+# Astro is built with trailingSlash: 'always' (every page emits as a directory with its own
+# index.html — see astro.config.mjs), so the canonical URL for every page ends in "/". This
+# adds the slash for anyone who requests a page without one, /asda included, whether or not
+# that path actually exists — a real page 301s to itself+/, a typo still 301s to itself+/ and
+# then hits the normal 404 there. Real files (anything with an extension: .css, .js, .png,
+# .xml, .txt, .ico, .woff2, ...) are left alone, so assets and robots.txt/sitemap.xml are
+# never touched. QSA preserves any query string across the redirect.
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteCond %{HTTPS} off
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
   RewriteCond %{HTTP_HOST} ^www\\.(.+)$ [NC]
   RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+  RewriteCond %{REQUEST_URI} !/$
+  RewriteCond %{REQUEST_URI} !\\.[a-zA-Z0-9]+$
+  RewriteRule ^(.*)$ $1/ [R=301,L,QSA]
 </IfModule>
 
 # Static asset caching. HTML is left to Astro's own headers / short cache so content updates

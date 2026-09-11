@@ -2,7 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaBlock from '../../components/content/CtaBlock.astro';
-import { PRODUCTS, categoryName, productsIn, type Product } from '../../data/products';
+import { Image } from 'astro:assets';
+import { PRODUCTS, PRODUCT_IMAGES, categoryName, productsIn, type Product } from '../../data/products';
 import { productMessage } from '../../lib/whatsapp';
 import { product as productSchema } from '../../lib/seo';
 
@@ -52,6 +53,15 @@ const isNumeric = (v: string) => /^[<>≥≤~±]?\s*[\d.,/×x*\-–% ]+\s*(v|a|w
   </header>
 
   <div class="wrap grid-12 pb-16 lg:pb-24">
+    {
+      PRODUCT_IMAGES[p.slug] && (
+        <div class="lg:col-span-4 lg:col-start-9 lg:row-start-1 lg:order-2 mb-8 lg:mb-0">
+          <div class="border border-rule bg-white lg:sticky lg:top-8">
+            <Image src={PRODUCT_IMAGES[p.slug]} alt={`${p.title}, ${p.brand}${p.model ? ` model ${p.model}` : ''}`} width={480} height={480} loading="eager" fetchpriority="high" class="aspect-square w-full object-contain p-6" />
+          </div>
+        </div>
+      )
+    }
     <div class="lg:col-span-7">
       {
         p.specs && (

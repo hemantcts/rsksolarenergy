@@ -4,7 +4,7 @@
  * Only numbers and fixed copy are interpolated — never user-typed text.
  */
 import { BUSINESS } from '../../config/business';
-import { SOLAR_CONFIG, placeholderGroups, type SolarConfig } from '../../config/solar-config';
+import { SOLAR_CONFIG, type SolarConfig } from '../../config/solar-config';
 import { calculatorMessage, whatsappUrl } from '../whatsapp';
 import { digits, inr, inrRange, inrWords, kw, yearsRange } from './format';
 import type { CalcInput, CalcResult, Note, Range } from './types';
@@ -70,14 +70,12 @@ function assumptions(config: SolarConfig): string {
   return `Estimate based on ${digits(g.annualYieldPerKwp)} units per kW per year before an ${Math.round((1 - g.deratingFactor) * 100)}% allowance for losses, the PSPCL ${config.pspcl.tariffYear} tariff with ${config.pspcl.electricityDutyPercent}% electricity duty, a ${pr.tariffEscalationPercent}% yearly tariff rise and ${pr.panelDegradationPercent}% yearly panel degradation. Your actual figures depend on roof direction, shading and how you use power. A free site survey firms this up.`;
 }
 
-function draftBanner(config: SolarConfig, priceConfirmed: boolean): string {
-  // "System pricing" only stays on the placeholder list here when THIS result's own price is
-  // still an estimate — a hybrid 3/5/6 kW result uses RSK's real confirmed price and should
-  // not be flagged as a placeholder just because on-grid/off-grid pricing still is.
-  const groups = placeholderGroups(config).filter((g) => !(g === 'system pricing' && priceConfirmed));
-  if (!groups.length) return '';
-  const list = groups.join(', ');
-  return `<p class="calc-draft" role="note"><strong>Draft figures.</strong> ${esc(list.charAt(0).toUpperCase() + list.slice(1))} ${groups.length > 1 ? 'are' : 'is'} placeholder data until RSK confirms it. Do not quote these numbers.</p>`;
+// Customer-facing note. Every price this calculator shows is an estimate — even the confirmed
+// hybrid figures vary with roof, mounting and cable runs — so this always renders; it is not a
+// "this data isn't ready yet" warning, and it never names which internal config groups are or
+// aren't confirmed (that distinction matters for our own launch checklist, not for a customer).
+function draftBanner(): string {
+  return `<p class="calc-draft" role="note"><strong>Estimated price range.</strong> Prices are indicative and subject to change. Contact us for the latest pricing and a customised quotation.</p>`;
 }
 
 function waButton(r: CalcResult, input: CalcInput, district: string | undefined, label: string): string {
@@ -200,7 +198,7 @@ export function renderResult(r: CalcResult, input: CalcInput, o: RenderOptions):
   const notes = r.notes.filter((n) => o.variant === 'full' || ['capped-by-load', 'subsidy-ineligible', 'zero-bill-sizing'].includes(n.code));
 
   return `
-${draftBanner(config, r.priceConfirmed)}
+${draftBanner()}
 <div class="calc-verdict">
   <p class="calc-kicker">Recommended system</p>
   <p class="calc-system"><span class="t-value">${esc(String(r.systemKw))}</span> kW ${TYPE[r.systemType]}</p>
