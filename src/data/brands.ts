@@ -62,7 +62,6 @@ export const BRAND_CATEGORIES: BrandCategory[] = [
     brands: [
       { name: 'Falcon', logo: falconLogo },
       { name: 'Duke', logo: dukeLogo },
-      { name: 'CG', logo: null },
     ],
   },
 ];

@@ -79,8 +79,15 @@ const description = `Enter your PSPCL bill and see your system size, the PM Sury
             <span class="t-small text-rule">Founded</span>
           </div>
           <div class="col-span-2 px-6 py-5 lg:px-10">
-            <RatingBadge class="inline-flex" />
-            <span class="t-small mt-1 block text-rule">on Google</span>
+            <div class="flex items-center gap-2">
+              <Image src={googleLogo} alt="Google" width={20} height={20} class="h-5 w-5 shrink-0" />
+              <RatingBadge class="inline-flex" compact />
+            </div>
+            <div class="mt-2 flex items-center gap-2">
+              <Image src={justdialLogo} alt="Justdial" width={72} height={18} class="h-4 w-auto shrink-0" />
+              <span class="t-value">{BUSINESS.justdial.rating.toFixed(1)}</span>
+              <span class="rating-count t-small">({BUSINESS.justdial.reviewCount})</span>
+            </div>
           </div>
           <div class="col-span-2 px-6 py-5 lg:px-10">
             <a href="/commercial-solar-punjab/" class="no-underline">

@@ -387,6 +387,9 @@
   .on-ink .spec-table tbody th {
     color: var(--color-rule);
   }
+  .on-ink .rating-count {
+    color: var(--color-rule);
+  }
   .table-scroll {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
