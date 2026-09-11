@@ -12,7 +12,7 @@ export function monthlyGenerationPerKw(config: SolarConfig): number {
 
 const ABSOLUTE_MAX_KW = 5000;
 
-/** The size ladder RSK actually installs for a given system type (on-grid/hybrid start at 3 kW). */
+/** The size ladder RSK actually installs for a given system type (on-grid starts at 3 kW). */
 export function sizesForType(type: SystemType, config: SolarConfig): number[] {
   const min = config.sizing.minKwByType[type];
   return [...config.sizing.standardSizesKw].filter((s) => s >= min).sort((a, b) => a - b);

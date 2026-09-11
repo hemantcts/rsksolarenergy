@@ -5,7 +5,7 @@ import { PRODUCTS, type Product } from '../../data/products';
 interface Props {
   type: 'hybrid' | 'off-grid';
   /** Filters out catalogue kits below this size — used where the table represents systems RSK
-   * actually installs (RSK's on-grid/hybrid floor is 3 kW; off-grid has no such floor). */
+   * actually installs (RSK's on-grid floor is 3 kW; hybrid and off-grid have no such floor). */
   minKw?: number;
 }
 const { type, minKw } = Astro.props;

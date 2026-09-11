@@ -35,7 +35,7 @@ export const F = {
   yieldRaw: digits(C.generation.annualYieldPerKwp),
   sqFtPerKw: String(C.generation.sqFtPerKw),
   zeroTarget: String(C.sizing.zeroBillTargetUnits),
-  /** Smallest system RSK installs, by type — on-grid and hybrid share a floor; off-grid is lower. */
+  /** Smallest system RSK installs, by type — on-grid floors at 3 kW; hybrid and off-grid go lower. */
   onGridMinKw: String(C.sizing.minKwByType['on-grid']),
   hybridMinKw: String(C.sizing.minKwByType.hybrid),
   offGridMinKw: String(C.sizing.minKwByType['off-grid']),

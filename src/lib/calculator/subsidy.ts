@@ -32,7 +32,10 @@ export function computeSubsidy(
   if (category !== 'domestic' && category !== 'society') {
     return { amount: 0, scheme: 'none', ineligibleReason: 'category' };
   }
-  if (systemType !== 'on-grid') {
+  // PM Surya Ghar requires a grid-connected, net-metered system. RSK's hybrid systems are
+  // grid-tied with a battery added (still net-metered), so they qualify; genuinely disconnected
+  // off-grid systems do not. Confirmed by RSK: their hybrid installs receive the subsidy.
+  if (systemType === 'off-grid') {
     return { amount: 0, scheme: 'none', ineligibleReason: 'system-type' };
   }
   if (category === 'domestic' && !ownsRoof) {

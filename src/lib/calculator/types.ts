@@ -80,6 +80,8 @@ export interface CalcResult {
   minimumBillAboveThreshold?: number;
 
   systemKw: number;
+  /** True when grossCost is RSK's confirmed exact price for this size/type, not a placeholder estimate. */
+  priceConfirmed: boolean;
   /** Size that would offset 100% of annual consumption. */
   offsetKw: number;
   strategy: 'zero-bill' | 'offset';

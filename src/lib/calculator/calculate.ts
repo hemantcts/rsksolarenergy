@@ -27,7 +27,20 @@ function priceBands(type: SystemType, config: SolarConfig): readonly PriceBand[]
   return config.pricing.onGrid;
 }
 
+/** RSK's confirmed exact total for this size and type, if one has been supplied. */
+export function confirmedPrice(kw: number, type: SystemType, config: SolarConfig = SOLAR_CONFIG): number | null {
+  if (type !== 'hybrid') return null;
+  return config.pricing.hybridConfirmed.find((p) => p.kw === kw)?.amount ?? null;
+}
+
+/** True when the price behind grossCost() is a real confirmed figure, not the placeholder band estimate. */
+export function isPriceConfirmed(kw: number, type: SystemType, config: SolarConfig = SOLAR_CONFIG): boolean {
+  return confirmedPrice(kw, type, config) != null;
+}
+
 export function grossCost(kw: number, type: SystemType, config: SolarConfig = SOLAR_CONFIG): Range {
+  const exact = confirmedPrice(kw, type, config);
+  if (exact != null) return [exact, exact];
   const bands = priceBands(type, config);
   const band = bands.find((b) => kw <= b.upToKw) ?? bands[bands.length - 1];
   if (!band) return [0, 0];
@@ -55,6 +68,7 @@ function blank(input: CalcInput, outcome: CalcResult['outcome'], error?: string)
     loadKw: input.sanctionedLoadKw ?? 0,
     loadKnown: input.sanctionedLoadKw != null,
     systemKw: 0,
+    priceConfirmed: false,
     offsetKw: 0,
     strategy: 'offset',
     coversPercent: 0,
@@ -148,8 +162,8 @@ export function calculate(input: CalcInput, config: SolarConfig = SOLAR_CONFIG):
     return { ...base, outcome: 'free-units', monthlyUnits, estimated, notes };
   }
 
-  // 3. Sizing. RSK's installed size ladder for this system type — on-grid and hybrid start at
-  //    config.sizing.minKwByType['on-grid'|'hybrid'] (3 kW), off-grid from 1 kW.
+  // 3. Sizing. RSK's installed size ladder for this system type — on-grid starts at
+  //    config.sizing.minKwByType['on-grid'] (3 kW); hybrid and off-grid from 1 kW.
   const sizes = sizesForType(systemType, config);
   const perKwMonth = monthlyGenerationPerKw(config);
   const offsetKw = nearestSize(kwForMonthlyUnits(monthlyUnits, config), config, sizes);
@@ -197,6 +211,7 @@ export function calculate(input: CalcInput, config: SolarConfig = SOLAR_CONFIG):
 
   // 5. Cost and subsidy.
   const gross = grossCost(systemKw, systemType, config);
+  const priceConfirmed = isPriceConfirmed(systemKw, systemType, config);
   const subsidy = computeSubsidy(systemKw, category, systemType, ownsRoof, config);
   if (subsidy.ineligibleReason) notes.push({ code: 'subsidy-ineligible', reason: subsidy.ineligibleReason });
   const netCost: Range = [Math.max(0, gross[0] - subsidy.amount), Math.max(0, gross[1] - subsidy.amount)];
@@ -216,6 +231,7 @@ export function calculate(input: CalcInput, config: SolarConfig = SOLAR_CONFIG):
     monthlyUnits,
     estimated,
     systemKw,
+    priceConfirmed,
     offsetKw,
     strategy,
     coversPercent: Math.min(100, (annualGeneration / (monthlyUnits * 12)) * 100),

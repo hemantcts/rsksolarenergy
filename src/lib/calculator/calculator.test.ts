@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { SOLAR_CONFIG, type SolarConfig } from '../../config/solar-config';
-import { calculate, grossCost, lifetimeSaving } from './calculate';
+import { calculate, confirmedPrice, grossCost, isPriceConfirmed, lifetimeSaving } from './calculate';
 import { inr, inrRange, inrWords, yearsRange } from './format';
 import { largestSizeWithin, nearestSize, sizeAtLeast, sizesForType } from './sizing';
 import { computeSubsidy, residentialSubsidy, societySubsidy } from './subsidy';
@@ -33,6 +33,10 @@ const T: SolarConfig = {
     onGrid: [{ upToKw: Infinity, perKw: [50000, 60000] }],
     hybrid: [{ upToKw: Infinity, perKw: [80000, 90000] }],
     offGrid: [{ upToKw: Infinity, perKw: [70000, 80000] }],
+    // Fixture-only confirmed price, deliberately distinct from RSK's real numbers, so this
+    // suite stays isolated from them (kw 3 exercises the exact-price path; kw 5 exercises the
+    // band-estimate fallback).
+    hybridConfirmed: [{ kw: 3, amount: 99000 }],
   },
 };
 
@@ -149,8 +153,11 @@ describe('PM Surya Ghar subsidy', () => {
   it.each(['commercial', 'industrial', 'agricultural'] as const)('%s → ₹0 with reason', (c) => {
     expect(computeSubsidy(3, c, 'on-grid', true, T)).toEqual({ amount: 0, scheme: 'none', ineligibleReason: 'category' });
   });
-  it.each(['off-grid', 'hybrid'] as const)('%s → ₹0 with reason', (t) => {
-    expect(computeSubsidy(3, 'domestic', t, true, T)).toEqual({ amount: 0, scheme: 'none', ineligibleReason: 'system-type' });
+  it('off-grid → ₹0 with reason (not grid-connected, not net-metered)', () => {
+    expect(computeSubsidy(3, 'domestic', 'off-grid', true, T)).toEqual({ amount: 0, scheme: 'none', ineligibleReason: 'system-type' });
+  });
+  it('hybrid → subsidised the same as on-grid (RSK’s hybrid installs are grid-tied and net-metered)', () => {
+    expect(computeSubsidy(3, 'domestic', 'hybrid', true, T)).toEqual({ amount: residentialSubsidy(3, T), scheme: 'pmsg-residential', ineligibleReason: null });
   });
   it('tenant (does not own the roof) → ₹0 with reason', () => {
     expect(computeSubsidy(3, 'domestic', 'on-grid', false, T).ineligibleReason).toBe('ownership');
@@ -181,9 +188,9 @@ describe('sizing helpers', () => {
     expect(largestSizeWithin(5, T)).toBe(5);
     expect(largestSizeWithin(0.5, T)).toBeNull();
   });
-  it('sizesForType restricts on-grid and hybrid to 3 kW+, off-grid keeps the full ladder', () => {
+  it('sizesForType restricts on-grid to 3 kW+; hybrid and off-grid keep the full ladder', () => {
     expect(sizesForType('on-grid', T)).toEqual([3, 4, 5, 6, 8, 10]);
-    expect(sizesForType('hybrid', T)).toEqual([3, 4, 5, 6, 8, 10]);
+    expect(sizesForType('hybrid', T)).toEqual([1, 2, 3, 4, 5, 6, 8, 10]);
     expect(sizesForType('off-grid', T)).toEqual([1, 2, 3, 4, 5, 6, 8, 10]);
   });
   it('a sizes override is never undercut by the full ladder', () => {
@@ -270,32 +277,61 @@ describe('calculate — sanctioned load', () => {
   });
 });
 
-describe('calculate — RSK sells on-grid and hybrid from 3 kW, off-grid from 1 kW', () => {
+describe('calculate — RSK sells on-grid from 3 kW; hybrid and off-grid from 1 kW', () => {
   it('a home just over the line never gets a sub-3kW on-grid system, even though less would zero the bill', () => {
     const r = calculate(units(310, 'domestic', { systemType: 'on-grid' }), T);
     expect(r.systemKw).toBe(3);
     expect(r.systemKw).toBeGreaterThanOrEqual(T.sizing.minKwByType['on-grid']);
     expect(r.zeroBill).toBe(true);
   });
-  it('the same home on hybrid also floors at 3 kW', () => {
+  it('the same home on hybrid can go as low as 1 kW', () => {
     const r = calculate(units(310, 'domestic', { systemType: 'hybrid' }), T);
-    expect(r.systemKw).toBe(3);
+    expect(r.systemKw).toBe(1);
+    expect(r.zeroBill).toBe(true);
   });
-  it('the same home on off-grid can go as low as 1 kW', () => {
+  it('the same home on off-grid can also go as low as 1 kW', () => {
     const r = calculate(units(310, 'domestic', { systemType: 'off-grid' }), T);
     expect(r.systemKw).toBe(1);
     expect(r.zeroBill).toBe(true);
   });
-  it('a sanctioned load under 3 kW rules out on-grid and hybrid entirely', () => {
-    for (const systemType of ['on-grid', 'hybrid'] as const) {
-      const r = calculate(units(500, 'domestic', { systemType, sanctionedLoadKw: 2 }), T);
-      expect(r.outcome).toBe('load-too-small');
-    }
+  it('a sanctioned load under 3 kW rules out on-grid, but not hybrid', () => {
+    const onGrid = calculate(units(500, 'domestic', { systemType: 'on-grid', sanctionedLoadKw: 2 }), T);
+    expect(onGrid.outcome).toBe('load-too-small');
+    const hybrid = calculate(units(500, 'domestic', { systemType: 'hybrid', sanctionedLoadKw: 2 }), T);
+    expect(hybrid.outcome).toBe('ok');
+    expect(hybrid.systemKw).toBeLessThanOrEqual(2);
   });
-  it('the same 2 kW sanctioned load is enough for off-grid', () => {
+  it('the same 2 kW sanctioned load is enough for off-grid too', () => {
     const r = calculate(units(500, 'domestic', { systemType: 'off-grid', sanctionedLoadKw: 2 }), T);
     expect(r.outcome).toBe('ok');
     expect(r.systemKw).toBeLessThanOrEqual(2);
+  });
+});
+
+describe('confirmed hybrid pricing overrides the band estimate exactly', () => {
+  it('an exact match uses the confirmed price, not the band estimate', () => {
+    expect(confirmedPrice(3, 'hybrid', T)).toBe(99000);
+    expect(isPriceConfirmed(3, 'hybrid', T)).toBe(true);
+    expect(grossCost(3, 'hybrid', T)).toEqual([99000, 99000]);
+  });
+  it('a size with no confirmed price falls back to the band estimate', () => {
+    expect(confirmedPrice(5, 'hybrid', T)).toBeNull();
+    expect(isPriceConfirmed(5, 'hybrid', T)).toBe(false);
+    expect(grossCost(5, 'hybrid', T)).toEqual([400000, 450000]); // 5 × [80000, 90000]
+  });
+  it('confirmed prices only apply to hybrid', () => {
+    expect(confirmedPrice(3, 'on-grid', T)).toBeNull();
+    expect(confirmedPrice(3, 'off-grid', T)).toBeNull();
+  });
+  it('calculate() reports priceConfirmed on the result', () => {
+    const confirmed = calculate(units(500, 'domestic', { systemType: 'hybrid', sanctionedLoadKw: 10 }), T);
+    expect(confirmed.systemKw).toBe(3);
+    expect(confirmed.priceConfirmed).toBe(true);
+    expect(confirmed.grossCost).toEqual([99000, 99000]);
+
+    const estimated = calculate(units(750, 'domestic', { systemType: 'hybrid', sanctionedLoadKw: 10 }), T);
+    expect(estimated.systemKw).toBe(5);
+    expect(estimated.priceConfirmed).toBe(false);
   });
 });
 
@@ -304,12 +340,15 @@ describe('calculate — subsidy gates flow through', () => {
     expect(calculate(units(800, 'commercial'), T).subsidy.amount).toBe(0);
     expect(calculate(units(800, 'industrial'), T).subsidy.amount).toBe(0);
   });
-  it('off-grid and hybrid get ₹0 subsidy, with the reason noted', () => {
-    for (const systemType of ['off-grid', 'hybrid'] as const) {
-      const r = calculate(units(800, 'domestic', { systemType }), T);
-      expect(r.subsidy.amount).toBe(0);
-      expect(r.notes).toContainEqual({ code: 'subsidy-ineligible', reason: 'system-type' });
-    }
+  it('off-grid gets ₹0 subsidy, with the reason noted', () => {
+    const r = calculate(units(800, 'domestic', { systemType: 'off-grid' }), T);
+    expect(r.subsidy.amount).toBe(0);
+    expect(r.notes).toContainEqual({ code: 'subsidy-ineligible', reason: 'system-type' });
+  });
+  it('hybrid gets the subsidy, same as on-grid', () => {
+    const r = calculate(units(800, 'domestic', { systemType: 'hybrid' }), T);
+    expect(r.subsidy.amount).toBeGreaterThan(0);
+    expect(r.notes).not.toContainEqual({ code: 'subsidy-ineligible', reason: 'system-type' });
   });
   it('the 3 kW cap holds for a large home system', () => {
     const r = calculate(units(1400, 'domestic', { sanctionedLoadKw: 20 }), T);

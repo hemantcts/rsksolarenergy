@@ -53,7 +53,7 @@ export function noteText(n: Note, config: SolarConfig = SOLAR_CONFIG): string {
       if (n.reason === 'category')
         return 'PM Surya Ghar covers homes and housing societies only. Businesses and industry get no subsidy, but they also get no free units, so solar saves from the first unit.';
       if (n.reason === 'system-type')
-        return 'PM Surya Ghar covers grid-connected (on-grid) systems. Hybrid and off-grid systems generally do not qualify. You might still want one for backup during power cuts.';
+        return 'PM Surya Ghar covers grid-connected, net-metered systems. Off-grid systems are not connected to PSPCL, so they do not qualify. A hybrid system does qualify — it is grid-tied with a battery added, not disconnected.';
       return 'The subsidy needs the applicant to own the house and hold the electricity connection. Tenants usually cannot claim it.';
     case 'large-system':
       return 'Systems above 10 kW are designed after a site survey. Treat this as a first estimate.';
@@ -70,8 +70,11 @@ function assumptions(config: SolarConfig): string {
   return `Estimate based on ${digits(g.annualYieldPerKwp)} units per kW per year before an ${Math.round((1 - g.deratingFactor) * 100)}% allowance for losses, the PSPCL ${config.pspcl.tariffYear} tariff with ${config.pspcl.electricityDutyPercent}% electricity duty, a ${pr.tariffEscalationPercent}% yearly tariff rise and ${pr.panelDegradationPercent}% yearly panel degradation. Your actual figures depend on roof direction, shading and how you use power. A free site survey firms this up.`;
 }
 
-function draftBanner(config: SolarConfig): string {
-  const groups = placeholderGroups(config);
+function draftBanner(config: SolarConfig, priceConfirmed: boolean): string {
+  // "System pricing" only stays on the placeholder list here when THIS result's own price is
+  // still an estimate — a hybrid 3/5/6 kW result uses RSK's real confirmed price and should
+  // not be flagged as a placeholder just because on-grid/off-grid pricing still is.
+  const groups = placeholderGroups(config).filter((g) => !(g === 'system pricing' && priceConfirmed));
   if (!groups.length) return '';
   const list = groups.join(', ');
   return `<p class="calc-draft" role="note"><strong>Draft figures.</strong> ${esc(list.charAt(0).toUpperCase() + list.slice(1))} ${groups.length > 1 ? 'are' : 'is'} placeholder data until RSK confirms it. Do not quote these numbers.</p>`;
@@ -197,7 +200,7 @@ export function renderResult(r: CalcResult, input: CalcInput, o: RenderOptions):
   const notes = r.notes.filter((n) => o.variant === 'full' || ['capped-by-load', 'subsidy-ineligible', 'zero-bill-sizing'].includes(n.code));
 
   return `
-${draftBanner(config)}
+${draftBanner(config, r.priceConfirmed)}
 <div class="calc-verdict">
   <p class="calc-kicker">Recommended system</p>
   <p class="calc-system"><span class="t-value">${esc(String(r.systemKw))}</span> kW ${TYPE[r.systemType]}</p>

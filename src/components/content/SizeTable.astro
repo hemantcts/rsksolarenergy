@@ -20,7 +20,7 @@ const { highlight } = Astro.props;
           <th scope="col" class="num">Units a month</th>
           <th scope="col" class="num">Roof area</th>
           <th scope="col" class="num">Home subsidy</th>
-          <th scope="col" class="num">On-grid, after subsidy</th>
+          <th scope="col" class="num">After subsidy</th>
           <th scope="col" class="num">Zero bill for homes using up to</th>
         </tr>
       </thead>
@@ -36,11 +36,12 @@ const { highlight } = Astro.props;
                     {s.kw} kW system
                   </a>
                 )}
+                {!s.offersOnGrid && <span class="t-small block font-normal text-slate">hybrid, on-grid not offered this small</span>}
               </th>
               <td class="num">{digits(s.monthlyUnits)}</td>
               <td class="num">{digits(s.roofSqFt)} sq ft</td>
               <td class="num">{inr(s.subsidy)}</td>
-              <td class="num">{inrRange(s.netOnGrid)}</td>
+              <td class="num">{inrRange(s.primaryNet)}</td>
               <td class="num">{digits(s.zeroBillRange[1])} units</td>
             </tr>
           ))

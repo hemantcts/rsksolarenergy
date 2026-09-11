@@ -123,17 +123,22 @@ export const SOLAR_CONFIG = {
     /**
      * The full size ladder, kW. Finer than the size pages because surplus export currently
      * earns nothing (exportCreditPerUnit = 0), so over-rounding wastes money.
-     * Off-grid is offered across the whole ladder. On-grid and hybrid are filtered down to
-     * `minKwByType` below — RSK does not install on-grid or hybrid systems under 3 kW.
+     * Hybrid and off-grid are offered across the whole ladder. On-grid is filtered down to
+     * `minKwByType` below — RSK does not install on-grid systems under 3 kW.
      */
     standardSizesKw: [1, 2, 3, 4, 5, 6, 8, 10],
     /**
-     * Smallest system RSK will install, per system type. Confirmed by RSK: on-grid and hybrid
-     * start at 3 kW; off-grid is available from 1 kW (quoted by RSK as "1 kVA").
+     * Smallest system RSK will install, per system type. Confirmed by RSK: on-grid starts at
+     * 3 kW ("for sure" — asked twice, same answer both times). Hybrid and off-grid are both
+     * available from 1 kW (off-grid quoted by RSK as "1 kVA").
      */
-    minKwByType: { 'on-grid': 3, hybrid: 3, 'off-grid': 1 } as Record<'on-grid' | 'hybrid' | 'off-grid', number>,
-    /** Sizes that have their own /Nkw-solar-system-price-punjab/ page. On-grid only, since it's the primary product. */
-    sizePagesKw: [3, 5, 10],
+    minKwByType: { 'on-grid': 3, hybrid: 1, 'off-grid': 1 } as Record<'on-grid' | 'hybrid' | 'off-grid', number>,
+    /**
+     * Sizes with their own /Nkw-solar-system-price-punjab/ page. 1 and 2 kW feature hybrid as
+     * the primary system (on-grid isn't offered that small); 3 kW and up feature on-grid.
+     * See primaryTypeForKw() in src/data/sizes.ts.
+     */
+    sizePagesKw: [1, 2, 3, 5, 10],
     /** Above the largest standard size, round up to this step (commercial). */
     largeStepKw: 5,
     /**
@@ -145,8 +150,11 @@ export const SOLAR_CONFIG = {
     defaultSanctionedLoadKw: 5,
   },
 
-  // ⚠️ PLACEHOLDER — RSK must supply real per-kW pricing. Do not ship these numbers.
   pricing: {
+    // Overall status stays 'placeholder': on-grid (the primary, subsidised product line) and
+    // off-grid are still invented stand-ins pending RSK's price list. Do not ship those numbers.
+    // Hybrid at 3/5/6 kW is real (see hybridConfirmed below) and is used in place of the band
+    // estimate wherever it applies — see grossCost() in src/lib/calculator/calculate.ts.
     status: 'placeholder' as ConfigStatus,
     note: 'Includes panels, inverter, mounting structure, wiring, installation. Excludes net meter fee.',
     onGrid: [
@@ -164,6 +172,18 @@ export const SOLAR_CONFIG = {
       { upToKw: 10, perKw: [74000, 84000] },
       { upToKw: Infinity, perKw: [70000, 80000] },
     ] satisfies PriceBand[],
+    /**
+     * Real, itemised hybrid pricing from RSK (lithium hybrid kit: panels, hybrid inverter,
+     * 51.2V/100Ah lithium battery, mounting structure, DC/AC wiring, earthing, ACDB+DCDB,
+     * lightning arrester, cable tray, changeover switch, labour, net metering). Confirmed
+     * totals — used exactly, not as a range, wherever the system is exactly one of these sizes.
+     */
+    hybridConfirmed: [
+      { kw: 3, amount: 278010 },
+      { kw: 5, amount: 358030 },
+      { kw: 6, amount: 388320 },
+    ] as { kw: number; amount: number }[],
+    hybridConfirmedSource: 'RSK itemised BOM pricing, supplied 2026-09-11',
   },
 
   subsidy: {

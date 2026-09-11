@@ -26,6 +26,16 @@ export function topicMessage(topic: string): string {
   return `Hi RSK, I read your page on ${topic}. I would like to discuss my case.`;
 }
 
+export function dealerMessage(): string {
+  return [
+    'Hi RSK, I would like to apply for a UTL Solar dealership.',
+    'Business name: ',
+    'City / area: ',
+    'Current business (electrical shop, installer, other): ',
+    'GST number, if registered: ',
+  ].join('\n');
+}
+
 const TYPE_LABEL = { 'on-grid': 'on-grid', hybrid: 'hybrid', 'off-grid': 'off-grid' } as const;
 
 /** Message carrying the calculator context, per SPEC-calculator §7. */

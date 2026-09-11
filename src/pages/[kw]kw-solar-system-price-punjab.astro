@@ -16,28 +16,36 @@ export function getStaticPaths() {
   return SOLAR_CONFIG.sizing.sizePagesKw.map((kw) => ({ params: { kw: String(kw) }, props: { kw } }));
 }
 
+const TYPE_LABEL = { 'on-grid': 'On-grid', hybrid: 'Hybrid', 'off-grid': 'Off-grid' } as const;
+
 const { kw } = Astro.props;
 const s = sizeFacts(kw);
 const copy = SIZE_COPY[kw]!;
 const cfg = SOLAR_CONFIG;
 const path = sizePath(kw);
 const capped = kw >= cfg.subsidy.residential.secondBandUpToKw;
+const primaryLabel = TYPE_LABEL[s.primaryType];
 
-// Worked example: a general-category home at the top of this size's zero-bill range.
+// Worked example: a general-category home at the top of this size's zero-bill range, on the
+// type this page actually offers at this size.
 const exampleUnits = s.zeroBillRange[1];
-const example = calculate({ consumption: { kind: 'units', value: exampleUnits, periodMonths: 1 }, category: 'domestic' });
+const example = calculate({ consumption: { kind: 'units', value: exampleUnits, periodMonths: 1 }, category: 'domestic', systemType: s.primaryType });
 
 const title = `${kw} kW Solar System Price in Punjab 2026, After Subsidy | RSK Solar`;
-const description = `${kw} kW on-grid solar in Punjab: ${inrRange(s.prices.onGrid)} installed, ${inrRange(s.netOnGrid)} after the ${inr(s.subsidy)} PM Surya Ghar subsidy. About ${digits(s.monthlyUnits)} units a month.`;
+const description = `${kw} kW ${primaryLabel.toLowerCase()} solar in Punjab: ${inrRange(s.primaryGross)} installed, ${inrRange(s.primaryNet)} after the ${inr(s.subsidy)} PM Surya Ghar subsidy. About ${digits(s.monthlyUnits)} units a month.`;
 
 const faq: QA[] = [
   {
     q: `What is the price of a ${kw} kW solar system in Punjab?`,
-    a: `An on-grid ${kw} kW system costs ${inrRange(s.prices.onGrid)} installed. After the PM Surya Ghar subsidy of ${inr(s.subsidy)}, a home pays ${inrRange(s.netOnGrid)}. A hybrid system with batteries costs ${inrRange(s.prices.hybrid)} and an off-grid system ${inrRange(s.prices.offGrid)}; neither generally gets the subsidy. The final price depends on the roof, the mounting structure, cable runs and the panel model.`,
+    a: `A ${primaryLabel.toLowerCase()} ${kw} kW system costs ${inrRange(s.primaryGross)} installed. After the PM Surya Ghar subsidy of ${inr(s.subsidy)}, a home pays ${inrRange(s.primaryNet)}.${
+      s.offersOnGrid
+        ? ` A hybrid system with a battery costs ${inrRange(s.prices.hybrid)} and is subsidised the same way; an off-grid system costs ${inrRange(s.prices.offGrid)} and does not qualify for the subsidy.`
+        : ` RSK does not install on-grid systems this small — 3 kW is the smallest on-grid system we offer. An off-grid system at ${kw} kW costs ${inrRange(s.prices.offGrid)}, but does not qualify for the subsidy.`
+    } The final price depends on the roof, the mounting structure, cable runs and the panel model.`,
   },
   {
     q: `How much subsidy do I get on a ${kw} kW system?`,
-    a: `${inr(s.subsidy)} for a home on-grid system.${capped ? ` The subsidy is capped at ${inr(cfg.subsidy.residential.cap)} from 3 kW upwards.` : ''} It is paid into your bank account ${cfg.subsidy.disbursementDays[0]} to ${cfg.subsidy.disbursementDays[1]} days after PSPCL inspects the system, not deducted from the price. Businesses do not get it; housing societies get ₹${digits(cfg.subsidy.society.perKw)} per kW for common facilities.`,
+    a: `${inr(s.subsidy)} for a home, whether the system is on-grid or hybrid — RSK's hybrid systems are grid-tied and net-metered, so they qualify the same way on-grid does.${capped ? ` The subsidy is capped at ${inr(cfg.subsidy.residential.cap)} from 3 kW upwards.` : ''} It is paid into your bank account ${cfg.subsidy.disbursementDays[0]} to ${cfg.subsidy.disbursementDays[1]} days after PSPCL inspects the system, not deducted from the price. Off-grid systems, businesses and industry do not get it; housing societies get ₹${digits(cfg.subsidy.society.perKw)} per kW for common facilities.`,
   },
   {
     q: `How many units does a ${kw} kW solar system generate in Punjab?`,
@@ -75,15 +83,15 @@ const schema = [
   <section class="wrap grid-12 pb-16" aria-label={`${kw} kW system facts`}>
     <div class="lg:col-span-7">
       <table class="spec-table">
-        <caption class="sr-only">{kw} kW on-grid system: price, subsidy and generation</caption>
+        <caption class="sr-only">{kw} kW {primaryLabel.toLowerCase()} system: price, subsidy and generation</caption>
         <tbody>
-          <tr><th scope="row">On-grid system, installed</th><td class="num">{inrRange(s.prices.onGrid)}</td></tr>
+          <tr><th scope="row">{primaryLabel} system, installed</th><td class="num">{inrRange(s.primaryGross)}</td></tr>
           <tr><th scope="row">PM Surya Ghar subsidy, home</th><td class="num">− {inr(s.subsidy)}</td></tr>
         </tbody>
         <tbody class="calc-net">
           <tr>
             <th scope="row">Your cost after subsidy</th>
-            <td class="num"><span class="t-readout">{inrRange(s.netOnGrid)}</span></td>
+            <td class="num"><span class="t-readout">{inrRange(s.primaryNet)}</span></td>
           </tr>
         </tbody>
         <tbody>
@@ -99,10 +107,13 @@ const schema = [
       <p class="calc-fineprint mt-4">
         <strong>You pay the full price first.</strong> The subsidy is credited to your bank account {cfg.subsidy.disbursementDays[0]}–{cfg.subsidy.disbursementDays[1]} days after the PSPCL inspection.
       </p>
-      <div class="mt-4"><DraftNote /></div>
+      {!s.primaryGrossConfirmed && <div class="mt-4"><DraftNote /></div>}
+      {s.primaryGrossConfirmed && (
+        <p class="t-small mt-4 text-slate">Price confirmed by RSK from an itemised quote, not a placeholder estimate.</p>
+      )}
     </div>
     <aside class="lg:col-span-4 lg:col-start-9">
-      <CtaBlock heading={`Ask about a ${kw} kW system`} label={`Ask about a ${kw} kW system on WhatsApp`} message={sizeMessage(kw)} body="Send your electricity bill too, and we confirm whether this is the right size before quoting." />
+      <CtaBlock heading={`Ask about a ${kw} kW system`} label={`Ask about a ${kw} kW system on WhatsApp`} message={sizeMessage(kw, s.primaryType)} body="Send your electricity bill too, and we confirm whether this is the right size before quoting." />
     </aside>
   </section>
 
@@ -135,14 +146,21 @@ const schema = [
               </tr>
             </thead>
             <tbody>
-              <tr><th scope="row">On-grid</th><td class="num">{inrRange(s.prices.onGrid)}</td><td class="num">{inr(s.subsidy)}</td><td class="num">{inrRange(s.netOnGrid)}</td></tr>
-              <tr><th scope="row">Hybrid, with batteries</th><td class="num">{inrRange(s.prices.hybrid)}</td><td class="num">₹0</td><td class="num">{inrRange(s.prices.hybrid)}</td></tr>
+              {s.offersOnGrid && s.prices.onGrid && (
+                <tr><th scope="row">On-grid</th><td class="num">{inrRange(s.prices.onGrid)}</td><td class="num">{inr(s.subsidy)}</td><td class="num">{inrRange([s.prices.onGrid[0] - s.subsidy, s.prices.onGrid[1] - s.subsidy])}</td></tr>
+              )}
+              <tr>
+                <th scope="row">Hybrid, with battery</th>
+                <td class="num">{inrRange(s.prices.hybrid)}</td>
+                <td class="num">{inr(s.subsidy)}</td>
+                <td class="num">{inrRange([s.prices.hybrid[0] - s.subsidy, s.prices.hybrid[1] - s.subsidy])}</td>
+              </tr>
               <tr><th scope="row">Off-grid</th><td class="num">{inrRange(s.prices.offGrid)}</td><td class="num">₹0</td><td class="num">{inrRange(s.prices.offGrid)}</td></tr>
             </tbody>
           </table>
         </div>
         <p class="t-small mt-3 text-slate">
-          Includes panels, inverter, mounting structure, wiring and installation. Batteries are included in hybrid and off-grid prices. <a href="/on-grid-vs-off-grid-vs-hybrid/" class="underline">How the three differ</a>
+          Includes panels, inverter, mounting structure, wiring and installation.{!s.offersOnGrid && ' On-grid is not offered at this size — 3 kW is RSK’s smallest on-grid system.'} <a href="/on-grid-vs-off-grid-vs-hybrid/" class="underline">How the three differ</a>
         </p>
       </div>
 
@@ -150,7 +168,9 @@ const schema = [
         example.outcome === 'ok' && (
           <div class="lg:col-span-4 lg:col-start-9">
             <h2 class="t-h3">Worked example</h2>
-            <p class="mt-2 text-slate">A general-category home using {digits(exampleUnits)} units a month, with a {kw} kW on-grid system.</p>
+            <p class="mt-2 text-slate">
+              A general-category home using {digits(exampleUnits)} units a month, with a {kw} kW {primaryLabel.toLowerCase()} system.
+            </p>
             <table class="spec-table mt-4">
               <tbody>
                 <tr><th scope="row">Bill now</th><td class="num">{inr(example.billBefore.total, 10)}</td></tr>
