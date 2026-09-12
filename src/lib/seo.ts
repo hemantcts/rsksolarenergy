@@ -57,6 +57,14 @@ export function localBusiness() {
         }
       : {}),
     hasMap: BUSINESS.google.mapsUrl,
+    // Real figure from the live Google Business Profile (see BUSINESS.google.ratingCheckedOn),
+    // not invented — and backed by the actual Review nodes on /reviews/, not markup alone.
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: BUSINESS.google.rating,
+      reviewCount: BUSINESS.google.reviewCount,
+      bestRating: 5,
+    },
     areaServed: [...BUSINESS.serviceArea.map((c) => ({ '@type': 'City', name: c })), { '@type': 'State', name: 'Punjab' }],
     knowsAbout: [
       'Rooftop solar',
