@@ -19,7 +19,8 @@
 import { readFileSync, existsSync } from 'node:fs';
 
 const site = 'https://rsksolarenergy.com';
-const KEY = 'c7e2c0edf28d81b9b858b3f92f507e6e';
+// Issued by Bing Webmaster Tools, so it is already associated with RSK's Bing account.
+const KEY = '5784d5d2e08d472c90ea8b5cf645d375';
 const distDir = new URL('../dist/', import.meta.url);
 const dryRun = process.argv.includes('--dry-run');
 
