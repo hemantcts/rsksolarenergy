@@ -73,18 +73,34 @@ const nodes = [localBusiness(), ...(crumbs.length ? [breadcrumbs(trail)] : []), 
 
     {
       BUSINESS.gaMeasurementId && (
-        <>
-          {/* Google tag (gtag.js) — see BUSINESS.gaMeasurementId to change or remove. */}
-          <script async is:inline src={`https://www.googletagmanager.com/gtag/js?id=${BUSINESS.gaMeasurementId}`} />
-          <script is:inline define:vars={{ id: BUSINESS.gaMeasurementId }}>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-              dataLayer.push(arguments);
-            }
+        // Google tag (gtag.js) — see BUSINESS.gaMeasurementId to change or remove.
+        // Loaded lazily, after the browser is idle (or the page has loaded, as a fallback for
+        // browsers without requestIdleCallback), rather than as a blocking <head> script.
+        // gtag.js itself forces a synchronous layout reflow the moment it runs and is a heavy
+        // script mostly unused on a simple pageview — measured directly in PageSpeed Insights,
+        // both cost real LCP/TBT time when loaded in the critical path. Deferring it removes it
+        // from that path entirely; the pageview still fires, just a moment later.
+        <script is:inline define:vars={{ id: BUSINESS.gaMeasurementId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          function loadGA() {
+            if (window.__gaLoaded) return;
+            window.__gaLoaded = true;
+            const s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+            document.head.appendChild(s);
             gtag('js', new Date());
             gtag('config', id);
-          </script>
-        </>
+          }
+          if ('requestIdleCallback' in window) {
+            requestIdleCallback(loadGA, { timeout: 4000 });
+          } else {
+            window.addEventListener('load', () => setTimeout(loadGA, 1000));
+          }
+        </script>
       )
     }
   </head>

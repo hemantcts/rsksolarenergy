@@ -8,12 +8,14 @@ import googleLogo from '../assets/brand/google-logo.png';
 import justdialLogo from '../assets/brand/justdial-logo.png';
 import { BUSINESS } from '../config/business';
 import { REVIEWS, reviewMonth } from '../data/reviews';
-import { breadcrumbs, graph, localBusiness, review } from '../lib/seo';
+import { review } from '../lib/seo';
 
 const title = `Customer Reviews | ${BUSINESS.name}`;
 const description = `${BUSINESS.google.rating.toFixed(1)} stars from ${BUSINESS.google.reviewCount} Google reviews. Real reviews from RSK Solar Energy customers in Mohali and Tricity, copied verbatim.`;
 const path = '/reviews/';
-const schema = [breadcrumbs([{ name: 'Reviews', path }]), ...REVIEWS.map((r) => review({ name: r.name, date: r.date, rating: r.rating, text: r.text }))];
+// BaseLayout already emits a BreadcrumbList from the `crumbs` prop below — don't build a second,
+// incomplete one here (it was missing the "Home" entry BaseLayout's own version includes).
+const schema = REVIEWS.map((r) => review({ name: r.name, date: r.date, rating: r.rating, text: r.text }));
 ---
 
 <BaseLayout title={title} description={description} crumbs={[{ name: 'Reviews', path }]} schema={schema}>

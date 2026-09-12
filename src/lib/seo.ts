@@ -57,6 +57,14 @@ export function localBusiness() {
         }
       : {}),
     hasMap: BUSINESS.google.mapsUrl,
+    // Real figure from the live Google Business Profile (see BUSINESS.google.ratingCheckedOn),
+    // not invented — and backed by the actual Review nodes on /reviews/, not markup alone.
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: BUSINESS.google.rating,
+      reviewCount: BUSINESS.google.reviewCount,
+      bestRating: 5,
+    },
     areaServed: [...BUSINESS.serviceArea.map((c) => ({ '@type': 'City', name: c })), { '@type': 'State', name: 'Punjab' }],
     knowsAbout: [
       'Rooftop solar',
@@ -112,7 +120,7 @@ export function service(opts: { name: string; description: string; path: string;
   };
 }
 
-export function product(p: { title: string; summary: string; slug: string; model: string | null; brand: string; category: string }) {
+export function product(p: { title: string; summary: string; slug: string; model: string | null; brand: string; category: string; image?: string }) {
   return {
     '@type': 'Product',
     name: p.title,
@@ -121,6 +129,9 @@ export function product(p: { title: string; summary: string; slug: string; model
     brand: { '@type': 'Brand', name: p.brand },
     ...(p.model ? { model: p.model, mpn: p.model } : {}),
     category: p.category,
+    // No `offers`/price here — deliberate. RSK doesn't publish prices (CLAUDE.md §7); a Product
+    // offer without a real price would be either fabricated or misleadingly absent to Google.
+    ...(p.image ? { image: p.image } : {}),
   };
 }
 
