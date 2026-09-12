@@ -86,6 +86,13 @@ export const BUSINESS = {
     // worth checking this against the certificate before launch.
     msme: 'UDHYAM-PB-20-0093804',
   },
+
+  /**
+   * Google Analytics 4 measurement ID, supplied by RSK. Loaded site-wide from
+   * `src/layouts/BaseLayout.astro`. Set to null to remove Google Analytics from every page
+   * without touching the layout — see the developer guide's "Google Analytics" section.
+   */
+  gaMeasurementId: 'G-VJHJ211TLW' as string | null,
 } as const;
 
 export const PRIMARY_PHONE = BUSINESS.phones[0];

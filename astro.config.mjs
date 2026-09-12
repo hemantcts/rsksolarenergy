@@ -18,17 +18,24 @@ export default defineConfig({
   // frame-ancestors can't be delivered via <meta> — that one lives in the .htaccess header
   // instead (see scripts/make-htaccess.mjs), deliberately as its own separate, non-overlapping
   // policy so the two never need to be kept in sync.
+  //
+  // Google Analytics (gtag.js) is the one exception to "everything self-hosted": it needs its
+  // loader script allowed in script-src (external <script src> can't be hash-verified, so the
+  // host has to be explicitly trusted) and its own collection endpoints allowed in connect-src.
   security: {
     csp: {
       directives: [
         "default-src 'self'",
         "img-src 'self' data: https://i.ytimg.com",
         "font-src 'self'",
-        "connect-src 'self'",
+        "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com",
         "base-uri 'self'",
         "form-action 'self'",
         "object-src 'none'",
       ],
+      scriptDirective: {
+        resources: ["'self'", 'https://www.googletagmanager.com'],
+      },
     },
   },
 

@@ -1,110 +1,78 @@
 # TODO-content.md — outstanding items
 
-Keep this current. Every placeholder, unverified number and missing asset lives here.
-Nothing ships to production with an open 🔴 item on its page.
+Keep this current. Every unverified number, missing fact and unfinished page lives here.
+
+Rewritten 2026-09-12 — the site has shipped (see `README.md`/the developer guide for how
+it's built and deployed). Everything below is genuinely still open, not launch-blocking
+history. Cross-reference `TODO:` comments in the source (`src/config/business.ts`,
+`src/config/solar-config.ts`) — those are the same list, closer to the code.
 
 ---
 
-## 🔴 Blocking launch
+## 🔴 Numbers to verify against a primary source
 
-### Verify before the calculator can go live
-- [ ] PSPCL domestic slab rates — **sources conflict** (₹3.85–7.05, ₹3.85–8.15,
-      ₹4.49–7.30 all published for 2026). Confirm against `pserc.gov.in` tariff order.
-- [ ] PSPCL fixed charges, fuel adjustment charge, electricity duty %
-      (13% and 18% both reported — resolve)
-- [ ] Current free-units scheme: 300/month confirmed? Eligibility conditions?
-- [ ] Commercial and industrial tariff structure
-- [ ] Net metering export credit rate in Punjab
+These currently ship as honest estimates (the calculator and every price page carry an
+"estimated, not a final quotation" note — see the footer and Terms & Conditions), which is
+why they don't block the site being live. They should still be tightened up:
 
-### RSK must supply
-- [ ] Real per-kW pricing: on-grid / off-grid / hybrid, by size band
-- [ ] Actual generation data from commissioned installs (units/kWp/yr)
-- [ ] MNRE empanelment status for PM Surya Ghar — yes or no
-- [ ] Panel brands supplied + ALMM listing confirmation
-- [ ] Typical install timeline; typical subsidy disbursement timeline in practice
-- [ ] Do they file net metering with PSPCL on the customer's behalf?
+- PSPCL domestic tariff slabs, fixed charges, fuel adjustment charge and electricity duty %
+  — confirm against the current PSERC tariff order at `pserc.gov.in` and record the order
+  date next to `SOLAR_CONFIG.pspcl` in `src/config/solar-config.ts`.
+- Net metering export credit rate (₹/unit) — currently a conservative placeholder (0).
+- Whether PSPCL applies the 300 free units to *net* units after solar (assumed yes — worth
+  confirming against a real post-solar bill).
+- Annual generation yield per kWp — currently a published Punjab average; replace with
+  RSK's own commissioned-system data once enough installs have a year of readings.
 
-### Security — old site
-- [ ] Identify the source of the homepage spam injection (`pursesstore.com`,
-      anchor "hermes outlet") before any code is reused from `wp-content`
-- [ ] Confirm where the homepage `noindex, nofollow` originated
-- [ ] Full malware scan + core/plugin integrity check on the old install
+## 🟠 Business facts still missing
 
-### Product data
-- [ ] Real titles for the 6 lorem-ipsum-slugged products
-      (`proin-gravida-nibh-vel-veli` and `-2` … `-6`) — one is confirmed as
-      "170Ah Inverter Battery – USB 17100"; the other five need identifying
-- [ ] Confirm all 57 products are current stock and correctly described
+Each of these is a `TODO` comment in `src/config/business.ts` — fill in the value there and
+the site picks it up automatically (these fields are `null` and hidden until supplied, not
+guessed):
 
----
+- Address PIN code (as shown on the Google Business Profile)
+- Map coordinates (`geo`) — from the Google Business Profile pin
+- Opening hours
+- Justdial profile URL (so the rating badge can link out directly, like the Google one does)
+- YouTube channel URL (`BUSINESS.social.youtube`) — once supplied, add real video links to
+  `src/data/videos.ts` and they appear on the homepage automatically, no code changes needed
 
-## 🟠 Needed before the relevant page ships
+## 🟡 Content still to add
 
-### Photography — no stock permitted
-- [ ] Hero: real RSK rooftop install, Punjab, landscape
-- [ ] 8–12 installation photos across Mohali / Kharar / Zirakpur / Derabassi,
-      with system size and location recorded for each
-- [ ] Installers at work
-- [ ] Inverter and battery bank wired in situ
-- [ ] Team / premises at Phase 8-B
-
-### Installations (replacing the 6 demo "projects")
-For each real install: location, system size (kW), type, install date, photos, and
-ideally the customer's own words. Minimum 6, target 12.
-
-**Delete entirely:** the two wind-energy demo entries. RSK does not do wind.
-
-### Location pages — real content or don't build
-Each town page needs genuinely distinct content, not a template with the name swapped.
-Google penalises thin duplicated location pages as doorways.
-
-| Town | Real installs to show? | Build? |
-|---|---|---|
-| Mohali | | |
-| Kharar | | |
-| Zirakpur | | |
-| Derabassi | | |
-| Chandigarh | | |
-| Panchkula | | |
-
-**If a town has no real content, do not build its page.**
-
----
-
-## 🟡 Content to write
-
-- [ ] Homepage copy — replace "Power up your life" / "innovative and sustainable
-      solutions" register entirely. See `DESIGN.md` §7.
-- [ ] `/pm-surya-ghar-subsidy-punjab/` — the flagship guide. Include why roughly 1 in 3
-      applications is rejected (non-ALMM panels, un-seeded Aadhaar-bank accounts,
-      system exceeding sanctioned load). This is genuinely useful and no local
-      competitor covers it.
-- [ ] Five system-size pages (1 / 2 / 3 / 5 / 10 kW)
-- [ ] `/on-grid-vs-off-grid-vs-hybrid/`
-- [ ] `/commercial-solar-punjab/`, `/housing-society-solar/`
-- [ ] About — rewrite. Founded 2022; 80+ commercial/industrial and 50+ residential
-      installs (**confirm these figures are current — they date from 2023**)
-- [ ] Rewrite the 2 blog posts from 2023 (one has "2023" in the title)
-- [ ] Real blog categories — everything currently sits in "Uncategorized"
-
----
+- **Awards & Recognition** (`/awards-and-recognition/`) — page exists but is a placeholder
+  (marked `noindex` on purpose) until RSK supplies real award names, the issuing body, the
+  year, and event photos. Do not publish claims without those specifics.
+- **Installation photography** — `/installations/` currently states real install *counts*
+  (confirmed by RSK) but has no photos. Add real site photos as they become available;
+  never use stock photography (see `DESIGN.md` / `CLAUDE.md` §7 — a stock rooftop photo
+  actively costs credibility here).
+- **Remaining product catalogue completeness** — the solar-panels category was fully
+  rechecked against UTL's live site (2026-09-12) and is current. Inverters/PCU, batteries,
+  EV chargers, charge controllers and solar systems have NOT had the same full recheck yet
+  and are known to be behind UTL's real catalogue (see the count comparison from
+  2026-09-12: ~68 inverters live vs ~37 catalogued, ~52 EV chargers live vs 2 catalogued,
+  ~24 batteries live vs 5 catalogued, ~30 systems live vs 9 catalogued). Same method as the
+  panels recheck: crawl every UTL category page (with pagination — the sitemap alone is not
+  reliable) for the real URL list, scrape real specs, filter out combo/kit duplicates, pull
+  real images, then add.
+- 14-brand "Also stocked at RSK" list — Khaitan, Orient, Sujata, Bajaj, Falcon, Duke,
+  Luminous, Polycab, Fujiyama have real logos; a couple of smaller motor brands were removed
+  at RSK's request rather than shown without a confirmed logo. Add more as RSK confirms them.
 
 ## 🔵 Later
 
-- [ ] Hindi (`/hi/`) and Punjabi (`/pa/`) versions of the subsidy pages.
-      **Human translation only** — do not machine-translate and ship.
-- [ ] Google Business Profile: verify NAP matches the site exactly, add UTM-tagged
-      website link
-- [ ] Search Console + Bing Webmaster Tools setup and sitemap submission
-- [ ] Decide whether to keep the Razorpay policy footer links given there is no
-      checkout
-
----
+- Hindi (`/hi/`) and Punjabi (`/pa/`) translations of the subsidy and calculator pages.
+  Human translation only — the routing already supports these locales
+  (`astro.config.mjs` → `i18n.locales`); do not machine-translate and ship.
+- Google Search Console + Bing Webmaster Tools: submit `sitemap-index.xml`, verify NAP
+  matches the Google Business Profile exactly (see `src/config/business.ts`).
+- Google Analytics (`G-VJHJ211TLW`) is live — check the Realtime report after deploying to
+  confirm it's actually firing before relying on it.
 
 ## Recorded assumptions
 
-Anything below is an assumption, not a verified fact. Shown to users where it affects a
-number they see.
+Anything below is a stated assumption, not a verified fact — each is shown to users with
+wording that makes clear it's an estimate (never presented as confirmed).
 
 | Assumption | Value | Status |
 |---|---|---|
@@ -113,5 +81,8 @@ number they see.
 | Tariff escalation | 3.0 %/yr | ⚠️ assumption — displayed to user |
 | Panel degradation | 0.5 %/yr | ⚠️ assumption — displayed to user |
 | Roof area per kW | ~100 sq ft | ⚠️ rule of thumb |
-| PM Surya Ghar slabs | ₹30k / ₹60k / ₹78k cap | ✅ consistent across sources |
-| Subsidy disbursement | 30–45 days post-inspection | ✅ consistent across sources |
+| Net metering export credit | ₹0/unit | ⚠️ conservative placeholder pending PSERC confirmation |
+| PM Surya Ghar slabs | ₹30k / ₹60k / ₹78k cap | ✅ confirmed, consistent across sources |
+| Subsidy disbursement | 30–45 days post-inspection | ✅ confirmed, consistent across sources |
+| Hybrid systems ARE subsidy-eligible (grid-tied, net-metered); off-grid is NOT | — | ✅ confirmed by RSK |
+| System size floors: on-grid from 3 kW; hybrid and off-grid from 1 kW | — | ✅ confirmed by RSK |

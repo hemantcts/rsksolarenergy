@@ -70,6 +70,23 @@ const nodes = [localBusiness(), ...(crumbs.length ? [breadcrumbs(trail)] : []), 
 
     <script type="application/ld+json" is:inline set:html={graph(nodes)} />
     <slot name="head" />
+
+    {
+      BUSINESS.gaMeasurementId && (
+        <>
+          {/* Google tag (gtag.js) — see BUSINESS.gaMeasurementId to change or remove. */}
+          <script async is:inline src={`https://www.googletagmanager.com/gtag/js?id=${BUSINESS.gaMeasurementId}`} />
+          <script is:inline define:vars={{ id: BUSINESS.gaMeasurementId }}>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', id);
+          </script>
+        </>
+      )
+    }
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
