@@ -38,7 +38,7 @@ export interface Product {
   specs: { columns: string[] | null; rows: SpecRow[] } | null;
   /** Where this listing's text was sourced from, for provenance. */
   source: 'rsk-old-site' | 'utl-catalogue';
-  /** Reference product image URL, not yet migrated/hosted. TODO: real photos (see TODO-content.md). */
+  /** Original source image URL, kept for provenance — the real, local, re-hosted photo actually shown is looked up from PRODUCT_IMAGES by slug. */
   oldImage: string;
 }
 
@@ -54,7 +54,7 @@ export const CATEGORIES: { id: ProductCategory; name: string; blurb: string }[] 
   {
     id: 'inverters',
     name: 'Solar inverters and PCUs',
-    blurb: 'Heliac, Shamsi, Gamma+, Alfa+, Sigma+ and Combo+ units, 675 VA to 5 kVA.',
+    blurb: 'Home inverters, hybrid solar PCUs and on-grid string inverters — Heliac, Shamsi, Gamma+, Alfa+, Sigma+, Zeta, Sun-lion and more, 675 VA to 125 kW.',
   },
   { id: 'batteries', name: 'Batteries', blurb: 'Tubular solar and inverter batteries, plus e-bike batteries.' },
   {
