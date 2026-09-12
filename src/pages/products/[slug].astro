@@ -5,7 +5,7 @@ import CtaBlock from '../../components/content/CtaBlock.astro';
 import { Image } from 'astro:assets';
 import { PRODUCTS, PRODUCT_IMAGES, categoryName, productsIn, type Product } from '../../data/products';
 import { productMessage } from '../../lib/whatsapp';
-import { product as productSchema } from '../../lib/seo';
+import { product as productSchema, abs } from '../../lib/seo';
 
 export function getStaticPaths() {
   return PRODUCTS.map((p) => ({ params: { slug: p.slug }, props: { p } }));
@@ -29,7 +29,7 @@ const isNumeric = (v: string) => /^[<>≥≤~±]?\s*[\d.,/×x*\-–% ]+\s*(v|a|w
     { name: 'Products', path: '/products/' },
     { name: p.title, path },
   ]}
-  schema={[productSchema({ ...p, summary: intro, category: cat })]}
+  schema={[productSchema({ ...p, summary: intro, category: cat, image: PRODUCT_IMAGES[p.slug] ? abs(PRODUCT_IMAGES[p.slug].src) : undefined })]}
 >
   <header class="wrap pt-8 pb-10 lg:pt-12">
     <Breadcrumbs

@@ -112,7 +112,7 @@ export function service(opts: { name: string; description: string; path: string;
   };
 }
 
-export function product(p: { title: string; summary: string; slug: string; model: string | null; brand: string; category: string }) {
+export function product(p: { title: string; summary: string; slug: string; model: string | null; brand: string; category: string; image?: string }) {
   return {
     '@type': 'Product',
     name: p.title,
@@ -121,6 +121,9 @@ export function product(p: { title: string; summary: string; slug: string; model
     brand: { '@type': 'Brand', name: p.brand },
     ...(p.model ? { model: p.model, mpn: p.model } : {}),
     category: p.category,
+    // No `offers`/price here — deliberate. RSK doesn't publish prices (CLAUDE.md §7); a Product
+    // offer without a real price would be either fabricated or misleadingly absent to Google.
+    ...(p.image ? { image: p.image } : {}),
   };
 }
 
