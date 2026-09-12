@@ -50,7 +50,7 @@ export const CATEGORIES: { id: ProductCategory; name: string; blurb: string }[] 
     name: 'Complete solar systems',
     blurb: 'UTL hybrid and off-grid kits from 1 kW to 5 kW: panels, inverter and batteries matched.',
   },
-  { id: 'solar-panels', name: 'Solar panels', blurb: 'Mono PERC and polycrystalline modules from 40 W to 400 W.' },
+  { id: 'solar-panels', name: 'Solar panels', blurb: 'Mono PERC, N-Type TOPCon and bifacial modules from 40 W to 735 W, including DCR and non-DCR panels.' },
   {
     id: 'inverters',
     name: 'Solar inverters and PCUs',

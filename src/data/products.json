@@ -5601,144 +5601,106 @@
   {
     "slug": "mono-solar-panel-390-watt",
     "oldSlug": "mono-solar-panel-390-watt",
-    "title": "Mono Solar Panel 390 Watt",
+    "title": "UTL 390 Watt Half-Cut Mono Solar Panel",
     "category": "solar-panels",
     "brand": "UTL Solar",
     "model": null,
-    "summary": "UTL solar panels are the latest technology and most innovative solar panels. A solar photo-voltaic panel is a composition of solar photovoltaic cells, well arranged together in an aluminium frame and covered with high quality glass.",
+    "summary": "Upgrade your solar setup with the UTL 390W Monocrystalline solar panel, designed for efficient power generation and long-term durability. Built using 72 Mono PERC cells, the panel captures more sunlight to deliver strong and consistent output throughout the day and continues to…",
     "description": [
-      "UTL solar panels are the latest technology and most innovative solar panels. A solar photo-voltaic panel is a composition of solar photovoltaic cells, well arranged together in an aluminium frame and covered with high quality glass. They absorb the sun’s ray and turn them into electricity that can be fed in home appliances as well as utility grids. UTL solar panel are next-generation solar panels, manufactured by using premium quality A-grade solar cells. These solar cells are slice cut from a block of silicon, consisting of a number of crystals with a speckled reflective appearance. The thickness of these slices is clearly visible. Our mono solar panel 390watt is a very economical solar product and are more suitable for Indian environmental conditions."
+      "Upgrade your solar setup with the UTL 390W Monocrystalline solar panel, designed for efficient power generation and long-term durability. Built using 72 Mono PERC cells, the panel captures more sunlight to deliver strong and consistent output throughout the day and continues to generate steady power even on overcast days or in low sunlight. Manufactured with premium raw materials and advanced production processes, the panel is engineered for reliable outdoor performance. Its anodized aluminum alloy frame provides excellent strength and corrosion resistance, making it suitable for long-term rooftop installation."
     ],
-    "features": [
-      "Excellent module efficiency Solar cell efficiency up to 21.2% Module efficiency up to 18%",
-      "High performance Higher PV Energy yield even under low light and cloudy conditions",
-      "Reliability Premium quality raw materials and advanced manufacturing processes guarantees the reliability of our modules",
-      "Positive tolerance of up to 4% delivers higher output reliability for our all modules.",
-      "EL Tested (ELECTRO LUMINESCENCE) 100% EL double inspection",
-      "PID resistant and tree of snail trails Increased module robustness to minimize micro-cracks",
-      "10 years product warranty*",
-      "25 years product performance warranty*",
-      "UTL Solar Panel range starts from 40 watt to 160 watt in 12 volt and up to 350 watt in 24 volt."
-    ],
+    "features": [],
     "specs": {
       "columns": null,
       "rows": [
         {
-          "section": "Electrical Characteristics At STC"
-        },
-        {
-          "label": "Maximum Power (Pmax)",
+          "label": "Maximum Power",
           "values": [
-            "165W",
-            "180W",
-            "370W",
-            "375W",
-            "380W",
-            "385W",
-            "390W",
-            "395W",
-            "400W"
+            "390W"
           ]
         },
         {
-          "label": "Open Circuit Voltage (VOC)",
+          "label": "Cell Type",
           "values": [
-            "21.82V",
-            "23.80V",
-            "48.0V",
-            "48.2V",
-            "48.4V",
-            "48.6V",
-            "48.8V",
-            "49.0V",
-            "49.2V"
+            "Mono PERC"
           ]
         },
         {
-          "label": "Short Circuit Current (ISC)",
+          "label": "No. of Solar Cells",
           "values": [
-            "9.80A",
-            "9.77A",
-            "9.85A",
-            "9.72A",
-            "9.99A",
-            "10.06A",
-            "10.13A",
-            "10.20A",
-            "10.27A"
+            "72"
           ]
         },
         {
-          "label": "Voltage at Maximum Power (Vmp)",
+          "label": "Warranty",
           "values": [
-            "18.65V",
-            "19.40V",
-            "39.4V",
-            "39.6V",
-            "39.8V",
-            "40.0V",
-            "40.2V",
-            "40.4V",
-            "40.6V"
+            "27 Years performance warranty"
           ]
         },
         {
-          "label": "Current at Maximum Power (Imp)",
+          "label": "Module Efficiency",
           "values": [
-            "9.42A",
-            "9.28A",
-            "7.40A",
-            "7.47A",
-            "9.55A",
-            "9.63A",
-            "9.71A",
-            "7.78A",
-            "9.86A"
+            "19.52%"
           ]
         },
         {
-          "label": "Module Efficiency (%)",
+          "label": "Frame",
           "values": [
-            "18.65",
-            "18",
-            "18.52",
-            "18.71",
-            "19.01",
-            "19.26",
-            "16.52",
-            "19.76",
-            "20.02"
+            "Anodized aluminum alloy"
+          ]
+        },
+        {
+          "label": "Weight",
+          "values": [
+            "22kg"
+          ]
+        },
+        {
+          "label": "Dimensions (L*W*H)",
+          "values": [
+            "1995*1002*40mm"
           ]
         },
         {
           "label": "Operating Temperature",
           "values": [
-            "-40°C to + 85°C"
+            "-40°C to +85°C"
           ]
         },
         {
           "label": "Maximum System Voltage",
           "values": [
-            "1000V DC / 1500V DC"
+            "1000V DC/1500V DC"
           ]
         },
         {
-          "label": "Fire Resistance Rating",
+          "label": "Front Cover",
           "values": [
-            "Type 1 (in accordance with UL 1703) / Class C (IEC 61730)"
+            "3.2mm Tempered Glass with AR Coating"
           ]
         },
         {
-          "label": "Maximum Series Fuse Rating",
+          "label": "Max. Series Fuse Rating",
           "values": [
-            "15A",
             "20A"
+          ]
+        },
+        {
+          "label": "Temperature Coefficient of (Voc)",
+          "values": [
+            "-0.29% /°C"
+          ]
+        },
+        {
+          "label": "Connectors",
+          "values": [
+            "MC4 Compatible"
           ]
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/Mono-Perc-Solar-Panels.png",
-    "source": "rsk-old-site"
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2024/07/Mono-PERC-Solar-Panel-540-Watt-24V-Bi-Facial-–-Pack-of-two-1.png"
   },
   {
     "slug": "mono-solar-panel-400-watt",
@@ -6567,5 +6529,1625 @@
     },
     "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/01-2kW48V-Hybrid-Solar-System.png",
     "source": "rsk-old-site"
+  },
+  {
+    "slug": "110-watt-solar-panel",
+    "oldSlug": null,
+    "title": "UTL 110 Watt/ 12V solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The UTL 110W 12V Mono PERC Solar Panel is a customer favorite in the 12V category, especially for residential users and small-scale energy setups. It’s a perfect match for powering homes with a single battery inverter, offering great returns on investment through reliable solar…",
+    "description": [
+      "The UTL 110W 12V Mono PERC Solar Panel is a customer favorite in the 12V category, especially for residential users and small-scale energy setups. It’s a perfect match for powering homes with a single battery inverter, offering great returns on investment through reliable solar output. Engineered for superior conversion, this panel delivers solid performance in varying light conditions. The robust mechanical design and smart cell layout ensure low degradation and stable output — year after year. It’s engineered for mobile and semi-permanent installations such as RVs, emergency systems, or off-grid cabins. The Mono PERC cells offer enhanced energy capture even under variable light, while the half-cut cell structure ensures efficiency under partial shade. It’s a rugged, mid-sized panel that delivers dependable energy in changing environmental conditions."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/04/150-Watt-monoperc.png"
+  },
+  {
+    "slug": "120-watt-solar-panel",
+    "oldSlug": null,
+    "title": "UTL 120W 12V Mono PERC Half-cut Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL 120 Watt mono solar panel is a compact photovoltaic solution built with monocrystalline cells and advanced half-cut technology. Designed for low to mid-power applications, it delivers efficient energy conversion with better current control and reduced internal losses.",
+    "description": [
+      "UTL 120 Watt mono solar panel is a compact photovoltaic solution built with monocrystalline cells and advanced half-cut technology. Designed for low to mid-power applications, it delivers efficient energy conversion with better current control and reduced internal losses.",
+      "Its 12BB grid design enhances internal current flow for safer, more stable operation over time. A weather-resistant anodized aluminum frame provides structural strength and durability, engineered to withstand demanding environmental conditions."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Junction Box",
+          "values": [
+            "Weather proof Nylon IP 68"
+          ]
+        },
+        {
+          "label": "Maximum System Voltage",
+          "values": [
+            "1000VDC"
+          ]
+        },
+        {
+          "label": "Open Circuit Voltage",
+          "values": [
+            "23.01"
+          ]
+        },
+        {
+          "label": "Glass",
+          "values": [
+            "Non ARC coated, Tempered & Low Iron"
+          ]
+        },
+        {
+          "label": "Frame",
+          "values": [
+            ">10 micron Anodized Aluminum"
+          ]
+        },
+        {
+          "label": "Current at Maximum Power (Imp) in Amps",
+          "values": [
+            "6.3"
+          ]
+        },
+        {
+          "label": "Encapsulate",
+          "values": [
+            "PID Resistance Ethylene Vinyl Acetate"
+          ]
+        },
+        {
+          "label": "Max. Series Fuse Rating",
+          "values": [
+            "15A"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2024/07/UTL-120-Watt-12V-Mono-PERC-Half-Cut-Solar-Panel-Pack-of-Two-1.png"
+  },
+  {
+    "slug": "150-watt-topcon-solar-panel-half-cut",
+    "oldSlug": null,
+    "title": "150 Watt TOPCon Solar Panel (Half-Cut)",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "An N-Type TOPCon, half-cut cell UTL Solar panel, 150 W. Ask us for full specifications and current pricing.",
+    "description": [
+      "An N-Type TOPCon, half-cut cell UTL Solar panel, 150 W. Ask us for full specifications and current pricing."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/04/150-Watt-monoperc.png"
+  },
+  {
+    "slug": "275w-12v-topcon-solar-panel",
+    "oldSlug": null,
+    "title": "UTL 275 Watt N-Type TOPCon Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The UTL 275W TOPCon solar module is a budget-friendly solar solution designed for small rooftops, off-grid systems, and hybrid solar setups. Powered by advanced N-Type TOPCon cell technology, this panel offers 20.64% efficiency, excellent low-light performance, and minimal…",
+    "description": [
+      "The UTL 275W TOPCon solar module is a budget-friendly solar solution designed for small rooftops, off-grid systems, and hybrid solar setups. Powered by advanced N-Type TOPCon cell technology, this panel offers 20.64% efficiency, excellent low-light performance, and minimal power degradation over time.",
+      "275W Rated Output – Ideal for compact solar installations 20.64% Efficiency – Advanced N-Type TOPcon cells Performs in All Weather – Low light and high temperature optimized Lightweight & Easy to Install – ~17 kg with MC4-compatible connectors Durable Design – Toughened glass, aluminium frame, IP68 junction box Perfect for Hybrid & Off-Grid Systems – Compatible with inverters and batteries 30-Year Linear Power Warranty – Reliable performance, year after year"
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/05/UTL275WattN-TypeTOPConSolarPanel.webp"
+  },
+  {
+    "slug": "280w-24v-topcon-solar-panel",
+    "oldSlug": null,
+    "title": "UTL 280 Watt N-Type TOPCon Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The UTL 280W TOPCon solar module is a budget-friendly solar solution designed for small rooftops, off-grid systems, and hybrid solar setups. Powered by advanced N-Type TOPCon cell technology, this panel offers 20.82% efficiency, excellent low-light performance, and minimal…",
+    "description": [
+      "The UTL 280W TOPCon solar module is a budget-friendly solar solution designed for small rooftops, off-grid systems, and hybrid solar setups. Powered by advanced N-Type TOPCon cell technology, this panel offers 20.82% efficiency, excellent low-light performance, and minimal power degradation over time.",
+      "Module Type – UTL 280-72T 280W Rated Output – Ideal for compact solar installations 20.82% Efficiency – Advanced N-Type TOPcon cells Performs in All Weather – Low light and high temperature optimized Lightweight & Easy to Install – ~17 kg with MC4-compatible connectors Durable Design – Toughened glass, aluminium frame, IP68 junction box Perfect for Hybrid & Off-Grid Systems – Compatible with inverters and batteries 30-Year Linear Power Warranty – Reliable performance, year after year"
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/06/280-topcon.png"
+  },
+  {
+    "slug": "340w-topcon-bifacial-solar-panel",
+    "oldSlug": null,
+    "title": "340 Watt TOPCon Bifacial Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Experience next-level solar performance with the UTL 340W TOPCon Bifacial Panel — a high-efficiency module that combines cutting-edge cell technology with rugged construction for consistent power throughout the year. Engineered with advanced N-Type TOPCon half-cut cells and…",
+    "description": [
+      "Experience next-level solar performance with the UTL 340W TOPCon Bifacial Panel — a high-efficiency module that combines cutting-edge cell technology with rugged construction for consistent power throughout the year. Engineered with advanced N-Type TOPCon half-cut cells and 16-busbar technology, this panel is designed to deliver superior power output, improved temperature performance, and enhanced reliability across a wide range of real-world weather conditions. The bifacial design enables the module to generate electricity from both the front and rear sides, capturing reflected sunlight to increase total energy yield. This makes the panel especially effective for rooftops, open areas, and installations with high ground reflectivity. Its high-transmission, AR-coated tempered glass and transparent backsheet ensure excellent durability, while providing strong resistance to PID, UV degradation, moisture, and thermal stress. Supported by a robust anodized aluminum frame and IP67-rated junction box, the UTL 340W TOPCon panel is built to withstand heavy wind loads up to 2400 Pa and snow loads up to 5400 Pa, offering long-term structural integrity in challenging environments. With a low annual degradation rate of just 0.4% after the first year, it ensures dependable generation and stable performance for up to 30 years."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Temperature Range",
+          "values": [
+            "-40°C to +85°C"
+          ]
+        },
+        {
+          "label": "Maximum System Voltage",
+          "values": [
+            "1000 VDC"
+          ]
+        },
+        {
+          "label": "Back",
+          "values": [
+            "Transparent Backsheet"
+          ]
+        },
+        {
+          "label": "Application Class",
+          "values": [
+            "Class A"
+          ]
+        },
+        {
+          "label": "Frame",
+          "values": [
+            "Silver Anodized Aluminum Alloy"
+          ]
+        },
+        {
+          "label": "Max. Fuse Rating",
+          "values": [
+            "30A"
+          ]
+        },
+        {
+          "label": "Temperature Coefficient (Voc)",
+          "values": [
+            "-0.26% /°C"
+          ]
+        },
+        {
+          "label": "Connectors",
+          "values": [
+            "MC4 Type"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/12/340-TOPCon-Solar-Panel.png"
+  },
+  {
+    "slug": "40-watt-mono-solar-panel",
+    "oldSlug": null,
+    "title": "40 Watt/12V Mono PERC Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The 40W/12V mono crystalline solar panel is ideal for compact solar setups such as solar lights, DC fans, or trickle chargers. Built using advanced Mono PERC(Passivated Emitter and Rear Contact) cell technology, it offers efficient performance in limited space.",
+    "description": [
+      "The 40W/12V mono crystalline solar panel is ideal for compact solar setups such as solar lights, DC fans, or trickle chargers. Built using advanced Mono PERC(Passivated Emitter and Rear Contact) cell technology, it offers efficient performance in limited space. The half-cut design boosts performance even in shaded conditions while reducing the risk of micro-cracks. This mini solar panel is lightweight yet durable enough for remote and mobile installations. With excellent weather resilience and minimal power loss over time, it’s a long-term solution for small-scale energy needs."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/04/150-Watt-monoperc.png"
+  },
+  {
+    "slug": "500w-mono-domestic-content-requirement-solar-module",
+    "oldSlug": null,
+    "title": "UTL500-132BM Mono Domestic Content Requirement Solar Module",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": "UTL500-132BM",
+    "summary": "Experience reliable solar performance with the UTL 500W Solar Panel, designed to deliver up to 20.86% module efficiency for higher energy generation. Built with advanced 132-cell Mono PERC 10BB technology, it helps maximize power output while ensuring dependable performance…",
+    "description": [
+      "Experience reliable solar performance with the UTL 500W Solar Panel, designed to deliver up to 20.86% module efficiency for higher energy generation. Built with advanced 132-cell Mono PERC 10BB technology, it helps maximize power output while ensuring dependable performance across varying weather conditions. The panel features ARC-coated low iron tempered glass, a robust anodized aluminum frame, and a weather-resistant junction box for enhanced durability."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2026/06/500-watt-domestic-content-requirement.jpeg"
+  },
+  {
+    "slug": "510-watt-topcon-bifacial-solar-panel",
+    "oldSlug": null,
+    "title": "UTL 510 Watt/24 Volt Bifacial N-Type TOPCon Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": "UTL510-132BT",
+    "summary": "The UTL 510W Bifacial TOPCon Solar Panel combines high power output, advanced cell technology, and long-term performance—all optimized for Indian conditions. Built with N-Type TOPCon cells and bifacial architecture, it captures sunlight from both sides, enabling higher energy…",
+    "description": [
+      "The UTL 510W Bifacial TOPCon Solar Panel combines high power output, advanced cell technology, and long-term performance—all optimized for Indian conditions. Built with N-Type TOPCon cells and bifacial architecture, it captures sunlight from both sides, enabling higher energy generation on rooftops with reflective surfaces like concrete or white-painted sheets.",
+      "With a power rating of 510W and a module efficiency of 21.28%, this solar panel allows you to achieve more output from less roof space. Whether you’re designing a compact rooftop system or scaling up a large solar project, the UTL 510W Bifacial TOPCon panel reduces BOS (Balance of System) costs, improves energy yield, and delivers long-term value."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Module Type",
+          "values": [
+            "UTL510-132BT"
+          ]
+        },
+        {
+          "label": "Maximum Power",
+          "values": [
+            "510Wp"
+          ]
+        },
+        {
+          "label": "Efficiency",
+          "values": [
+            "21.28%"
+          ]
+        },
+        {
+          "label": "No. of Cells",
+          "values": [
+            "132 Multi BB TOPCon Solar Cells"
+          ]
+        },
+        {
+          "label": "Product Warranty",
+          "values": [
+            "10 years"
+          ]
+        },
+        {
+          "label": "Output Warranty",
+          "values": [
+            "30 years"
+          ]
+        },
+        {
+          "label": "Size(in mm)",
+          "values": [
+            "2115 x 1133 x 35"
+          ]
+        },
+        {
+          "label": "Weight",
+          "values": [
+            "26.50 KG"
+          ]
+        },
+        {
+          "label": "Power Tolerance",
+          "values": [
+            "±2%"
+          ]
+        },
+        {
+          "label": "Rated voltage – Vmp(V)",
+          "values": [
+            "39.54"
+          ]
+        },
+        {
+          "label": "Rated current – Imp( A)",
+          "values": [
+            "12.90"
+          ]
+        },
+        {
+          "label": "Short circuit current – Isc( A)",
+          "values": [
+            "13.47"
+          ]
+        },
+        {
+          "label": "Open circuit voltage – Voc(V)",
+          "values": [
+            "46.11"
+          ]
+        },
+        {
+          "label": "Max Fuse Rating",
+          "values": [
+            "35A"
+          ]
+        },
+        {
+          "label": "Encapsulation",
+          "values": [
+            "Transparent Backsheet"
+          ]
+        },
+        {
+          "label": "Frame",
+          "values": [
+            "Silver Anodized Aluminium Alloy"
+          ]
+        },
+        {
+          "label": "Front Glass",
+          "values": [
+            "3.2 mm, High Transmission, AR Coated Tempered Glass"
+          ]
+        },
+        {
+          "label": "Junction Box",
+          "values": [
+            "IP68 certified, 3 diodes, Split junction box"
+          ]
+        },
+        {
+          "label": "Cables",
+          "values": [
+            "4 mm², 300 mm solar cable (customizable length)"
+          ]
+        },
+        {
+          "label": "Connectors",
+          "values": [
+            "MC Type"
+          ]
+        },
+        {
+          "label": "Application Class",
+          "values": [
+            "Class A"
+          ]
+        },
+        {
+          "label": "Electrical Safety",
+          "values": [
+            "Class II"
+          ]
+        },
+        {
+          "label": "Fire Safety Rating",
+          "values": [
+            "Class C (Type 1)"
+          ]
+        },
+        {
+          "label": "Mechanical Load Capacity",
+          "values": [
+            "Snow: 5400 Pa, Wind: 2400 Pa"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/08/Solar-module-510-Watt.png"
+  },
+  {
+    "slug": "520w-mono-dcr-bifacial-solar-panel",
+    "oldSlug": null,
+    "title": "UTL 520W Mono DCR 24V Bifacial Solar Module",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The 520W Mono DCR bifacial solar panel features a durable dual-glass design. It uses 144 half-cut 10BB PERC cells to reduce power loss and deliver consistent performance.",
+    "description": [
+      "The 520W Mono DCR bifacial solar panel features a durable dual-glass design. It uses 144 half-cut 10BB PERC cells to reduce power loss and deliver consistent performance.",
+      "The UTL 520W Mono PERC bifacial solar panel is designed to deliver efficient power generation for residential and commercial rooftop installations. Built with advanced bifacial technology, it captures sunlight from both sides to enhance overall energy yield, especially in reflective environments.",
+      "The dual semi-tempered glass with ARC coating construction adds structural strength and improves resistance to environmental stress. It ensures long-term durability. With 20.16% module efficiency, the panel supports stable energy output under varying conditions. The integration of 144 half-cut 10BB PERC cells helps reduce internal losses and improves performance reliability."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Maximum Power",
+          "values": [
+            "520W"
+          ]
+        },
+        {
+          "label": "Technology",
+          "values": [
+            "Bifacial Dual Glass"
+          ]
+        },
+        {
+          "label": "No. of Solar Cells",
+          "values": [
+            "144 Half-cut Cells"
+          ]
+        },
+        {
+          "label": "Product Warranty",
+          "values": [
+            "10 Years"
+          ]
+        },
+        {
+          "label": "Output Warranty",
+          "values": [
+            "27 Years"
+          ]
+        },
+        {
+          "label": "Weight",
+          "values": [
+            "~31.1 Kg"
+          ]
+        },
+        {
+          "label": "Dimensions (L*W*H)",
+          "values": [
+            "2277 mm x 1133 mm x 35 mm"
+          ]
+        },
+        {
+          "label": "Module efficiency",
+          "values": [
+            "20.16%"
+          ]
+        },
+        {
+          "label": "Frame",
+          "values": [
+            "Anodized Aluminium Alloy"
+          ]
+        },
+        {
+          "label": "Front Glass",
+          "values": [
+            "Semi-Tempered Glass with ARC coating"
+          ]
+        },
+        {
+          "label": "Surface load",
+          "values": [
+            "Snow load 5400 P a, Wind load 2400 P a"
+          ]
+        },
+        {
+          "label": "Connectors",
+          "values": [
+            "MC4 Type"
+          ]
+        },
+        {
+          "label": "Capacity rating – Pmax(Wp)",
+          "values": [
+            "520"
+          ]
+        },
+        {
+          "label": "Back",
+          "values": [
+            "Transparent Backsheet"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2024/07/topcon-solar-panel-Bifacial-banner-image.png"
+  },
+  {
+    "slug": "530w-mono-domestic-content-requirement-solar-module",
+    "oldSlug": null,
+    "title": "UTL530-144M Mono Domestic Content Requirement Solar Module",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": "UTL530-144M",
+    "summary": "Introducing the technologically advanced UTL 530W Domestic Content Requirement solar panels with an exceptional module efficiency of up to 20.54%. The sleek design and crack resistant front cover makes it durable and give it an aesthetic look.",
+    "description": [
+      "Introducing the technologically advanced UTL 530W Domestic Content Requirement solar panels with an exceptional module efficiency of up to 20.54%. The sleek design and crack resistant front cover makes it durable and give it an aesthetic look. UTL is one of the best manufacturers of Mono half-cut solar panels in India. Here’s what makes the UTL Mono solar panel (530 Watt) a great value for money.",
+      "Designed for high energy yield, the UTL 530W Mono Bi-Facial Solar Panel combines advanced 144-cell Mono PERC 10BB technology with up to 20.54% module efficiency to maximize energy generation and improve performance in varying sunlight conditions."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2026/06/530-watt-Domestic-content-requirement-panel.jpeg"
+  },
+  {
+    "slug": "545-watt-topcon-bifacial-solar-panel",
+    "oldSlug": null,
+    "title": "UTL 545 Watt TOPCon Bifacial Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Power your home with the latest technology 545W TOPCon solar panel designed for higher efficiency and long-term durability.",
+    "description": [
+      "Power your home with the latest technology 545W TOPCon solar panel designed for higher efficiency and long-term durability.",
+      "With its dual-glass design and sturdy aluminum frame, this panel can endure wind loads up to 2400Pa and snow loads up to 5400Pa, offering dependable performance in all weather conditions. The 545 Watt TOPCon panel is perfect for those looking for high efficiency bifacial solar panels. Maximize energy production with the latest solar module built for long-term performance."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Capacity Rating",
+          "values": [
+            "545 W"
+          ]
+        },
+        {
+          "label": "Module Type",
+          "values": [
+            "TOPCon"
+          ]
+        },
+        {
+          "label": "Solar Cells",
+          "values": [
+            "132 TOPCon Cell Technology, Multi BB"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "values": [
+            "30 Years on panel performance"
+          ]
+        },
+        {
+          "label": "Back",
+          "values": [
+            "Transparent Backsheet"
+          ]
+        },
+        {
+          "label": "Weight",
+          "values": [
+            "26.50 Kg"
+          ]
+        },
+        {
+          "label": "Dimensions (L*W*H)",
+          "values": [
+            "2115*1133*35"
+          ]
+        },
+        {
+          "label": "Temperature Range",
+          "values": [
+            "-40°C to +85°C"
+          ]
+        },
+        {
+          "label": "Maximum System Voltage",
+          "values": [
+            "1500 VDC"
+          ]
+        },
+        {
+          "label": "Module Efficiency",
+          "values": [
+            "22.74%"
+          ]
+        },
+        {
+          "label": "Hail Resistance",
+          "values": [
+            "Max. diameter 25 mm with velocity 23 m/s"
+          ]
+        },
+        {
+          "label": "Fire Safety",
+          "values": [
+            "Class C (Type 1)"
+          ]
+        },
+        {
+          "label": "Mounting Holes (Y)",
+          "values": [
+            "1000, 1640, 1400 mm"
+          ]
+        },
+        {
+          "label": "Mounting Holes (X)",
+          "values": [
+            "1090 mm"
+          ]
+        },
+        {
+          "label": "Connectors",
+          "values": [
+            "MC4 Type"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/05/UTL-545-Watt-TOPCon-Bifacial-Solar-Panel.webp"
+  },
+  {
+    "slug": "55-watt-mono-perc-solar-panel",
+    "oldSlug": null,
+    "title": "55 Watt Mono PERC Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The UTL 55 Watt 12V Mono PERC Solar Panel is engineered for users who need reliable power in a compact size. It’s an excellent fit for DC appliances, off-grid systems, battery charging, and small solar kits.",
+    "description": [
+      "The UTL 55 Watt 12V Mono PERC Solar Panel is engineered for users who need reliable power in a compact size. It’s an excellent fit for DC appliances, off-grid systems, battery charging, and small solar kits. Whether you’re powering a small cabin, mobile van, or supplementing an inverter, this panel delivers consistent energy output in all Indian weather conditions. With a high-efficiency Mono PERC cell design, it ensures better energy conversion, especially in low-light or diffused sunlight scenarios — making it ideal for both urban rooftops and remote setups. The IP65-rated junction box protects the panel’s internals from environmental elements, while the 2mm textured tempered glass safeguards the surface against scratches, impacts, and dust."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/04/150-Watt-monoperc.png"
+  },
+  {
+    "slug": "555w-mono-domestic-content-requirement-solar-module",
+    "oldSlug": null,
+    "title": "UTL555-144GM Mono Domestic Content Requirement Solar Module",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": "UTL555-144GM",
+    "summary": "Powered by advanced solar technology, the UTL 555W Bi-Facial Solar modules deliver up to 21.51% efficiency and reliable long-term performance. Built with 144 Mono PERC half-cut cells and durable dual-glass construction, it is designed to maximize energy generation while…",
+    "description": [
+      "Powered by advanced solar technology, the UTL 555W Bi-Facial Solar modules deliver up to 21.51% efficiency and reliable long-term performance. Built with 144 Mono PERC half-cut cells and durable dual-glass construction, it is designed to maximize energy generation while withstanding diverse weather conditions.",
+      "Experience reliable solar performance with the UTL 555W Mono Domestic Content Requirement Dual Glass Solar Panel, featuring up to 21.51% module efficiency for higher energy generation. Built with durable dual-glass construction and premium Mono PERC cells, it delivers long-lasting performance in diverse weather conditions."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2026/06/555-watt-DCR.jpeg"
+  },
+  {
+    "slug": "560-watt-topcon-bi-facial-solar-panel",
+    "oldSlug": null,
+    "title": "UTL 560 Watt N-Type TOPCon Bifacial Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The 16BB half-cut cell layout enhances current flow to ensure higher power generation and better performance. A durable dual-glass is AR-coated which completes the module, giving it the strength to withstand harsh weather, moisture buildup, and everyday mechanical stress.",
+    "description": [
+      "The 16BB half-cut cell layout enhances current flow to ensure higher power generation and better performance. A durable dual-glass is AR-coated which completes the module, giving it the strength to withstand harsh weather, moisture buildup, and everyday mechanical stress."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Maximum System Voltage (DC)",
+          "values": [
+            "1500V"
+          ]
+        },
+        {
+          "label": "Cell Type",
+          "values": [
+            "TOPCON"
+          ]
+        },
+        {
+          "label": "No. of Solar Cells",
+          "values": [
+            "144"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "values": [
+            "30 Years on panel performance"
+          ]
+        },
+        {
+          "label": "Module Efficiency",
+          "values": [
+            "21.71%"
+          ]
+        },
+        {
+          "label": "Frame",
+          "values": [
+            "Anodized aluminum alloy"
+          ]
+        },
+        {
+          "label": "Weight",
+          "values": [
+            "35KG"
+          ]
+        },
+        {
+          "label": "Dimensions (L*W*H)",
+          "values": [
+            "2277*1133*35mm"
+          ]
+        },
+        {
+          "label": "Operating Temperature",
+          "values": [
+            "-40°C to +80°C"
+          ]
+        },
+        {
+          "label": "Front Side Junction Box",
+          "values": [
+            "IP68, 3 DIODE"
+          ]
+        },
+        {
+          "label": "Front Cover",
+          "values": [
+            "Low Iron Tempered Glass with AR Coating"
+          ]
+        },
+        {
+          "label": "Max. Series Fuse Rating",
+          "values": [
+            "50A"
+          ]
+        },
+        {
+          "label": "Temperature Coefficient of (Voc)",
+          "values": [
+            "-0.26% /°C"
+          ]
+        },
+        {
+          "label": "Connectors",
+          "values": [
+            "MC4 Compatible"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2024/07/topcon-solar-panel-Bifacial-banner-image.png"
+  },
+  {
+    "slug": "580w-topcon-domestic-content-requirement-solar-module",
+    "oldSlug": null,
+    "title": "UTL580-144GT TOPCon Domestic Content Requirement Solar Module",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": "UTL580-144GT",
+    "summary": "Upgrade to the UTL 580W Domestic Content Requirement N-Type TOPCon Bi-Facial Dual Glass Solar Panel, delivering up to 22.48% module efficiency with advanced 16BB half-cut N-Type TOPCon cells. Its bi-facial dual-glass design captures more sunlight for higher energy generation,…",
+    "description": [
+      "Upgrade to the UTL 580W Domestic Content Requirement N-Type TOPCon Bi-Facial Dual Glass Solar Panel, delivering up to 22.48% module efficiency with advanced 16BB half-cut N-Type TOPCon cells. Its bi-facial dual-glass design captures more sunlight for higher energy generation, while the durable aluminum frame ensures reliable performance in all weather conditions.",
+      "Experience the advanced performance of N-Type TOPCon technology with the UTL 580W Bi-Facial Solar Panel, designed to reduce energy losses and generate more power from available sunlight. Featuring up to 22.48% module efficiency, 144-cell 16BB half-cut cells, and durable bi-facial dual-glass construction, it delivers reliable long-term performance."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2026/06/555-watt-DCR.jpeg"
+  },
+  {
+    "slug": "625w-topcon-domestic-content-requirement-solar-module",
+    "oldSlug": null,
+    "title": "UTL625-132GT TOPCon Domestic Content Requirement Solar Module",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": "UTL625-132GT",
+    "summary": "With advanced cell architecture and dual-side generation, the UTL 625W TOPCon bifacial solar module is built to unlock higher power output from every layer of sunlight. Its TOPCon technology reduces internal energy losses, while the bifacial design captures additional reflected…",
+    "description": [
+      "With advanced cell architecture and dual-side generation, the UTL 625W TOPCon bifacial solar module is built to unlock higher power output from every layer of sunlight. Its TOPCon technology reduces internal energy losses, while the bifacial design captures additional reflected light to improve overall generation. Stable performance in low-light and high-temperature conditions ensures consistent output across real-world environments.",
+      "The UTL 625W N-Type TOPCon bifacial solar module is built to deliver high efficiency and strong real-world performance with a nominal power output of 625W and up to 23.12% module efficiency. It uses 132 G12R TOPCon 16BB cells to improve energy conversion while maintaining low power loss across varying conditions."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2026/06/625-watt-domestic-content-requirement.jpeg"
+  },
+  {
+    "slug": "630wp-g12r-topcon-bifacial-ndcr-solar-panel",
+    "oldSlug": null,
+    "title": "UTL Solar Panel 630Wp G12R TOPCon Bifacial (Non-DCR)",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "As solar projects continue to move toward higher-wattage modules, the UTL 630Wp G12R TOPCon Bifacial panel offers a practical solution for achieving greater energy output per string. Its design helps optimize project performance while supporting the evolving requirements of…",
+    "description": [
+      "As solar projects continue to move toward higher-wattage modules, the UTL 630Wp G12R TOPCon Bifacial panel offers a practical solution for achieving greater energy output per string. Its design helps optimize project performance while supporting the evolving requirements of commercial and utility-scale installations.",
+      "The UTL 630Wp G12R TOPCon Bifacial Solar Panel delivers high power output, excellent efficiency, and long-term energy generation. Designed with advanced G12R N-Type TOPCon cell technology and bifacial architecture, this module captures sunlight from both the front and rear sides to maximize energy yield. The rectangular G12R cell design allows higher power density while maintaining practical module dimensions, making it an ideal choice for ground-mounted projects, open-access plants, captive solar installations, and large commercial rooftops. With up to 23.32% module efficiency, a 1500V system voltage rating, and a robust 30-year performance warranty, this panel is engineered for reliable performance in demanding environmental conditions.",
+      "High-Power N-Type TOPCon Technology The panel utilizes 132 G12R N-Type TOPCon half-cut cells to achieve a rated output of 630Wp. N-Type cells offer lower degradation, improved temperature performance, and higher energy generation compared to conventional technologies.",
+      "Bifacial Energy Generation The bifacial glass design allows the module to generate electricity from reflected sunlight on the rear side, increasing total energy production depending on installation conditions and surface reflectivity."
+    ],
+    "features": [
+      "630Wp High Power Output",
+      "G12R N-Type TOPCon 16BB Cell Technology",
+      "Bifacial Double-Glass Design",
+      "132 Half-Cut Cells",
+      "Up to 23.32% Module Efficiency",
+      "1500VDC System Compatibility",
+      "Low Annual Power Degradation",
+      "Excellent Low-Light Performance",
+      "Enhanced Temperature Performance",
+      "MC4 Compatible Connectors",
+      "Suitable for Utility, C&I, and Ground-Mounted Projects"
+    ],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Model",
+          "values": [
+            "UTL630-132GT"
+          ]
+        },
+        {
+          "label": "Rated Power (Pmax)",
+          "values": [
+            "630Wp"
+          ]
+        },
+        {
+          "label": "Module Efficiency",
+          "values": [
+            "23.32%"
+          ]
+        },
+        {
+          "label": "Open Circuit Voltage (Voc)",
+          "values": [
+            "47.38V"
+          ]
+        },
+        {
+          "label": "Operating Voltage (Vmp)",
+          "values": [
+            "41.22V"
+          ]
+        },
+        {
+          "label": "Short Circuit Current (Isc)",
+          "values": [
+            "15.95A"
+          ]
+        },
+        {
+          "label": "Operating Current (Imp)",
+          "values": [
+            "15.29A"
+          ]
+        },
+        {
+          "label": "Cell Type",
+          "values": [
+            "G12R N-Type TOPCon 16BB"
+          ]
+        },
+        {
+          "label": "Number of Cells",
+          "values": [
+            "132"
+          ]
+        },
+        {
+          "label": "Maximum System Voltage",
+          "values": [
+            "1500VDC"
+          ]
+        },
+        {
+          "label": "Series Fuse Rating",
+          "values": [
+            "30A"
+          ]
+        },
+        {
+          "label": "Dimensions",
+          "values": [
+            "2382 × 1134 × 35 mm"
+          ]
+        },
+        {
+          "label": "Weight",
+          "values": [
+            "Approx. 34 kg"
+          ]
+        },
+        {
+          "label": "Connectors",
+          "values": [
+            "MC4 Compatible"
+          ]
+        },
+        {
+          "label": "Junction Box",
+          "values": [
+            "Split, 30A"
+          ]
+        },
+        {
+          "label": "Operating Temperature",
+          "values": [
+            "-40°C to +85°C"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2026/06/UTL-Solar-Panel-630Wp-G12R-TOPCon-Bifacial.jpeg"
+  },
+  {
+    "slug": "half-cut-mono-solar-panel-365-watt-bi-facial",
+    "oldSlug": null,
+    "title": "Half Cut Mono Solar Panel 365 Watt BiFacial",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "A mono, half-cut cell, bifacial UTL Solar panel, 365 W. Ask us for full specifications and current pricing.",
+    "description": [
+      "A mono, half-cut cell, bifacial UTL Solar panel, 365 W. Ask us for full specifications and current pricing."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2024/07/Mono-Solar-Panel-365-Watt-Half-Cut-Pack-Of-Two-1.png"
+  },
+  {
+    "slug": "half-cut-mono-solar-panel-555-watt-bi-facial",
+    "oldSlug": null,
+    "title": "Half Cut Mono Solar Panel 555 Watt Bi-Facial",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "A mono, half-cut cell, bifacial UTL Solar panel, 555 W. Ask us for full specifications and current pricing.",
+    "description": [
+      "A mono, half-cut cell, bifacial UTL Solar panel, 555 W. Ask us for full specifications and current pricing."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2024/07/Mono-panel.png"
+  },
+  {
+    "slug": "mono-half-cut-solar-panel-340-watt-pack-of-two",
+    "oldSlug": null,
+    "title": "UTL 340 Watt Mono Half Cut Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "A mono, half-cut cell UTL Solar panel, 340 W. Ask us for full specifications and current pricing.",
+    "description": [
+      "A mono, half-cut cell UTL Solar panel, 340 W. Ask us for full specifications and current pricing."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2024/07/Mono-Half-Cut-Solar-Panel-340-Watt-Pack-of-Two-1.png"
+  },
+  {
+    "slug": "mono-perc-solar-panel-550-watt-24v-bi-facial",
+    "oldSlug": null,
+    "title": "Mono PERC Solar Panel 550 Watt 24V Bi-Facial",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "A Mono PERC, bifacial UTL Solar panel, 550 W/24V. Ask us for full specifications and current pricing.",
+    "description": [
+      "A Mono PERC, bifacial UTL Solar panel, 550 W/24V. Ask us for full specifications and current pricing."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2024/07/Mono-PERC-Solar-Panel-540-Watt-24V-Bi-Facial-–-Pack-of-two-1.png"
+  },
+  {
+    "slug": "mono-solar-panel-225-watt-pack-of-two",
+    "oldSlug": null,
+    "title": "Mono Solar Panel 225 Watt",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Backed by a 27-year performance warranty",
+    "description": [
+      "Backed by a 27-year performance warranty",
+      "When performance and durability matter most, the UTL 225 Watt 12V Mono PERC Solar Panel delivers. Engineered with high-efficiency 10BB/12BB bus bar tech, this panel reduces the gap between the finger grid and bus bars — improving current collection and minimizing energy loss. It’s optimized for long-term use with a first-year degradation rate of just 2.0%, followed by linear degradation of 0.55% per year, ensuring consistent power output for decades. The mechanical build is just as strong, tested to withstand 5400 Pa snow load and 2400 Pa wind pressure — making it suitable for rooftops, farms, and remote industrial use."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/04/150-Watt-monoperc.png"
+  },
+  {
+    "slug": "mono-solar-panel-240-watt-pack-of-2",
+    "oldSlug": null,
+    "title": "UTL 240 Watt Mono Half Cut Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Harness more power from every ray with this high-performance 240 Watt Mono Solar Panel pack. Designed with Mono technology and a 64-cell half-cut structure, these panels deliver 20.10% efficiency and dependable energy output throughout the day.",
+    "description": [
+      "Harness more power from every ray with this high-performance 240 Watt Mono Solar Panel pack. Designed with Mono technology and a 64-cell half-cut structure, these panels deliver 20.10% efficiency and dependable energy output throughout the day.",
+      "Even in low-light conditions, they maintain consistent performance, making them suitable for a wide range of solar applications. The robust tempered & Low Iron glass ensures durability, while the compact dimensions help maximize installation flexibility. With a 27-year performance warranty, this pack of two panels offers long-term reliability and excellent solar value."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Maximum Power",
+          "values": [
+            "240W"
+          ]
+        },
+        {
+          "label": "Cell Type",
+          "values": [
+            "Mono PERC"
+          ]
+        },
+        {
+          "label": "No. of Solar Cells",
+          "values": [
+            "64"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "values": [
+            "27 Years on panel performance"
+          ]
+        },
+        {
+          "label": "Module Efficiency",
+          "values": [
+            "20.10%"
+          ]
+        },
+        {
+          "label": "Frame",
+          "values": [
+            ">12 micron Anodized Aluminum"
+          ]
+        },
+        {
+          "label": "Weight",
+          "values": [
+            "13KG"
+          ]
+        },
+        {
+          "label": "Dimensions (L*W*H)",
+          "values": [
+            "1540 x 775 x 35mm"
+          ]
+        },
+        {
+          "label": "Power (Pm) in Watts (nominal)",
+          "values": [
+            "240 (0 ~+3%)"
+          ]
+        },
+        {
+          "label": "Maximum System Voltage",
+          "values": [
+            "1500VDC"
+          ]
+        },
+        {
+          "label": "Junction Box",
+          "values": [
+            "Weather Proof Nylon IP 68"
+          ]
+        },
+        {
+          "label": "Glass",
+          "values": [
+            "Non ARC coated, Tempered & Low Iron"
+          ]
+        },
+        {
+          "label": "Max. Series Fuse Rating",
+          "values": [
+            "20A"
+          ]
+        },
+        {
+          "label": "Temperature Coefficient of (Voc)",
+          "values": [
+            "-0.29% /°C"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2024/07/Mono-Solar-Panel-240-Watt-Pack-of-2-1.png"
+  },
+  {
+    "slug": "mono-solar-panel-535-watt-24v-bi-facial",
+    "oldSlug": null,
+    "title": "UTL 535 Watt TOPCon Bi-Facial Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "An N-Type TOPCon, bifacial UTL Solar panel, 535 W. Ask us for full specifications and current pricing.",
+    "description": [
+      "An N-Type TOPCon, bifacial UTL Solar panel, 535 W. Ask us for full specifications and current pricing."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2024/07/Mono-PERC-Solar-Panel-540-Watt-24V-Bi-Facial-–-Pack-of-two-1.png"
+  },
+  {
+    "slug": "mono-solar-panel-555-watt-half-cut",
+    "oldSlug": null,
+    "title": "Mono Solar Panel 555 Watt (Half Cut)",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "A mono, half-cut cell UTL Solar panel, 555 W. Ask us for full specifications and current pricing.",
+    "description": [
+      "A mono, half-cut cell UTL Solar panel, 555 W. Ask us for full specifications and current pricing."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2024/07/Mono-panel.png"
+  },
+  {
+    "slug": "mono-solar-panel-735-watt-half-cut",
+    "oldSlug": null,
+    "title": "Mono Solar Panel 735 Watt (Half Cut)",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Description Manufacturing Details Reviews (0)",
+    "description": [
+      "Description Manufacturing Details Reviews (0)",
+      "Mono Solar Panel 735 Watt (Half Cut) UTL solar panels are the latest technology and most innovative solar panel. A solar photo-voltaic panel is a composition of solar photo-voltaic cells, well arranged together in an aluminum frame and covered with high quality glass. They absorb the sun’s ray and turn them into electricity that can be fed in home appliances as well as utility grids. UTL solar panel are next-generation solar panels, manufactured by using premium quality A-grade solar cells. These solar cells are slice cut from a block of silicon, consisting of a number of crystals with a speckled reflective appearance. The thickness of these slices is clearly visible. Our Half Cut Mono Solar Panel 555 Watt is a very economical solar product and are more suitable for Indian environmental conditions.",
+      "There are no reviews yet.",
+      "Your email address will not be published."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2024/07/Mono-panel.png"
+  },
+  {
+    "slug": "solar-panel-580-watt-topcon-half-cut-dualglass",
+    "oldSlug": null,
+    "title": "UTL 580 Watt Dual glass Bifacial TOPCon Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The UTL 580 Watt TOPCon Solar Panel features 144 half-cut cells that minimize power loss and enhance performance, even under partial shading. Its bifacial, dual-glass construction captures sunlight from both sides, significantly increasing overall energy yield in typical Indian…",
+    "description": [
+      "The UTL 580 Watt TOPCon Solar Panel features 144 half-cut cells that minimize power loss and enhance performance, even under partial shading. Its bifacial, dual-glass construction captures sunlight from both sides, significantly increasing overall energy yield in typical Indian weather. The PV panel is built with AR-coated tempered glass for superior durability, engineered to withstand snow loads up to 5400 Pa and wind loads up to 2400 Pa. Every module undergoes 100% EL testing to ensure high reliability and consistent output."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Capacity Rating",
+          "values": [
+            "580W"
+          ]
+        },
+        {
+          "label": "Module Type",
+          "values": [
+            "TOPCon"
+          ]
+        },
+        {
+          "label": "No. of Solar Cells",
+          "values": [
+            "144 TOPCon Cell Technology, Multi BB"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "values": [
+            "30 Years on panel performance"
+          ]
+        },
+        {
+          "label": "Module Efficiency",
+          "values": [
+            "22.488%"
+          ]
+        },
+        {
+          "label": "Glass",
+          "values": [
+            "Dual AR Coated Tempered Glass"
+          ]
+        },
+        {
+          "label": "Weight",
+          "values": [
+            "32 Kg"
+          ]
+        },
+        {
+          "label": "Dimensions (L*W*H)",
+          "values": [
+            "2277*1133*35mm"
+          ]
+        },
+        {
+          "label": "Temperature Range",
+          "values": [
+            "-40°C to +80°C"
+          ]
+        },
+        {
+          "label": "Maximum System Voltage",
+          "values": [
+            "1500 VDC"
+          ]
+        },
+        {
+          "label": "Front Side Junction Box",
+          "values": [
+            "IP68, 3 DIODE"
+          ]
+        },
+        {
+          "label": "Maximum System Voltage (DC)",
+          "values": [
+            "1500V"
+          ]
+        },
+        {
+          "label": "Front Cover",
+          "values": [
+            "Low Iron, Tempered Glass"
+          ]
+        },
+        {
+          "label": "Max. Series Fuse Rating",
+          "values": [
+            "30A"
+          ]
+        },
+        {
+          "label": "Temperature Coefficient (Voc)",
+          "values": [
+            "-0.251% /°C"
+          ]
+        },
+        {
+          "label": "Connectors",
+          "values": [
+            "MC4 Compatible"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/12/topcon-bifacial-solar-panel.png"
+  },
+  {
+    "slug": "solar-panel-590-watt-topcon-half-cut-bi-facial",
+    "oldSlug": null,
+    "title": "UTL 590 Watt N-Type TOPCon Bifacial Dual Glass Solar Module",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The UTL 590Wp Bifacial N-Type TOPCon solar panel is a high-efficiency dual-glass module engineered for serious performance and long-term reliability. With a powerful output of 590Wp and an impressive efficiency of 22.87%, it uses advanced 144-cell N-Type TOPCon technology to…",
+    "description": [
+      "The UTL 590Wp Bifacial N-Type TOPCon solar panel is a high-efficiency dual-glass module engineered for serious performance and long-term reliability. With a powerful output of 590Wp and an impressive efficiency of 22.87%, it uses advanced 144-cell N-Type TOPCon technology to deliver more energy per square foot—even in low light or high-temperature conditions.",
+      "Built with a durable aluminum frame, tempered dual-glass layers, and designed to withstand wind loads up to 2400 Pa and snow loads up to 5400 Pa, this solar module performs reliably across harsh Indian climates. The PID-resistant design ensures long-lasting efficiency, backed by a 10-year product warranty and an extended 30-year output warranty."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Maximum Power",
+          "values": [
+            "590 Wp"
+          ]
+        },
+        {
+          "label": "Efficiency",
+          "values": [
+            "22.87%"
+          ]
+        },
+        {
+          "label": "Technology",
+          "values": [
+            "Bifacial N-Type TOPCon – Dual Glass"
+          ]
+        },
+        {
+          "label": "No. of Cells",
+          "values": [
+            "144"
+          ]
+        },
+        {
+          "label": "Product Warranty",
+          "values": [
+            "10 Years"
+          ]
+        },
+        {
+          "label": "Output Warranty",
+          "values": [
+            "30 Years"
+          ]
+        },
+        {
+          "label": "Size (in mm)",
+          "values": [
+            "2277 x 1133 x 35"
+          ]
+        },
+        {
+          "label": "Weight",
+          "values": [
+            "32.50 KG"
+          ]
+        },
+        {
+          "label": "Power Tolerance",
+          "values": [
+            "±2%"
+          ]
+        },
+        {
+          "label": "Rated voltage – Vmp(V)",
+          "values": [
+            "44.27"
+          ]
+        },
+        {
+          "label": "Rated current – Imp( A)",
+          "values": [
+            "13.33"
+          ]
+        },
+        {
+          "label": "Short circuit current – Isc( A)",
+          "values": [
+            "14.24"
+          ]
+        },
+        {
+          "label": "Open circuit voltage – Voc(V)",
+          "values": [
+            "51.52"
+          ]
+        },
+        {
+          "label": "Max Fuse Rating",
+          "values": [
+            "30A"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2024/07/UTL-590-Watt-N-Type-TOPCon-Bifacial-Dual-Glass-Solar-module.webp"
+  },
+  {
+    "slug": "topcon-solar-panel-550-watt-24v-bi-facial-pack-of-two",
+    "oldSlug": null,
+    "title": "UTL 550 Watt 24V TOPCon Bi-Facial Dual Glass Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The UTL 550W Non-DCR TOPCon Solar Panel is engineered for superior efficiency, long-term reliability, and compatibility with rooftop solar installations. With 144 half-cut N-Type TOPCon cells, it minimizes resistance, reduces power loss, and ensures stable output—even in…",
+    "description": [
+      "The UTL 550W Non-DCR TOPCon Solar Panel is engineered for superior efficiency, long-term reliability, and compatibility with rooftop solar installations. With 144 half-cut N-Type TOPCon cells, it minimizes resistance, reduces power loss, and ensures stable output—even in partially shaded or high-temperature environments. Built to last, it’s tested for 5400 Pa snow load and 2400 Pa wind load, making it a solid performer across diverse Indian climates. Its high-efficiency N-type TOPCon technology delivers more energy per square meter, helping homeowners and institutions lower their electricity bills faster."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Maximum Power",
+          "values": [
+            "550Wp"
+          ]
+        },
+        {
+          "label": "Efficiency",
+          "values": [
+            "21.31%"
+          ]
+        },
+        {
+          "label": "Technology",
+          "values": [
+            "TOPCon Bi-facial(Dual Glass)"
+          ]
+        },
+        {
+          "label": "No. of Cells",
+          "values": [
+            "144"
+          ]
+        },
+        {
+          "label": "Product Warranty",
+          "values": [
+            "10 Years"
+          ]
+        },
+        {
+          "label": "Output Warranty",
+          "values": [
+            "30 Years"
+          ]
+        },
+        {
+          "label": "Size(in mm)",
+          "values": [
+            "2277 x 1133 x 35"
+          ]
+        },
+        {
+          "label": "Weight",
+          "values": [
+            "29Kg"
+          ]
+        },
+        {
+          "label": "Glass Type",
+          "values": [
+            "High-transparency, anti-reflective tempered glass (3.2 mm)"
+          ]
+        },
+        {
+          "label": "Frame",
+          "values": [
+            "Anodized aluminum alloy frame (silver finish) for structural rigidity"
+          ]
+        },
+        {
+          "label": "Encapsulant Material",
+          "values": [
+            "EVA (Ethylene Vinyl Acetate) for better insulation and UV protection"
+          ]
+        },
+        {
+          "label": "Backsheet",
+          "values": [
+            "UV-resistant, weatherproof polymer backsheet"
+          ]
+        },
+        {
+          "label": "Cell Type",
+          "values": [
+            "High-efficiency TOPCon Solar Cells"
+          ]
+        },
+        {
+          "label": "Junction Box",
+          "values": [
+            "IP68-rated, 3-diode protection for better safety and heat resistance"
+          ]
+        },
+        {
+          "label": "Connector Type",
+          "values": [
+            "MC4-compatible, pre-installed for plug-and-play connections"
+          ]
+        },
+        {
+          "label": "Bypass Diodes",
+          "values": [
+            "Integrated to minimize power loss due to shading"
+          ]
+        },
+        {
+          "label": "Mechanical Load Resistance",
+          "values": [
+            "5400 Pa (snow), 2400 Pa (wind)"
+          ]
+        },
+        {
+          "label": "Module Coating",
+          "values": [
+            "Anti-soiling and anti-reflective coating for optimal light absorption"
+          ]
+        },
+        {
+          "label": "Particulars",
+          "values": [
+            "Description"
+          ]
+        },
+        {
+          "label": "Rated Power (Pmax)",
+          "values": [
+            "550Wp"
+          ]
+        },
+        {
+          "label": "Open Circuit Voltage (Voc)",
+          "values": [
+            "50.20V"
+          ]
+        },
+        {
+          "label": "Short Circuit Current (Isc)",
+          "values": [
+            "14.18A"
+          ]
+        },
+        {
+          "label": "Rated Voltage (Vmp)",
+          "values": [
+            "40.96"
+          ]
+        },
+        {
+          "label": "Rated Current (Imp)",
+          "values": [
+            "13.43"
+          ]
+        },
+        {
+          "label": "Operating Temp.",
+          "values": [
+            "-40°C to +85°C"
+          ]
+        },
+        {
+          "label": "Max System Voltage",
+          "values": [
+            "1500 VDC"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/09/UTL-550-Watt-24V-TOPCon-Bi-Facial-Dual-Glass-Solar-Panel.webp"
+  },
+  {
+    "slug": "utl-150-watt-12v-mono-perc-half-cut-solar-panel",
+    "oldSlug": null,
+    "title": "UTL 150 Watt 12V Mono PERC Half-Cut Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The UTL 150 Watt 12V Mono Solar Panel offers a solid balance between output and durability, making it ideal for larger DC systems, battery charging, and small home setups. Designed with mono PERC technology, this panel delivers better performance in low-light conditions and…",
+    "description": [
+      "The UTL 150 Watt 12V Mono Solar Panel offers a solid balance between output and durability, making it ideal for larger DC systems, battery charging, and small home setups. Designed with mono PERC technology, this panel delivers better performance in low-light conditions and ensures maximum power generation over time. Its advanced build includes multi-busbar (10BB/12BB) architecture, reducing energy loss and improving overall efficiency. The rugged aluminum frame and IP65-rated junction box protect the panel from dust, water, and mechanical stress — ensuring long-term stability across various environments."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/04/150-Watt-monoperc.png"
+  },
+  {
+    "slug": "utl-500-watt-bi-facial-n-type-topcon-solar-panel",
+    "oldSlug": null,
+    "title": "UTL 500 Watt Bi-facial N-Type TOPCon Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The UTL 500W TOPCon solar module is a budget-friendly solar solution designed for small rooftops, off-grid systems, and hybrid solar setups. Powered by advanced N-Type TOPCon cell technology, this panel offers 20.82% efficiency, excellent low-light performance, and minimal…",
+    "description": [
+      "The UTL 500W TOPCon solar module is a budget-friendly solar solution designed for small rooftops, off-grid systems, and hybrid solar setups. Powered by advanced N-Type TOPCon cell technology, this panel offers 20.82% efficiency, excellent low-light performance, and minimal power degradation over time.",
+      "Module Type – UTL500-132BT 500W Rated Output – Ideal for compact solar installations 20.82% Efficiency – Advanced N-Type TOPcon cells Performs in All Weather – Low light and high temperature optimized Lightweight & Easy to Install – ~17 kg with MC4-compatible connectors Durable Design – Toughened glass, aluminium frame, IP68 junction box Perfect for Hybrid & Off-Grid Systems – Compatible with inverters and batteries 30-Year Linear Power Warranty – Reliable performance, year after year"
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/06/500-W-TOPCON.png"
+  },
+  {
+    "slug": "utl-solar-55w-topcon-solar-panel",
+    "oldSlug": null,
+    "title": "UTL Solar 55W TOPCon Solar Panel",
+    "category": "solar-panels",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The UTL Solar 55W TOPCon Solar Panel combines advanced TOPCon cell technology with durable construction to deliver dependable energy generation and long-term performance. Engineered with TOPCon 16BB cells, tempered low-iron glass, and a corrosion-resistant aluminum frame, the…",
+    "description": [
+      "The UTL Solar 55W TOPCon Solar Panel combines advanced TOPCon cell technology with durable construction to deliver dependable energy generation and long-term performance. Engineered with TOPCon 16BB cells, tempered low-iron glass, and a corrosion-resistant aluminum frame, the module is designed to maximize energy capture while maintaining reliability in demanding environmental conditions.",
+      "With high-quality materials, optimized electrical characteristics, and low annual degradation, the panel offers consistent performance throughout its operational life."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/04/150-Watt-monoperc.png"
   }
 ]
