@@ -17,6 +17,7 @@
     "htaccess": "node scripts/make-htaccess.mjs",
     "llms-txt": "node scripts/make-llms-txt.mjs",
     "image-sitemap": "node scripts/make-image-sitemap.mjs",
+    "indexnow": "node scripts/indexnow.mjs",
     "generate": "npm run htaccess && npm run llms-txt"
   },
   "engines": {
