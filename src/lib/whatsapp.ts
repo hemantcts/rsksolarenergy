@@ -14,6 +14,10 @@ export function billMessage(): string {
   return 'Hi RSK, I am sending my last electricity bill. Please tell me what size of solar system suits it and the cost after subsidy.';
 }
 
+export function siteInspectionMessage(): string {
+  return ['Hi RSK, I would like to book a free site inspection for rooftop solar.', 'My address / area: ', 'Best day and time for a visit: '].join('\n');
+}
+
 export function sizeMessage(sizeKw: number, type = 'on-grid'): string {
   return `Hi RSK, I would like to ask about a ${sizeKw}kW ${type} solar system. My location is: `;
 }

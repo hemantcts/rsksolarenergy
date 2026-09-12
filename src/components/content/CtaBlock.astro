@@ -1,18 +1,21 @@
 ---
 import { PRIMARY_PHONE } from '../../config/business';
 import WhatsAppButton from '../WhatsAppButton.astro';
+import { siteInspectionMessage } from '../../lib/whatsapp';
 
 interface Props {
   heading?: string;
   label?: string;
   message?: string;
   body?: string;
+  showInspection?: boolean;
 }
 const {
   heading = 'Send us your last electricity bill',
   label = 'Send my bill on WhatsApp',
   message = 'Hi RSK, I am sending my last electricity bill. Please tell me what size of solar system suits it and the cost after subsidy.',
   body = 'A photo is enough. We reply with the right size, the cost after subsidy and anything your connection needs first.',
+  showInspection = true,
 } = Astro.props;
 ---
 
@@ -21,6 +24,7 @@ const {
   <p class="mt-2 text-slate">{body}</p>
   <div class="mt-5 flex flex-col gap-3">
     <WhatsAppButton label={label} message={message} />
+    {showInspection && <WhatsAppButton label="Book a free site inspection" message={siteInspectionMessage()} variant="secondary" />}
     <a class="btn btn-secondary" href={`tel:${PRIMARY_PHONE.tel}`}>Call {PRIMARY_PHONE.display}</a>
     <a class="btn-tertiary mt-1 self-start" href="/solar-calculator/">Or work it out in the calculator</a>
   </div>
