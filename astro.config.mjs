@@ -26,9 +26,9 @@ export default defineConfig({
     csp: {
       directives: [
         "default-src 'self'",
-        "img-src 'self' data: https://i.ytimg.com",
+        "img-src 'self' data: https://i.ytimg.com https://www.googletagmanager.com",
         "font-src 'self'",
-        "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com",
+        "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com",
         "base-uri 'self'",
         "form-action 'self'",
         "object-src 'none'",
