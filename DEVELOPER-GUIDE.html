@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSK Solar Energy — Developer &amp; Maintenance Guide</title>
+<style>
+  :root {
+    --ink: #0d1b2a;
+    --green: #10824c;
+    --green-dark: #0b6b3d;
+    --slate: #3e5563;
+    --rule: #d7dee1;
+    --bg: #f6f8f8;
+    --code-bg: #0d1b2a;
+    --code-text: #eaf3ee;
+    --warn-bg: #fff6e5;
+    --warn-border: #e8b23d;
+    --tip-bg: #eaf6ef;
+    --tip-border: var(--green);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.65;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px 100px; }
+  header.hero {
+    background: var(--ink);
+    color: #fff;
+    padding: 48px 24px 40px;
+  }
+  header.hero .wrap { padding-bottom: 0; }
+  header.hero p.eyebrow {
+    color: #8fd6b0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 13px;
+    margin: 0 0 8px;
+  }
+  header.hero h1 { margin: 0 0 12px; font-size: 32px; line-height: 1.25; }
+  header.hero p.lead { margin: 0; color: #cdd8dd; font-size: 17px; max-width: 640px; }
+  nav.toc {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: -24px 0 40px;
+    box-shadow: 0 6px 20px rgba(13,27,42,0.08);
+  }
+  nav.toc h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--slate); margin: 0 0 12px; }
+  nav.toc ol { columns: 2; column-gap: 32px; margin: 0; padding-left: 0; list-style: none; }
+  nav.toc li { break-inside: avoid; margin-bottom: 6px; }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { text-decoration: underline; color: var(--green); }
+  section { margin-bottom: 52px; scroll-margin-top: 16px; }
+  h2 {
+    font-size: 24px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 10px;
+    margin: 0 0 20px;
+  }
+  h2 .num { color: var(--green); margin-right: 8px; }
+  h3 { font-size: 18px; margin: 28px 0 10px; }
+  p { margin: 0 0 14px; }
+  ul, ol { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    background: #e9edee;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 16px 18px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 0 0 16px;
+  }
+  pre code { background: none; padding: 0; color: inherit; font-size: 1em; }
+  .file-path {
+    display: inline-block;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    background: #fff;
+    border: 1px solid var(--rule);
+    padding: 1px 8px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    color: var(--green-dark);
+    font-weight: 600;
+  }
+  .box {
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin: 0 0 18px;
+    border-left: 4px solid;
+  }
+  .box.tip { background: var(--tip-bg); border-color: var(--tip-border); }
+  .box.warn { background: var(--warn-bg); border-color: var(--warn-border); }
+  .box p:last-child { margin-bottom: 0; }
+  .box strong.label { display: block; text-transform: uppercase; font-size: 12px; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .box.tip strong.label { color: var(--green-dark); }
+  .box.warn strong.label { color: #8a6116; }
+  table { width: 100%; border-collapse: collapse; margin: 0 0 18px; font-size: 15px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { background: #eef1f2; font-size: 13px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--slate); }
+  tr:last-child td { border-bottom: none; }
+  .step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+  .step .step-num {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .step .step-body { padding-top: 3px; }
+  a { color: var(--green-dark); }
+  hr { border: none; border-top: 1px solid var(--rule); margin: 40px 0; }
+  footer.page-footer {
+    text-align: center;
+    color: var(--slate);
+    font-size: 14px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+  }
+  .badge {
+    display: inline-block;
+    background: var(--green);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  @media print {
+    nav.toc { break-after: page; }
+    section { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">RSK Solar Energy — rsksolarenergy.com</p>
+    <h1>Developer &amp; Maintenance Guide</h1>
+    <p class="lead">
+      This document is written for someone who knows HTML and CSS but has not worked with a site built
+      this way before. It assumes nothing else. Every command you need is written out in full — copy it,
+      paste it into a terminal, press Enter.
+    </p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <nav class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#what-is-this">1. What this website actually is</a></li>
+      <li><a href="#one-time-setup">2. One-time computer setup</a></li>
+      <li><a href="#daily-commands">3. The commands you'll actually use</a></li>
+      <li><a href="#file-map">4. Where things live (the important part)</a></li>
+      <li><a href="#file-types">5. The file types you'll see, in plain English</a></li>
+      <li><a href="#howto-blog">6. How to: add a blog post</a></li>
+      <li><a href="#howto-product">7. How to: add or edit a product</a></li>
+      <li><a href="#howto-business">8. How to: change phone/address/prices/reviews</a></li>
+      <li><a href="#howto-page">9. How to: edit an existing page</a></li>
+      <li><a href="#before-publishing">10. Before you publish anything</a></li>
+      <li><a href="#analytics">11. Google Analytics</a></li>
+      <li><a href="#deploy">12. Publishing the site live (Hostinger)</a></li>
+      <li><a href="#rules">13. Rules this site was built to follow</a></li>
+      <li><a href="#troubleshooting">14. Troubleshooting</a></li>
+    </ol>
+  </nav>
+
+  <section id="what-is-this">
+    <h2><span class="num">1.</span>What this website actually is</h2>
+    <p>
+      This is <strong>not</strong> a WordPress site. There is no admin dashboard, no database, and no
+      plugins. Instead, the whole website is built from plain text files (mostly things that look like
+      HTML) and turned into real HTML/CSS/JavaScript files by a tool called <strong>Astro</strong> before
+      it goes online. This is called a "static site."
+    </p>
+    <div class="box tip">
+      <strong class="label">Why this matters to you</strong>
+      <p>
+        You cannot just open a page on the live website and edit it. You edit the <em>source files</em> on
+        your computer, run one command to "build" the site, and then upload the result. Section 12 covers
+        the upload step in detail.
+      </p>
+    </div>
+    <p>Why built this way instead of WordPress: it is much faster to load, and there is no admin login or
+      plugin system for someone to break into (the previous WordPress version of this site was compromised
+      by a hacker who injected a spam link into the homepage — this rebuild deliberately has no equivalent
+      attack surface).</p>
+  </section>
+
+  <section id="one-time-setup">
+    <h2><span class="num">2.</span>One-time computer setup</h2>
+    <p>Do this once on any computer you'll use to edit the site. If it's already set up, skip to Section 3.</p>
+
+    <h3>Step 1 — Install Node.js</h3>
+    <p>
+      Node.js is the program that runs the website-building tool. Go to
+      <a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a> and download the
+      <strong>LTS version</strong> (the button on the left, marked "Recommended for most users"). Run the
+      installer and click through with the default options.
+    </p>
+    <p>To check it installed correctly, open a terminal (see box below) and run:</p>
+    <pre><code>node --version</code></pre>
+    <p>You should see something like <code>v22.x.x</code> or higher. This project needs Node <strong>22 or newer</strong>.</p>
+
+    <div class="box tip">
+      <strong class="label">What's a "terminal"?</strong>
+      <p>
+        On Windows: press the Windows key, type <code>PowerShell</code> or <code>Command Prompt</code>,
+        press Enter. On Mac: open <code>Terminal</code> from Applications → Utilities. It's a black or
+        white window where you type commands instead of clicking things.
+      </p>
+    </div>
+
+    <h3>Step 2 — Get the project files</h3>
+    <p>
+      You should have a folder called <code>rsksolarenergy</code> containing this project (if you're
+      reading this file, you probably already have it — it lives in that same folder). In your terminal,
+      move into that folder:
+    </p>
+    <pre><code>cd path\to\rsksolarenergy</code></pre>
+    <p>(On this development machine that's currently <code>cd C:\xampp\htdocs\rsksolarenergy</code>.)</p>
+
+    <h3>Step 3 — Install the project's dependencies</h3>
+    <p>
+      The project depends on a number of small tools and libraries (listed in <span class="file-path">package.json</span>).
+      This one command downloads all of them into a folder called <code>node_modules</code>:
+    </p>
+    <pre><code>npm install</code></pre>
+    <p>This takes a minute or two the first time. You only need to run it again if <span class="file-path">package.json</span> changes.</p>
+
+    <div class="box warn">
+      <strong class="label">Don't touch node_modules</strong>
+      <p>
+        It's a huge folder of other people's code, regenerated automatically. Never edit anything inside
+        it, and never manually delete/copy it between computers — always run <code>npm install</code>
+        fresh instead.
+      </p>
+    </div>
+  </section>
+
+  <section id="daily-commands">
+    <h2><span class="num">3.</span>The commands you'll actually use</h2>
+    <p>Run all of these from inside the project folder in your terminal.</p>
+
+    <h3>See your changes live while you edit</h3>
+    <pre><code>npm run dev</code></pre>
+    <p>
+      This starts a "live preview" server. It will print a web address, usually
+      <a href="http://localhost:4321" target="_blank" rel="noopener">http://localhost:4321</a> — open that
+      in your browser. As you edit and save files, the page updates automatically. Leave this running in
+      its own terminal window while you work; press <code>Ctrl</code>+<code>C</code> in that window to stop it.
+    </p>
+
+    <h3>Build the finished website</h3>
+    <pre><code>npm run build</code></pre>
+    <p>
+      This turns everything into the final, real website files, placed in a new folder called
+      <span class="file-path">dist</span>. This is the ONLY folder you upload to make the live site update
+      (see Section 12). Always run this — and check it finishes with no red error text — before
+      publishing anything.
+    </p>
+
+    <h3>Preview the exact built version</h3>
+    <pre><code>npm run preview</code></pre>
+    <p>
+      Unlike <code>npm run dev</code> (which is a live-editing preview), this serves the actual
+      <span class="file-path">dist</span> folder exactly as it will appear online. Use this as a final
+      check after <code>npm run build</code>, before uploading.
+    </p>
+
+    <h3>Run the automated tests</h3>
+    <pre><code>npm test</code></pre>
+    <p>
+      This checks that the price/subsidy calculator's math still works correctly (88 checks). It should
+      always say <strong>all passed</strong> in green. If anything is red, something broke a calculation —
+      do not publish until it's fixed (or ask a developer).
+    </p>
+
+    <h3>Check for broken links and missing information</h3>
+    <pre><code>node scripts/launch-check.mjs</code></pre>
+    <p>
+      Run this <strong>after</strong> <code>npm run build</code>. It checks every internal link on the
+      built site for typos/broken pages, and flags any business facts that are still placeholders. See
+      Section 10 for reading its output.
+    </p>
+
+    <table>
+      <thead><tr><th>Command</th><th>What it does</th><th>When to use it</th></tr></thead>
+      <tbody>
+        <tr><td><code>npm install</code></td><td>Downloads the project's tools</td><td>Once, and again only if <code>package.json</code> changes</td></tr>
+        <tr><td><code>npm run dev</code></td><td>Live-editing preview</td><td>While actively making changes</td></tr>
+        <tr><td><code>npm run build</code></td><td>Builds the real website into <code>dist/</code></td><td>Before every publish</td></tr>
+        <tr><td><code>npm run preview</code></td><td>Serves the built <code>dist/</code> folder</td><td>Final check before publish</td></tr>
+        <tr><td><code>npm test</code></td><td>Checks the calculator's math</td><td>Before every publish</td></tr>
+        <tr><td><code>node scripts/launch-check.mjs</code></td><td>Checks for broken links</td><td>Before every publish</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="file-map">
+    <h2><span class="num">4.</span>Where things live (the important part)</h2>
+    <p>You will spend almost all of your time inside the <span class="file-path">src</span> folder. Here's the map:</p>
+
+    <table>
+      <thead><tr><th>To change this…</th><th>…edit this</th></tr></thead>
+      <tbody>
+        <tr><td>Phone numbers, address, GST number, Google/Justdial rating, install counts, social links</td><td><span class="file-path">src/config/business.ts</span></td></tr>
+        <tr><td>Solar prices, subsidy rules, PSPCL tariff numbers, system sizing rules</td><td><span class="file-path">src/config/solar-config.ts</span> <em>(handle with care — see box below)</em></td></tr>
+        <tr><td>The product catalogue (panels, inverters, batteries…)</td><td><span class="file-path">src/data/products.json</span></td></tr>
+        <tr><td>Product photos</td><td><span class="file-path">src/assets/products/</span> (filename must exactly match the product's "slug")</td></tr>
+        <tr><td>Brand/partner logos shown on the homepage</td><td><span class="file-path">src/data/brands.ts</span> + <span class="file-path">src/assets/brand/</span></td></tr>
+        <tr><td>Customer reviews</td><td><span class="file-path">src/data/reviews.ts</span></td></tr>
+        <tr><td>Blog posts</td><td><span class="file-path">src/content/blog/</span> — one <code>.mdx</code> file per post (see Section 6)</td></tr>
+        <tr><td>Long-form guides (subsidy guide, hybrid vs off-grid, etc.)</td><td><span class="file-path">src/content/guides/</span></td></tr>
+        <tr><td>The homepage</td><td><span class="file-path">src/pages/index.astro</span></td></tr>
+        <tr><td>Any other single page (About, Careers, Terms…)</td><td><span class="file-path">src/pages/*.astro</span> — one file per page, named after its web address</td></tr>
+        <tr><td>The header, footer, and buttons that repeat on every page</td><td><span class="file-path">src/components/</span> <em>(ask a developer before editing — used everywhere)</em></td></tr>
+        <tr><td>Colours, fonts, spacing rules</td><td><span class="file-path">src/styles/global.css</span></td></tr>
+        <tr><td>Favicon, robots.txt, and other files served exactly as-is</td><td><span class="file-path">public/</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="box warn">
+      <strong class="label">solar-config.ts is special</strong>
+      <p>
+        This file drives the price calculator that homeowners use to decide whether to contact RSK. Every
+        number in it is marked with a status (confirmed / researched / assumption). Changing a number here
+        changes what every visitor sees calculated. If you're not sure, ask a developer rather than guess —
+        see <span class="file-path">files/TODO-content.md</span> for exactly which figures are still open
+        for confirmation.
+      </p>
+    </div>
+  </section>
+
+  <section id="file-types">
+    <h2><span class="num">5.</span>The file types you'll see, in plain English</h2>
+
+    <h3><code>.astro</code> files</h3>
+    <p>
+      Look almost exactly like an HTML file. There's a section at the very top between two <code>---</code>
+      lines (called "frontmatter") that pulls in data — you can usually leave that part alone. Below the
+      second <code>---</code>, it's ordinary HTML with regular class names, plus curly braces
+      <code>{likeThis}</code> where a piece of text (a phone number, a price) gets inserted automatically.
+      You can safely edit the plain text and HTML tags; be careful around anything in curly braces.
+    </p>
+
+    <h3><code>.mdx</code> files</h3>
+    <p>
+      Used for blog posts and guides. It's <a href="https://www.markdownguide.org/basic-syntax/" target="_blank" rel="noopener">Markdown</a>
+      (a simple way to write formatted text with plain symbols — <code>## Heading</code>,
+      <code>**bold**</code>, <code>- bullet point</code>) with a frontmatter block at the top like
+      <code>.astro</code> files have, plus the occasional embedded component (a capitalised tag like
+      <code>&lt;TariffTable /&gt;</code>) that renders something more complex. Leave those component tags
+      alone; write around them.
+    </p>
+
+    <h3><code>.json</code> files</h3>
+    <p>
+      Structured data — the product catalogue is one of these. It's a list of items in
+      <code>{ "key": "value" }</code> pairs. The formatting (commas, quote marks, curly/square brackets)
+      must stay exactly correct or the whole site will fail to build — copy an existing entry and edit its
+      values rather than typing one from scratch.
+    </p>
+
+    <h3><code>.ts</code> files</h3>
+    <p>
+      "TypeScript" — JavaScript with some extra structure. You'll mostly encounter these as data/config
+      files (<span class="file-path">business.ts</span>, <span class="file-path">solar-config.ts</span>)
+      where you're really just editing text and numbers inside a predictable shape. Change the values, not
+      the surrounding structure.
+    </p>
+  </section>
+
+  <section id="howto-blog">
+    <h2><span class="num">6.</span>How to: add a blog post</h2>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <p>Go to <span class="file-path">src/content/blog/</span>. Copy an existing <code>.mdx</code> file as a starting template (any one) and rename the copy — the filename becomes the page's web address, so use lowercase words separated by hyphens, e.g. <code>solar-panel-cleaning-tips.mdx</code>.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <p>Edit the frontmatter block at the top (between the <code>---</code> lines):</p>
+        <pre><code>---
+title: Your Post Title Here (Under 70 Characters)
+description: 'A one-sentence summary, under 170 characters — shows in Google search results.'
+published: '2026-09-12'
+category: 'Panels and inverters'
+tags: ['example tag', 'another tag']
+faq:
+  - q: A question a reader might ask?
+    a: 'The answer, in a sentence or two.'
+related:
+  - href: /blog/some-other-post-slug/
+    label: Text for the link to that other post
+---</code></pre>
+        <p><code>category</code> must be exactly one of these (spelling matters):</p>
+        <ul>
+          <li>Subsidy and bills</li>
+          <li>Sizing and systems</li>
+          <li>Hybrid, on-grid and off-grid</li>
+          <li>Solar pumps and agriculture</li>
+          <li>Panels and inverters</li>
+          <li>Installation and maintenance</li>
+          <li>Financing</li>
+          <li>Residential and commercial</li>
+          <li>ROI and payback</li>
+        </ul>
+        <p><code>tags</code>, <code>faq</code> and <code>related</code> are optional — delete them if you don't need them.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <p>Below the second <code>---</code>, write the post in Markdown. Headings use <code>##</code>, paragraphs are just plain lines, bullet points start with <code>-</code>.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <p>Run <code>npm run dev</code> and open the new post's address (e.g. <code>http://localhost:4321/blog/solar-panel-cleaning-tips/</code>) to check it looks right.</p>
+      </div>
+    </div>
+
+    <div class="box warn">
+      <strong class="label">Never invent facts</strong>
+      <p>
+        Do not write specific prices, subsidy amounts, statistics or claims you haven't confirmed are true
+        for RSK. This site's whole credibility rests on being more accurate than competitors — see
+        Section 13.
+      </p>
+    </div>
+  </section>
+
+  <section id="howto-product">
+    <h2><span class="num">7.</span>How to: add or edit a product</h2>
+    <p>All products live in one file: <span class="file-path">src/data/products.json</span>. It's a list — find an existing product of the same type and copy its shape:</p>
+    <pre><code>{
+  "slug": "example-solar-panel-400-watt",
+  "oldSlug": null,
+  "title": "Example 400 Watt Solar Panel",
+  "category": "solar-panels",
+  "brand": "UTL Solar",
+  "model": "UTL400-72M",
+  "summary": "One or two honest sentences describing the product.",
+  "description": ["A longer paragraph or two."],
+  "features": ["A short bullet point", "Another bullet point"],
+  "specs": {
+    "columns": null,
+    "rows": [
+      { "label": "Maximum Power", "values": ["400W"] },
+      { "label": "Warranty", "values": ["25 years"] }
+    ]
+  },
+  "source": "utl-catalogue",
+  "oldImage": "https://example.com/original-photo.jpg"
+}</code></pre>
+    <p><code>category</code> must be one of: <code>solar-systems</code>, <code>solar-panels</code>, <code>inverters</code>, <code>batteries</code>, <code>charge-controllers</code>, <code>ev-chargers</code>, <code>lighting-and-appliances</code>.</p>
+    <p>
+      Don't forget the comma after the previous product's closing <code>}</code> when adding a new one to
+      the list — this is the single most common way to accidentally break the whole site's build. If the
+      build fails right after editing this file, check for a missing or extra comma first.
+    </p>
+
+    <h3>Adding the product photo</h3>
+    <p>
+      Save the photo as a <code>.webp</code> file (convert it online if it's a <code>.jpg</code>/<code>.png</code> — there are many free "convert to webp" websites) into
+      <span class="file-path">src/assets/products/</span>, and name the file <strong>exactly</strong> the
+      same as the product's <code>"slug"</code> value. For the example above, that's
+      <code>example-solar-panel-400-watt.webp</code>. The site finds the photo automatically by matching
+      the filename to the slug — no other file needs to reference it.
+    </p>
+  </section>
+
+  <section id="howto-business">
+    <h2><span class="num">8.</span>How to: change phone/address/prices/reviews</h2>
+    <p>Open <span class="file-path">src/config/business.ts</span>. It's a single structured list of facts, each with a short comment above explaining what it is. Find the value, change the text between the quote marks, save. For example:</p>
+    <pre><code>phones: [
+  { display: '+91 90419 96918', tel: '+919041996918' },
+],</code></pre>
+    <p>
+      <code>display</code> is what visitors see; <code>tel</code> is the same number with no spaces/symbols
+      (used to make the number tap-to-call). Keep both in sync if you change one.
+    </p>
+    <p>
+      Customer reviews live in a separate file: <span class="file-path">src/data/reviews.ts</span>. Only
+      add reviews that are genuinely real (copied from Google/Justdial) — never invent one.
+    </p>
+  </section>
+
+  <section id="howto-page">
+    <h2><span class="num">9.</span>How to: edit an existing page</h2>
+    <p>
+      Every page lives in <span class="file-path">src/pages/</span> as one <code>.astro</code> file, named
+      after its web address (<span class="file-path">about.astro</span> is <code>/about/</code>). Open the
+      file, scroll past the frontmatter block (between the <code>---</code> lines) into the HTML below, and
+      edit text directly the way you'd edit any HTML file. Save, then check it in
+      <code>npm run dev</code>.
+    </p>
+    <p>
+      A few pages have square brackets in their filename, like
+      <span class="file-path">products/[slug].astro</span> — <strong>do not rename or duplicate these</strong>.
+      They're templates that automatically generate many pages at once (every product's page comes from
+      that one file). Editing the template changes every product page it generates.
+    </p>
+  </section>
+
+  <section id="before-publishing">
+    <h2><span class="num">10.</span>Before you publish anything</h2>
+    <p>Every time, in this order, from the project folder:</p>
+    <pre><code>npm run build
+npm test
+node scripts/launch-check.mjs</code></pre>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body"><p><code>npm run build</code> must finish with no red error text. If it errors, read the message — it usually names the exact file and line with a problem (very often a missing comma in a <code>.json</code> file, per Section 7).</p></div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body"><p><code>npm test</code> must say all checks passed.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body"><p><code>node scripts/launch-check.mjs</code> — read its output. A ✅ next to "Internal links" with "no broken internal links" means every link on the site points somewhere real. A 🟠 or 🔴 elsewhere lists business facts still marked as placeholders (see <span class="file-path">files/TODO-content.md</span> for the full, current list) — these don't block publishing, they're just open items worth knowing about.</p></div>
+    </div>
+    <p>Only once all three are clean, move on to Section 12 to publish.</p>
+  </section>
+
+  <section id="analytics">
+    <h2><span class="num">11.</span>Google Analytics</h2>
+    <p>
+      The site reports visits to Google Analytics (measurement ID <code>G-VJHJ211TLW</code>). It's set up
+      in one place: <span class="file-path">src/config/business.ts</span>, the
+      <code>gaMeasurementId</code> field.
+    </p>
+    <ul>
+      <li><strong>To see the data:</strong> log into <a href="https://analytics.google.com/" target="_blank" rel="noopener">analytics.google.com</a> with the Google account that owns this property.</li>
+      <li><strong>To change the ID</strong> (e.g. a new GA property): edit the <code>gaMeasurementId</code> value in <span class="file-path">business.ts</span> and rebuild.</li>
+      <li><strong>To remove Analytics entirely:</strong> set <code>gaMeasurementId: null</code> in the same file. The tracking code disappears from every page automatically — no other file needs touching.</li>
+    </ul>
+    <div class="box tip">
+      <strong class="label">How it's wired in, for reference</strong>
+      <p>
+        The actual Google tag code lives in <span class="file-path">src/layouts/BaseLayout.astro</span>
+        (the file every single page is built from), and the site's Content Security Policy (a security
+        setting) is configured in <span class="file-path">astro.config.mjs</span> to specifically allow
+        Google's analytics domains. If Analytics ever needs to be swapped for a different tool, both of
+        those files are where to look.
+      </p>
+    </div>
+  </section>
+
+  <section id="deploy">
+    <h2><span class="num">12.</span>Publishing the site live (Hostinger)</h2>
+    <p>
+      This site is a static site: publishing means building it, then uploading the finished files. There
+      is no server-side install step, no database migration, nothing else to configure.
+    </p>
+
+    <h3>Step 1 — Build it</h3>
+    <pre><code>npm run build</code></pre>
+    <p>This creates/updates the <span class="file-path">dist</span> folder in your project. That folder — and only that folder's <em>contents</em> — is what gets uploaded.</p>
+
+    <h3>Step 2 — Get your Hostinger file access</h3>
+    <p>Log into <a href="https://hpanel.hostinger.com/" target="_blank" rel="noopener">hpanel.hostinger.com</a>. You have two ways to upload; pick one:</p>
+    <ul>
+      <li><strong>File Manager (easiest, no extra software):</strong> in hPanel, go to <strong>Files → File Manager</strong>.</li>
+      <li><strong>FTP (better for large/frequent updates):</strong> in hPanel, go to <strong>Files → FTP Accounts</strong> to see/create your FTP username, password and host address, then connect using a free FTP program like <a href="https://filezilla-project.org/" target="_blank" rel="noopener">FileZilla</a>.</li>
+    </ul>
+
+    <h3>Step 3 — Find the right folder</h3>
+    <p>
+      Open <code>public_html</code> (or, if this domain is set up as an "addon domain" alongside others on
+      the same hosting account, the specific subfolder Hostinger created for it — check
+      <strong>Websites</strong> in hPanel if unsure which folder maps to which domain).
+    </p>
+
+    <div class="box warn">
+      <strong class="label">If there's an old WordPress site here already</strong>
+      <p>
+        Back up anything you're unsure about first (Hostinger's File Manager has a "Compress" option to
+        zip the existing folder before you touch it). This project intentionally replaces the old
+        WordPress install — it was previously compromised by a hacker — so a clean folder is the goal, not
+        a merge.
+      </p>
+    </div>
+
+    <h3>Step 4 — Upload</h3>
+    <p>
+      Upload <strong>everything inside</strong> your local <span class="file-path">dist</span> folder into
+      <code>public_html</code> — not the <code>dist</code> folder itself, its contents, so that
+      <code>index.html</code> ends up directly inside <code>public_html</code>.
+    </p>
+    <div class="box warn">
+      <strong class="label">Turn on "show hidden files"</strong>
+      <p>
+        The <span class="file-path">dist</span> folder includes a file called <code>.htaccess</code> that
+        starts with a dot — most file managers and FTP clients hide files like this by default. It handles
+        important redirects and security headers, so it must be uploaded too. In Hostinger's File Manager,
+        use the <strong>Settings</strong> (gear icon) → <strong>Show Hidden Files</strong> option. In
+        FileZilla, it's <strong>Server → Force showing hidden files</strong>.
+      </p>
+    </div>
+
+    <h3>Step 5 — Point the domain and check SSL</h3>
+    <p>
+      If the domain is already registered with Hostinger, this is usually automatic. If it's registered
+      elsewhere, update its nameservers or DNS records to point at Hostinger (hPanel's <strong>Domains</strong>
+      section shows the exact values to use). Hostinger issues a free SSL certificate automatically once
+      DNS is pointing correctly — this can take anywhere from a few minutes to a few hours.
+    </p>
+
+    <h3>Step 6 — Test the live site</h3>
+    <ul>
+      <li>Open the real domain in a normal (not-logged-in) browser window and click through a few pages.</li>
+      <li>Try a URL without a trailing slash (e.g. <code>/about</code>) and confirm it redirects to <code>/about/</code> — this confirms <code>.htaccess</code> uploaded correctly.</li>
+      <li>Check <a href="https://analytics.google.com/" target="_blank" rel="noopener">Google Analytics' Realtime report</a> while browsing the live site to confirm visits are being recorded.</li>
+    </ul>
+
+    <h3>Publishing an update later</h3>
+    <p>
+      Repeat Steps 1 and 4 only: rebuild locally, then re-upload the changed files from
+      <span class="file-path">dist</span> (most FTP programs can "compare" folders and upload only what
+      changed, which is much faster than re-uploading everything each time).
+    </p>
+  </section>
+
+  <section id="rules">
+    <h2><span class="num">13.</span>Rules this site was built to follow</h2>
+    <p>
+      This project was built against a detailed written specification. It's still in the project, in the
+      <span class="file-path">files/</span> folder, and it's worth reading before making significant
+      content changes:
+    </p>
+    <table>
+      <thead><tr><th>File</th><th>What it covers</th></tr></thead>
+      <tbody>
+        <tr><td><span class="file-path">files/CLAUDE.md</span></td><td>The overall brief — what this business needs the site to do, and hard rules (no e-commerce, WhatsApp-first, never invent facts)</td></tr>
+        <tr><td><span class="file-path">files/DESIGN.md</span></td><td>Visual design rules — colours, type, tone of voice</td></tr>
+        <tr><td><span class="file-path">files/MOTION.md</span></td><td>Where animation is (and isn't) allowed on the site</td></tr>
+        <tr><td><span class="file-path">files/SPEC-calculator.md</span></td><td>Exactly how the price/subsidy calculator is supposed to behave</td></tr>
+        <tr><td><span class="file-path">files/TODO-content.md</span></td><td>The current, honest list of what's still unconfirmed or unfinished — check this before assuming a number is final</td></tr>
+      </tbody>
+    </table>
+    <p>The two rules that matter most for day-to-day content work:</p>
+    <ul>
+      <li><strong>Never invent a fact.</strong> No made-up prices, statistics, certifications, customer names, or reviews. If a real number isn't available, say so or leave it out — don't guess and present it as confirmed.</li>
+      <li><strong>No stock photography.</strong> Every photo should be a real photo of a real RSK product or installation, not a generic stock image.</li>
+    </ul>
+  </section>
+
+  <section id="troubleshooting">
+    <h2><span class="num">14.</span>Troubleshooting</h2>
+
+    <h3>"npm: command not found" / "'npm' is not recognized"</h3>
+    <p>Node.js isn't installed, or your terminal needs restarting after installing it. Reinstall from <a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a>, then close and reopen your terminal.</p>
+
+    <h3>"npm run build" fails with a red error</h3>
+    <p>
+      Read the file path and line number in the error message — it points at the problem. The most common
+      cause is a typo in <span class="file-path">src/data/products.json</span> (a missing comma or quote
+      mark). If you can't spot it, undo your last edit and try again to confirm that was the cause.
+    </p>
+
+    <h3>"Port 4321 is already in use"</h3>
+    <p>
+      You (or another terminal window) already have <code>npm run dev</code> running somewhere. Close that
+      other terminal window, or just use the address it's already running at.
+    </p>
+
+    <h3>A product photo isn't showing up</h3>
+    <p>
+      The filename in <span class="file-path">src/assets/products/</span> must match the product's
+      <code>"slug"</code> in <span class="file-path">products.json</span> exactly, including hyphens, and
+      must be a <code>.webp</code> file.
+    </p>
+
+    <h3>I uploaded the new site but the old one still shows</h3>
+    <p>
+      This is almost always a cached page in your own browser. Try a "hard refresh"
+      (<code>Ctrl</code>+<code>Shift</code>+<code>R</code> on Windows, <code>Cmd</code>+<code>Shift</code>+<code>R</code>
+      on Mac) or open the site in a private/incognito window. If it's genuinely not updating, check that
+      you uploaded into the correct folder (Step 3, Section 12).
+    </p>
+
+    <h3>Still stuck</h3>
+    <p>
+      Copy the exact error message (or a screenshot) and the command you ran, and send it to a developer —
+      that's almost always enough for someone familiar with the project to diagnose immediately.
+    </p>
+  </section>
+
+  <footer class="page-footer">
+    <p>RSK Solar Energy — Phase 8-B, Mohali · Written for whoever maintains this site next.</p>
+  </footer>
+
+</div>
+</body>
+</html>
