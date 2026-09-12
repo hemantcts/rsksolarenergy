@@ -37,7 +37,7 @@ import { CATEGORIES, productsIn } from '../../data/products';
 <ul class="ruled">
 {CATEGORIES.map((c) => (
 <li class="grid grid-cols-[1fr_auto] gap-x-6">
-<span><a href={`/products/#${c.id}`} class="font-semibold underline">{c.name}</a><span class="mt-1 block text-slate">{c.blurb}</span></span>
+<span><a href={`/products/${c.id}/`} class="font-semibold underline">{c.name}</a><span class="mt-1 block text-slate">{c.blurb}</span></span>
 <span class="t-value text-slate">{productsIn(c.id).length}</span>
 </li>
 ))}

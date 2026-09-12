@@ -36,7 +36,7 @@ const isNumeric = (v: string) => /^[<>≥≤~±]?\s*[\d.,/×x*\-–% ]+\s*(v|a|w
       items={[
         { name: 'Home', path: '/' },
         { name: 'Products', path: '/products/' },
-        { name: cat, path: `/products/#${p.category}` },
+        { name: cat, path: `/products/${p.category}/` },
         { name: p.title, path },
       ]}
     />
@@ -148,7 +148,7 @@ const isNumeric = (v: string) => /^[<>≥≤~±]?\s*[\d.,/×x*\-–% ]+\s*(v|a|w
         <CtaBlock
           heading="Price and availability"
           body="We do not sell online. Ask on WhatsApp and we reply with the current price and stock, and whether it suits your system."
-          label="Ask the price on WhatsApp"
+          label="Ask the discounted price on WhatsApp"
           message={productMessage(p.title, p.model ?? undefined)}
         />
         {

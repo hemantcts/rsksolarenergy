@@ -73,7 +73,9 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      filter: (page) => !page.includes('/404'),
+      // Keep in sync with every page that sets noindex={true} in its BaseLayout props — a page
+      // that tells crawlers not to index it shouldn't also be listed as a URL worth crawling.
+      filter: (page) => !page.includes('/404') && !page.includes('/awards-and-recognition'),
     }),
   ],
 

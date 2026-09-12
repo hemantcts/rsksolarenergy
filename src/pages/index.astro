@@ -294,7 +294,7 @@ const description = `Enter your PSPCL bill and see your system size, the PM Sury
             const sample = productsIn(c.id).find((p) => PRODUCT_IMAGES[p.slug]);
             return (
               <li>
-                <a href={`/products/#${c.id}`} class="grid grid-cols-[auto_1fr_auto] items-center gap-x-5 no-underline">
+                <a href={`/products/${c.id}/`} class="grid grid-cols-[auto_1fr_auto] items-center gap-x-5 no-underline">
                   {sample ? (
                     <span class="block h-14 w-14 shrink-0 border border-rule bg-white">
                       <Image src={PRODUCT_IMAGES[sample.slug]} alt="" width={112} height={112} loading="lazy" class="aspect-square h-full w-full object-contain p-1.5" />

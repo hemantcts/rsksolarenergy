@@ -62,6 +62,8 @@ export const BUSINESS = {
     residential: '150+',
     /** Solar water pumps and tubewells for agricultural customers. */
     solarPumps: '100+',
+    /** Largest commercial/industrial connection size RSK has supplied. Confirmed by RSK, 2026-09-12. */
+    maxCommercialKw: 100,
     asOf: '2026',
   },
 
