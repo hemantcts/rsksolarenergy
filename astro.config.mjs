@@ -9,7 +9,13 @@ const font = (file, weight) => ({ src: [`./src/assets/fonts/${file}.woff2`], wei
 export default defineConfig({
   site: 'https://rsksolarenergy.com',
   trailingSlash: 'always',
-  build: { format: 'directory', inlineStylesheets: 'auto' },
+  // 'always' rather than the default 'auto' (which only inlines stylesheets under ~4 KB — our
+  // compiled CSS is ~31 KB/~7 KB gzipped, so it stayed a separate render-blocking request).
+  // Inlining it removes that request/round-trip entirely, which PageSpeed flagged specifically
+  // ("render-blocking requests", "network dependency tree") on the live site. Most visitors here
+  // land on one or two pages before converting via WhatsApp/call, so losing separate-file caching
+  // across page navigations costs less than the round-trip it removes on a slow mobile connection.
+  build: { format: 'directory', inlineStylesheets: 'always' },
   compressHTML: true,
 
   // Strict CSP, auto-hashed per build (CLAUDE.md §9 — the old site was compromised via an
