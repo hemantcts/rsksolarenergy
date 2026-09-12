@@ -160,4 +160,8 @@ Redirect 301 /hybrid-solar-systems-with-battery-backup-innovative-and-sustainabl
   AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
 </IfModule>
 
-ErrorDocument 404 /404/
+# Astro special-cases the 404 route: it emits 404.html, NOT 404/index.html, even though every
+# other page is built as a directory (trailingSlash: 'always'). Pointing this at /404/ makes the
+# error document itself a miss, which re-enters the error handler — LiteSpeed gives up and serves
+# Hostinger's default 404 instead of ours. Must stay a real file path.
+ErrorDocument 404 /404.html
