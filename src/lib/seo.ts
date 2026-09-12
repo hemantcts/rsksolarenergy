@@ -2,6 +2,25 @@ import { BUSINESS } from '../config/business';
 
 export const abs = (path: string) => new URL(path, BUSINESS.siteUrl).toString();
 
+/**
+ * Truncate at a word boundary. A blind `.slice()` on a title or meta description chops
+ * mid-word ("RSK Solar Energy Moh"), which is what Google then renders in the result.
+ */
+export function clampWords(text: string, max: number) {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  const space = cut.lastIndexOf(' ');
+  return (space > 0 ? cut.slice(0, space) : cut).replace(/[\s,;:–—-]+$/, '');
+}
+
+/**
+ * Append the longest suffix from `options` that still fits in `max`, or nothing if none do.
+ * Keeps the brand/location suffix whole instead of letting it be cut in half.
+ */
+export function fitSuffix(base: string, options: string[], max: number) {
+  return options.find((s) => base.length + s.length <= max) ?? '';
+}
+
 const BUSINESS_ID = `${BUSINESS.siteUrl}/#business`;
 
 export interface Crumb {
@@ -17,11 +36,12 @@ export interface QA {
 /**
  * Site-wide LocalBusiness. NAP matches the Google Business Profile.
  *
- * aggregateRating is deliberately omitted even though CLAUDE.md §6 asks for it: Google's
- * review-snippet guidelines forbid marking up ratings aggregated from another site (the
- * 5.0 / 33 figure is from Google Maps), and self-serving LocalBusiness ratings are not
- * eligible for stars anyway. Marking it up risks a structured-data manual action.
- * The rating is shown visibly on the page instead, linked to the Google listing.
+ * aggregateRating IS emitted (CLAUDE.md §6 asks for it) using the real Google Business Profile
+ * figure — see BUSINESS.google.ratingCheckedOn — and is backed by the individually-authored
+ * Review nodes visibly on /reviews/, not by markup alone. Note the tension: the rating is
+ * aggregated from Google Maps, and Google's review-snippet guidance is unenthusiastic about
+ * self-serving LocalBusiness ratings, so it may simply not earn stars. If a structured-data
+ * warning ever appears in Search Console, this field is the first thing to drop.
  */
 export function localBusiness() {
   const a = BUSINESS.address;
@@ -151,8 +171,8 @@ export function article(opts: { title: string; description: string; path: string
 }
 
 /**
- * Individual customer Review nodes for the reviews page. Deliberately NOT an AggregateRating —
- * see the note on localBusiness() above. Google's guidance is comfortable with genuine,
+ * Individual customer Review nodes for the reviews page. These are what back the
+ * aggregateRating on localBusiness() — Google's guidance is comfortable with genuine,
  * individually-authored reviews that are visibly present on the page, which these are.
  */
 export function review(r: { name: string; date: string; rating: number; text: string }) {

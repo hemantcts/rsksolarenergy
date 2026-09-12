@@ -5,7 +5,7 @@ import CtaBlock from '../../components/content/CtaBlock.astro';
 import { Image } from 'astro:assets';
 import { PRODUCTS, PRODUCT_IMAGES, categoryName, productsIn, type Product } from '../../data/products';
 import { productMessage } from '../../lib/whatsapp';
-import { product as productSchema, abs } from '../../lib/seo';
+import { product as productSchema, abs, clampWords, fitSuffix } from '../../lib/seo';
 
 export function getStaticPaths() {
   return PRODUCTS.map((p) => ({ params: { slug: p.slug }, props: { p } }));
@@ -16,14 +16,19 @@ const path = `/products/${p.slug}/`;
 const cat = categoryName(p.category);
 const related = productsIn(p.category).filter((x) => x.slug !== p.slug).slice(0, 5);
 const intro = p.summary || `${p.title} from ${p.brand}, supplied by RSK Solar Energy in Mohali.`;
-const description = `${p.title}${p.model ? ` (${p.model})` : ''}: ${p.brand} specifications, features and warranty. Ask RSK Solar Energy, Mohali, for price and stock on WhatsApp.`.slice(0, 168);
+const descFull = `${p.title}${p.model ? ` (${p.model})` : ''}: ${p.brand} specifications, features and warranty. Ask RSK Solar Energy, Mohali, for price and stock on WhatsApp.`;
+const descShort = `${p.title}: ${p.brand} specifications and warranty. Ask RSK Solar Energy, Mohali, for price and stock.`;
+const description = [descFull, descShort].find((d) => d.length <= 160) ?? clampWords(descShort, 160);
+// Keep the product name — the actual keyword — whole, and append the longest brand/location
+// suffix that still fits. A blind slice was cutting it mid-word ("RSK Solar Energy Moh").
+const title = p.title + fitSuffix(p.title, [' | UTL Solar | RSK Solar Energy Mohali', ' | RSK Solar Energy Mohali', ' | RSK Solar Mohali', ' | RSK Solar'], 60);
 const moreParas = p.description.filter((d) => !intro.startsWith(d.slice(0, 60)));
 const hasColumns = !!p.specs?.columns?.length;
 const isNumeric = (v: string) => /^[<>≥≤~±]?\s*[\d.,/×x*\-–% ]+\s*(v|a|w|kg|mm|ah|%|°c|v\s*dc|hz|kva|va|months?|years?|units per day|sqft|hr|ma)?[*]?$/i.test(v.trim());
 ---
 
 <BaseLayout
-  title={`${p.title} | UTL Solar | RSK Solar Energy Mohali`.slice(0, 70)}
+  title={title}
   description={description}
   crumbs={[
     { name: 'Products', path: '/products/' },

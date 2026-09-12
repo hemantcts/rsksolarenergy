@@ -21,7 +21,7 @@ const schema = REVIEWS.map((r) => review({ name: r.name, date: r.date, rating: r
 <BaseLayout title={title} description={description} crumbs={[{ name: 'Reviews', path }]} schema={schema}>
   <header class="wrap pt-8 pb-10 lg:pt-12">
     <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Reviews', path }]} />
-    <h1 class="t-h1 mt-6">What customers say</h1>
+    <h1 class="t-h1 mt-6">Customer reviews</h1>
     <p class="t-lead measure mt-5">
       Real reviews, copied here as they were written. No reviews have been edited or invented for this page.
     </p>

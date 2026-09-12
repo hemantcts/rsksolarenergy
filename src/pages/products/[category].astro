@@ -5,7 +5,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import WhatsAppButton from '../../components/WhatsAppButton.astro';
 import { CATEGORIES, PRODUCT_IMAGES, keyFacts, productsIn, type ProductCategory } from '../../data/products';
 import { productMessage, whatsappUrl } from '../../lib/whatsapp';
-import { abs } from '../../lib/seo';
+import { abs, clampWords, fitSuffix } from '../../lib/seo';
 
 export function getStaticPaths() {
   return CATEGORIES.map((c) => ({ params: { category: c.id }, props: { c } }));
@@ -25,8 +25,8 @@ const itemList = {
 ---
 
 <BaseLayout
-  title={`${c.name} | UTL Solar Products | RSK Solar Mohali`.slice(0, 70)}
-  description={`${products.length} ${c.name.toLowerCase()} from UTL Solar, each with full specifications. ${c.blurb} Ask RSK Solar Energy for price and stock on WhatsApp.`.slice(0, 168)}
+  title={c.name + fitSuffix(c.name, [' | UTL Solar Products | RSK Solar Mohali', ' | UTL Solar Products | RSK Solar', ' | UTL Solar | RSK Solar'], 60)}
+  description={clampWords(`${products.length} ${c.name.toLowerCase()} from UTL Solar, each with full specifications. ${c.blurb} Ask RSK Solar Energy for price and stock on WhatsApp.`, 160)}
   crumbs={[{ name: 'Products', path: '/products/' }, { name: c.name, path }]}
   schema={[itemList]}
 >
