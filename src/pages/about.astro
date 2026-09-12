@@ -10,7 +10,6 @@ const facts: [string, string][] = [
   ['Based at', formatAddressLines().join(', ')],
   ['Distributor of', BUSINESS.brand],
   ['Commercial and industrial installations', `${BUSINESS.installs.commercial} (as of ${BUSINESS.installs.asOf})`],
-  ['Largest connection supplied', `${BUSINESS.installs.maxCommercialKw} kW`],
   ['Residential installations', `${BUSINESS.installs.residential} (as of ${BUSINESS.installs.asOf})`],
   ['Solar pump / tubewell installations', `${BUSINESS.installs.solarPumps} (as of ${BUSINESS.installs.asOf})`],
   ['Google rating', `${BUSINESS.google.rating.toFixed(1)} from ${BUSINESS.google.reviewCount} reviews`],
