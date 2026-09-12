@@ -6,7 +6,7 @@
   "description": "rsksolarenergy.com — static site for RSK Solar Energy, UTL Solar distributor, Phase 8-B Mohali",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run generate && astro build",
+    "build": "npm run generate && astro build && npm run image-sitemap",
     "preview": "astro preview",
     "check": "astro check",
     "test": "vitest run",
@@ -16,6 +16,7 @@
     "og": "node scripts/make-images.mjs",
     "htaccess": "node scripts/make-htaccess.mjs",
     "llms-txt": "node scripts/make-llms-txt.mjs",
+    "image-sitemap": "node scripts/make-image-sitemap.mjs",
     "generate": "npm run htaccess && npm run llms-txt"
   },
   "engines": {

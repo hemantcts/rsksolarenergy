@@ -3,6 +3,7 @@ User-agent: *
 Allow: /
 
 Sitemap: https://rsksolarenergy.com/sitemap-index.xml
+Sitemap: https://rsksolarenergy.com/image-sitemap.xml
 
 # Plain-language site map for AI answer engines (ChatGPT, Perplexity, Gemini, Claude).
 # https://llmstxt.org
