@@ -56,13 +56,13 @@ export const CATEGORIES: { id: ProductCategory; name: string; blurb: string }[] 
     name: 'Solar inverters and PCUs',
     blurb: 'Home inverters, hybrid solar PCUs and on-grid string inverters — Heliac, Shamsi, Gamma+, Alfa+, Sigma+, Zeta, Sun-lion and more, 675 VA to 125 kW.',
   },
-  { id: 'batteries', name: 'Batteries', blurb: 'Tubular solar and inverter batteries, plus e-bike batteries.' },
+  { id: 'batteries', name: 'Batteries', blurb: 'Tubular, SMF and lithium-ion (LiFePO4) batteries for inverters, solar systems and e-rickshaws.' },
   {
     id: 'charge-controllers',
     name: 'Charge controllers',
     blurb: 'PWM and rMPPT controllers and solar management units that convert a normal inverter to solar.',
   },
-  { id: 'ev-chargers', name: 'EV battery chargers', blurb: 'Chargers for e-rickshaws and lithium-ion e-bikes.' },
+  { id: 'ev-chargers', name: 'EV battery chargers', blurb: 'Lead-acid, SMF and lithium-ion chargers for e-rickshaws and e-bikes, 48V to 72V.' },
   { id: 'lighting-and-appliances', name: 'Lighting and appliances', blurb: 'Solar lighting kits, lanterns, torches and a solar air conditioner.' },
 ];
 

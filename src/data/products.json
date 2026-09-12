@@ -22,52 +22,52 @@
     "category": "batteries",
     "brand": "UTL Solar",
     "model": null,
-    "summary": "Sealed Maintenance Free batteries is completely sealed and does not require adding water. The electrolyte utilized is a part of the type of gel that fills in the plates of batteries.",
+    "summary": "SMF stands for Sealed Maintenance Free battery. As the name suggests these batteries are maintenance-free because they are completely sealed.",
     "description": [
-      "Sealed Maintenance Free batteries is completely sealed and does not require adding water. The electrolyte utilized is a part of the type of gel that fills in the plates of batteries. SMF batteries that are durable and deliver the rated performance. These batteries are used as a part of UPS and Inverter. All of the SMF inverter batteries have airtight development. UTL offers SMF batteries with great performance. The battery emits no gas or fumes so it can be placed near to the UPS or any other electronic system. This way it saves the transmission loss and lowers the cost of wires from UPS to batteries. The batteries are light weighted so these are easy to install and much secure for indoor use they don’t need any separate room. They can easily be installed in a single cabinet. These batteries are instant power sources so there is no delay between reception and utilization. SMF batteries can be installed in any arrangement without hampering its performance. The lower internal resistance of SMF batteries by UTL can allow up to 10 times more than their rated discharge current.",
-      "UTL has made a high quality and compactly designed pollution-free SMF battery which has a long life and does not require any maintenance."
+      "SMF stands for Sealed Maintenance Free battery. As the name suggests these batteries are maintenance-free because they are completely sealed. There is no need to add water so these batteries are Eco – friendly. The battery is leak-proof and does not damage the flooring by leakage of battery acid or water. The electrolyte utilized is a part of the type of gel that fills in the plates of batteries. The battery emits no gas or fumes so it can be placed near to the UPS or any other electronic system, which saves the transmission loss and will lower the cost of wires from UPS to Batteries.",
+      "SMF Battery Sealed Maintenance Free batteries is completely sealed and does not require adding water. The electrolyte utilized is a part of the type of gel that fills in the plates of batteries. SMF batteries that are durable and deliver the rated performance. These batteries are used as a part of UPS and Inverter. All of the SMF inverter batteries have airtight development. UTL offers SMF batteries with great performance. The battery emits no gas or fumes so it can be placed near to the UPS or any other electronic system. This way it saves the transmission loss and lowers the cost of wires from UPS to batteries. The batteries are light weighted so these are easy to install and much secure for indoor use they don’t need any separate room. They can easily be installed in a single cabinet. These batteries are instant power sources so there is no delay between reception and utilization. SMF batteries can be installed in any arrangement without hampering its performance. The lower internal resistance of SMF batteries by UTL can allow up to 10 times more than their rated discharge current.",
+      "UTL has made a high quality and compactly designed pollution-free SMF battery which has a long life and does not require any maintenance.",
+      "The UTL SMF batteries utilize high grade materials along with a fully controlled plate-production procedure to offer optimum output per cell. The high energy density results in perfect force/volume and power/weight proportions."
     ],
-    "features": [
-      "Perfectly Compact Design",
-      "Maintenance Free Performance"
-    ],
+    "features": [],
     "specs": null,
     "source": "utl-catalogue",
-    "oldImage": "https://i0.wp.com/www.upsinverter.com/wp-content/uploads/2020/06/381.jpg?fit=600%2C600&ssl=1"
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/381.jpg"
   },
   {
     "slug": "utl-150ah-solar-inverter-battery-ust-1560",
     "oldSlug": "utl-150ah-solar-inverter-battery-ust-1560",
-    "title": "UTL 150AH Solar Inverter Battery – UST 1560",
+    "title": "UTL 150Ah Heavy Duty Tubular Inverter Battery (UST1560)",
     "category": "batteries",
     "brand": "UTL Solar",
     "model": "UST1560",
-    "summary": "UTL 150AH Solar Inverter Battery produce high power and voltage, they stand tough in all operating conditions. This batteries are precisely manufactured as per the latest technical innovations.",
+    "summary": "Frequent power cuts demand a battery that can recover quickly, deliver dependable backup, and perform reliably for years. The UTL 150Ah Heavy Duty Tubular Inverter Battery is engineered for homes, offices, shops, and solar power systems that require consistent daily backup.",
     "description": [
-      "UTL 150AH Solar Inverter Battery produce high power and voltage, they stand tough in all operating conditions. This batteries are precisely manufactured as per the latest technical innovations. The UTL batteries are made extra durable by using the high quality of tall tubular polypropylene containers which provide complete protection from high heat. These batteries are totally fit to be used in various applications. These are environment friendly and emit fewer fumes. Get superb battery backup along with its unmatched maintenance-free long life. This battery is totally fit to be used in various applications and it is Eco-friendly. UTL’s batteries are perfect for your home, office, Shops etc."
+      "Frequent power cuts demand a battery that can recover quickly, deliver dependable backup, and perform reliably for years. The UTL 150Ah Heavy Duty Tubular Inverter Battery is engineered for homes, offices, shops, and solar power systems that require consistent daily backup.",
+      "Built using advanced tubular gauntlet positive plates and a high-strength polypropylene container, this battery is designed to withstand deep discharge cycles while maintaining stable performance in India’s demanding weather conditions. Its C10 rating makes it particularly suitable for solar applications where longer discharge periods are common.",
+      "UTL 150Ah Heavy Duty Tubular Inverter Battery (UST1560) This 12V 150Ah tubular inverter battery combines proven tubular technology with premium-grade materials to deliver dependable performance for residential and commercial backup systems. The advanced tubular gauntlet plate design improves active material retention, helping extend battery life even under frequent charging and discharging.",
+      "A specially formulated grid alloy enhances corrosion resistance, while the high-pressure die-cast construction ensures uniform plate quality for consistent performance throughout the battery’s life. The battery also features float vent plugs that make electrolyte level inspection easier and non-leaking vent plugs that help maintain a clean and safe operating environment."
     ],
-    "features": [
-      "Unique tubular gauntlet /Nat positive plates design",
-      "Superior active material & special grid alloy",
-      "Float vent plug for electrolyte level indicator",
-      "Covered with HDPE material caps",
-      "C10 rated solar battery for better performance",
-      "Extremely high life cycle 1500 @ 80% DOD",
-      "Comes with non-leaking vent plugs",
-      "Very low self-discharge rate i.e. 2mV/per day",
-      "Reliable and safe solar battery for all electrical needs",
-      "Easy to transport, install, and clean",
-      "Environment-friendly solar solution for backups",
-      "Equally suitable for off-grid and hybrid solar system",
-      "Quick rechargeable even after deep discharge"
-    ],
+    "features": [],
     "specs": {
       "columns": null,
       "rows": [
         {
-          "label": "Brand",
+          "label": "Battery Type",
           "values": [
-            "UTL Solar"
+            "Heavy Duty Tubular Battery"
+          ]
+        },
+        {
+          "label": "Capacity",
+          "values": [
+            "150Ah @ C10"
+          ]
+        },
+        {
+          "label": "Nominal Voltage",
+          "values": [
+            "12V"
           ]
         },
         {
@@ -77,57 +77,45 @@
           ]
         },
         {
-          "label": "Capacity",
-          "values": [
-            "150Ah"
-          ]
-        },
-        {
-          "label": "Warranty",
-          "values": [
-            "60 months"
-          ]
-        },
-        {
-          "label": "Nominal Voltage",
-          "values": [
-            "12volt"
-          ]
-        },
-        {
           "label": "Container",
           "values": [
-            "IT 500"
-          ]
-        },
-        {
-          "label": "Dimension",
-          "values": [
-            "503*190*410 mm"
-          ]
-        },
-        {
-          "label": "Filled Weight",
-          "values": [
-            "62kg"
-          ]
-        },
-        {
-          "label": "Dry Weight",
-          "values": [
-            "37.5kg"
+            "IT500"
           ]
         },
         {
           "label": "Plate Combination",
           "values": [
-            "3+4"
+            "2+3"
+          ]
+        },
+        {
+          "label": "Net Weight",
+          "values": [
+            "57.61 kg ±3%"
+          ]
+        },
+        {
+          "label": "Gross Weight",
+          "values": [
+            "59 kg ±3%"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "values": [
+            "60 Months"
+          ]
+        },
+        {
+          "label": "Suitable For",
+          "values": [
+            "Inverter & Solar Applications"
           ]
         }
       ]
     },
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/05/04-1kW24V-Off-Grid-Solar-System.png",
-    "source": "rsk-old-site"
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/UTL-150Ah-Heavy-Duty-Tubular-Inverter-Batter.jpeg"
   },
   {
     "slug": "utl-170ah-inverter-battery-usb-17100",
@@ -1764,8 +1752,8 @@
     ],
     "features": [],
     "specs": null,
-    "oldImage": "https://rsksolarenergy.com/wp-content/uploads/2023/03/e-charger-transformed-1.png",
-    "source": "rsk-old-site"
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/0111.jpg"
   },
   {
     "slug": "alfa-pcu-solar-pcu",
@@ -1841,7 +1829,6 @@
     "model": null,
     "summary": "Description Specifications Reviews (0)",
     "description": [
-      "Description Specifications Reviews (0)",
       "Home Inverter C-775 Combo+ Home Inverter C-775 is smarter & more compact. It’s a next-gen inverter with micro-digital technology with single card reliability. It has got a user-friendly design. This inverter is light weighted and can be easily installed. Combo+ Home Inverter is the best budget Home PCU, it has very low maintenance with extended battery life & battery backup. This inverter has multi-stage smart battery charging and it comes with a digital battery label. Combo+ Home Inverter C-775 is powered by a 5th Gen. power device making it more advanced and adaptive. It has also got an LED display to indicate Mains ON, Battery Low, Battery Charging, Overload, MAINS High, Battery ON, Wide Range, and Narrow Range.",
       "Combo+ Home Inverter is super safe to install at home as it comes with several safety protections it has been engineered to provide protection against Overload on Mains and Overload on Battery. It protects the battery against Reverse Battery Polarity and Low Battery Voltage. Moreover, it also saves the system from Output Short circuit.",
       "It has got smart features like an audible alarm to indicate low battery or overloading. Combo+ operations are fully automatic from Mains ON/OFF to battery voltage level maintenance operation. As soon as the Mains goes OFF, the system instantly switches itself ON automatically. It switches itself OFF as soon as Mains come back and start charging the connected batteries, which would have been discharged during the power failure. Thus the power in all the connected appliances remains simply uninterrupted."
@@ -1860,7 +1847,6 @@
     "model": null,
     "summary": "Description Specifications Reviews (0)",
     "description": [
-      "Description Specifications Reviews (0)",
       "Home Inverter C-1075 Combo+ Home Inverter C-1075 is smarter & more compact. It’s a next-gen inverter with micro-digital technology with single card reliability. It has got a user-friendly design. This inverter is light weighted and can be easily installed. Combo+ Home Inverter is the best budget Home PCU, it has very low maintenance with extended battery life & battery backup. This inverter has multi-stage smart battery charging and it comes with a digital battery label. Combo+ Home Inverter C-1075 is powered by a 5th Gen. power device making it more advanced and adaptive. It has also got an LED display to indicate Mains ON, Battery Low, Battery Charging, Overload, MAINS High, Battery ON, Wide Range, and Narrow Range.",
       "Combo+ Home Inverter is super safe to install at home as it comes with several safety protections. it has been engineered to provide protection against Overload on Mains and Overload on Battery. It protects the battery against Reverse Battery Polarity and Low Battery Voltage. Moreover, it also saves the system from Output Short circuit.",
       "It has got smart features like an audible alarm to indicate low battery or overloading. Combo+ operations are fully automatic from Mains ON/OFF to battery voltage level maintenance operation. As soon as the Mains goes OFF, the system instantly switches itself ON automatically. It switches itself OFF as soon as Mains come back and start charging the connected batteries, which would have been discharged during the power failure. Thus the power in all the connected appliances remains simply uninterrupted."
@@ -3387,7 +3373,6 @@
     "model": null,
     "summary": "Description Specifications Reviews (0)",
     "description": [
-      "Description Specifications Reviews (0)",
       "Smart Inverter 5kVA/48V",
       "dsPIC based design Pure Sine Wave Output. Configurable charging voltage and current. No Load Shutdown Enable/Disable. Input Range Selection. Robust design – 20 years product life, 2 years of warranty.",
       "SpecificationsTechnical Details of Smart Inverter Technical Details of Smart Inverter Reviews"
@@ -3406,7 +3391,6 @@
     "model": null,
     "summary": "Description Specifications Reviews (0)",
     "description": [
-      "Description Specifications Reviews (0)",
       "Smart Inverter 5kVA/96V",
       "dsPIC based design Pure Sine Wave Output. Configurable charging voltage and current. No Load Shutdown Enable/Disable. Input Range Selection. Robust design – 20 years product life, 2 years of warranty.",
       "SpecificationsTechnical Details of Smart Inverter Technical Details of Smart Inverter Reviews"
@@ -3425,7 +3409,6 @@
     "model": null,
     "summary": "Description Additional information Specifications Reviews (0)",
     "description": [
-      "Description Additional information Specifications Reviews (0)",
       "Smart Inverter 7.5kVA/96V",
       "dsPIC based design Pure Sine Wave Output. Configurable charging voltage and current. No Load Shutdown Enable/Disable. Input Range Selection. Robust design – 20 years product life, 2 years of warranty.",
       "VA Range Above 5 kVA"
@@ -3444,7 +3427,6 @@
     "model": null,
     "summary": "Description Specifications Reviews (0)",
     "description": [
-      "Description Specifications Reviews (0)",
       "Smart Inverter 10kVA/120V",
       "dsPIC based design Pure Sine Wave Output. Configurable charging voltage and current. No Load Shutdown Enable/Disable. Input Range Selection. Robust design – 20 years product life, 2 years of warranty.",
       "SpecificationsTechnical Details of Smart Inverter Technical Details of Smart Inverter Reviews"
@@ -3463,7 +3445,6 @@
     "model": null,
     "summary": "Description Specifications Reviews (0)",
     "description": [
-      "Description Specifications Reviews (0)",
       "Smart Inverter 10kVA/180V",
       "dsPIC based design Pure Sine Wave Output. Configurable charging voltage and current. No Load Shutdown Enable/Disable. Input Range Selection. Robust design – 20 years product life, 2 years of warranty.",
       "SpecificationsTechnical Details of Smart Inverter Technical Details of Smart Inverter Reviews"
@@ -7487,7 +7468,6 @@
     "model": null,
     "summary": "Description Manufacturing Details Reviews (0)",
     "description": [
-      "Description Manufacturing Details Reviews (0)",
       "Mono Solar Panel 735 Watt (Half Cut) UTL solar panels are the latest technology and most innovative solar panel. A solar photo-voltaic panel is a composition of solar photo-voltaic cells, well arranged together in an aluminum frame and covered with high quality glass. They absorb the sun’s ray and turn them into electricity that can be fed in home appliances as well as utility grids. UTL solar panel are next-generation solar panels, manufactured by using premium quality A-grade solar cells. These solar cells are slice cut from a block of silicon, consisting of a number of crystals with a speckled reflective appearance. The thickness of these slices is clearly visible. Our Half Cut Mono Solar Panel 555 Watt is a very economical solar product and are more suitable for Indian environmental conditions.",
       "There are no reviews yet.",
       "Your email address will not be published."
@@ -8201,7 +8181,6 @@
     "model": null,
     "summary": "Description Reviews (0)",
     "description": [
-      "Description Reviews (0)",
       "About On Grid Solar Inverter In UTL on grid solar inverter which is better known as the grid-tie solar inverter is like a key component of a solar system. A grid-tie solar inverter is often used with an on-grid solar system where solar panels are installed and connected together in a series to convert solar energy into electrical energy. This energy from the series of solar panels is fed into an on-grid inverter so that the energy can be converted in alternating current (AC) compatible with our house appliances. If the alternative power (solar power) being produced is insufficient, the deficit is sourced from the electricity grid by an on-grid solar inverter.",
       "Basically, the main work of an on-grid solar inverter is to convert DC electrical power into AC power suitable to power your load and for injecting into the government utility grid. But for this, the grid-tie inverter (GTI) must match the phase of the grid and maintain the output voltage slightly higher than the grid voltage at any instant. An on-grid solar inverter will only work when there is a constant electricity supply from the power grid. Nowadays, modern grid-tie inverters are equipped with a fixed unity power feature that means its output voltage and current are perfectly lined up.",
       "UTL on grid solar inverter further connects with a Net-Meter. It’s again a small solar device that allows you to send the excess electricity generated by the solar system in the electricity grid through an energy meter. You will be credited by the utility company (Government) for this. The electricity that is sent to the utility grid by you can then be used by other consumers on the grid."
@@ -8351,7 +8330,6 @@
     "model": null,
     "summary": "Description Specifications Video Reviews (0)",
     "description": [
-      "Description Specifications Video Reviews (0)",
       "About On Grid Solar Inverter In UTL on grid solar inverter which is better known as the grid-tie solar inverter is like a key component of a solar system. A grid-tie solar inverter is often used with an on-grid solar system where solar panels are installed and connected together in a series to convert solar energy into electrical energy. This energy from the series of solar panels is fed into an on-grid inverter so that the energy can be converted in alternating current (AC) compatible with our house appliances. If the alternative power (solar power) being produced is insufficient, the deficit is sourced from the electricity grid by an on-grid solar inverter.",
       "Basically, the main work of an on-grid solar inverter is to convert DC electrical power into AC power suitable to power your load and for injecting into the government utility grid. But for this, the grid-tie inverter (GTI) must match the phase of the grid and maintain the output voltage slightly higher than the grid voltage at any instant. An on-grid solar inverter will only work when there is a constant electricity supply from the power grid. Nowadays, modern grid-tie inverters are equipped with a fixed unity power feature that means its output voltage and current are perfectly lined up.",
       "UTL on grid solar inverter further connects with a Net-Meter. It’s again a small solar device that allows you to send the excess electricity generated by the solar system in the electricity grid through an energy meter. You will be credited by the utility company (Government) for this. The electricity that is sent to the utility grid by you can then be used by other consumers on the grid."
@@ -9705,7 +9683,6 @@
     "model": null,
     "summary": "Description Manufacturing Details Reviews (0)",
     "description": [
-      "Description Manufacturing Details Reviews (0)",
       "About On Grid Solar Inverter In UTL on grid solar inverter which is better known as the grid-tie solar inverter is like a key component of a solar system. A grid-tie solar inverter is often used with an on-grid solar system where solar panels are installed and connected together in a series to convert solar energy into electrical energy. This energy from the series of solar panels is fed into an on-grid inverter so that the energy can be converted in alternating current (AC) compatible with our house appliances. If the alternative power (solar power) being produced is insufficient, the deficit is sourced from the electricity grid by an on-grid solar inverter.",
       "Basically, the main work of an on-grid solar inverter is to convert DC electrical power into AC power suitable to power your load and for injecting into the government utility grid. But for this, the grid-tie inverter (GTI) must match the phase of the grid and maintain the output voltage slightly higher than the grid voltage at any instant. An on-grid solar inverter will only work when there is a constant electricity supply from the power grid. Nowadays, modern grid-tie inverters are equipped with a fixed unity power feature that means its output voltage and current are perfectly lined up.",
       "UTL on grid solar inverter further connects with a Net-Meter. It’s again a small solar device that allows you to send the excess electricity generated by the solar system in the electricity grid through an energy meter. You will be credited by the utility company (Government) for this. The electricity that is sent to the utility grid by you can then be used by other consumers on the grid."
@@ -9724,7 +9701,6 @@
     "model": null,
     "summary": "Description Manufacturing Details Reviews (0)",
     "description": [
-      "Description Manufacturing Details Reviews (0)",
       "About On Grid Solar Inverter In UTL on grid solar inverter which is better known as the grid-tie solar inverter is like a key component of a solar system. A grid-tie solar inverter is often used with an on-grid solar system where solar panels are installed and connected together in a series to convert solar energy into electrical energy. This energy from the series of solar panels is fed into an on-grid inverter so that the energy can be converted in alternating current (AC) compatible with our house appliances. If the alternative power (solar power) being produced is insufficient, the deficit is sourced from the electricity grid by an on-grid solar inverter.",
       "Basically, the main work of an on-grid solar inverter is to convert DC electrical power into AC power suitable to power your load and for injecting into the government utility grid. But for this, the grid-tie inverter (GTI) must match the phase of the grid and maintain the output voltage slightly higher than the grid voltage at any instant. An on-grid solar inverter will only work when there is a constant electricity supply from the power grid. Nowadays, modern grid-tie inverters are equipped with a fixed unity power feature that means its output voltage and current are perfectly lined up.",
       "UTL on grid solar inverter further connects with a Net-Meter. It’s again a small solar device that allows you to send the excess electricity generated by the solar system in the electricity grid through an energy meter. You will be credited by the utility company (Government) for this. The electricity that is sent to the utility grid by you can then be used by other consumers on the grid."
@@ -10652,7 +10628,6 @@
     "model": null,
     "summary": "Description Specifications Reviews (0)",
     "description": [
-      "Description Specifications Reviews (0)",
       "Home Inverter C-1675 Combo+ Home Inverter C-1675 is smarter & more compact. It’s a next-gen inverter with micro-digital technology with single card reliability. It has got a user-friendly design. This inverter is light weighted and can be easily installed. Combo+ Home Inverter is the best budget Home PCU, it has very low maintenance with extended battery life & battery backup. This inverter has multi-stage smart battery charging and it comes with a digital battery label. Combo+ Home Inverter C-1675 is powered by a 5th Gen. power device making it more advanced and adaptive. It has also got an LED display to indicate Mains ON, Battery Low, Battery Charging, Overload, MAINS High, Battery ON, Wide Range, and Narrow Range.",
       "Combo+ Home Inverter is super safe to install at home as it comes with several safety protections it has been engineered to provide protection against Overload on Mains and Overload on Battery. It protects the battery against Reverse Battery Polarity and Low Battery Voltage. Moreover, it also saves the system from Output Short circuit.",
       "It has got smart features like an audible alarm to indicate low battery or overloading. Combo+ operations are fully automatic from Mains ON/OFF to battery voltage level maintenance operation. As soon as the Mains goes OFF, the system instantly switches itself ON automatically. It switches itself OFF as soon as Mains come back and start charging the connected batteries, which would have been discharged during the power failure. Thus the power in all the connected appliances remains simply uninterrupted."
@@ -12455,7 +12430,6 @@
     "description": [
       "Indian Series UPS from the house of UTL is a relatively new concept in the power sector. Indian series UPS packs all the features of an Online UPS in a compact form factor, further being transformer-less the Indian series is extremely light and portable, making it easily installed in homes or even in offices. UTL’s Indian Series range of Online UPS is a powerful, affordable and reliable backup option for your appliances.",
       "Available from the range of 1 kVA in the DC voltages 12 & 36 volts, the Indian Series range of UPS is a product that is capable of taking care of the backup needs of your computers along with the other appliances.",
-      "Description Reviews (0)",
       "Indian Series 1kVA UPS Indian Series 1kVA UPS from the house of UTL is a relatively new concept in the power sector. This Indian series UPS is is capable of taking care of the backup needs of your computers along with the other appliances."
     ],
     "features": [],
@@ -12473,7 +12447,6 @@
     "summary": "PCU is a Solar Power Conditioning Unit (PCU) which uses Solar energy (primary) and also the power from grid (secondary), to charge the batteries. Since usage of power from grid is secondary, grid power is only used when solar energy is not present and battery voltage level…",
     "description": [
       "PCU is a Solar Power Conditioning Unit (PCU) which uses Solar energy (primary) and also the power from grid (secondary), to charge the batteries. Since usage of power from grid is secondary, grid power is only used when solar energy is not present and battery voltage level reduces to a certain level. Grid power is also needed when solar power is reduced to a certain level and battery voltage is reduced to a certain level.",
-      "Description Key Features Specifications Reviews (2)",
       "Online PCU PCU is a Solar Power Conditioning Unit (PCU) which uses Solar energy (primary) and also the power from the grid (secondary), to charge the batteries. Since the usage of power from the grid is secondary, grid power is only used when solar energy is not present and the battery voltage level reduces to a certain level. Grid power is also needed when solar power is reduced to a certain level and battery voltage is reduced to a certain level.",
       "Zero change over time to ensure 100% uninterrupted power to all the applications. The load will be driven by solar + Grid simultaneously giving maximum preference to solar. DSP based design built-in MPPT solar charge controller. Most advanced LCD features with AC & DC energy meters. (optional) USB/Ethernet-based monitoring with 30 days of data storage. (optional) Maximum preference for solar. PCU mode working. The capability of 100% panel rating. Compatible with all PV arrays having different no. of cells. (36 cell/60 cell/72 cell)."
     ],
@@ -12904,7 +12877,6 @@
     "model": null,
     "summary": "Description Additional information Specifications Reviews (0)",
     "description": [
-      "Description Additional information Specifications Reviews (0)",
       "Smart Inverter 7.5kVA/120V",
       "dsPIC based design Pure Sine Wave Output. Configurable charging voltage and current. No Load Shutdown Enable/Disable. Input Range Selection. Robust design – 20 years product life, 2 years of warranty.",
       "VA Range Above 5 kVA"
@@ -13927,5 +13899,2416 @@
     "specs": null,
     "source": "utl-catalogue",
     "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/Zeta-Solar-PCU-7.5kva-96vdc-PIV-min.jpg"
+  },
+  {
+    "slug": "ev-4la-60v-battery-charger",
+    "oldSlug": null,
+    "title": "EV 4LA 60V Battery Charger",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design."
+    ],
+    "features": [
+      "Charge even on 140V input",
+      "Strong cabinet",
+      "SMPS Based Fully Automatic",
+      "Easy-to-understand battery charging graph",
+      "Powerful microcontroller"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV3LA-60V-CHARGER.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-48v-10a",
+    "oldSlug": null,
+    "title": "EV Battery Charger 48V/10A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design."
+    ],
+    "features": [
+      "Charge even on 140V input",
+      "Strong Anderson Connector",
+      "Strong cabinet",
+      "SMPS Based Fully Automatic",
+      "Easy-to-understand battery charging graph",
+      "Powerful microcontroller"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV-NPFC-60V6A-CAN-2-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-48v-16a",
+    "oldSlug": null,
+    "title": "EV Battery Charger 48V/16A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Charge even on 140V input",
+    "description": [
+      "Charge even on 140V input",
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "SMPS Based Fully Automatic",
+      "Easy-to-understand battery charging graph"
+    ],
+    "features": [
+      "Strong cabinet",
+      "SMPS Based Fully Automatic",
+      "Easy-to-understand battery charging graph",
+      "Powerful microcontroller"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV-NPFC-48V16A-LI-CHARGER-PRODUCT-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-48v-18a-pro",
+    "oldSlug": null,
+    "title": "EV Battery Charger 48V/18A Pro",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The SNPFC 48V-18A Battery Charger from UTL Solar is a robust, high-efficiency charging solution designed for 48V lead-acid and tubular battery banks. Built with NPFC topology, wide AC input tolerance, and advanced protection circuits, it ensures safe, stable, and reliable…",
+    "description": [
+      "The SNPFC 48V-18A Battery Charger from UTL Solar is a robust, high-efficiency charging solution designed for 48V lead-acid and tubular battery banks. Built with NPFC topology, wide AC input tolerance, and advanced protection circuits, it ensures safe, stable, and reliable charging even in fluctuating grid conditions—making it ideal for e-rickshaws, electric mobility, and industrial applications."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "AC Input Voltage Range",
+          "values": [
+            "170 – 280 VAC"
+          ]
+        },
+        {
+          "label": "Nominal AC Voltage",
+          "values": [
+            "230 VAC"
+          ]
+        },
+        {
+          "label": "AC Input Frequency",
+          "values": [
+            "50 Hz ± 3 Hz"
+          ]
+        },
+        {
+          "label": "Maximum AC Input Current",
+          "values": [
+            "8.4 A"
+          ]
+        },
+        {
+          "label": "DC Output Voltage Range",
+          "values": [
+            "64.0 – 65.0 VDC"
+          ]
+        },
+        {
+          "label": "Line & Load Regulation",
+          "values": [
+            "±2%"
+          ]
+        },
+        {
+          "label": "Output Ripple",
+          "values": [
+            "< 2%"
+          ]
+        },
+        {
+          "label": "Topology",
+          "values": [
+            "Half-Bridge"
+          ]
+        },
+        {
+          "label": "Cooling Method",
+          "values": [
+            "Fan Cooled"
+          ]
+        },
+        {
+          "label": "Protections",
+          "values": [
+            "Overload, Short Circuit, Over Voltage, Over Temperature"
+          ]
+        },
+        {
+          "label": "Operating Temperature",
+          "values": [
+            "0°C to +50°C"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/e-rickshaw-72V-10ALI-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-48v-20a-2",
+    "oldSlug": null,
+    "title": "EV Battery Charger 48V/20A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design."
+    ],
+    "features": [
+      "Charge even on 140V input",
+      "Strong Anderson Connector",
+      "Strong cabinet",
+      "SMPS Based Fully Automatic",
+      "Easy-to-understand battery charging graph",
+      "Powerful microcontroller",
+      "Available in CAN communication"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-60V18A-PRO-pic-1-min-1.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-48v-20a-3",
+    "oldSlug": null,
+    "title": "EV Battery Charger 48V/20A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-PRO-48V20A-CAN.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-48v-20a",
+    "oldSlug": null,
+    "title": "EV Battery Charger 48V/20A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/NPFC-48V18A-PRO-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-48v-30a",
+    "oldSlug": null,
+    "title": "EV Battery Charger 48V/30A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "■ High efficiency and highest power density Typical 93%",
+    "description": [
+      "■ High efficiency and highest power density Typical 93%",
+      "■ Digitalized control Digitalized Primary and secondary controls could realize excellent monitoring and regulation.",
+      "■ Disconnect mains when hazardous input will disconnect mains to protect itself. When it can not sustain the input voltage.",
+      "■ Lower interference and excellent susceptibility give module better reliability"
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV-LLC-48V-30A-Battery-charger-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-48v-3a",
+    "oldSlug": null,
+    "title": "EV Battery Charger 48V/3A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV3LA-48V3A-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-48v-40a",
+    "oldSlug": null,
+    "title": "EV Battery Charger 48V/40A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "■ High efficiency and highest power density Typical 93%",
+    "description": [
+      "■ High efficiency and highest power density Typical 93%",
+      "■ Digitalized control Digitalized Primary and secondary controls could realize excellent monitoring and regulation.",
+      "■ Disconnect mains when hazardous input will disconnect mains to protect itself. When it can not sustain the input voltage.",
+      "■ Lower interference and excellent susceptibility give module better reliability"
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV-LLC-48V-40A-Battery-charger-PRODUCT-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-48v-8a",
+    "oldSlug": null,
+    "title": "EV Battery Charger 48V/8A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design."
+    ],
+    "features": [
+      "Charge even on 140V input",
+      "Strong Anderson Connector",
+      "Strong cabinet",
+      "SMPS Based Fully Automatic",
+      "Easy-to-understand battery charging graph",
+      "Powerful microcontroller"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV-NPFC-60V6A-CAN-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-60v-10a",
+    "oldSlug": null,
+    "title": "EV Battery Charger 60V/10A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design."
+    ],
+    "features": [
+      "Charge even on 140V input",
+      "Strong Anderson Connector",
+      "Strong cabinet",
+      "SMPS Based Fully Automatic",
+      "Easy-to-understand battery charging graph",
+      "Powerful microcontroller"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV-NPFC-60V6A-CAN-min-1.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-60v-15a-pro",
+    "oldSlug": null,
+    "title": "EV Battery Charger 60V/15A Pro",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design."
+    ],
+    "features": [
+      "Charge even on 140V input",
+      "Strong Anderson Connector",
+      "Strong cabinet",
+      "SMPS Based Fully Automatic",
+      "Easy-to-understand battery charging graph",
+      "Powerful microcontroller"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-60V18A-PRO-pic-1-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-60v-15a",
+    "oldSlug": null,
+    "title": "EV Battery Charger 60V/15A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design."
+    ],
+    "features": [
+      "Charge even on 140V input",
+      "Strong Anderson Connector",
+      "Strong cabinet",
+      "SMPS Based Fully Automatic",
+      "Easy-to-understand battery charging graph",
+      "Powerful microcontroller"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV-Charger-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-60v-18a-2",
+    "oldSlug": null,
+    "title": "EV Battery Charger 60V/18A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-PRO-48V20A-CAN-1-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-60v-18a",
+    "oldSlug": null,
+    "title": "EV Battery Charger 60V/18A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design."
+    ],
+    "features": [
+      "Charge even on 140V input",
+      "Strong Anderson Connector",
+      "Strong cabinet",
+      "SMPS Based Fully Automatic",
+      "Easy-to-understand battery charging graph",
+      "Powerful microcontroller"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-60V18A-PRO-pic-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-60v-3a",
+    "oldSlug": null,
+    "title": "EV Battery Charger 60V/3A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design."
+    ],
+    "features": [
+      "Charge even on 140V input",
+      "Strong cabinet",
+      "SMPS Based Fully Automatic",
+      "Easy-to-understand battery charging graph",
+      "Powerful microcontroller"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV3LA-60V-CHARGER.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-60v-6a",
+    "oldSlug": null,
+    "title": "EV Battery Charger 60V/6A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design."
+    ],
+    "features": [
+      "Charge even on 140V input",
+      "Strong Anderson Connector",
+      "Strong cabinet",
+      "SMPS Based Fully Automatic",
+      "Easy-to-understand battery charging graph",
+      "Powerful microcontroller"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV-NPFC-60V6A-CAN-3-min-1.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-60v-8a",
+    "oldSlug": null,
+    "title": "EV Battery Charger 60V/8A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design."
+    ],
+    "features": [
+      "Charge even on 140V input",
+      "Strong Anderson Connector",
+      "Strong cabinet",
+      "SMPS Based Fully Automatic",
+      "Easy-to-understand battery charging graph",
+      "Powerful microcontroller"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV-NPFC-60V6A-CAN-3-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-llc-48v-30a-can",
+    "oldSlug": null,
+    "title": "EV Battery Charger LLC 48V/30A CAN",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "■ High efficiency and highest power density Typical 93%",
+    "description": [
+      "■ High efficiency and highest power density Typical 93%",
+      "■ Digitalized control Digitalized Primary and secondary controls could realize excellent monitoring and regulation.",
+      "■ Disconnect mains when hazardous input will disconnect mains to protect itself. When it can not sustain the input voltage.",
+      "■ Lower interference and excellent susceptibility give module better reliability"
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV-LLC-48V-30A-Battery-charger-1-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-llc-48v-35a",
+    "oldSlug": null,
+    "title": "EV Battery Charger LLC 48V/35A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "■ High efficiency and highest power density Typical 93%",
+    "description": [
+      "■ High efficiency and highest power density Typical 93%",
+      "■ Digitalized control Digitalized Primary and secondary controls could realize excellent monitoring and regulation.",
+      "■ Disconnect mains when hazardous input will disconnect mains to protect itself. When it can not sustain the input voltage.",
+      "■ Lower interference and excellent susceptibility give module better reliability"
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV-LLC-48V-30A-Battery-charger-2-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-llc-48v-40a-can",
+    "oldSlug": null,
+    "title": "EV Battery Charger LLC 48V/40A CAN",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "■ High efficiency and highest power density Typical 93%",
+    "description": [
+      "■ High efficiency and highest power density Typical 93%",
+      "■ Digitalized control Digitalized Primary and secondary controls could realize excellent monitoring and regulation.",
+      "■ Disconnect mains when hazardous input will disconnect mains to protect itself. When it can not sustain the input voltage.",
+      "■ Lower interference and excellent susceptibility give module better reliability"
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV-LLC-48V-30A-Battery-charger-1-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-npfc-pro-48v-10a-can",
+    "oldSlug": null,
+    "title": "EV Battery Charger NPFC Pro 48V/10A CAN",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-PRO-48V20A-CAN-PIC-5-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-npfc-pro-48v-10a-smf",
+    "oldSlug": null,
+    "title": "EV Battery Charger NPFC Pro 48V/10A (SMF)",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-PRO-48V20A-CAN-PIC-8-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-npfc-pro-48v-20a-smf",
+    "oldSlug": null,
+    "title": "EV Battery Charger NPFC Pro 48V/20A (SMF)",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-PRO-48V20A-CAN-PIC-10.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-npfc-pro-48v-20a",
+    "oldSlug": null,
+    "title": "EV Battery Charger NPFC Pro 48V/20A (li 58.4V)",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-PRO-48V20A-CAN-PIC-10.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-npfc-pro-48v-8a-can",
+    "oldSlug": null,
+    "title": "EV Battery Charger NPFC Pro 48V/8A CAN",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-PRO-48V20A-CAN-PIC-10-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-npfc-pro-48v-8a-smf",
+    "oldSlug": null,
+    "title": "EV Battery Charger NPFC Pro 48V/8A (SMF)",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-PRO-48V20A-CAN-PIC-7-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-npfc-pro-60v-10a-can",
+    "oldSlug": null,
+    "title": "EV Battery Charger NPFC Pro 60V/10A CAN",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/72V-10A-LI-4-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-npfc-pro-60v-10a-la-smf",
+    "oldSlug": null,
+    "title": "EV Battery Charger NPFC Pro 60V/10A LA (SMF)",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/48V-60V-8A-10A-SMF-BATTERY-CHARGER-WARRANTY-CARD-min-1.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-npfc-pro-60v-18a-smf",
+    "oldSlug": null,
+    "title": "EV Battery Charger NPFC Pro 60V/18A (SMF)",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-PRO-48V20A-CAN-PIC-9-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-npfc-pro-60v-8a-can",
+    "oldSlug": null,
+    "title": "EV Battery Charger NPFC Pro 60V/8A CAN",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/72V-10A-LI-3-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-npfc-pro-60v-8a-la-smf",
+    "oldSlug": null,
+    "title": "EV Battery Charger NPFC Pro 60V/8A LA (SMF)",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/48V-60V-8A-10A-SMF-BATTERY-CHARGER-WARRANTY-CARD-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-pfc-pro-48v-16a-can",
+    "oldSlug": null,
+    "title": "EV Battery Charger PFC Pro 48V/16A CAN",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-PRO-48V20A-CAN-PIC-6-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-pfc-pro-48v-16a",
+    "oldSlug": null,
+    "title": "EV Battery Charger PFC Pro 48V/16A",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV-PFC-PRO-48V-16A-LI-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-pfc-pro-48v-20a-can",
+    "oldSlug": null,
+    "title": "EV Battery Charger PFC Pro 48V/20A CAN",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-PRO-48V20A-CAN-PIC-3-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-pfc-pro-60v-18a-can",
+    "oldSlug": null,
+    "title": "EV Battery Charger PFC Pro 60V/18A CAN",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-PRO-48V20A-CAN-PIC-4-min.jpg"
+  },
+  {
+    "slug": "ev-battery-charger-pfc-pro-60v-20a-li",
+    "oldSlug": null,
+    "title": "EV Battery Charger PFC Pro 60V/20A LI (68.78V)",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Charge even on 140V input",
+    "description": [
+      "Charge even on 140V input",
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design."
+    ],
+    "features": [
+      "Strong Anderson Connector",
+      "Strong cabinet",
+      "SMPS Based Fully Automatic",
+      "Easy-to-understand battery charging graph",
+      "Powerful microcontroller"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV-NPFC-60V6A-CAN-min-1.jpg"
+  },
+  {
+    "slug": "ev-pfc-pro-48v-25a-58-4v",
+    "oldSlug": null,
+    "title": "EV PFC PRO 48V/25A LI (58.4V) E-Rickshaw Charger",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Stop worrying about battery life and slow charging. The UTL PFC PRO is a heavy-duty 25A charger specifically engineered for 48V Lithium-Ion E-Rickshaw batteries (80-100Ah).",
+    "description": [
+      "Stop worrying about battery life and slow charging. The UTL PFC PRO is a heavy-duty 25A charger specifically engineered for 48V Lithium-Ion E-Rickshaw batteries (80-100Ah). With 90% Peak Efficiency and integrated CAN Communication, it doesn’t just charge your battery—it protects it.",
+      "The UTL PFC PRO 48V-25A LI (58.4V) is a professional-grade charging solution engineered specifically for the demanding needs of the E-Rickshaw industry. Designed for high-performance Lithium-Ion batteries (80-100Ah), this charger combines Half Bridge with PFC (Power Factor Correction) topology to deliver ultra-efficient charging while reducing electricity waste. Whether you are managing a single vehicle or a commercial fleet, the PFC PRO ensures your batteries stay healthy with its smart CC/CV and CP charging profiles. Its rugged metallic enclosure and advanced protection suite make it the most reliable partner for Indian road and weather conditions.",
+      "Lithium-Specific Charging: Optimized for LI Battery types with specialized CC/CV and CP charging profiles to extend battery cycle life. High Efficiency: Achieve up to 90% peak efficiency, ensuring faster charging times and lower energy bills. CAN Communication: Features CAN Interfacing, allowing the charger to communicate directly with your Lithium-Ion Battery Management System (BMS) for safer, smarter charging.",
+      "Temperature Managed: Intelligent Fan Cooling with auto-recovery shutdown prevents overheating during long charging cycles. Electrical Safety: Comprehensive protection against output overload, short circuits, output over-voltage, and battery reverse polarity (Fuse/Relay protected). PFC Technology: Built-in Power Factor Correction ensures stable performance even during voltage fluctuations (105-285 VAC range)."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2026/03/EV-PFC-PRO-48V20A-LI-55.6V.png"
+  },
+  {
+    "slug": "utl-li-ion-48v-10a-battery-charger",
+    "oldSlug": null,
+    "title": "UTL Li-ion 48V/10A Battery Charger",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The NPFC 48V/10A Charger is a Lithium-ion charger. Which specially designed for Electric Vehicle (E-Bike/E-Scooty).",
+    "description": [
+      "The NPFC 48V/10A Charger is a Lithium-ion charger. Which specially designed for Electric Vehicle (E-Bike/E-Scooty). The charger converts 230V AC into 54.6V DC and it gives 8A charging current at minimum 170V AC and maximum 270V AC. It comes with a powerful micro-controller and it has many protection features like Overload protection, Output Short Circuit protection, Over Temperature protection, Battery Reverse protection. Which makes it a Fully Featured Charger.",
+      "The NPFC Li-ion 48V/10A Battery Charger is a Lithium-ion charger, which is specially designed for Electric Vehicle (E-Bike/E-Scooty). The charger converts 230V AC into 54.6V DC and it gives 10A charging current at minimum 170V AC and maximum 270V AC. It comes with a powerful micro-controller and it has many protection features like Overload protection, Output Short Circuit protection, Over Temperature protection, Battery Reverse protection. Which makes it a Fully Featured Charger."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/0111.jpg"
+  },
+  {
+    "slug": "utl-li-ion-48v-16a-battery-charger",
+    "oldSlug": null,
+    "title": "UTL Li-ion 48V/16A Battery Charger",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The NPFC 48V/16A Charger is a Lithium-ion charger. UTL EV charger is SMPS based fully automatic systems with powerful DSP microcontroller that provide smart charging in Li- ion battery( LFP and NMC battery chemistry).",
+    "description": [
+      "The NPFC 48V/16A Charger is a Lithium-ion charger. UTL EV charger is SMPS based fully automatic systems with powerful DSP microcontroller that provide smart charging in Li- ion battery( LFP and NMC battery chemistry). It is equipped with multiple battery protection feature like overheating, reverse battery, short circuit and overcharging protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design It has wide ranges of voltages(48V/60V/72V) in multiple current ratings."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/Li-ion-48V-16A-Battery-Charger.jpg"
+  },
+  {
+    "slug": "utl-li-ion-48v-25a-battery-charger",
+    "oldSlug": null,
+    "title": "UTL Li-ion 48V/25A Battery Charger",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
+    "description": [
+      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design."
+    ],
+    "features": [
+      "Charge even on 140V input",
+      "Strong Anderson Connector",
+      "Strong cabinet",
+      "SMPS Based Fully Automatic",
+      "Easy-to-understand battery charging graph",
+      "Powerful microcontroller"
+    ],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/e-rickshaw-72V-10ALI-min.jpg"
+  },
+  {
+    "slug": "utl-li-ion-48v-6a-battery-charger",
+    "oldSlug": null,
+    "title": "UTL Li-ion 48V/6A Battery Charger",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "• Highly Efficient and Reliable.",
+    "description": [
+      "• Highly Efficient and Reliable.",
+      "• Charge Status LEDs.",
+      "• SMPS based fully automatic.",
+      "• Deep Discharge Charging Capability."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/6A.jpg"
+  },
+  {
+    "slug": "utl-li-ion-60v-10a-battery-charger",
+    "oldSlug": null,
+    "title": "UTL Li-ion 60V/10A Battery Charger",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "• Highly Efficient and Reliable.",
+    "description": [
+      "• Highly Efficient and Reliable.",
+      "• Charge Status LEDs.",
+      "• SMPS based fully automatic.",
+      "• Deep Discharge Charging Capability."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/20.jpg"
+  },
+  {
+    "slug": "utl-li-ion-60v-18a-battery-charger",
+    "oldSlug": null,
+    "title": "UTL Li-ion 60V/18A Battery Charger",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "1. Charge even on 140V input 2.",
+    "description": [
+      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-PRO-60V18A-LI-PIC-min.jpg"
+  },
+  {
+    "slug": "utl-li-ion-60v-6a-battery-charger",
+    "oldSlug": null,
+    "title": "UTL Li-ion 60V/6A Battery Charger",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The NPFC 60V/6A Charger is a Lithium-ion charger. UTL EV charger is SMPS based fully automatic systems with powerful DSP microcontroller that provide smart charging in Li- ion battery( LFP and NMC battery chemistry).",
+    "description": [
+      "The NPFC 60V/6A Charger is a Lithium-ion charger. UTL EV charger is SMPS based fully automatic systems with powerful DSP microcontroller that provide smart charging in Li- ion battery( LFP and NMC battery chemistry). It is equipped with multiple battery protection feature like overheating, reverse battery, short circuit and overcharging protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design It has wide ranges of voltages(48V/60V/72V) in multiple current ratings."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/6A.jpg"
+  },
+  {
+    "slug": "utl-li-ion-60v-8a-battery-charger",
+    "oldSlug": null,
+    "title": "UTL Li-ion 60V/8A Battery Charger",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The NPFC 60V/8A Charger is a Lithium-ion charger. Which specially designed for Electric Vehicle (E-Bike/E-Scooty).",
+    "description": [
+      "The NPFC 60V/8A Charger is a Lithium-ion charger. Which specially designed for Electric Vehicle (E-Bike/E-Scooty). UTL EV charger is SMPS based fully automatic systems with powerful DSP microcontroller that provide smart charging in Li- ion battery( LFP and NMC battery chemistry). It is equipped with multiple battery protection feature like overheating, reverse battery, short circuit and overcharging protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design It has wide ranges of voltages(48V/60V/72V) in multiple current ratings."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/0111.jpg"
+  },
+  {
+    "slug": "utl-li-ion-72v-10a-battery-charger",
+    "oldSlug": null,
+    "title": "UTL Li-ion 72V/10A Battery Charger",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The NPFC 72V/6A Charger is a Lithium-ion charger. UTL EV charger is SMPS based fully automatic systems with powerful DSP microcontroller that provide smart charging in Li- ion battery( LFP and NMC battery chemistry).",
+    "description": [
+      "The NPFC 72V/6A Charger is a Lithium-ion charger. UTL EV charger is SMPS based fully automatic systems with powerful DSP microcontroller that provide smart charging in Li- ion battery( LFP and NMC battery chemistry). It is equipped with multiple battery protection feature like overheating, reverse battery, short circuit and overcharging protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design It has wide ranges of voltages(48V/60V/72V) in multiple current ratings.",
+      "The NPFC 72V/10A Charger is a Lithium-ion charger. UTL EV charger is SMPS based fully automatic systems with powerful DSP microcontroller that provide smart charging in Li- ion battery( LFP and NMC battery chemistry). It is equipped with multiple battery protection feature like overheating, reverse battery, short circuit and overcharging protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design It has wide ranges of voltages(48V/60V/72V) in multiple current ratings."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/e-rickshaw-72V-10ALI-min.jpg"
+  },
+  {
+    "slug": "utl-li-ion-72v-6a-battery-charger",
+    "oldSlug": null,
+    "title": "UTL Li-ion 72V/6A Battery Charger",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The NPFC 72V/6A Charger is a Lithium-ion charger. UTL EV charger is SMPS based fully automatic systems with powerful DSP microcontroller that provide smart charging in Li- ion battery( LFP and NMC battery chemistry).",
+    "description": [
+      "The NPFC 72V/6A Charger is a Lithium-ion charger. UTL EV charger is SMPS based fully automatic systems with powerful DSP microcontroller that provide smart charging in Li- ion battery( LFP and NMC battery chemistry). It is equipped with multiple battery protection feature like overheating, reverse battery, short circuit and overcharging protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design It has wide ranges of voltages(48V/60V/72V) in multiple current ratings."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/8A-min.jpg"
+  },
+  {
+    "slug": "utl-smf-48v-6a-battery-charger",
+    "oldSlug": null,
+    "title": "UTL SMF 48V/6A Battery Charger",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "A SMF UTL EV battery charger, 48V/6A. Ask us for full specifications and current pricing.",
+    "description": [
+      "A SMF UTL EV battery charger, 48V/6A. Ask us for full specifications and current pricing."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/6A-48V-SMF-BATTERY-WARRANTY-CARD-min.jpg"
+  },
+  {
+    "slug": "utl-smf-60v-6a-battery-charger",
+    "oldSlug": null,
+    "title": "UTL SMF 60V/6A Battery Charger",
+    "category": "ev-chargers",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "A SMF UTL EV battery charger, 60V/6A. Ask us for full specifications and current pricing.",
+    "description": [
+      "A SMF UTL EV battery charger, 60V/6A. Ask us for full specifications and current pricing."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/6A-48V-SMF-BATTERY-WARRANTY-CARD-min-1.jpg"
+  },
+  {
+    "slug": "uit-24036",
+    "oldSlug": null,
+    "title": "UTL Inverter Battery UIT 24036 230Ah",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": "UIT 24036",
+    "summary": "Long outages test a battery’s real capacity, not just its rated number. The UTL UIT24036 is built for that scenario — 230Ah of tubular backup engineered to keep running well after smaller batteries have tapped out.",
+    "description": [
+      "Long outages test a battery’s real capacity, not just its rated number. The UTL UIT24036 is built for that scenario — 230Ah of tubular backup engineered to keep running well after smaller batteries have tapped out.",
+      "UTL Inverter Battery UIT 24036 230Ah",
+      "This heavy-duty 230Ah tubular inverter battery is designed for homes, offices, shops, and other backup power applications. Manufactured using advanced tubular plate technology, it delivers dependable performance, efficient charging, and a longer service life than conventional flat plate batteries.",
+      "With a capacity of 230Ah at C20 and 200Ah at C10, the UIT24036 performs efficiently under the different discharge conditions used for inverter and solar applications. The battery is built to comply with Indian quality and safety standards for reliable operation."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Model",
+          "values": [
+            "UIT 24036"
+          ]
+        },
+        {
+          "label": "Brand",
+          "values": [
+            "UTL Solar"
+          ]
+        },
+        {
+          "label": "Battery Type",
+          "values": [
+            "Heavy Duty Tubular Battery"
+          ]
+        },
+        {
+          "label": "Application",
+          "values": [
+            "Solar Inverter, Home UPS, Backup Power"
+          ]
+        },
+        {
+          "label": "Voltage",
+          "values": [
+            "12V"
+          ]
+        },
+        {
+          "label": "Capacity @ C20",
+          "values": [
+            "230Ah"
+          ]
+        },
+        {
+          "label": "Capacity @ C10",
+          "values": [
+            "200Ah"
+          ]
+        },
+        {
+          "label": "Technology",
+          "values": [
+            "Tubular Plate Technology"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "values": [
+            "36 + 24 Months*"
+          ]
+        },
+        {
+          "label": "Container Type",
+          "values": [
+            "IT 500"
+          ]
+        },
+        {
+          "label": "Plate Combination",
+          "values": [
+            "2+3"
+          ]
+        },
+        {
+          "label": "Net Weight (±3%)",
+          "values": [
+            "65.7 ± 3%"
+          ]
+        },
+        {
+          "label": "Gross Weight (±3%)",
+          "values": [
+            "67.5 ± 3%"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2026/08/UTL-Inverter-Battery-UIT-24036-230Ah.jpeg"
+  },
+  {
+    "slug": "51-2v-100ah-lithium-battery-ulibes-51-2v100ah-lp100-pm",
+    "oldSlug": null,
+    "title": "UTL 51.2V/100AH Lithium Battery",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "If you need reliable backup and long lasting battery for your Inverter or E-vehicle, this 51.2V 100Ah Lithium Phosphate battery is a solid choice. Built with LiFePO₄ cells, it offers long-lasting power with quick charging and zero maintenance.",
+    "description": [
+      "If you need reliable backup and long lasting battery for your Inverter or E-vehicle, this 51.2V 100Ah Lithium Phosphate battery is a solid choice. Built with LiFePO₄ cells, it offers long-lasting power with quick charging and zero maintenance. You can expect 4 to 5 hours of backup on a moderate load (like lights, fans, TV, and a fridge), and far better efficiency than lead-acid alternatives. This LPF battery is safer, lighter, and more durable—designed to handle everyday use and harsh weather with ease. It’s a smart upgrade if you want peace of mind and power that lasts for years."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/UTL-51.2-lithium-battery.jpg"
+  },
+  {
+    "slug": "battery-scanner-12v-15a",
+    "oldSlug": null,
+    "title": "Battery Scanner 12V/15A",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Battery Scanner 12V/15A",
+    "description": [
+      "Battery Scanner 12V/15A",
+      "Automated Charging / Discharging Battery Charging and Discharging Ah with Time Inbuilt Active Power Factor Correction Smart Cooling Fan Eco Friendly Configurable Parameter",
+      "a) Charging Current",
+      "b) Discharging Mode Current / Power"
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/15A-min.jpg"
+  },
+  {
+    "slug": "battery-scanner-12v-30a",
+    "oldSlug": null,
+    "title": "Battery Scanner 12V/30A",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Battery Scanner 12V/30A",
+    "description": [
+      "Battery Scanner 12V/30A",
+      "Automated Charging / Discharging Battery Charging and Discharging Ah with Time Inbuilt Active Power Factor Correction Smart Cooling Fan Eco Friendly Configurable Parameter",
+      "a) Charging Current",
+      "b) Discharging Mode Current / Power"
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/30A-min.jpg"
+  },
+  {
+    "slug": "li-ion-51-2v-107ah-sm-e-rickshaw-battery",
+    "oldSlug": null,
+    "title": "UTL 51.2V 107Ah Lithium Battery for E-Rickshaw, Loader & 3-Wheeler",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": "ULIB3W-51.2V107AH-LP100-SM",
+    "summary": "The UTL 51.2 V 107 Ah LiFePO₄ Lithium Battery is purpose-built for E-Rickshaw, Loader, and 3-Wheeler applications, delivering dependable performance, faster charging, and longer life. Engineered with Smart BMS Technology and AIS-156 compliance, this battery ensures safety,…",
+    "description": [
+      "The UTL 51.2 V 107 Ah LiFePO₄ Lithium Battery is purpose-built for E-Rickshaw, Loader, and 3-Wheeler applications, delivering dependable performance, faster charging, and longer life. Engineered with Smart BMS Technology and AIS-156 compliance, this battery ensures safety, durability, and superior power delivery on every ride."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Model",
+          "values": [
+            "ULIB3W-51.2V107AH-LP100-SM"
+          ]
+        },
+        {
+          "label": "Cell Type",
+          "values": [
+            "Prismatic LiFePO4(LPF)"
+          ]
+        },
+        {
+          "label": "BMS",
+          "values": [
+            "Smart BMS Technology and AIS-156 compliance"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "values": [
+            "3 Years"
+          ]
+        },
+        {
+          "label": "Nominal Energy",
+          "values": [
+            "5478 kWh"
+          ]
+        },
+        {
+          "label": "Life Cycle",
+          "values": [
+            "3500"
+          ]
+        },
+        {
+          "label": "Weight",
+          "values": [
+            "58 KG"
+          ]
+        },
+        {
+          "label": "Max Charging Time",
+          "values": [
+            "107 AH"
+          ]
+        },
+        {
+          "label": "Max Discharging Time",
+          "values": [
+            "4Hr @25A"
+          ]
+        },
+        {
+          "label": "Energy (Wh)",
+          "values": [
+            "5478 Wh"
+          ]
+        },
+        {
+          "label": "Continuous Charging Current",
+          "values": [
+            "35A"
+          ]
+        },
+        {
+          "label": "Configuration",
+          "values": [
+            "16S 1P – 107AH"
+          ]
+        },
+        {
+          "label": "Voltage Range",
+          "values": [
+            "43.2V – 58.4V"
+          ]
+        },
+        {
+          "label": "Maximum Charge Current",
+          "values": [
+            "45A"
+          ]
+        },
+        {
+          "label": "Maximum Discharge Current",
+          "values": [
+            "100A (peak), 70A (continuous)"
+          ]
+        },
+        {
+          "label": "Cycle Life",
+          "values": [
+            "3500 cycles @ 80% DOD"
+          ]
+        },
+        {
+          "label": "Operating Temperature Range",
+          "values": [
+            "0°C to 45°C (charging), -20°C to 60°C (discharging)"
+          ]
+        },
+        {
+          "label": "MCB",
+          "values": [
+            "No"
+          ]
+        },
+        {
+          "label": "Battery Efficiency",
+          "values": [
+            "≥ 94% @ 27°C"
+          ]
+        },
+        {
+          "label": "Dimensions (L×W×H)",
+          "values": [
+            "580 × 390 × 280 mm"
+          ]
+        },
+        {
+          "label": "Communication Interface",
+          "values": [
+            "Bluetooth"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/E-rickshaw-Battrey-1.png"
+  },
+  {
+    "slug": "lithium-ion-lifepo4-lfp-battery-12-8v-100ah-wm",
+    "oldSlug": null,
+    "title": "UTL 12.8V/100AH Lithium-ion Inverter Battery",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "Built with advanced prismatic LiFePO4 cells, this battery ensures a long cycle life of 3000–3500 cycles, delivering up to 10 years of reliable performance. Its inbuilt BMS provides complete protection against overcharge, deep discharge, short-circuits, and overheating, making…",
+    "description": [
+      "Built with advanced prismatic LiFePO4 cells, this battery ensures a long cycle life of 3000–3500 cycles, delivering up to 10 years of reliable performance. Its inbuilt BMS provides complete protection against overcharge, deep discharge, short-circuits, and overheating, making it a safe and dependable energy solution.",
+      "The compact design saves space and makes installation easy, while the lightweight construction enhances usability across inverter backup and solar applications. With 98% efficiency and rapid charging capability, the ULIBES-12.8V100AH is the perfect upgrade from conventional lead-acid batteries."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Max Charging Time",
+          "values": [
+            "2Hr @ 50A"
+          ]
+        },
+        {
+          "label": "Max Discharging Time",
+          "values": [
+            "2Hr @50A"
+          ]
+        },
+        {
+          "label": "Energy (Wh)",
+          "values": [
+            "1280 Wh"
+          ]
+        },
+        {
+          "label": "Continuous Charging Current",
+          "values": [
+            "35A"
+          ]
+        },
+        {
+          "label": "Configuration",
+          "values": [
+            "4S 1P – 100AH"
+          ]
+        },
+        {
+          "label": "Voltage Range",
+          "values": [
+            "21.5V – 22.4V"
+          ]
+        },
+        {
+          "label": "Recommended Charge Voltage",
+          "values": [
+            "56.8V – 58.4V"
+          ]
+        },
+        {
+          "label": "Maximum Charge Current",
+          "values": [
+            "40A"
+          ]
+        },
+        {
+          "label": "Maximum Discharge Current",
+          "values": [
+            "100A (peak), 60A (continuous)"
+          ]
+        },
+        {
+          "label": "Cycle Life",
+          "values": [
+            "3000–3500 cycles @ 80% DOD"
+          ]
+        },
+        {
+          "label": "Operating Temperature Range",
+          "values": [
+            "0°C to 45°C (charging), -20°C to 60°C (discharging)"
+          ]
+        },
+        {
+          "label": "MCB",
+          "values": [
+            "Yes"
+          ]
+        },
+        {
+          "label": "Battery Efficiency",
+          "values": [
+            "≥ 98% @ 27°C"
+          ]
+        },
+        {
+          "label": "Dimensions (L×W×H)",
+          "values": [
+            "310 × 415 × 165 mm"
+          ]
+        },
+        {
+          "label": "Communication Interface",
+          "values": [
+            "NA"
+          ]
+        },
+        {
+          "label": "Suitable Applications",
+          "values": [
+            "Energy storage / Inverter application"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/04/12.8-lithium-PRODUCT-IMAGE.jpeg"
+  },
+  {
+    "slug": "lithium-ion-lifepo4-lfp-battery-120v-100ah-sm",
+    "oldSlug": null,
+    "title": "UTL Lithium Ion (LiFePO4/LFP) Battery 120V/100Ah – SM",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "A lithium-ion (LiFePO4) UTL battery, 120V/100Ah. Ask us for full specifications and current pricing.",
+    "description": [
+      "A lithium-ion (LiFePO4) UTL battery, 120V/100Ah. Ask us for full specifications and current pricing."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/03/Lithium-120-v.jpeg"
+  },
+  {
+    "slug": "lithium-ion-lifepo4-lfp-battery-25-6v-100ah-sm",
+    "oldSlug": null,
+    "title": "25.6V/100AH Lithium-ion Battery for Inverter",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "The UTL ULIBES-25.6 V100Ah-LP100-SM Lithium Battery is a premium LiFePO4 battery designed for solar systems, inverter backup, telecom, mobility, and e-rickshaw applications. With 3500+ life cycles and a 10-year lifespan, it delivers reliable power while ensuring safety with a…",
+    "description": [
+      "The UTL ULIBES-25.6 V100Ah-LP100-SM Lithium Battery is a premium LiFePO4 battery designed for solar systems, inverter backup, telecom, mobility, and e-rickshaw applications. With 3500+ life cycles and a 10-year lifespan, it delivers reliable power while ensuring safety with a Smart BMS that protects against overcharging, deep discharge, short-circuits, and thermal issues.",
+      "Engineered for fast charging and high efficiency (≥98%), this battery reduces downtime and maximizes energy utilization. Its compact and lightweight design makes it easy to integrate into homes, offices, and industrial setups. Backed by a 5-year warranty, it’s the perfect choice for users seeking durability, safety, and long-term savings."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Max Charging Time",
+          "values": [
+            "2Hr @ 50A"
+          ]
+        },
+        {
+          "label": "Max Discharging Time",
+          "values": [
+            "2Hr @50A"
+          ]
+        },
+        {
+          "label": "Energy (Wh)",
+          "values": [
+            "2560 Wh"
+          ]
+        },
+        {
+          "label": "Continuous Charging Current",
+          "values": [
+            "35A"
+          ]
+        },
+        {
+          "label": "Configuration",
+          "values": [
+            "8S 1P – 100AH"
+          ]
+        },
+        {
+          "label": "Voltage Range",
+          "values": [
+            "21.5V – 22.4V"
+          ]
+        },
+        {
+          "label": "Recommended Charge Voltage",
+          "values": [
+            "56.8V – 58.4V"
+          ]
+        },
+        {
+          "label": "Maximum Charge Current",
+          "values": [
+            "40A"
+          ]
+        },
+        {
+          "label": "Maximum Discharge Current",
+          "values": [
+            "100A (peak), 60A (continuous)"
+          ]
+        },
+        {
+          "label": "Cycle Life",
+          "values": [
+            "3000–3500 cycles @ 80% DOD"
+          ]
+        },
+        {
+          "label": "Protection",
+          "values": [
+            "Smart BMS (Overcharge, Deep Discharge, Short-circuit, Thermal Protection)"
+          ]
+        },
+        {
+          "label": "Operating Temperature Range",
+          "values": [
+            "0°C to 45°C (charging), -20°C to 60°C (discharging)"
+          ]
+        },
+        {
+          "label": "MCB",
+          "values": [
+            "Yes"
+          ]
+        },
+        {
+          "label": "Dimensions (L×W×H)",
+          "values": [
+            "Approx. 521 × 285 × 225 mm"
+          ]
+        },
+        {
+          "label": "Communication (optional)",
+          "values": [
+            "CAN / RS485 / Bluetooth (on demand)"
+          ]
+        },
+        {
+          "label": "Suitable Applications",
+          "values": [
+            "Inverter backup, Solar systems, E-rickshaw, Telecom, Mobility"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/04/Lithium-25.6V.jpg.jpeg"
+  },
+  {
+    "slug": "lithium-ion-lifepo4-lfp-battery-48v-100ah-pm",
+    "oldSlug": null,
+    "title": "UTL Lithium Ion (LiFePO4/LFP) Battery 48V/100Ah – PM",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "A lithium-ion (LiFePO4) UTL battery, 48V/100Ah. Ask us for full specifications and current pricing.",
+    "description": [
+      "A lithium-ion (LiFePO4) UTL battery, 48V/100Ah. Ask us for full specifications and current pricing."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/48-v-LITHIUM.png"
+  },
+  {
+    "slug": "lithium-ion-lifepo4-lfp-battery-48v-100ah",
+    "oldSlug": null,
+    "title": "UTL 48V/100AH Lithium Battery",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "If you need reliable backup and long lasting battery for your Inverter or E-vehicle, this 48V 100Ah Lithium Phosphate battery is a solid choice. Built with LiFePO₄ cells, it offers long-lasting power with quick charging and zero maintenance.",
+    "description": [
+      "If you need reliable backup and long lasting battery for your Inverter or E-vehicle, this 48V 100Ah Lithium Phosphate battery is a solid choice. Built with LiFePO₄ cells, it offers long-lasting power with quick charging and zero maintenance. You can expect 4 to 5 hours of backup on a moderate load (like lights, fans, TV, and a fridge), and far better efficiency than lead-acid alternatives. This LPF battery is safer, lighter, and more durable—designed to handle everyday use and harsh weather with ease. It’s a smart upgrade if you want peace of mind and power that lasts for years."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Configuration",
+          "values": [
+            "16S1P (16 cells in series)"
+          ]
+        },
+        {
+          "label": "Voltage Range",
+          "values": [
+            "Lithium Iron Phosphate (LiFePO₄)"
+          ]
+        },
+        {
+          "label": "Recommended Charge Voltage",
+          "values": [
+            "56.8V – 58.4V"
+          ]
+        },
+        {
+          "label": "Maximum Charge Current",
+          "values": [
+            "50A"
+          ]
+        },
+        {
+          "label": "Maximum Discharge Current",
+          "values": [
+            "100A (peak), 60A (continuous)"
+          ]
+        },
+        {
+          "label": "Cycle Life",
+          "values": [
+            "3000–3500 cycles @ 80% DOD"
+          ]
+        },
+        {
+          "label": "Protection",
+          "values": [
+            "Smart BMS (Overcharge, Deep Discharge, Short-circuit, Thermal Protection)"
+          ]
+        },
+        {
+          "label": "Weight",
+          "values": [
+            "Approx. 38–42 kg (varies by enclosure)"
+          ]
+        },
+        {
+          "label": "Enclosure Protection",
+          "values": [
+            "Smart BMS (Overcharge, Deep Discharge, Short-circuit, Thermal Protection)"
+          ]
+        },
+        {
+          "label": "Operating Temperature Range",
+          "values": [
+            "0°C to 55°C (charging), -10°C to 60°C (discharging)"
+          ]
+        },
+        {
+          "label": "Dimensions (L×W×H)",
+          "values": [
+            "Approx. 430 × 370 × 300 mm"
+          ]
+        },
+        {
+          "label": "Communication (optional)",
+          "values": [
+            "CAN / RS485 / Bluetooth (on demand)"
+          ]
+        },
+        {
+          "label": "Suitable Applications",
+          "values": [
+            "Inverter backup, Solar systems, E-rickshaw, Telecom, Mobility"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2025/04/Lithium-48V.jpg.jpeg"
+  },
+  {
+    "slug": "lithium-ion-lifepo4-lfp-battery-96v-100ah-nm",
+    "oldSlug": null,
+    "title": "UTL Lithium Ion (LiFePO4/LFP) Battery 96V/100Ah – SM",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "A lithium-ion (LiFePO4) UTL battery, 96V/100Ah. Ask us for full specifications and current pricing.",
+    "description": [
+      "A lithium-ion (LiFePO4) UTL battery, 96V/100Ah. Ask us for full specifications and current pricing."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/96V-lithium.jpg-BATTERY.jpeg"
+  },
+  {
+    "slug": "uit-16536",
+    "oldSlug": null,
+    "title": "UIT 16536",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": "UIT16536",
+    "summary": "A reliable battery is essential for getting uninterrupted backup from your inverter or solar system. UTL Solar UIT16536 combines durable tubular technology with dependable capacity ratings to provide efficient energy storage and long-lasting performance.",
+    "description": [
+      "A reliable battery is essential for getting uninterrupted backup from your inverter or solar system. UTL Solar UIT16536 combines durable tubular technology with dependable capacity ratings to provide efficient energy storage and long-lasting performance.",
+      "Whether used with a solar inverter or home UPS system, this battery helps deliver stable backup power whenever you need it.",
+      "150AH Solar Tubular Battery for Inverter UTL Solar UIT16536 is a heavy-duty tubular battery designed for reliable backup in solar and inverter applications. Built with advanced tubular plate technology, it delivers consistent performance, longer service life, and efficient charging for homes and small commercial power backup systems. With a capacity of 150Ah at C20 rating and 135Ah at C10 rating, this battery is designed to provide dependable power support while maintaining excellent performance across different discharge conditions.",
+      "Product Specifications"
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Brand",
+          "values": [
+            "UTL Solar"
+          ]
+        },
+        {
+          "label": "Model",
+          "values": [
+            "UIT16536"
+          ]
+        },
+        {
+          "label": "Battery Type",
+          "values": [
+            "Heavy Duty Tubular Battery"
+          ]
+        },
+        {
+          "label": "Application",
+          "values": [
+            "Solar Inverter, Home UPS, Backup Power"
+          ]
+        },
+        {
+          "label": "Voltage",
+          "values": [
+            "12V"
+          ]
+        },
+        {
+          "label": "Capacity @ C20",
+          "values": [
+            "150Ah"
+          ]
+        },
+        {
+          "label": "Capacity @ C10",
+          "values": [
+            "135Ah"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "values": [
+            "36 + 24 Months*"
+          ]
+        },
+        {
+          "label": "Plate Combination",
+          "values": [
+            "2+3"
+          ]
+        },
+        {
+          "label": "Container Type",
+          "values": [
+            "IT 500"
+          ]
+        },
+        {
+          "label": "Technology",
+          "values": [
+            "Tubular Plate Technology"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2026/07/UIT-16536-UTL-150AH-Solar-Tubular-Battery-for-Inverter.jpeg"
+  },
+  {
+    "slug": "uit-20036-inverter-battery",
+    "oldSlug": null,
+    "title": "UTL Inverter Battery UIT20036 175Ah",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": "UIT20036",
+    "summary": "Reliable backup begins with a battery engineered for consistent performance. Built with advanced tubular plate technology, the 175Ah tubular inverter battery is designed to deliver dependable power storage, efficient charging, and long service life.",
+    "description": [
+      "Reliable backup begins with a battery engineered for consistent performance. Built with advanced tubular plate technology, the 175Ah tubular inverter battery is designed to deliver dependable power storage, efficient charging, and long service life. BIS certified for quality and safety, it is suitable for home UPS systems as well as solar inverter applications.",
+      "UTL Inverter Battery UIT20036 175Ah",
+      "This heavy-duty 175Ah tubular inverter battery is designed for homes, offices, shops, and other backup power applications. Manufactured using advanced tubular plate technology, it delivers dependable performance, efficient charging, and a longer service life than conventional flat plate batteries.",
+      "With a capacity of 175Ah at C20 and 150Ah at C10, the UIT20036 performs efficiently under the different discharge conditions used for inverter and solar applications. The battery is built to comply with Indian quality and safety standards for reliable operation."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Model",
+          "values": [
+            "UIT20036"
+          ]
+        },
+        {
+          "label": "Brand",
+          "values": [
+            "UTL Solar"
+          ]
+        },
+        {
+          "label": "Battery Type",
+          "values": [
+            "Heavy Duty Tubular Battery"
+          ]
+        },
+        {
+          "label": "Application",
+          "values": [
+            "Solar Inverter, Home UPS, Backup Power"
+          ]
+        },
+        {
+          "label": "Voltage",
+          "values": [
+            "12V"
+          ]
+        },
+        {
+          "label": "Capacity @ C20",
+          "values": [
+            "175Ah"
+          ]
+        },
+        {
+          "label": "Capacity @ C10",
+          "values": [
+            "150Ah"
+          ]
+        },
+        {
+          "label": "Technology",
+          "values": [
+            "Tubular Plate Technology"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "values": [
+            "36 + 24 Months*"
+          ]
+        },
+        {
+          "label": "Container Type",
+          "values": [
+            "IT 500"
+          ]
+        },
+        {
+          "label": "Plate Combination",
+          "values": [
+            "2+3"
+          ]
+        },
+        {
+          "label": "Net Weight (±3%)",
+          "values": [
+            "56.7 ± 3%"
+          ]
+        },
+        {
+          "label": "Gross Weight (±3%)",
+          "values": [
+            "58.5 ± 3%"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2026/08/UTL-Inverter-Battery-UIT20036-175Ah.jpeg"
+  },
+  {
+    "slug": "uit-22036-inverter-battery",
+    "oldSlug": null,
+    "title": "UTL Inverter Battery UIT22036 200Ah",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": "UIT22036",
+    "summary": "Homes with higher everyday power requirements need a battery that can comfortably support larger connected loads while delivering dependable backup. Built with advanced tubular plate technology, this BIS certified 200Ah inverter battery is engineered for reliable energy…",
+    "description": [
+      "Homes with higher everyday power requirements need a battery that can comfortably support larger connected loads while delivering dependable backup. Built with advanced tubular plate technology, this BIS certified 200Ah inverter battery is engineered for reliable energy storage, efficient charging, and long service life, making it an excellent choice for both home UPS systems and solar inverter applications.",
+      "UTL Inverter Battery UIT22036 200Ah",
+      "The 200Ah tubular inverter battery is designed for residential and light commercial installations where extended backup and dependable performance are essential. Manufactured using advanced tubular plate technology, it delivers efficient charging, excellent cycle life, and consistent performance during regular charging and discharging.",
+      "With a capacity of 200Ah @ C20 and 180Ah @ C10, the battery performs efficiently under the different discharge standards used for inverter and solar applications. Its robust 3+4 plate combination enhances durability while supporting higher energy storage requirements."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Model",
+          "values": [
+            "UIT22036"
+          ]
+        },
+        {
+          "label": "Brand",
+          "values": [
+            "UTL Solar"
+          ]
+        },
+        {
+          "label": "Battery Type",
+          "values": [
+            "Heavy Duty Tubular Battery"
+          ]
+        },
+        {
+          "label": "Application",
+          "values": [
+            "Solar Inverter, Home UPS, Backup Power"
+          ]
+        },
+        {
+          "label": "Voltage",
+          "values": [
+            "12V"
+          ]
+        },
+        {
+          "label": "Capacity @ C20",
+          "values": [
+            "200Ah"
+          ]
+        },
+        {
+          "label": "Capacity @ C10",
+          "values": [
+            "180Ah"
+          ]
+        },
+        {
+          "label": "Technology",
+          "values": [
+            "Tubular Plate Technology"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "values": [
+            "36 + 24 Months*"
+          ]
+        },
+        {
+          "label": "Container Type",
+          "values": [
+            "IT 500"
+          ]
+        },
+        {
+          "label": "Plate Combination",
+          "values": [
+            "2+3"
+          ]
+        },
+        {
+          "label": "Net Weight (±3%)",
+          "values": [
+            "60.6 ± 3% kg"
+          ]
+        },
+        {
+          "label": "Gross Weight (±3%)",
+          "values": [
+            "62.0 ± 3% kg"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2026/08/UTL-Inverter-Battery-UIT22036-200Ah.jpeg"
+  },
+  {
+    "slug": "uit-28036",
+    "oldSlug": null,
+    "title": "UTL Inverter Battery UIT28036 260Ah",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": "UIT 28036",
+    "summary": "At the top of UTL’s tubular inverter range sits the UIT28036 — 260Ah of capacity in a reinforced IT500J container, built for homes, shops, and small offices that treat backup power as non-negotiable.",
+    "description": [
+      "At the top of UTL’s tubular inverter range sits the UIT28036 — 260Ah of capacity in a reinforced IT500J container, built for homes, shops, and small offices that treat backup power as non-negotiable.",
+      "UTL Inverter Battery UIT28036 260Ah",
+      "This heavy-duty 260Ah tubular inverter battery is designed for homes, offices, shops, and other backup power applications. Manufactured using advanced tubular plate technology, it delivers dependable performance, efficient charging, and a longer service life than conventional flat plate batteries.",
+      "With a capacity of 260Ah at C20 and 230Ah at C10, the UIT28036 performs efficiently under the different discharge conditions used for inverter and solar applications. The battery is built to comply with Indian quality and safety standards for reliable operation."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Model",
+          "values": [
+            "UIT 28036"
+          ]
+        },
+        {
+          "label": "Brand",
+          "values": [
+            "UTL Solar"
+          ]
+        },
+        {
+          "label": "Battery Type",
+          "values": [
+            "Heavy Duty Tubular Battery"
+          ]
+        },
+        {
+          "label": "Application",
+          "values": [
+            "Solar Inverter, Home UPS, Backup Power"
+          ]
+        },
+        {
+          "label": "Voltage",
+          "values": [
+            "12V"
+          ]
+        },
+        {
+          "label": "Capacity @ C20",
+          "values": [
+            "260Ah"
+          ]
+        },
+        {
+          "label": "Capacity @ C10",
+          "values": [
+            "230Ah"
+          ]
+        },
+        {
+          "label": "Technology",
+          "values": [
+            "Tubular Plate Technology"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "values": [
+            "36 + 24 Months*"
+          ]
+        },
+        {
+          "label": "Container Type",
+          "values": [
+            "IT 500J"
+          ]
+        },
+        {
+          "label": "Plate Combination",
+          "values": [
+            "2+3"
+          ]
+        },
+        {
+          "label": "Net Weight (±3%)",
+          "values": [
+            "72.5 ± 3%"
+          ]
+        },
+        {
+          "label": "Gross Weight (±3%)",
+          "values": [
+            "74.3 ± 3%"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2026/08/UTL-Inverter-Battery-UIT28036-260Ah.jpeg"
+  },
+  {
+    "slug": "uit16036-solar-battery",
+    "oldSlug": null,
+    "title": "UTL Inverter Battery UIT16036 150Ah",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": "UIT16036",
+    "summary": "A dependable 150Ah inverter battery is essential for uninterrupted backup at home or in a solar power system. Built with advanced tubular technology, this 150Ah solar battery delivers reliable performance, efficient charging, and long service life.",
+    "description": [
+      "A dependable 150Ah inverter battery is essential for uninterrupted backup at home or in a solar power system. Built with advanced tubular technology, this 150Ah solar battery delivers reliable performance, efficient charging, and long service life. Whether connected to a home UPS or a solar inverter, it provides stable backup whenever you need it.",
+      "UTL Inverter Battery UIT16036 150Ah",
+      "This heavy-duty 150Ah tubular inverter battery is designed for homes, offices, shops, and other backup power applications. Manufactured using advanced tubular plate technology, it delivers dependable performance, efficient charging, and a longer service life than conventional flat plate batteries.",
+      "With a 150Ah capacity at C20 and 130AH at C10, it performs efficiently under different discharge conditions used for inverter and solar applications. The battery is also BIS certified, ensuring it complies with Indian quality and safety standards for reliable operation."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Model",
+          "values": [
+            "UIT16036"
+          ]
+        },
+        {
+          "label": "Brand",
+          "values": [
+            "UTL Solar"
+          ]
+        },
+        {
+          "label": "Battery Type",
+          "values": [
+            "Heavy Duty Tubular Battery"
+          ]
+        },
+        {
+          "label": "Certification",
+          "values": [
+            "BIS Certified"
+          ]
+        },
+        {
+          "label": "Nominal Voltage",
+          "values": [
+            "12V"
+          ]
+        },
+        {
+          "label": "Capacity @ C10 (27°C)",
+          "values": [
+            "130AH"
+          ]
+        },
+        {
+          "label": "Capacity @ C20 (27°C)",
+          "values": [
+            "150Ah"
+          ]
+        },
+        {
+          "label": "Technology",
+          "values": [
+            "Tubular Plate Technology"
+          ]
+        },
+        {
+          "label": "Application",
+          "values": [
+            "Home UPS, Inverter & Solar Inverter"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "values": [
+            "36 + 24 Months*"
+          ]
+        },
+        {
+          "label": "Container Type",
+          "values": [
+            "IT 500"
+          ]
+        },
+        {
+          "label": "Plate Combination",
+          "values": [
+            "2+3"
+          ]
+        },
+        {
+          "label": "Net Weight (±3%)",
+          "values": [
+            "54.2 kg"
+          ]
+        },
+        {
+          "label": "Gross Weight (±3%)",
+          "values": [
+            "56 kg"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2026/08/UTL-Inverter-Battery-UIT16036.jpeg"
+  },
+  {
+    "slug": "utl-155ah-inverter-battery-utt-1536",
+    "oldSlug": null,
+    "title": "UTL 155AH Inverter Battery – UTT 1536",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": "UTT 1536",
+    "summary": "Features of UTL Inverter Battery",
+    "description": [
+      "Features of UTL Inverter Battery",
+      "Specification of UTT1536 155AH Inverter Battery",
+      "Unique Features of 155Ah Inverter Battery",
+      "# Specification are subject to change without prior notice due to constant improvements in design & technology. * 24 Months Pro-Rata Warranty."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Particulars",
+          "values": [
+            "Description"
+          ]
+        },
+        {
+          "label": "Brand",
+          "values": [
+            "UTL Solar"
+          ]
+        },
+        {
+          "label": "Model",
+          "values": [
+            "UTT 1536"
+          ]
+        },
+        {
+          "label": "Capacity",
+          "values": [
+            "155Ah"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "values": [
+            "36+24* months"
+          ]
+        },
+        {
+          "label": "Nominal Voltage",
+          "values": [
+            "12volt"
+          ]
+        },
+        {
+          "label": "Container",
+          "values": [
+            "IT 500"
+          ]
+        },
+        {
+          "label": "Dimension",
+          "values": [
+            "503*190*410 mm"
+          ]
+        },
+        {
+          "label": "Filled Weight",
+          "values": [
+            "56.99kg"
+          ]
+        },
+        {
+          "label": "Dry Weight",
+          "values": [
+            "45.45kg"
+          ]
+        },
+        {
+          "label": "Plate Combination",
+          "values": [
+            "3+4"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/UTT-15361.jpg"
+  },
+  {
+    "slug": "utl-200ah-solar-inverter-battery-ust-2060",
+    "oldSlug": null,
+    "title": "UTL 200Ah Heavy Duty Tubular Inverter Battery (UST2060)",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": "UST2060",
+    "summary": "When your backup requirement extends beyond basic lighting and fans, battery capacity becomes critical. The UTL 200Ah Heavy Duty Tubular Inverter Battery is designed for homes, offices, shops, and solar power systems that need longer backup, reliable performance, and dependable…",
+    "description": [
+      "When your backup requirement extends beyond basic lighting and fans, battery capacity becomes critical. The UTL 200Ah Heavy Duty Tubular Inverter Battery is designed for homes, offices, shops, and solar power systems that need longer backup, reliable performance, and dependable daily operation.",
+      "Built using advanced tubular gauntlet positive plates and housed in a rugged IT500 polypropylene container, this battery is engineered to handle frequent charging and deep discharge cycles while delivering consistent performance in India’s demanding climate. Its C10 rating makes it an excellent choice for both solar and inverter applications.",
+      "UTL 200Ah Heavy Duty Tubular Inverter Battery (UST2060) The UTL 200Ah Heavy Duty Tubular Inverter Battery is built for users who require extended backup without compromising reliability. Whether it’s supporting a larger household during long power cuts or storing energy generated by a rooftop solar system, this battery delivers dependable performance day after day.",
+      "Its advanced tubular gauntlet positive plate design improves active material retention, helping extend battery life under repeated charging and discharging. Combined with a superior active material formulation and corrosion-resistant grid alloy, the battery offers excellent durability and dependable power output over years of operation."
+    ],
+    "features": [],
+    "specs": {
+      "columns": null,
+      "rows": [
+        {
+          "label": "Battery Type",
+          "values": [
+            "Heavy Duty Tubular Battery"
+          ]
+        },
+        {
+          "label": "Capacity",
+          "values": [
+            "200Ah @ C10"
+          ]
+        },
+        {
+          "label": "Nominal Voltage",
+          "values": [
+            "12V"
+          ]
+        },
+        {
+          "label": "Model",
+          "values": [
+            "UST2060"
+          ]
+        },
+        {
+          "label": "Container",
+          "values": [
+            "IT500"
+          ]
+        },
+        {
+          "label": "Plate Combination",
+          "values": [
+            "3+4"
+          ]
+        },
+        {
+          "label": "Net Weight",
+          "values": [
+            "66 kg (±3%)"
+          ]
+        },
+        {
+          "label": "Gross Weight",
+          "values": [
+            "67.5 kg (±3%)"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "values": [
+            "60 Months"
+          ]
+        },
+        {
+          "label": "Suitable For",
+          "values": [
+            "Inverter & Solar Applications"
+          ]
+        }
+      ]
+    },
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/UTL-200Ah-Heavy-Duty-Tubular-Inverter-Battery-1.jpeg"
+  },
+  {
+    "slug": "utl-lithium-ion-battery-for-inverter-180v-100ah",
+    "oldSlug": null,
+    "title": "UTL Lithium Ion Battery For Inverter – 180V-100AH",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "A lithium-ion (LiFePO4) UTL battery, 180V/100Ah. Ask us for full specifications and current pricing.",
+    "description": [
+      "A lithium-ion (LiFePO4) UTL battery, 180V/100Ah. Ask us for full specifications and current pricing."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/Lithium-battery-image.png"
+  },
+  {
+    "slug": "utl-lithium-ion-battery-for-inverter-360v-100ah",
+    "oldSlug": null,
+    "title": "UTL Lithium Ion Battery For Inverter – 360V-100AH",
+    "category": "batteries",
+    "brand": "UTL Solar",
+    "model": null,
+    "summary": "A lithium-ion (LiFePO4) UTL battery, 360V/100Ah. Ask us for full specifications and current pricing.",
+    "description": [
+      "A lithium-ion (LiFePO4) UTL battery, 360V/100Ah. Ask us for full specifications and current pricing."
+    ],
+    "features": [],
+    "specs": null,
+    "source": "utl-catalogue",
+    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/Lithium-battery-image.png"
   }
 ]
