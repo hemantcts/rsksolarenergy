@@ -12,18 +12,22 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;
 const path = `/blog/${entry.id}/`;
+// Frontmatter `title` doubles as the <title> tag, so it carries the "| RSK Solar" suffix — strip
+// it once and reuse everywhere a clean headline is needed (H1, breadcrumb, and the Article
+// schema's `headline`, which had been getting the raw suffixed value).
+const headline = d.title.replace(/ \| RSK.*$/, '');
 ---
 
 <GuideLayout
   title={d.title}
   description={d.description}
-  h1={d.title.replace(/ \| RSK.*$/, '')}
+  h1={headline}
   lead={d.description}
   crumbs={[
     { name: 'Guides', path: '/blog/' },
-    { name: d.title.replace(/ \| RSK.*$/, ''), path },
+    { name: headline, path },
   ]}
-  schema={[article({ title: d.title, description: d.description, path, published: d.published, ...(d.updated ? { updated: d.updated } : {}) }), ...(d.faq.length ? [faqPage(d.faq)] : [])]}
+  schema={[article({ title: headline, description: d.description, path, published: d.published, ...(d.updated ? { updated: d.updated } : {}) }), ...(d.faq.length ? [faqPage(d.faq)] : [])]}
   faq={d.faq}
   updated={d.updated ?? d.published}
   ogType="article"
