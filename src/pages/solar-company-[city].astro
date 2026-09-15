@@ -36,7 +36,7 @@ const titleBase = `Solar Company in ${place}`;
 const title = titleBase + fitSuffix(titleBase, [' | Rooftop Solar Installer', ' | Solar Installer'], 65);
 const description = direct
   ? `Rooftop solar in ${city.name} by RSK Solar Energy, UTL Solar distributor in Mohali: on-grid, hybrid and off-grid systems, subsidy filed for you.`
-  : `Rooftop solar in ${city.name} through RSK's UTL Solar dealers: on-grid, hybrid and off-grid systems sized to your bill, with the PM Surya Ghar subsidy.`;
+  : `Rooftop solar in ${city.name} through RSK Solar Energy's UTL dealers: on-grid, hybrid and off-grid systems sized to your bill, with the subsidy.`;
 
 const categoryAngles = outside
   ? [
@@ -64,8 +64,8 @@ const faq: QA[] = [
   {
     q: `Does RSK Solar Energy install in ${city.name}?`,
     a: direct
-      ? `Yes. ${city.name} is within RSK's own service area, covered from our office at ${BUSINESS.address.street}, ${BUSINESS.address.locality}.`
-      : `RSK is based in Mohali. In ${city.name} we work through our UTL Solar dealer network. Send your electricity bill on WhatsApp and we size the system, then arrange installation locally or from Mohali, whichever suits the job.`,
+      ? `Yes. ${city.name} is within RSK Solar Energy's own service area, covered from our office at ${BUSINESS.address.street}, ${BUSINESS.address.locality}.`
+      : `RSK Solar Energy is based in Mohali. In ${city.name} we work through our UTL Solar dealer network. Send your electricity bill on WhatsApp and we size the system, then arrange installation locally or from Mohali, whichever suits the job.`,
   },
   {
     q: `What does a solar system cost in ${city.name}?`,
@@ -103,7 +103,7 @@ const schema = [
       }
     </p>
     <p class="t-small mt-4 text-slate">
-      {outside ? city.district : `${city.district} district`}{!direct && ' · served through RSK’s dealer network, not a local branch office'}
+      {outside ? city.district : `${city.district} district`}{!direct && ' · served through our dealer network, not a local branch office'}
     </p>
   </header>
 
@@ -160,7 +160,7 @@ const schema = [
   <section class="on-ink sec-open bg-ink text-white" aria-labelledby="proof-h">
     <div class="wrap grid-12">
       <div class="lg:col-span-4">
-        <h2 id="proof-h" class="t-h2">{city.reviews?.length ? `What customers in ${city.name} say` : 'Why customers choose RSK'}</h2>
+        <h2 id="proof-h" class="t-h2">{city.reviews?.length ? `What customers in ${city.name} say` : 'Why customers choose RSK Solar Energy'}</h2>
         <p class="mt-6 flex items-baseline gap-3">
           <span class="t-readout text-signal">{BUSINESS.google.rating.toFixed(1)}</span>
           <span class="text-rule">out of 5 from {BUSINESS.google.reviewCount} Google reviews</span>

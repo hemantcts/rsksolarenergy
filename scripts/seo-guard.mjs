@@ -189,6 +189,11 @@ for (const file of sorted) {
   const text = visibleText(h);
   const warranty = text.match(/[^.]{0,60}\b(installation|workmanship) warranty\b[^.]{0,40}|[^.]{0,40}\b(RSK|we) (offer|offers|give|gives|provide|provides|guarantee|guarantees)\b[^.]{0,30}\b(warranty|guarantee)\b[^.]{0,30}|[^.]{0,40}\bguaranteed (savings|returns|payback)\b[^.]{0,30}/i);
   if (warranty) err(page, `RSK-side warranty or guarantee wording: "${warranty[0].trim()}"`);
+  // The business is always "RSK Solar Energy" in copy, never bare "RSK" (RSK's instruction, 2026-09-16).
+  const bareBrand = /\bRSK\b(?! Solar Energy| SOLAR ENERGY)/;
+  const bareInText = text.match(new RegExp(`[^.]{0,40}${bareBrand.source}[^.]{0,40}`));
+  if (bareInText) err(page, `brand written as bare "RSK" (use "RSK Solar Energy"): "${bareInText[0].trim()}"`);
+  if (!is404 && (bareBrand.test(title) || (desc && bareBrand.test(desc)))) err(page, 'brand written as bare "RSK" in the title or description');
   if (!page.startsWith('/products/')) {
     const dash = text.match(/[^\s]{0,30}\s?\w[,.)]?\s?—\s?[\w(][^\s]{0,30}/);
     if (dash) err(page, `em dash in copy: "${dash[0].trim()}"`);

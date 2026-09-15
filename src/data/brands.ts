@@ -50,7 +50,7 @@ export const BRAND_CATEGORIES: BrandCategory[] = [
   },
   {
     title: 'Home appliances',
-    blurb: 'Everyday appliance brands available through RSK.',
+    blurb: 'Everyday appliance brands available through RSK Solar Energy.',
     brands: [
       { name: 'Sujata', logo: sujataLogo },
       { name: 'Bajaj', logo: bajajLogo },

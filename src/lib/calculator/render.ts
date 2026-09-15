@@ -105,7 +105,7 @@ function freeUnitsBlock(r: CalcResult, input: CalcInput, o: RenderOptions, confi
   <li><strong>Your use is about to rise.</strong> A new AC, an EV, an extension or a bigger family can push you over ${config.freeUnits.perMonth} units. ${
     reserved
       ? 'Above that line you pay for every unit over it, plus fixed charges.'
-      : 'Above that line, general-category homes pay for every unit, not just the extra ones.'
+      : 'Above that line, general-category homes pay for every unit, starting from the first.'
   }</li>
   <li><strong>You face frequent power cuts.</strong> A hybrid system with batteries keeps essentials running. The return is backup, not savings.</li>
   <li><strong>You are often close to the line.</strong> One hot month over ${config.freeUnits.perMonth} units brings a full bill.</li>
@@ -213,7 +213,7 @@ ${hasSubsidy ? `<p class="calc-fineprint"><strong>You pay the full system cost f
 ${notes.length ? `<ul class="calc-notes">${notes.map((n) => `<li>${esc(noteText(n, config))}</li>`).join('')}</ul>` : ''}
 ${o.variant === 'full' ? `<p class="calc-fineprint">${esc(assumptions(config))}</p>` : ''}
 <div class="calc-actions">
-  ${waButton(r, input, o.district, 'Send this to RSK on WhatsApp')}
+  ${waButton(r, input, o.district, 'Send this to RSK Solar Energy on WhatsApp')}
   ${
     o.variant === 'hero'
       ? `<a class="btn btn-secondary" href="/solar-calculator/?${esc(o.shareQuery)}">See the full breakdown</a>`

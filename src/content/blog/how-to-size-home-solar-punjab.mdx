@@ -5,47 +5,47 @@ published: '2026-09-11'
 category: Sizing and systems
 faq:
   - q: How many kW do I need for 500 units a month?
-    a: 'About 3 kW brings net use under the 300-unit line with headroom and takes the bill to zero, whether you choose on-grid or hybrid, and both are subsidised at that size. Covering all 500 units would need about 5 kW, but under Punjab’s free-units rule the extra capacity saves very little.'
+    a: 'About 3 kW brings net use under the 300-unit line with some headroom and takes the bill to zero, whether you choose on-grid or hybrid, and both are subsidised at that size. Covering all 500 units would take about 5 kW, but under Punjab’s free-units rule the extra capacity saves very little.'
   - q: Should I size from my summer or winter bill?
-    a: 'Look at a full year if you can. The free units are counted per billing cycle, so the cycles that matter are the high ones, usually summer. A system that keeps your summer cycles under the line keeps every cycle under it.'
+    a: 'Look at a full year if you can. The free units are counted per billing cycle, so the cycles that matter are the high ones, usually in summer. A system that keeps your summer cycles under the line keeps every cycle under it.'
 ---
 
 import { F } from '../../lib/facts';
 
-The usual advice, "work out your daily use and divide by sun hours", is fine in most of the world. In Punjab it leads to oversized systems, because it ignores the {F.free} free units. Here is a method that does not.
+The usual advice is to work out your daily use and divide by the hours of sun. That works in most of the world, but in Punjab it leads to oversized systems, because it ignores the {F.free} free units. The method below allows for them.
 
 ## 1. Read the right figures from your bill
 
-- **Units consumed.** Current reading minus previous reading. PSPCL home bills usually cover two months: halve the figure for a monthly number.
-- **Sanctioned load,** in kW. Your system cannot be larger than this.
-- **Category.** DS is domestic supply. Check whether you are general category, or SC, BC, non-SC BPL or Freedom Fighter, because the free units work differently.
+- Units consumed: the current reading minus the previous one. PSPCL home bills usually cover two months, so halve the figure to get a monthly number.
+- Sanctioned load, in kW. Your system can't be larger than this.
+- Category. DS is domestic supply. Check whether you are general category, or SC, BC, non-SC BPL or Freedom Fighter, because the free units work differently for each.
 
-Collect a year of bills if you can. Use varies a lot between a July and a January.
+Collect a year of bills if you can, since use varies a lot between July and January.
 
 ## 2. Check whether solar can save you anything
 
-If your monthly use is {F.free} units or less, your bill is already zero. Solar has nothing to save. Stop here unless you want backup for power cuts; see [hybrid systems](/hybrid-solar-systems/).
+If your monthly use is {F.free} units or less, your bill is already zero and solar has nothing to save. Stop here unless you want backup for power cuts; see [hybrid systems](/hybrid-solar-systems/).
 
-## 3. Aim for the line, not for zero units
+## 3. Aim to get under the line
 
-For a general-category home over the line, every unit is charged. Bring the net units back under {F.free} and the whole bill goes. So the goal is not to generate everything you use; it is to generate enough to get under the line, with some headroom for the hot months.
+For a general-category home over the line, every unit is charged, and bringing net units back under {F.free} removes the whole bill. You don't need to generate everything you use, only enough to get under the line, with some headroom for the hot months.
 
 We aim for a net of about {F.zeroTarget} units a month:
 
-**System size (kW) ≈ (your monthly units − {F.zeroTarget}) ÷ {F.perKwMonth}**
+System size (kW) ≈ (your monthly units − {F.zeroTarget}) ÷ {F.perKwMonth}
 
-{F.perKwMonth} units per kW a month is a conservative figure for Punjab after heat, dust and wiring losses. Round the result up to the next available size. Which sizes are available depends on the system type you choose in step 5: on-grid starts at {F.onGridMinKw} kW, but hybrid and off-grid both go down to {F.hybridMinKw} kW.
+{F.perKwMonth} units per kW a month is a conservative figure for Punjab after heat, dust and wiring losses. Round the result up to the next available size. The sizes on offer depend on the system type you choose in step 5: on-grid starts at {F.onGridMinKw} kW, while hybrid and off-grid both go down to {F.hybridMinKw} kW.
 
-**Example.** A home using 500 units a month: (500 − {F.zeroTarget}) ÷ {F.perKwMonth} ≈ 2.5, rounded up to {F.onGridMinKw} kW. On-grid or hybrid both work, and both are subsidised. A home at 320 units works out to less than 1 kW on the same formula. On on-grid that still means a {F.onGridMinKw} kW system, because that is on-grid's floor; on hybrid it can genuinely be a {F.hybridMinKw} kW system, still fully subsidised and still enough to take the bill to zero. Covering all 500 units of use, rather than just clearing the line, would need about 5 kW, and the extra capacity would mostly export surplus to PSPCL for little in return.
+Take a home using 500 units a month: (500 − {F.zeroTarget}) ÷ {F.perKwMonth} ≈ 2.5, rounded up to {F.onGridMinKw} kW. On-grid or hybrid both work, and both are subsidised. A home at 320 units works out to less than 1 kW on the same formula. On on-grid that still means a {F.onGridMinKw} kW system, because that is the smallest on-grid size, but on hybrid it can be a {F.hybridMinKw} kW system, still fully subsidised and still enough to take the bill to zero. Covering all 500 units of use would need about 5 kW, and the extra capacity would mostly export surplus to PSPCL for little in return.
 
 ## 4. Check the limits
 
-- **Sanctioned load.** If the size from step 3 is bigger, either install up to your sanctioned load, or apply to PSPCL for load enhancement first. Applying for more than your sanctioned load gets subsidy applications rejected.
-- **Roof area.** Allow about {F.sqFtPerKw} sq ft of shade-free roof per kW. Water tanks, stair rooms and a neighbour's taller building all cast shade; panels in shade produce far less.
+- Sanctioned load. If the size from step 3 is bigger, either install up to your sanctioned load or apply to PSPCL for load enhancement first. Applying for more than your sanctioned load gets subsidy applications rejected.
+- Roof area. Allow about {F.sqFtPerKw} sq ft of shade-free roof per kW. Water tanks, stair rooms and a neighbour's taller building all cast shade, and panels in shade produce far less.
 
 ## 5. Choose the system type
 
-On-grid is the cheapest per kW and gets the PM Surya Ghar subsidy, but only from {F.onGridMinKw} kW upwards. Hybrid gets the same subsidy, goes down to {F.hybridMinKw} kW, and keeps essentials running in a power cut. Off-grid, only where the grid is unreliable or absent; it does not receive the subsidy, at any size. See [how the three differ](/on-grid-vs-off-grid-vs-hybrid/).
+On-grid is the cheapest per kW and gets the PM Surya Ghar subsidy, but only from {F.onGridMinKw} kW upwards. Hybrid gets the same subsidy, goes down to {F.hybridMinKw} kW, and keeps essentials running in a power cut. Off-grid only makes sense where the grid is unreliable or missing, and it gets no subsidy at any size. See [how the three differ](/on-grid-vs-off-grid-vs-hybrid/).
 
 ## Mistakes we see
 

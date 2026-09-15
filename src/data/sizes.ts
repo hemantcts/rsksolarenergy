@@ -80,9 +80,9 @@ export const SIZE_PAGES: SizeFacts[] = SOLAR_CONFIG.sizing.sizePagesKw.map(sizeF
 /** Editorial copy per size. Facts only; every number on the page comes from sizeFacts(). */
 export const SIZE_COPY: Record<number, { suits: string; notes: string[] }> = {
   1: {
-    suits: 'Homes just over the 300-unit line, where a small system is enough to bring net use back under it. RSK does not install on-grid systems this small, so this size comes as hybrid (with a battery) or off-grid.',
+    suits: 'Homes just over the 300-unit line, where a small system is enough to bring net use back under it. RSK Solar Energy does not install on-grid systems this small, so this size comes as hybrid (with a battery) or off-grid.',
     notes: [
-      'Hybrid at 1 kW still receives the PM Surya Ghar subsidy, the same as on-grid, because RSK’s hybrid installs are grid-tied and net-metered, not disconnected from PSPCL.',
+      'Hybrid at 1 kW still receives the PM Surya Ghar subsidy, the same as on-grid, because RSK Solar Energy’s hybrid installs are grid-tied and net-metered and stay connected to PSPCL.',
       'Off-grid does not receive the subsidy, at any size, because it is not net-metered.',
       'A 1 kW system needs at least 1 kW of sanctioned load. Most homes already have more.',
     ],
@@ -118,8 +118,8 @@ export const SIZE_COPY: Record<number, { suits: string; notes: string[] }> = {
   6: {
     suits: 'Large homes where two or three air conditioners run most summer afternoons, and clinics or offices with steady daytime load.',
     notes: [
-      'Hybrid at 6 kW is priced from one of RSK’s own itemised quotes: a lithium hybrid kit with installation and net metering included.',
-      'For a home the subsidy stays at ₹78,000, so every kilowatt above 3 is at full price. Size to the bill, not to the roof.',
+      'Hybrid at 6 kW is priced from one of our own itemised quotes: a lithium hybrid kit with installation and net metering included.',
+      'For a home the subsidy stays at ₹78,000, so every kilowatt above 3 is at full price. Size the system to the bill, whatever the roof could hold.',
     ],
   },
   8: {

@@ -40,12 +40,12 @@ const faq: QA[] = [
     a: `A ${primaryLabel.toLowerCase()} ${kw} kW system costs ${inrRange(s.primaryGross)} installed. After the PM Surya Ghar subsidy of ${inr(s.subsidy)}, a home pays ${inrRange(s.primaryNet)}.${
       s.offersOnGrid
         ? ` A hybrid system with a battery costs ${inrRange(s.prices.hybrid)} and is subsidised the same way; an off-grid system costs ${inrRange(s.prices.offGrid)} and does not qualify for the subsidy.`
-        : ` RSK does not install on-grid systems this small; 3 kW is the smallest on-grid system we offer. An off-grid system at ${kw} kW costs ${inrRange(s.prices.offGrid)}, but does not qualify for the subsidy.`
+        : ` RSK Solar Energy does not install on-grid systems this small; 3 kW is the smallest on-grid system we offer. An off-grid system at ${kw} kW costs ${inrRange(s.prices.offGrid)}, but does not qualify for the subsidy.`
     } The final price depends on the roof, the mounting structure, cable runs and the panel model.`,
   },
   {
     q: `How much subsidy do I get on a ${kw} kW system?`,
-    a: `${inr(s.subsidy)} for a home, whether the system is on-grid or hybrid. RSK's hybrid systems are grid-tied and net-metered, so they qualify the same way on-grid does.${capped ? ` The subsidy is capped at ${inr(cfg.subsidy.residential.cap)} from 3 kW upwards.` : ''} It is paid into your bank account ${cfg.subsidy.disbursementDays[0]} to ${cfg.subsidy.disbursementDays[1]} days after PSPCL inspects the system, not deducted from the price. Off-grid systems, businesses and industry do not get it; housing societies get ₹${digits(cfg.subsidy.society.perKw)} per kW for common facilities.`,
+    a: `${inr(s.subsidy)} for a home, whether the system is on-grid or hybrid. RSK Solar Energy's hybrid systems are grid-tied and net-metered, so they qualify the same way on-grid does.${capped ? ` The subsidy is capped at ${inr(cfg.subsidy.residential.cap)} from 3 kW upwards.` : ''} It is paid into your bank account ${cfg.subsidy.disbursementDays[0]} to ${cfg.subsidy.disbursementDays[1]} days after PSPCL inspects the system, not deducted from the price. Off-grid systems, businesses and industry do not get it; housing societies get ₹${digits(cfg.subsidy.society.perKw)} per kW for common facilities.`,
   },
   {
     q: `How many units does a ${kw} kW solar system generate in Punjab?`,
@@ -109,7 +109,7 @@ const schema = [
       </p>
       <div class="mt-4"><DraftNote /></div>
       {s.primaryGrossConfirmed && (
-        <p class="t-small mt-4 text-slate">The range for this size starts at RSK's own quoted price.</p>
+        <p class="t-small mt-4 text-slate">The range for this size starts at our own quoted price.</p>
       )}
     </div>
     <aside class="lg:col-span-4 lg:col-start-9">
@@ -160,7 +160,7 @@ const schema = [
           </table>
         </div>
         <p class="t-small mt-3 text-slate">
-          Includes panels, inverter, mounting structure, wiring and installation.{!s.offersOnGrid && ' On-grid is not offered at this size; 3 kW is RSK’s smallest on-grid system.'} <a href="/on-grid-vs-off-grid-vs-hybrid/" class="underline">How the three differ</a>
+          Includes panels, inverter, mounting structure, wiring and installation.{!s.offersOnGrid && ' On-grid is not offered at this size; 3 kW is our smallest on-grid system.'} <a href="/on-grid-vs-off-grid-vs-hybrid/" class="underline">How the three differ</a>
         </p>
       </div>
 

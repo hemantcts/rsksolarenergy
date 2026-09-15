@@ -5,11 +5,11 @@ published: '2026-09-11'
 category: Subsidy and bills
 faq:
   - q: I use about 280 units a month. Should I install solar?
-    a: 'Not to save money. Your bill is already zero. Consider it only if your use is about to rise, or if power cuts are a real problem and you want a hybrid system with batteries for backup.'
+    a: 'Not to save money, because your bill is already zero. Consider it only if your use is about to go up, or if power cuts are a real problem and you want a hybrid system with batteries for backup.'
   - q: My bill is huge in summer and zero in winter. What then?
     a: 'That is common. The free units are counted per billing cycle, so a hot two-month cycle over 600 units brings a full bill even if the rest of the year is free. Size the system to keep your summer cycles under the line, and enter your summer bill in the calculator.'
   - q: Does the subsidy change the answer?
-    a: 'It changes the price, not whether there is a saving. If your bill is already zero, a subsidised system still has nothing to save.'
+    a: 'No. The subsidy lowers the price, but if your bill is already zero a subsidised system still has nothing to save.'
 ---
 
 import { F } from '../../lib/facts';
@@ -23,9 +23,9 @@ export const band = bandUnits.map((value) =>
 );
 export const minOnGrid = SOLAR_CONFIG.sizing.minKwByType['on-grid'];
 
-Punjab gives homes {F.free} units of electricity a month free ({F.freeCycle} on a two-month bill). It is the single biggest thing that decides whether rooftop solar is worth buying here, and most solar advertising ignores it.
+Punjab gives homes {F.free} free units of electricity a month ({F.freeCycle} on a two-month bill). More than anything else, that decides whether rooftop solar is worth buying here, and most solar advertising leaves it out.
 
-## The short answer
+## Bills and payback at different usage levels
 
 <div class="table-scroll not-prose my-8">
 <table class="spec-table">
@@ -45,40 +45,40 @@ Punjab gives homes {F.free} units of electricity a month free ({F.freeCycle} on 
 </table>
 </div>
 
-Look at the jump between 300 and 305 units. That is not a typo. And notice the payback column: it gets *shorter* as usage rises within the same {minOnGrid} kW system, not longer.
+Look at how far the bill jumps between 300 and 305 units; those figures are correct. The payback column is worth a second look too. It gets *shorter* as usage rises, even though the system stays at {minOnGrid} kW.
 
 ## Why one unit over the line costs so much
 
-For general-category homes, the free units are all or nothing. Stay at or under {F.free} units a month and you pay nothing: no energy charges, no fixed charges, no meter rent, no duty. Go one unit over and PSPCL charges energy on **every** unit you used, from the first, plus fixed charges and duty.
+For general-category homes the free units are all or nothing. Stay at or under {F.free} units a month and you pay nothing at all: no energy charges, fixed charges, meter rent or duty. Go one unit over and PSPCL charges energy on every unit you used, starting from the first, plus fixed charges and duty.
 
-So a home at 320 units is not paying for 20 units. It is paying for 320.
+A home at 320 units therefore pays for all 320, including the first 300.
 
-(SC, BC, non-SC BPL and Freedom Fighter households are treated differently: they pay only for the units above {F.free}, plus fixed charges. Their cliff is smaller, but the same logic applies.)
+(SC, BC, non-SC BPL and Freedom Fighter households are treated differently. They pay only for the units above {F.free}, plus fixed charges, so their jump is smaller, though the same logic applies.)
 
-## Why payback improves as you approach 600 units, not 301
+## Why payback is fastest nearer 600 units
 
-RSK's smallest on-grid system is {minOnGrid} kW. For any general-category home from just over {F.free} units up to roughly 550 to 600 units a month, that same {minOnGrid} kW system is what gets recommended and it is priced the same regardless of exactly how far over the line you are.
+RSK Solar Energy's smallest on-grid system is {minOnGrid} kW. For a general-category home anywhere from just over {F.free} units to roughly 550 or 600 units a month, we recommend that same {minOnGrid} kW system, at the same price, however far over the line you are.
 
 {band[0] && band[0].outcome === 'ok' && band[2] && band[2].outcome === 'ok' && (
 <p>
-Take two homes with the same {minOnGrid} kW system, at the same net price. One uses 305 units a month and pays about <strong>{inr(band[0].billBefore.total, 10)}</strong>; solar saves it about <strong>{inr(band[0].annualSaving, 100)}</strong> a year, paying back in roughly {band[0].paybackYears ? yearsRange(band[0].paybackYears) : '—'}. The other uses 450 units and pays about <strong>{inr(band[2].billBefore.total, 10)}</strong>; the same system saves it about <strong>{inr(band[2].annualSaving, 100)}</strong> a year, paying back in roughly {band[2].paybackYears ? yearsRange(band[2].paybackYears) : '—'}. Same cost, bigger bill avoided, faster payback.
+Take two homes with the same {minOnGrid} kW system at the same net price. One uses 305 units a month and pays about <strong>{inr(band[0].billBefore.total, 10)}</strong>; solar saves it about <strong>{inr(band[0].annualSaving, 100)}</strong> a year and pays back in roughly {band[0].paybackYears ? yearsRange(band[0].paybackYears) : '—'}. The other uses 450 units and pays about <strong>{inr(band[2].billBefore.total, 10)}</strong>; the same system saves it about <strong>{inr(band[2].annualSaving, 100)}</strong> a year and pays back in roughly {band[2].paybackYears ? yearsRange(band[2].paybackYears) : '—'}. The second home paid the same for its system and simply had a bigger bill to get rid of.
 </p>
 )}
 
-So the accurate version of "solar pays back fastest just over the line" is: it pays back well anywhere from just over {F.free} units to around 600, and it pays back *fastest* nearer the top of that range, not the bottom. Past about 600 units the recommended system steps up in size and the price rises with it, so payback does not keep improving forever.
+Solar pays back well anywhere from just over {F.free} units to around 600, and fastest towards the top of that range. Past about 600 units the recommended system gets bigger and the price goes up with it, so payback stops improving.
 
-If your use is only just over {F.free}, say 305 to 350 units, solar still clears the bill and still pays back in a reasonable time (see the table above), but you are effectively buying more capacity than you strictly need, because {minOnGrid} kW is where our on-grid range starts. If a smaller system would suit you better, off-grid is available from 1 kW, without the subsidy; see [on-grid vs off-grid vs hybrid](/on-grid-vs-off-grid-vs-hybrid/).
+If you are only just over {F.free}, say 305 to 350 units, solar still clears the bill and still pays back in reasonable time (see the table above). You are buying a little more capacity than you strictly need, though, because our on-grid range starts at {minOnGrid} kW. If a smaller system would suit you better, off-grid is available from 1 kW, without the subsidy; see [on-grid vs off-grid vs hybrid](/on-grid-vs-off-grid-vs-hybrid/).
 
 ## Under the line: when solar still makes sense
 
-- **Your use is about to rise.** A new air conditioner, an EV, an extension or a bigger family can push you over {F.free} units, and then every unit is charged.
-- **Power cuts are a real cost.** A hybrid system with batteries keeps essentials running, and still receives the same PM Surya Ghar subsidy as on-grid. The return here is backup, not bill savings, because under the free-units line there is no bill left to save on.
-- **You sit close to the line.** If some months cross {F.free}, those months bring a full bill. Look at your hottest two-month bill, not your average.
+- Your use is about to go up. A new air conditioner, an EV, an extension or a bigger family can push you over {F.free} units, and at that point every unit is charged.
+- Power cuts cost you. A hybrid system with batteries keeps the essentials running and still gets the same PM Surya Ghar subsidy as on-grid. What you are paying for is backup, since under the free-units line there is no bill left to cut.
+- You sit close to the line. Any month that crosses {F.free} brings a full bill, so check your hottest two-month bill as well as your average.
 
 ## One thing to confirm
 
-All of this assumes PSPCL applies the {F.free} free units to your net units after solar, which is how net metering bills are normally worked out. We check it against real post-solar bills for your connection before quoting.
+All of this assumes PSPCL applies the {F.free} free units to your net units after solar, which is how net-metered bills are normally worked out. We check it against real post-solar bills for your connection before quoting.
 
 ## Check your own bill
 
-The [calculator](/solar-calculator/) does this for your figures: it tells you if you are under the line, and if you are over it, the smallest system that takes your bill to zero.
+The [calculator](/solar-calculator/) runs these numbers for you. It tells you whether you are under the line and, if you are over it, the smallest system that takes your bill to zero.

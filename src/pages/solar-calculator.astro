@@ -88,7 +88,7 @@ const faq: QA[] = [
           <li><strong>The subsidy.</strong> PM Surya Ghar applies to homes and housing societies with on-grid systems. If a rule rules you out, it tells you which one.</li>
           <li><strong>The saving.</strong> Your bill before and after solar, from the same tariff, including the free-units cliff, fixed charges and duty. Payback is the cost after subsidy divided by the yearly saving.</li>
         </ol>
-        <h3>Assumptions, shown rather than hidden</h3>
+        <h3>The assumptions behind every result</h3>
         <ul>
           <li>{F.yieldRaw} units per kW per year, less a {Math.round((1 - cfg.generation.deratingFactor) * 100)}% allowance for heat, dust, wiring and inverter losses: {F.perKwYear} units per kW per year.</li>
           <li>Tariffs rise {cfg.projection.tariffEscalationPercent}% a year and panels lose {cfg.projection.panelDegradationPercent}% of output a year, for the {cfg.projection.horizonYears}-year saving.</li>

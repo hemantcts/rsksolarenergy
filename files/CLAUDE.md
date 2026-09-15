@@ -225,6 +225,8 @@ breaks these rules, so they cannot quietly regress:
 - Every image has alt, width and height; every internal link resolves and ends in a slash
 - Only the official phone numbers (read from /contact/)
 - No RSK-side warranty or guarantee wording; no em dashes in site copy (catalogue text exempt)
+- The business is always "RSK Solar Energy" in visible copy, titles and descriptions, never bare
+  "RSK" (use "we"/"our" where the full name reads badly)
 - Sitemap lists exactly the indexable pages; noindex only on /404.html and
   /awards-and-recognition/; robots.txt, image sitemap, llms.txt and ErrorDocument 404 present
 
@@ -239,6 +241,12 @@ machine-translate and ship — get human translation.
 ---
 
 ## 7. Content rules
+
+**Always "RSK Solar Energy".** Never shorten the name to "RSK" in site copy, WhatsApp messages or schema text
+(RSK Solar Energy’s instruction, 16 September 2026). URLs and the email address are unaffected.
+
+**Write like a person.** No "X, not Y" formulas, bold labels on list items, one-line closers or stock
+phrases ("genuinely", "seamless", "the honest answer"). State the fact plainly and vary sentence length.
 
 **No RSK warranties or guarantees.** RSK gives none of its own. The only warranties mentioned
 anywhere are the manufacturer’s published product warranties (UTL’s, model by model). Never

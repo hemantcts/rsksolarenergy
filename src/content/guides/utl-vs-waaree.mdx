@@ -7,7 +7,7 @@ crumb: UTL vs Waaree
 updated: '2026-09-15'
 faq:
   - q: Is UTL or Waaree better for solar panels?
-    a: 'On the TOPCon models we compared, both list a 30-year power warranty, and UTL''s models list slightly higher efficiency: 23.32% and 22.74% against 22.32% for Waaree''s 700 Wp module. Waaree''s module is larger, at 700 Wp.'
+    a: 'On the TOPCon models we compared, both list a 30-year power warranty, and UTL''s models list slightly higher efficiency: 23.32% and 22.74%, against 22.32% for Waaree''s 700 Wp module. Waaree''s module is the larger one, at 700 Wp.'
   - q: Is the Waaree 700 Wp panel DCR?
     a: 'The Waaree 700 Wp TOPCon module we checked is listed as non-DCR. For a subsidised home system, check that the exact model is DCR and ALMM-listed before buying.'
   - q: Which panel is right for PM Surya Ghar?
@@ -22,7 +22,7 @@ related:
 cta:
   heading: Choosing panels?
   label: Ask about UTL panels
-  message: 'Hi RSK, I am comparing UTL and Waaree panels. Wattage, quantity and whether it is for a subsidised system: '
+  message: 'Hi RSK Solar Energy, I am comparing UTL and Waaree panels. Wattage, quantity and whether it is for a subsidised system: '
 ---
 
 import BarChart from '../../components/charts/BarChart.astro';
@@ -34,7 +34,7 @@ export const efficiency = [
 ];
 export const pct = [0, 5, 10, 15, 20, 25].map((v) => ({ value: v, label: `${v}%` }));
 
-Waaree's 700 Wp TOPCon bifacial module lists a 12-year product warranty and a 30-year power warranty at 22.32% efficiency. UTL's 545 W TOPCon bifacial panel lists a 30-year performance warranty at 22.74%, and its 630 Wp G12R TOPCon panel lists 23.32%. For a subsidised home system, the check that matters more than either figure is DCR: the Waaree module we compared is non-DCR, and UTL lists DCR TOPCon modules at 580 W and 625 W.
+Waaree's 700 Wp TOPCon bifacial module lists a 12-year product warranty and a 30-year power warranty at 22.32% efficiency. UTL's 545 W TOPCon bifacial panel lists a 30-year performance warranty at 22.74%, and its 630 Wp G12R TOPCon panel lists 23.32%. For a subsidised home system, DCR status matters more than either figure: the Waaree module we compared is non-DCR, and UTL lists DCR TOPCon modules at 580 W and 625 W.
 
 ## At a glance
 
@@ -53,16 +53,16 @@ Waaree's 700 Wp TOPCon bifacial module lists a 12-year product warranty and a 30
 </table>
 </div>
 
-<BarChart title="Module efficiency of TOPCon panels, as published" rows={efficiency} max={25} ticks={pct} valueHeading="Efficiency" caption="The gap is about one percentage point: enough to save a little roof space, not enough to change the system size." />
+<BarChart title="Module efficiency of TOPCon panels, as published" rows={efficiency} max={25} ticks={pct} valueHeading="Efficiency" caption="The gap is about one percentage point. That saves a little roof space but doesn't change the system size." />
 
 ## Choose UTL if
 
-- **You want DCR TOPCon panels for a subsidised home system** from the same brand as your inverter and battery.
-- **Roof space is tight,** where the higher listed efficiency helps a little.
+- You want DCR TOPCon panels for a subsidised home system, from the same brand as your inverter and battery.
+- Roof space is tight, where the higher listed efficiency helps a little.
 
 ## Choose Waaree if
 
-- **You need a 700 Wp class module** for a large commercial roof and the product warranty term matters most to you.
+- You need a 700 Wp class module for a large commercial roof, and the product warranty term matters most to you.
 
 ## Sources
 

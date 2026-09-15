@@ -1,16 +1,16 @@
 ---
 title: 'Solar ROI in Punjab: Payback by Monthly Units'
-description: 'Real payback numbers for Punjab homes at different usage levels, from the current PSPCL tariff and PM Surya Ghar subsidy, not a generic claim.'
+description: 'Payback for Punjab homes at different usage levels, worked out from the current PSPCL tariff and the PM Surya Ghar subsidy.'
 published: '2026-08-10'
 category: 'ROI and payback'
 tags: ['ROI', 'payback', 'PSPCL tariff']
 faq:
   - q: What is a realistic payback period for solar in Punjab?
-    a: 'It depends entirely on your usage, not a single industry-wide number. For a general-category home over 300 units a month, payback is commonly in the 2 to 5 year range, and gets faster the higher your usage is within a given system''s capacity. See the worked table above.'
+    a: 'It depends on your usage. For a general-category home using over 300 units a month, payback is commonly 2 to 5 years, and it gets faster the higher your usage is within a given system''s capacity. See the worked table above.'
   - q: Does the subsidy change the payback period?
-    a: 'Yes. It reduces the amount you need to recover, without changing your annual saving. A bigger subsidy on the same saving means a shorter payback.'
+    a: 'Yes. It reduces the amount you need to recover without changing your annual saving, so a bigger subsidy on the same saving means a shorter payback.'
   - q: What happens to savings after the panels degrade over the years?
-    a: 'Panels lose a small percentage of output a year; our estimates assume 0.5%. Combined with a rising tariff, the 25-year saving is still substantial even as generation slowly declines; the calculator''s 25-year figure already accounts for both.'
+    a: 'Panels lose a small percentage of output each year, and our estimates assume 0.5%. With a rising tariff, the 25-year saving is still substantial even as generation slowly declines, and the calculator''s 25-year figure already allows for both.'
 related:
   - href: /solar-calculator/
     label: Work out your own payback
@@ -21,7 +21,7 @@ related:
 cta:
   heading: Want your own payback number?
   label: Get my payback estimate on WhatsApp
-  message: 'Hi RSK, I would like my own solar payback estimate. My monthly bill or units: '
+  message: 'Hi RSK Solar Energy, I would like my own solar payback estimate. My monthly bill or units: '
 ---
 
 import { SOLAR_CONFIG } from '../../config/solar-config';
@@ -37,7 +37,7 @@ export const band = bandUnits.map((value) =>
   calculate({ consumption: { kind: 'units', value, periodMonths: 1 }, category: 'domestic', sanctionedLoadKw: 10 }, SOLAR_CONFIG),
 );
 
-"Solar pays back in 5 years" is the kind of line that belongs to no specific home, because payback depends entirely on how much you use, what system you need, and what subsidy applies to it. Here is what it actually looks like, worked from the current PSPCL tariff.
+A line like "solar pays back in 5 years" could be about any home. Payback depends on how much you use, the system that suits that use, and the subsidy that applies to it. This is what it looks like when worked out from the current PSPCL tariff.
 
 ## Payback at different usage levels
 
@@ -58,16 +58,16 @@ export const band = bandUnits.map((value) =>
 </table>
 </div>
 
-Two things stand out. First, payback is not a flat number. It moves with your usage and the system size that suits it. Second, none of this includes any assumption about your roof, shading or exact panel model, which is why every result here is a range, not a single figure.
+Two things stand out. Payback moves with your usage and with the system size that suits it. And none of these figures assumes anything about your roof, shading or exact panel model, which is why each result is given as a range.
 
 ## Why payback improves, then levels off
 
-As usage rises, the bill being avoided rises with it, but the recommended system size also steps up in fixed increments, and each step brings its own cost. Payback tends to improve as a given system size is used more fully, then resets when the next size up is needed. This is why we size to your bill rather than to "the biggest system your roof can hold": an oversized system does not improve payback, it just adds cost that takes longer to earn back.
+As usage rises, so does the bill being avoided. The recommended system also steps up in fixed sizes, though, and each step costs more. Payback improves as a given system gets used more fully, then resets when the next size up is needed. That is why we size to your bill instead of to "the biggest system your roof can hold". An oversized system adds cost that takes longer to earn back, so payback gets worse.
 
 ## What the 25-year number includes
 
-Beyond the payback point, a system keeps generating for decades. Our 25-year saving figure applies two real, disclosed assumptions: a {tariffEscalation}% yearly rise in the PSPCL tariff (published rates go up over time, not down) and a {panelDegradation}% yearly panel output decline (all panels degrade slowly; ours is a standard industry assumption, not UTL-specific data). Both assumptions are shown on every calculator result, not buried in a headline number, because a big number with hidden assumptions is what makes a calculator untrustworthy.
+A system keeps generating for decades after it has paid for itself. Our 25-year saving figure rests on two assumptions, and we show both. One is a {tariffEscalation}% yearly rise in the PSPCL tariff, since published rates go up over time. The other is a {panelDegradation}% yearly decline in panel output; all panels degrade slowly, and our figure is a general industry assumption that isn't specific to UTL panels. Both appear on every calculator result, because a big number with hidden assumptions is exactly what makes a calculator hard to trust.
 
-## The number that actually matters is yours
+## Work out your own payback
 
-Averages and worked examples are useful for orientation, not for a decision. [Enter your own bill in the calculator](/solar-calculator/) for your exact system size, net cost and payback, including a plain "this will not pay back" answer if you are under Punjab's 300-unit free-usage line.
+Averages and worked examples help you get your bearings, but base the decision on your own figures. [Enter your own bill in the calculator](/solar-calculator/) for your system size, net cost and payback. If you are under Punjab's 300-unit free-usage line, it will tell you plainly that solar won't pay for itself.

@@ -8,35 +8,35 @@ export function whatsappUrl(message: string, number: string = BUSINESS.whatsapp)
 }
 
 export const GENERIC_MESSAGE =
-  'Hi RSK, I found you on your website. I would like to discuss rooftop solar. I can send my last electricity bill.';
+  'Hi RSK Solar Energy, I found you on your website. I would like to discuss rooftop solar. I can send my last electricity bill.';
 
 export function billMessage(): string {
-  return 'Hi RSK, I am sending my last electricity bill. Please tell me what size of solar system suits it and the cost after subsidy.';
+  return 'Hi RSK Solar Energy, I am sending my last electricity bill. Please tell me what size of solar system suits it and the cost after subsidy.';
 }
 
 export function siteInspectionMessage(): string {
-  return ['Hi RSK, I would like to book a free site inspection for rooftop solar.', 'My address / area: ', 'Best day and time for a visit: '].join('\n');
+  return ['Hi RSK Solar Energy, I would like to book a free site inspection for rooftop solar.', 'My address / area: ', 'Best day and time for a visit: '].join('\n');
 }
 
 export function sizeMessage(sizeKw: number, type = 'on-grid'): string {
-  return `Hi RSK, I would like to ask about a ${sizeKw}kW ${type} solar system. My location is: `;
+  return `Hi RSK Solar Energy, I would like to ask about a ${sizeKw}kW ${type} solar system. My location is: `;
 }
 
 export function productMessage(title: string, model?: string): string {
-  return `Hi RSK, I would like the price and availability of: ${title}${model ? ` (model ${model})` : ''}.`;
+  return `Hi RSK Solar Energy, I would like the price and availability of: ${title}${model ? ` (model ${model})` : ''}.`;
 }
 
 export function topicMessage(topic: string): string {
-  return `Hi RSK, I read your page on ${topic}. I would like to discuss my case.`;
+  return `Hi RSK Solar Energy, I read your page on ${topic}. I would like to discuss my case.`;
 }
 
 export function locationMessage(city: string): string {
-  return `Hi RSK, I am in ${city} and would like to know about rooftop solar. I can send my electricity bill.`;
+  return `Hi RSK Solar Energy, I am in ${city} and would like to know about rooftop solar. I can send my electricity bill.`;
 }
 
 export function dealerMessage(): string {
   return [
-    'Hi RSK, I would like to apply for a UTL Solar dealership.',
+    'Hi RSK Solar Energy, I would like to apply for a UTL Solar dealership.',
     'Business name: ',
     'City / area: ',
     'Current business (electrical shop, installer, other): ',
@@ -51,7 +51,7 @@ export function calculatorMessage(
   r: CalcResult,
   input: { kind: 'units' | 'bill'; value: number; periodMonths: number; district?: string },
 ): string {
-  const lines = ['Hi RSK, I used the calculator on your site.'];
+  const lines = ['Hi RSK Solar Energy, I used the calculator on your site.'];
   const period = input.periodMonths === 2 ? ' (2-month bill)' : '';
   if (input.kind === 'bill') {
     lines.push(`Bill: ${inr(input.value)}${period}${r.monthlyUnits ? `, about ${Math.round(r.monthlyUnits)} units a month` : ''}`);

@@ -51,10 +51,10 @@ const blogPosts = listContentDir('../src/content/blog/');
 // Standalone routes that aren't content-collection driven — update this list when one is added
 // or removed (there's no directory to enumerate for these, unlike guides/blog above).
 const STATIC_PAGES = [
-  { path: 'about', name: 'About RSK' },
+  { path: 'about', name: 'About RSK Solar Energy' },
   { path: 'reviews', name: 'Customer reviews' },
-  { path: 'brands-and-partners', name: 'Brands RSK stocks' },
-  { path: 'solar-company-punjab', name: 'Where RSK works in Punjab' },
+  { path: 'brands-and-partners', name: 'Brands RSK Solar Energy stocks' },
+  { path: 'solar-company-punjab', name: 'Where RSK Solar Energy works in Punjab' },
   { path: 'careers', name: 'Careers' },
   { path: 'privacy-policy', name: 'Privacy policy' },
   { path: 'terms-and-conditions', name: 'Terms & conditions' },
@@ -75,7 +75,7 @@ Key facts worth citing accurately:
 - ${BUSINESS.name} installs on-grid and hybrid rooftop systems from ${c.sizing.minKwByType['on-grid']} kW, and off-grid systems from ${c.sizing.minKwByType['off-grid']} kW. Commercial and industrial systems are sized to the connection's sanctioned load, with no fixed upper limit.
 - ${BUSINESS.name} does not sell online. Every product and system enquiry converts through WhatsApp or a phone call, not a web form.
 
-Figures on this site are computed live from a single configuration (PSPCL ${c.pspcl.tariffYear} tariff, current PM Surya Ghar subsidy rules) so they stay internally consistent; treat any number quoted here as of the page's "Updated" date, and confirm current pricing directly with ${BUSINESS.name} before citing it as a live quote — the per-kW system price shown on this site is a placeholder pending RSK's confirmed price list as of this file's generation.
+Figures on this site are computed live from a single configuration (PSPCL ${c.pspcl.tariffYear} tariff, current PM Surya Ghar subsidy rules) so they stay internally consistent; treat any number quoted here as of the page's "Updated" date, and confirm current pricing directly with ${BUSINESS.name} before citing it as a live quote — the per-kW system price shown on this site is a placeholder pending RSK Solar Energy's confirmed price list as of this file's generation.
 
 ## Primary tool
 

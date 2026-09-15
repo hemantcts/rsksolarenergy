@@ -11,7 +11,7 @@ Key facts worth citing accurately:
 - RSK Solar Energy installs on-grid and hybrid rooftop systems from 3 kW, and off-grid systems from 1 kW. Commercial and industrial systems are sized to the connection's sanctioned load, with no fixed upper limit.
 - RSK Solar Energy does not sell online. Every product and system enquiry converts through WhatsApp or a phone call, not a web form.
 
-Figures on this site are computed live from a single configuration (PSPCL FY 2026-27 tariff, current PM Surya Ghar subsidy rules) so they stay internally consistent; treat any number quoted here as of the page's "Updated" date, and confirm current pricing directly with RSK Solar Energy before citing it as a live quote — the per-kW system price shown on this site is a placeholder pending RSK's confirmed price list as of this file's generation.
+Figures on this site are computed live from a single configuration (PSPCL FY 2026-27 tariff, current PM Surya Ghar subsidy rules) so they stay internally consistent; treat any number quoted here as of the page's "Updated" date, and confirm current pricing directly with RSK Solar Energy before citing it as a live quote — the per-kW system price shown on this site is a placeholder pending RSK Solar Energy's confirmed price list as of this file's generation.
 
 ## Primary tool
 
@@ -21,8 +21,8 @@ Figures on this site are computed live from a single configuration (PSPCL FY 202
 
 - [Become a UTL Solar Dealer in Punjab: Wholesale Supply](https://rsksolarenergy.com/solar-dealership-punjab/): Partner with RSK Solar Energy, a UTL Solar distributor in Mohali. Wholesale UTL panels, inverters, batteries and kits for dealers and installers across Punjab.
 - [Commercial and Industrial Rooftop Solar in Punjab](https://rsksolarenergy.com/commercial-solar-punjab/): Rooftop solar for shops, offices, clinics, schools and factories in Mohali and Punjab. PSPCL NRS and industrial tariffs, sizing to sanctioned load, and payback.
-- [Hybrid Solar Systems with Battery Backup in Mohali](https://rsksolarenergy.com/hybrid-solar-systems/): UTL hybrid solar systems from 1 kW, installed by RSK in Mohali. Real prices, how hybrid works, when batteries are worth it, and the subsidy.
-- [Off-Grid Solar Systems in Mohali and Punjab](https://rsksolarenergy.com/off-grid-solar-systems/): UTL off-grid solar kits from 1 kW to 5 kW for farmhouses, tube-well rooms and sites without reliable power. Supplied and installed by RSK, Phase 8B Mohali.
+- [Hybrid Solar Systems with Battery Backup in Mohali](https://rsksolarenergy.com/hybrid-solar-systems/): UTL hybrid solar systems from 1 kW, installed by RSK Solar Energy in Mohali: prices, how hybrid works, when batteries pay, and the subsidy.
+- [Off-Grid Solar Systems in Mohali and Punjab](https://rsksolarenergy.com/off-grid-solar-systems/): UTL off-grid solar kits from 1 kW to 5 kW for farmhouses, tubewell rooms and sites without reliable power, installed by RSK Solar Energy, Mohali.
 - [On-Grid vs Off-Grid vs Hybrid Solar in Punjab](https://rsksolarenergy.com/on-grid-vs-off-grid-vs-hybrid/): On-grid, off-grid or hybrid rooftop solar? Power cuts, batteries, subsidy, net metering and cost compared for Punjab homes and businesses.
 - [PM Surya Ghar Subsidy in Punjab 2026: Amounts and Steps](https://rsksolarenergy.com/pm-surya-ghar-subsidy-punjab/): How the PM Surya Ghar subsidy works for PSPCL homes: ₹30,000 to ₹78,000, who qualifies, the steps, the documents and why applications fail.
 - [Rooftop Solar for Housing Societies and RWAs in Punjab](https://rsksolarenergy.com/housing-society-solar/): PM Surya Ghar gives housing societies and RWAs ₹18,000 per kW for common facilities, up to 500 kW. How it works in Tricity, and what to prepare.
@@ -32,7 +32,7 @@ Figures on this site are computed live from a single configuration (PSPCL FY 202
 - [UTL Solar vs Luminous, Microtek, Tata, Waaree and Adani](https://rsksolarenergy.com/utl-solar-vs-other-brands/): How UTL Solar compares with Luminous, Microtek, Tata Power Solar, Waaree and Adani on range, warranties and efficiency, from their own figures.
 - [UTL Solar vs Tata Power Solar for Rooftop Solar](https://rsksolarenergy.com/utl-vs-tata-power-solar/): Tata Power Solar sells installed systems through its partners; UTL sells equipment installed by local distributors. How the warranties compare.
 - [UTL vs Adani Solar Panels: TOPCon Efficiency and Warranty](https://rsksolarenergy.com/utl-vs-adani-solar/): UTL and Adani Solar TOPCon panels compared on efficiency, power warranty and DCR options, from each brand’s figures, and why one brand matters.
-- [UTL vs Luminous Solar: Inverters, PCUs and Batteries](https://rsksolarenergy.com/utl-vs-luminous/): UTL and Luminous compared on solar PCU and battery warranties and product range, from each brand''s published figures. RSK stocks both, so here is how to choose.
+- [UTL vs Luminous Solar: Inverters, PCUs and Batteries](https://rsksolarenergy.com/utl-vs-luminous/): UTL and Luminous compared on solar PCU and battery warranties and product range, from each brand''s published figures. RSK Solar Energy stocks both.
 - [UTL vs Microtek Solar Inverter and PCU Compared](https://rsksolarenergy.com/utl-vs-microtek/): UTL and Microtek solar inverters and PCUs compared on warranty and range, using each brand''s published figures, and where each one fits a Punjab home.
 - [UTL vs Waaree Solar Panels: Efficiency and Warranty](https://rsksolarenergy.com/utl-vs-waaree/): UTL and Waaree TOPCon solar panels compared on module efficiency, product and power warranties, and DCR options, from each brand''s published figures.
 - [1 kW solar system price in Punjab](https://rsksolarenergy.com/1kw-solar-system-price-punjab/)
@@ -76,10 +76,10 @@ Figures on this site are computed live from a single configuration (PSPCL FY 202
 
 ## Company
 
-- [About RSK](https://rsksolarenergy.com/about/)
+- [About RSK Solar Energy](https://rsksolarenergy.com/about/)
 - [Customer reviews](https://rsksolarenergy.com/reviews/)
-- [Brands RSK stocks](https://rsksolarenergy.com/brands-and-partners/)
-- [Where RSK works in Punjab](https://rsksolarenergy.com/solar-company-punjab/)
+- [Brands RSK Solar Energy stocks](https://rsksolarenergy.com/brands-and-partners/)
+- [Where RSK Solar Energy works in Punjab](https://rsksolarenergy.com/solar-company-punjab/)
 - [Careers](https://rsksolarenergy.com/careers/)
 - [Privacy policy](https://rsksolarenergy.com/privacy-policy/)
 - [Terms & conditions](https://rsksolarenergy.com/terms-and-conditions/)

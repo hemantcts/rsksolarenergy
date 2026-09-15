@@ -6,11 +6,11 @@ category: Hybrid, on-grid and off-grid
 tags: ['batteries', 'hybrid solar', 'off-grid solar', '3 kW']
 faq:
   - q: Can I use two batteries with a 3 kW system to save money?
-    a: 'No. The Sigma348 and Gamma 348 inverters in UTL''s 3 kW kits expect a 48 V battery bank. Two 12 V batteries make 24 V, which those inverters will not run on.'
+    a: 'No. The Sigma348 and Gamma 348 inverters in UTL''s 3 kW kits expect a 48 V battery bank. Two 12 V batteries make 24 V, which those inverters won''t run on.'
   - q: How long do the four batteries last?
-    a: 'UTL gives the UST1560 a 60-month warranty. How long they last beyond that depends on how deeply and how often they are discharged, and whether they are topped up with distilled water on time.'
+    a: 'UTL gives the UST1560 a 60-month warranty. How long they last beyond that depends on how deeply and how often they are discharged, and whether they get topped up with distilled water on time.'
   - q: Does a hybrid system with batteries still get the subsidy?
-    a: 'Yes. RSK''s hybrid systems are grid-tied and net-metered, so they qualify for PM Surya Ghar the same way on-grid systems do, up to ₹78,000 for a home.'
+    a: 'Yes. RSK Solar Energy''s hybrid systems are grid-tied and net-metered, so they qualify for PM Surya Ghar the same way on-grid systems do, up to ₹78,000 for a home.'
 related:
   - href: /blog/lithium-vs-tubular-battery-for-solar/
     label: Lithium or tubular battery for solar
@@ -21,7 +21,7 @@ related:
 cta:
   heading: Batteries for a 3 kW system?
   label: Ask about batteries on WhatsApp
-  message: 'Hi RSK, I would like to ask about batteries for a 3 kW solar system. Hybrid or off-grid, and the backup I need: '
+  message: 'Hi RSK Solar Energy, I would like to ask about batteries for a 3 kW solar system. Hybrid or off-grid, and the backup I need: '
 ---
 
 export const volts = 48;
@@ -34,7 +34,7 @@ export const loads = [
   { w: 1000, what: 'Add a desert cooler and a small water pump' },
 ];
 
-Four. UTL's 3 kW hybrid and off-grid kits both run their batteries at 48 volts, and they get there with four 12 V, 150 Ah tubular batteries ([UTL UST1560](/products/utl-150ah-solar-inverter-battery-ust-1560/)) connected in series. An on-grid system has no batteries at all.
+Four. UTL's 3 kW hybrid and off-grid kits both run their batteries at 48 volts, which takes four 12 V, 150 Ah tubular batteries ([UTL UST1560](/products/utl-150ah-solar-inverter-battery-ust-1560/)) connected in series. An on-grid system has no batteries at all.
 
 ## What UTL puts in its kits
 
@@ -51,11 +51,11 @@ Four. UTL's 3 kW hybrid and off-grid kits both run their batteries at 48 volts, 
 </table>
 </div>
 
-The battery count follows the voltage, not the kilowatts. The 2 kW and 3 kW kits both take four batteries because both run at 48 V. The 5 kW kit runs at 96 V, so it takes eight.
+The number of batteries depends on the voltage. The 2 kW and 3 kW kits both take four batteries because both run at 48 V, while the 5 kW kit runs at 96 V and takes eight.
 
 ## How much backup four batteries give
 
-Four 12 V, 150 Ah batteries store {storedKwh.toFixed(1)} kWh on paper. You can't use all of that every day. Lead-acid batteries last far longer when they aren't regularly drained below about half, and the inverter loses some energy converting it, so we plan on roughly {everydayKwh.toFixed(1)} kWh of everyday backup. Both of those allowances are general planning figures, not a UTL specification.
+Four 12 V, 150 Ah batteries store {storedKwh.toFixed(1)} kWh on paper, but you can't use all of that every day. Lead-acid batteries last far longer when they aren't regularly drained below about half, and the inverter loses some energy in conversion, so we plan on roughly {everydayKwh.toFixed(1)} kWh of everyday backup. Both of those allowances are our own general planning figures; UTL doesn't specify them.
 
 <div class="table-scroll not-prose my-8">
 <table class="spec-table">
@@ -69,17 +69,17 @@ Four 12 V, 150 Ah batteries store {storedKwh.toFixed(1)} kWh on paper. You can't
 </table>
 </div>
 
-An air conditioner changes the picture. A 1.5 ton AC can use that everyday capacity in two to three hours, so running one through a power cut needs a far bigger battery bank. [How much solar a 1.5 ton AC needs](/blog/solar-system-for-1-5-ton-ac/) covers that case.
+An air conditioner changes the picture. A 1.5 ton AC can use up that everyday capacity in two to three hours, so running one through a power cut needs a far bigger battery bank. [How much solar a 1.5 ton AC needs](/blog/solar-system-for-1-5-ton-ac/) covers that case.
 
 ## One lithium pack instead of four tubulars
 
 A single 48 V, 100 Ah lithium iron phosphate pack ([UTL's version](/products/lithium-ion-lifepo4-lfp-battery-48v-100ah/)) takes the place of all four batteries in a 48 V system. It holds 4.8 kWh, and UTL rates it for 3,000 to 3,500 cycles at 80% depth of discharge, so more of it can be used every day.
 
-The difference you notice first is weight: about 40 kg for the lithium pack, against roughly 230 kg for four UST1560s. The inverter has to support lithium charging, so check that before swapping one in. [Lithium or tubular](/blog/lithium-vs-tubular-battery-for-solar/) goes through the choice.
+The first difference you notice is weight: about 40 kg for the lithium pack, against roughly 230 kg for four UST1560s. The inverter has to support lithium charging, so check that before swapping one in. [Lithium or tubular](/blog/lithium-vs-tubular-battery-for-solar/) goes through the choice.
 
 ## Can you add batteries later?
 
-Not one at a time. A 48 V system can't take a fifth 12 V battery, because batteries go in as a matched set. More backup means higher-capacity batteries, or a second matched set if the inverter's charger can handle it. Mixing old and new batteries in one set wears out the new ones early, so it pays to decide the bank size at the start.
+Not one at a time. A 48 V system can't take a fifth 12 V battery, because batteries go in as a matched set. More backup means higher-capacity batteries, or a second matched set if the inverter's charger can handle it. Mixing old and new batteries in one set wears the new ones out early, so it pays to decide the bank size at the start.
 
 ## Do you need batteries at all?
 

@@ -22,11 +22,17 @@ const itemList = {
   numberOfItems: products.length,
   itemListElement: products.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(`/products/${p.slug}/`), name: p.title })),
 };
+
+// The closing sentence is only added when the whole description still fits in 160 characters, so
+// clamping can never cut the business name in half ("Ask RSK…").
+const descBase = `${products.length} ${c.name.toLowerCase()} from UTL Solar, each with full specifications. ${c.blurb}`;
+const descAsk = ' Ask RSK Solar Energy for price and stock on WhatsApp.';
+const description = descBase.length + descAsk.length <= 160 ? descBase + descAsk : clampWords(descBase, 160);
 ---
 
 <BaseLayout
   title={c.name + fitSuffix(c.name, [' | UTL Solar Dealer in Mohali, Punjab', ' | UTL Solar Dealer in Mohali', ' | Mohali'], 60)}
-  description={clampWords(`${products.length} ${c.name.toLowerCase()} from UTL Solar, each with full specifications. ${c.blurb} Ask RSK Solar Energy for price and stock on WhatsApp.`, 160)}
+  description={description}
   crumbs={[{ name: 'Products', path: '/products/' }, { name: c.name, path }]}
   schema={[itemList]}
 >
@@ -39,7 +45,7 @@ const itemList = {
         <p class="mt-3 text-slate">{products.length} products in this category. We do not sell online: ask on WhatsApp and we reply with today's price and stock.</p>
       </div>
       <div class="lg:col-span-4 lg:col-start-9">
-        <WhatsAppButton label="Ask for a price on WhatsApp" message={`Hi RSK, I would like prices and stock for ${c.name.toLowerCase()}. Items and quantities: `} />
+        <WhatsAppButton label="Ask for a price on WhatsApp" message={`Hi RSK Solar Energy, I would like prices and stock for ${c.name.toLowerCase()}. Items and quantities: `} />
       </div>
     </div>
     <nav aria-label="Other categories" class="mt-10 border-t border-ink pt-4">
