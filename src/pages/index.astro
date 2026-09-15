@@ -21,6 +21,7 @@ import { VIDEOS, youtubeThumbnail } from '../data/videos';
 import SocialLinks from '../components/SocialLinks.astro';
 import Icon from '../components/Icon.astro';
 import RooftopSolarArt from '../components/art/RooftopSolarArt.astro';
+import officePhoto from '../assets/office/rsk-solar-energy-office-mohali.jpg';
 import { billMessage, siteInspectionMessage } from '../lib/whatsapp';
 import { website } from '../lib/seo';
 
@@ -158,9 +159,13 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
         <p class="mt-4 text-slate">
           RSK Solar Energy is a {BUSINESS.brand} distributor and installer. We design, supply and install rooftop solar for homes, businesses and housing societies, and handle the PM Surya Ghar paperwork where it applies.
         </p>
-        <RooftopSolarArt class="mt-8 max-w-md" />
+        <figure class="mt-8">
+          <Image src={officePhoto} alt="RSK Solar Energy office at E-203, Phase 8B Industrial Area, Mohali, with the UTL Solar distributor sign" widths={[480, 800, 1200]} sizes="(min-width: 64rem) 33vw, 100vw" class="h-auto w-full border border-rule" />
+          <figcaption class="t-small mt-2 text-slate">Our office and warehouse, E-203 Phase 8B, opposite Nexa Tower.</figcaption>
+        </figure>
       </div>
-      <ul class="ruled lg:col-span-7 lg:col-start-6">
+      <div class="lg:col-span-7 lg:col-start-6">
+      <ul class="ruled">
         {
           [
             { href: '/solar-calculator/', name: 'Rooftop solar for homes', blurb: 'On-grid systems sized to your bill, with the PM Surya Ghar subsidy applied for you.' },
@@ -180,6 +185,8 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
           ))
         }
       </ul>
+      <RooftopSolarArt class="mt-10 max-w-md" />
+      </div>
     </div>
   </section>
 

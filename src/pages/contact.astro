@@ -4,6 +4,8 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import Icon from '../components/Icon.astro';
+import { Image } from 'astro:assets';
+import officePhoto from '../assets/office/rsk-solar-energy-office-mohali.jpg';
 import { BUSINESS, PRIMARY_PHONE, formatAddressLines, formatHours } from '../config/business';
 import { CITIES, cityPath } from '../data/locations';
 import { billMessage, siteInspectionMessage } from '../lib/whatsapp';
@@ -51,6 +53,10 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${dest
           <a href={directionsUrl} rel="noopener" target="_blank" class="underline">Get directions</a>
           <a href={BUSINESS.google.mapsUrl} rel="noopener" target="_blank" class="underline">Open in Google Maps</a>
         </p>
+        <figure class="mt-8">
+          <Image src={officePhoto} alt="RSK Solar Energy office at E-203, Phase 8B Industrial Area, Mohali, with the UTL Solar distributor sign" widths={[480, 800, 1200]} sizes="(min-width: 64rem) 40vw, 100vw" class="h-auto w-full border border-rule" />
+          <figcaption class="t-small mt-2 text-slate">Look for the green RSK Solar Energy sign and the E-203 guard cabin.</figcaption>
+        </figure>
 
         <h3 class="t-h3 mt-10">Opening hours</h3>
         {

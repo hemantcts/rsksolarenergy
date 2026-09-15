@@ -5,6 +5,8 @@ import CtaBlock from '../components/content/CtaBlock.astro';
 import { BUSINESS, formatAddressLines } from '../config/business';
 import { F } from '../lib/facts';
 import SolarPumpArt from '../components/art/SolarPumpArt.astro';
+import { Image } from 'astro:assets';
+import officePhoto from '../assets/office/rsk-solar-energy-office-mohali.jpg';
 
 const facts: [string, string][] = [
   ['Founded', String(BUSINESS.foundedYear)],
@@ -31,6 +33,10 @@ const facts: [string, string][] = [
     <p class="t-lead measure mt-5">
       A {BUSINESS.brand} distributor and rooftop solar installer, founded in {BUSINESS.foundedYear}. We supply UTL products across Punjab, and design and install on-grid, hybrid and off-grid systems for homes, businesses and housing societies.
     </p>
+    <figure class="mt-10">
+      <Image src={officePhoto} alt="RSK Solar Energy office at E-203, Phase 8B Industrial Area, Mohali, with the UTL Solar distributor sign" widths={[640, 1024, 1600, 2000]} sizes="(min-width: 80rem) 76rem, 100vw" loading="eager" fetchpriority="high" class="h-auto w-full border border-rule" />
+      <figcaption class="t-small mt-2 text-slate">E-203, Phase 8B Industrial Area, Sector 74, Mohali, opposite Nexa Tower.</figcaption>
+    </figure>
   </header>
 
   <section class="wrap grid-12 pb-16" aria-labelledby="facts-h">

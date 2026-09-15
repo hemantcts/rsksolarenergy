@@ -219,6 +219,10 @@ machine-translate and ship — get human translation.
 
 ## 7. Content rules
 
+**No RSK warranties or guarantees.** RSK gives none of its own. The only warranties mentioned
+anywhere are the manufacturer’s published product warranties (UTL’s, model by model). Never
+suggest an installation, workmanship or system warranty from RSK (RSK’s instruction, 15 September 2026).
+
 **Never invent:** prices, subsidy amounts, tariff rates, generation figures,
 certifications, project details, customer names, statistics. If a number is needed and
 not supplied, use a clearly-marked placeholder and list it in `TODO-content.md`.
