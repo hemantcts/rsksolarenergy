@@ -20,6 +20,7 @@ import { BRAND_CATEGORIES } from '../data/brands';
 import { VIDEOS, youtubeThumbnail } from '../data/videos';
 import SocialLinks from '../components/SocialLinks.astro';
 import Icon from '../components/Icon.astro';
+import RooftopSolarArt from '../components/art/RooftopSolarArt.astro';
 import { billMessage, siteInspectionMessage } from '../lib/whatsapp';
 import { website } from '../lib/seo';
 
@@ -157,6 +158,7 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
         <p class="mt-4 text-slate">
           RSK Solar Energy is a {BUSINESS.brand} distributor and installer. We design, supply and install rooftop solar for homes, businesses and housing societies, and handle the PM Surya Ghar paperwork where it applies.
         </p>
+        <RooftopSolarArt class="mt-8 max-w-md" />
       </div>
       <ul class="ruled lg:col-span-7 lg:col-start-6">
         {

@@ -31,6 +31,7 @@ related:
 ---
 
 import { F } from '../../lib/facts';
+import SystemFlow from '../../components/art/SystemFlow.astro';
 
 <div class="table-scroll not-prose my-8">
 <table class="spec-table min-w-176">
@@ -53,6 +54,8 @@ import { F } from '../../lib/facts';
 
 ## On-grid: the one that cuts your bill
 
+<SystemFlow type="on-grid" />
+
 An on-grid system feeds your home first and sends any surplus to PSPCL through a bi-directional net meter. At the end of the billing cycle you pay for the net units. There are no batteries, so it is the cheapest system per kW. It gets the PM Surya Ghar subsidy, and so does hybrid, since both are grid-tied and net-metered.
 
 The trade-off: it switches off when the grid goes off. That is a safety requirement, not a fault.
@@ -61,11 +64,15 @@ In Punjab this is the right choice for most homes above {F.free} units a month a
 
 ## Hybrid: bill savings with backup
 
+<SystemFlow type="hybrid" />
+
 A hybrid system is an on-grid system with batteries and a hybrid inverter. It runs the house from solar, charges the batteries, and can use the grid when needed. During a cut, the batteries keep your chosen loads running.
 
 It costs more because of the batteries, which also need replacing during the life of the panels, but it receives the same PM Surya Ghar subsidy as on-grid, up to {F.cap} for a home. Choose hybrid when power cuts cost you something: a home office, a clinic, medical equipment, or a shop that loses sales when the lights go. See [hybrid solar systems](/hybrid-solar-systems/) for the UTL kits we supply.
 
 ## Off-grid: no grid connection at all
+
+<SystemFlow type="off-grid" />
 
 An off-grid system stores solar power in batteries and runs your loads from them, with no connection to PSPCL. It suits farmhouses, tube-well rooms and sites where the grid is unreliable or not available. Two of our Google reviewers in Mohali chose off-grid systems, a 3 kW and a 5 kW. See [off-grid solar systems](/off-grid-solar-systems/).
 

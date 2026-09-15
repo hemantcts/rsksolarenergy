@@ -1,0 +1,172 @@
+---
+/**
+ * Installed price by system size for on-grid, hybrid and off-grid, drawn from the live price
+ * models (grossCost), so it can never disagree with the price pages. Each series is a 2px line at
+ * the starting price with a soft band up to the top of the range.
+ *
+ * Colours are the validated categorical set (blue, orange, aqua: all-pairs CVD ΔE 9.2, normal
+ * vision 24.0). Orange and aqua sit just under 3:1 on white, so every series carries a direct
+ * end label and the chart has a table view, as the relief rule requires. Text is always ink,
+ * never a series colour. No inline style attributes (the CSP blocks them); styles live in
+ * src/styles/graphics.css.
+ */
+import DraftNote from '../DraftNote.astro';
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { grossCost } from '../../lib/calculator/calculate';
+import { inr, inrRange } from '../../lib/calculator/format';
+
+interface Props {
+  title?: string;
+}
+const { title = 'Installed price by system size, before subsidy' } = Astro.props;
+
+const cfg = SOLAR_CONFIG;
+const sizes = [...cfg.sizing.standardSizesKw].sort((a, b) => a - b);
+const first = sizes[0] ?? 1;
+const last = sizes.at(-1) ?? 10;
+const SERIES = [
+  { key: 'on-grid', name: 'On-grid', cls: 's1', min: cfg.sizing.minKwByType['on-grid'] },
+  { key: 'hybrid', name: 'Hybrid', cls: 's2', min: cfg.sizing.minKwByType.hybrid },
+  { key: 'off-grid', name: 'Off-grid', cls: 's3', min: cfg.sizing.minKwByType['off-grid'] },
+] as const;
+
+const data = SERIES.map((s) => ({
+  ...s,
+  points: sizes.filter((kw) => kw >= s.min).map((kw) => {
+    const [lo, hi] = grossCost(kw, s.key);
+    return { kw, lo, hi };
+  }),
+}));
+
+const W = 640;
+const H = 340;
+const L = 58;
+const R = 520;
+const T = 18;
+const B = 292;
+const top = Math.max(...data.flatMap((d) => d.points.map((p) => p.hi)));
+const yMaxLakh = Math.ceil(top / 100000);
+const x = (kw: number) => L + ((kw - first) / (last - first)) * (R - L);
+const y = (v: number) => B - (v / (yMaxLakh * 100000)) * (B - T);
+const lakh = (v: number) => `₹${(v / 100000).toFixed(2)}L`;
+
+const lines = data.map((d) => ({
+  ...d,
+  line: d.points.map((p, i) => `${i ? 'L' : 'M'}${x(p.kw).toFixed(1)} ${y(p.lo).toFixed(1)}`).join(' '),
+  band:
+    d.points.map((p, i) => `${i ? 'L' : 'M'}${x(p.kw).toFixed(1)} ${y(p.lo).toFixed(1)}`).join(' ') +
+    ' ' +
+    [...d.points]
+      .reverse()
+      .map((p) => `L${x(p.kw).toFixed(1)} ${y(p.hi).toFixed(1)}`)
+      .join(' ') +
+    ' Z',
+}));
+
+// End labels at the largest size, pushed apart if they would collide, with a short leader line
+// back to the line end when a label has to move.
+const GAP = 17;
+const ends = lines
+  .map((d) => {
+    const p = d.points.at(-1)!;
+    return { name: d.name, cls: d.cls, lineY: y(p.lo), labelY: y(p.lo), value: lakh(p.lo) };
+  })
+  .sort((a, b) => a.lineY - b.lineY);
+for (let i = 1; i < ends.length; i++) {
+  const prev = ends[i - 1]!;
+  const cur = ends[i]!;
+  if (cur.labelY - prev.labelY < GAP) cur.labelY = prev.labelY + GAP;
+}
+const yTicks = Array.from({ length: yMaxLakh + 1 }, (_, i) => i);
+---
+
+<figure class="pricechart not-prose">
+  <p class="pc-title">{title}</p>
+  <ul class="pc-legend" aria-hidden="true">
+    {
+      SERIES.map((s) => (
+        <li>
+          <svg width="18" height="10">
+            <line x1="0" y1="5" x2="18" y2="5" class={`key ${s.cls}`} />
+          </svg>
+          {s.name}
+        </li>
+      ))
+    }
+  </ul>
+  <div class="table-scroll">
+    <svg viewBox={`0 0 ${W} ${H}`} class="pc-svg" role="img" aria-label={`${title}. Values are in the table below.`}>
+      {
+        yTicks.map((t) => (
+          <g>
+            <line x1={L} x2={R} y1={y(t * 100000)} y2={y(t * 100000)} class={t === 0 ? 'baseline' : 'gridline'} />
+            <text x={L - 10} y={y(t * 100000) + 4} text-anchor="end" class="tick">
+              {t === 0 ? '₹0' : `₹${t}L`}
+            </text>
+          </g>
+        ))
+      }
+      {
+        sizes.map((kw) => (
+          <text x={x(kw)} y={B + 22} text-anchor="middle" class="tick">
+            {kw} kW
+          </text>
+        ))
+      }
+      {lines.map((d) => <path d={d.band} class={`band ${d.cls}`} />)}
+      {lines.map((d) => <path d={d.line} class={`line ${d.cls}`} />)}
+      {
+        lines.map((d) =>
+          d.points.map((p) => (
+            <g class="pt">
+              <title>{`${d.name}, ${p.kw} kW: ${inrRange([p.lo, p.hi])}`}</title>
+              <circle cx={x(p.kw)} cy={y(p.lo)} r="12" class="hit" />
+              <circle cx={x(p.kw)} cy={y(p.lo)} r="4" class={`dot ${d.cls}`} />
+            </g>
+          )),
+        )
+      }
+      {
+        ends.map((e) => (
+          <g>
+            {Math.abs(e.labelY - e.lineY) > 3 && <path d={`M${R + 6} ${e.lineY.toFixed(1)} L${R + 14} ${e.labelY.toFixed(1)}`} class="leader" />}
+            <text x={R + 18} y={e.labelY + 4} class="end-label">
+              <tspan class="end-name">{e.name}</tspan>
+              <tspan dx="6">{e.value}</tspan>
+            </text>
+          </g>
+        ))
+      }
+    </svg>
+  </div>
+  <figcaption class="t-small mt-2 text-slate">
+    Lines mark the starting price for each size and the shaded band runs to the top of the range, {cfg.pricing.rangeUpPercent}% higher. On-grid starts at {cfg.sizing.minKwByType['on-grid']} kW. Home on-grid and hybrid systems then get up to {inr(cfg.subsidy.residential.cap)} back through PM Surya Ghar.
+  </figcaption>
+  <div class="mt-3"><DraftNote /></div>
+  <details class="chart-table">
+    <summary>Show as a table</summary>
+    <div class="table-scroll">
+      <table class="spec-table mt-3">
+        <thead>
+          <tr>
+            <th scope="col">System size</th>
+            {SERIES.map((s) => <th scope="col" class="num">{s.name}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {
+            sizes.map((kw) => (
+              <tr>
+                <th scope="row">{kw} kW</th>
+                {data.map((d) => {
+                  const p = d.points.find((q) => q.kw === kw);
+                  return <td class="num">{p ? inrRange([p.lo, p.hi]) : 'Not offered'}</td>;
+                })}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </details>
+</figure>

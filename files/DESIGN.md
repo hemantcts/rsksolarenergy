@@ -238,6 +238,21 @@ Tables are a primary design element here, not a fallback. Mono tabular figures,
 right-aligned values, `--rule` hairlines between rows, no zebra striping, generous row
 height. The existing UTL battery spec table is the model.
 
+### Charts
+`src/components/charts/`. Inline SVG, no chart library, no inline style attributes (CSP).
+`BarChart` is single-series: brand green marks the rows being highlighted (UTL, RSK), grey the
+rest; values sit at the bar tip in ink. `PriceRangeChart` reads the live price models, so it
+cannot disagree with the price pages; its blue/orange/aqua set passed the colour-blind check
+(all pairs), and because orange and aqua are under 3:1 on white every series is labelled
+directly. Every chart has a "Show as a table" view and a native hover title on each mark.
+
+### Illustrations
+`src/components/art/`: `RooftopSolarArt` (house, panels, inverter, grid), `SolarPumpArt`
+(panel array, controller, borewell pump, water channel) and `SystemFlow` (how on-grid, hybrid
+and off-grid systems connect, as HTML so labels stay readable on phones). Decorative art is
+`aria-hidden`; SystemFlow carries a text caption. Ink, green and accent only. They support
+real photography, they do not replace it.
+
 ### Sticky mobile bar
 Fixed bottom, ink ground: `WhatsApp | Call | Calculate`. Present on every page. This
 sits alongside the /contact/ page (added September 2026 for local SEO).

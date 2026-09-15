@@ -1,0 +1,74 @@
+---
+title: 'UTL vs Adani Solar Panels: TOPCon Efficiency and Warranty'
+description: 'UTL and Adani Solar TOPCon panels compared on efficiency, power warranty and DCR options, from each brand''s published figures, and why a one-brand system can matter.'
+h1: UTL vs Adani Solar panels
+lead: 'Adani Solar makes panels. UTL makes panels too, along with the inverters, batteries and charge controllers that go with them. On the panels themselves, the published figures are close.'
+crumb: UTL vs Adani Solar
+updated: '2026-09-15'
+faq:
+  - q: Is Adani or UTL better for solar panels?
+    a: 'On TOPCon panels both list a 30-year power warranty. UTL''s models list slightly higher efficiency, 23.32% and 22.74%, against up to 22.3% for Adani''s Shine TOPCon series. Adani lists 0.40% degradation a year.'
+  - q: Does Adani Solar sell inverters?
+    a: 'Adani Solar''s product page lists PV modules only. A system built with Adani panels uses an inverter and battery from another brand.'
+  - q: Are Adani panels DCR?
+    a: 'Adani lists both DCR and non-DCR TOPCon modules. For the PM Surya Ghar home subsidy, the panel must be DCR and ALMM-listed.'
+related:
+  - href: /utl-solar-vs-other-brands/
+    label: UTL compared with all five brands
+  - href: /solar-panels/
+    label: Every UTL panel, with DCR status
+  - href: /pm-surya-ghar-subsidy-punjab/
+    label: PM Surya Ghar subsidy in Punjab
+cta:
+  heading: Choosing panels?
+  label: Ask about UTL panels
+  message: 'Hi RSK, I am comparing UTL and Adani panels. Wattage, quantity and whether it is for a subsidised system: '
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+
+export const efficiency = [
+  { label: 'UTL 630 Wp G12R TOPCon', value: 23.32, display: '23.32%', emphasis: true, note: 'Bifacial, non-DCR' },
+  { label: 'UTL 545 W TOPCon', value: 22.74, display: '22.74%', emphasis: true, note: 'Bifacial' },
+  { label: 'Adani Shine TOPCon', value: 22.3, display: '22.3%', note: '610 to 640 Wp' },
+];
+export const pct = [0, 5, 10, 15, 20, 25].map((v) => ({ value: v, label: `${v}%` }));
+
+Adani's Shine TOPCon series (610 to 640 Wp) lists up to 22.3% efficiency, a 30-year power warranty and 0.40% degradation a year, in DCR and non-DCR versions. UTL's 630 Wp G12R TOPCon panel lists 23.32%, and its 545 W TOPCon panel 22.74% with a 30-year performance warranty. The bigger difference is what else each company sells: Adani Solar's product page lists PV modules only, while UTL supplies the inverter, battery and charge controller as well.
+
+## At a glance
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table min-w-lg">
+<caption>From each brand's published figures, checked 15 September 2026</caption>
+<thead><tr><th scope="col"></th><th scope="col">UTL</th><th scope="col">Adani Solar</th></tr></thead>
+<tbody>
+<tr><th scope="row">Model compared</th><td>630 Wp G12R TOPCon; 545 W TOPCon</td><td>Shine TOPCon series, 610 to 640 Wp</td></tr>
+<tr><th scope="row">Module efficiency</th><td>23.32%; 22.74%</td><td>Up to 22.3%</td></tr>
+<tr><th scope="row">Power warranty</th><td>30 years performance (545 W)</td><td>30 years on power, 0.40% degradation a year</td></tr>
+<tr><th scope="row">DCR</th><td>DCR TOPCon at 580 W and 625 W</td><td>DCR and non-DCR offered</td></tr>
+<tr><th scope="row">Also sells</th><td>Inverters, PCUs, batteries, charge controllers, kits</td><td>PV modules only, on the product page we checked</td></tr>
+</tbody>
+</table>
+</div>
+
+<BarChart title="Module efficiency of TOPCon panels, as published" rows={efficiency} max={25} ticks={pct} valueHeading="Efficiency" caption="About one percentage point separates the three. On a home roof that is a few square feet of space, not a different system size." />
+
+## Why a one-brand system can matter
+
+When panels, inverter and battery come from one brand, the voltages and currents are matched in the brand's own kits, and one warranty process covers the lot. With Adani panels, the inverter and battery come from someone else, which works well when an installer matches them properly.
+
+## Choose Adani Solar if
+
+- **You only need panels** and already have an inverter and battery you are happy with.
+- **A 610 to 640 Wp module size** suits your roof layout.
+
+## Choose UTL if
+
+- **You want the whole system from one brand,** matched in UTL's own kits.
+- **You want DCR TOPCon panels for a subsidised home system** alongside a UTL inverter.
+
+## Sources
+
+- UTL: [630 Wp TOPCon](/products/630wp-g12r-topcon-bifacial-ndcr-solar-panel/), [545 W TOPCon](/products/545-watt-topcon-bifacial-solar-panel/) and the [panels guide](/solar-panels/), from UTL's specifications
+- Adani Solar: [TOPCon Shine series](https://www.adanisolar.com/product-topcon-shine-series) and [product range](https://www.adanisolar.com/product), checked 15 September 2026

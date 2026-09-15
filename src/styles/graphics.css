@@ -1,0 +1,522 @@
+/*
+ * Charts (src/components/charts) and illustrations (src/components/art).
+ *
+ * These live here, not in component <style> blocks, on purpose: Astro's CSP auto-hashing misses
+ * scoped styles of components rendered inside MDX content, so the browser blocked them on every
+ * guide page. The site stylesheet is always hashed. Every selector is namespaced under the
+ * component's root class so generic names (.panel, .cell, .line) cannot leak. Imported into the
+ * components layer, so Tailwind utilities on the same element still win.
+ */
+
+/* ---------- BarChart ---------- */
+.barchart {
+  margin-block: 2rem;
+  padding: 1.25rem 1.25rem 1rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-rule);
+}
+.barchart .bc-title {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.barchart .bc-rows {
+  display: grid;
+  gap: 0.6rem;
+}
+.barchart .bc-row {
+  display: grid;
+  align-items: center;
+  column-gap: 0.75rem;
+  grid-template-columns: minmax(0, 1fr) 4.25rem;
+  grid-template-areas:
+    'label label'
+    'bar value';
+}
+@media (min-width: 40rem) {
+  .barchart .bc-row {
+    grid-template-columns: 13rem minmax(0, 1fr) 4.25rem;
+    grid-template-areas: 'label bar value';
+  }
+}
+.barchart .bc-label {
+  grid-area: label;
+  font-size: 0.9375rem;
+  line-height: 1.3;
+}
+.barchart .bc-note {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--color-slate);
+}
+.barchart .bc-bar {
+  grid-area: bar;
+  display: block;
+  overflow: visible;
+}
+.barchart .bc-value {
+  grid-area: value;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+}
+.barchart .bc-mark rect {
+  fill: #8a979f;
+  transition: fill 150ms ease;
+}
+.barchart .bc-mark.is-emphasis rect {
+  fill: var(--color-signal);
+}
+.barchart .bc-row:hover .bc-mark rect {
+  fill: #6f7d86;
+}
+.barchart .bc-row:hover .bc-mark.is-emphasis rect {
+  fill: var(--color-signal-hover);
+}
+.barchart .bc-axis {
+  margin-top: -0.2rem;
+}
+.barchart .bc-axis text {
+  font-size: 11px;
+  fill: var(--color-slate);
+  font-variant-numeric: tabular-nums;
+}
+.barchart .bc-baseline {
+  stroke: var(--color-rule);
+  stroke-width: 1;
+}
+
+/* ---------- Shared "Show as a table" toggle ---------- */
+.chart-table {
+  margin-top: 0.9rem;
+  font-size: 0.9375rem;
+}
+.chart-table summary {
+  cursor: pointer;
+  color: var(--color-slate);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* ---------- PriceRangeChart ---------- */
+.pricechart {
+  margin-block: 2rem;
+  padding: 1.25rem 1.25rem 1rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-rule);
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --s3: #1baf7a;
+}
+.pricechart .pc-title {
+  font-weight: 600;
+}
+.pricechart .pc-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  margin: 0.6rem 0 0.4rem;
+  font-size: 0.875rem;
+}
+.pricechart .pc-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.pricechart .pc-svg {
+  display: block;
+  width: 100%;
+  min-width: 34rem;
+  height: auto;
+  overflow: visible;
+}
+.pricechart .gridline {
+  stroke: #e3e8eb;
+  stroke-width: 1;
+}
+.pricechart .baseline {
+  stroke: var(--color-rule);
+  stroke-width: 1;
+}
+.pricechart .tick {
+  font-size: 12px;
+  fill: var(--color-slate);
+  font-variant-numeric: tabular-nums;
+}
+.pricechart .band {
+  opacity: 0.12;
+  stroke: none;
+}
+.pricechart .line,
+.pricechart .key {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.pricechart .dot {
+  stroke: var(--color-white);
+  stroke-width: 2;
+}
+.pricechart .hit {
+  fill: transparent;
+}
+.pricechart .pt:hover .dot {
+  r: 5.5;
+}
+.pricechart .leader {
+  fill: none;
+  stroke: var(--color-rule);
+  stroke-width: 1;
+}
+.pricechart .end-label {
+  font-size: 12.5px;
+  fill: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+}
+.pricechart .end-name {
+  font-weight: 600;
+}
+.pricechart .s1 {
+  stroke: var(--s1);
+}
+.pricechart .s2 {
+  stroke: var(--s2);
+}
+.pricechart .s3 {
+  stroke: var(--s3);
+}
+.pricechart .band.s1,
+.pricechart .dot.s1 {
+  fill: var(--s1);
+}
+.pricechart .band.s2,
+.pricechart .dot.s2 {
+  fill: var(--s2);
+}
+.pricechart .band.s3,
+.pricechart .dot.s3 {
+  fill: var(--s3);
+}
+
+/* ---------- SystemFlow ---------- */
+.system-flow {
+  margin-block: 2rem;
+}
+.system-flow .flow-grid {
+  display: grid;
+  align-items: center;
+  gap: 0.5rem;
+  grid-template-columns: minmax(0, 1fr) 2rem minmax(0, 1fr);
+  grid-template-areas:
+    'panels . .'
+    'a1 . .'
+    'inverter a3 battery'
+    'a2 . .'
+    'home a4 gridnode';
+}
+@media (min-width: 40rem) {
+  .system-flow .flow-grid {
+    grid-template-columns: minmax(0, 1fr) 2.5rem minmax(0, 1fr) 2.5rem minmax(0, 1fr);
+    grid-template-areas:
+      'panels a1 inverter a2 home'
+      '. . a3 . a4'
+      '. . battery . gridnode';
+  }
+}
+.system-flow .ga-panels {
+  grid-area: panels;
+}
+.system-flow .ga-a1 {
+  grid-area: a1;
+}
+.system-flow .ga-inverter {
+  grid-area: inverter;
+}
+.system-flow .ga-a2 {
+  grid-area: a2;
+}
+.system-flow .ga-home {
+  grid-area: home;
+}
+.system-flow .ga-a3 {
+  grid-area: a3;
+}
+.system-flow .ga-battery {
+  grid-area: battery;
+}
+.system-flow .ga-a4 {
+  grid-area: a4;
+}
+.system-flow .ga-grid {
+  grid-area: gridnode;
+}
+.system-flow .node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.9rem 0.5rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-sm);
+  text-align: center;
+}
+.system-flow .icon {
+  width: 1.9rem;
+  height: 1.9rem;
+  margin-bottom: 0.25rem;
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.system-flow .charge {
+  fill: var(--color-signal);
+  stroke: none;
+}
+.system-flow .name {
+  font-weight: 600;
+  line-height: 1.2;
+}
+.system-flow .sub {
+  font-size: 0.8125rem;
+  color: var(--color-slate);
+  line-height: 1.3;
+}
+.system-flow .arrow {
+  display: flex;
+  justify-content: center;
+}
+.system-flow .arrow svg {
+  width: 2.25rem;
+  height: 0.75rem;
+  overflow: visible;
+}
+/* The main chain runs down on phones and across on wider screens; side links do the opposite. */
+.system-flow .along svg {
+  transform: rotate(90deg);
+}
+@media (min-width: 40rem) {
+  .system-flow .along svg {
+    transform: none;
+  }
+  .system-flow .across svg {
+    transform: rotate(90deg);
+  }
+}
+.system-flow .shaft,
+.system-flow .head {
+  fill: none;
+  stroke: var(--color-signal);
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.system-flow .shaft {
+  stroke-dasharray: 5 5;
+  animation: art-dash-short 1.2s linear infinite;
+}
+
+/* ---------- Illustrations: shared ---------- */
+.rooftop-art,
+.pump-art {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  --water: #4d86a8;
+}
+:is(.rooftop-art, .pump-art) .sun {
+  fill: var(--color-accent);
+}
+:is(.rooftop-art, .pump-art) .ray {
+  stroke: var(--color-accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+:is(.rooftop-art, .pump-art) .rays {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: art-spin 60s linear infinite;
+}
+:is(.rooftop-art, .pump-art) .panel {
+  fill: var(--color-ink);
+  stroke: var(--color-ink);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+:is(.rooftop-art, .pump-art) .cell {
+  stroke: #56707f;
+  stroke-width: 1.25;
+}
+:is(.rooftop-art, .pump-art) .glint {
+  stroke: var(--color-white);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+:is(.rooftop-art, .pump-art) .box {
+  fill: var(--color-white);
+  stroke: var(--color-ink);
+  stroke-width: 2;
+}
+:is(.rooftop-art, .pump-art) .led {
+  fill: var(--color-signal);
+}
+:is(.rooftop-art, .pump-art) .wire {
+  fill: none;
+  stroke: var(--color-signal);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+:is(.rooftop-art, .pump-art) .dash {
+  stroke-dasharray: 6 8;
+  animation: art-dash 1.8s linear infinite;
+}
+
+/* ---------- RooftopSolarArt ---------- */
+.rooftop-art .ground {
+  stroke: var(--color-rule);
+  stroke-width: 2;
+}
+.rooftop-art .wall,
+.rooftop-art .door {
+  fill: var(--color-white);
+  stroke: var(--color-ink);
+  stroke-width: 2;
+}
+.rooftop-art .window,
+.rooftop-art .parapet,
+.rooftop-art .meter {
+  fill: var(--color-paper);
+  stroke: var(--color-ink);
+  stroke-width: 2;
+}
+.rooftop-art .frame,
+.rooftop-art .dial {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1.5;
+}
+.rooftop-art .knob {
+  fill: var(--color-ink);
+}
+.rooftop-art .leg {
+  stroke: var(--color-slate);
+  stroke-width: 2.5;
+}
+.rooftop-art .rear {
+  stroke-width: 2;
+}
+.rooftop-art .wave {
+  fill: none;
+  stroke: var(--color-slate);
+  stroke-width: 1.5;
+}
+.rooftop-art .cable {
+  fill: none;
+  stroke: var(--color-slate);
+  stroke-width: 1.5;
+}
+.rooftop-art .pole {
+  stroke: var(--color-slate);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+/* ---------- SolarPumpArt ---------- */
+.pump-art .soil {
+  fill: var(--color-paper);
+}
+.pump-art .aquifer {
+  fill: var(--water);
+  opacity: 0.16;
+}
+.pump-art .water-line {
+  fill: none;
+  stroke: var(--water);
+  stroke-width: 1.5;
+}
+.pump-art .strata {
+  fill: none;
+  stroke: var(--color-rule);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+.pump-art .ground {
+  stroke: var(--color-ink);
+  stroke-width: 2;
+}
+.pump-art .stem {
+  stroke: var(--color-signal);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.pump-art .leaf {
+  fill: var(--color-signal);
+}
+.pump-art .leg {
+  stroke: var(--color-slate);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.pump-art .brace {
+  stroke: var(--color-slate);
+  stroke-width: 1.5;
+}
+.pump-art .casing {
+  fill: var(--color-white);
+  stroke: var(--color-ink);
+  stroke-width: 2;
+}
+.pump-art .sine {
+  fill: none;
+  stroke: var(--color-slate);
+  stroke-width: 1.5;
+}
+.pump-art .pump {
+  fill: var(--color-signal);
+  stroke: var(--color-ink);
+  stroke-width: 1.5;
+}
+.pump-art .pipe {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 3.5;
+  stroke-linejoin: round;
+}
+.pump-art .channel {
+  fill: var(--water);
+  opacity: 0.55;
+}
+.pump-art .rise,
+.pump-art .drip {
+  fill: none;
+  stroke: var(--water);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.pump-art .dash-up {
+  stroke-dasharray: 5 9;
+  animation: art-dash 1.4s linear infinite;
+}
+
+@keyframes art-dash {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+@keyframes art-dash-short {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+@keyframes art-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

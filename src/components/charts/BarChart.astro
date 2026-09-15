@@ -1,0 +1,89 @@
+---
+/**
+ * Horizontal bar chart for a handful of values. Labels and values are real text; each bar is SVG
+ * sized with percentage attributes, so there are no inline style attributes for the CSP to block.
+ * Marks follow the dataviz spec: bars at most 24px, square at the baseline and rounded at the data
+ * end, the value at the tip in ink (never in the bar colour). Rows flagged `emphasis` take the
+ * brand green and the rest a muted grey, so the story ("where UTL sits") reads at a glance.
+ * Every chart carries a table view. Styles live in src/styles/graphics.css.
+ */
+export interface BarRow {
+  label: string;
+  value: number;
+  display: string;
+  emphasis?: boolean;
+  note?: string;
+}
+interface Props {
+  title: string;
+  rows: BarRow[];
+  max: number;
+  ticks: { value: number; label: string }[];
+  caption?: string;
+  valueHeading?: string;
+}
+const { title, rows, max, ticks, caption, valueHeading = 'Value' } = Astro.props;
+const pct = (v: number) => Math.max(0, Math.min(100, (v / max) * 100));
+---
+
+<figure class="barchart not-prose">
+  <p class="bc-title">{title}</p>
+  <ul class="bc-rows">
+    {
+      rows.map((r) => (
+        <li class="bc-row">
+          <span class="bc-label">
+            {r.label}
+            {r.note && <span class="bc-note">{r.note}</span>}
+          </span>
+          <svg class="bc-bar" width="100%" height="20" aria-hidden="true" focusable="false">
+            <g class:list={['bc-mark', { 'is-emphasis': r.emphasis }]}>
+              <title>{`${r.label}: ${r.display}`}</title>
+              <rect x="0" y="2" width={`${pct(r.value)}%`} height="16" rx="4" />
+              <rect x="0" y="2" width={`${pct(r.value) / 2}%`} height="16" />
+            </g>
+          </svg>
+          <span class="bc-value">{r.display}</span>
+        </li>
+      ))
+    }
+    <li class="bc-row bc-axis" aria-hidden="true">
+      <span class="bc-label" />
+      <svg class="bc-bar" width="100%" height="18" focusable="false">
+        <line x1="0" y1="1" x2="100%" y2="1" class="bc-baseline" />
+        {
+          ticks.map((t, i) => (
+            <text x={`${pct(t.value)}%`} y="15" text-anchor={i === 0 ? 'start' : i === ticks.length - 1 ? 'end' : 'middle'}>
+              {t.label}
+            </text>
+          ))
+        }
+      </svg>
+      <span class="bc-value" />
+    </li>
+  </ul>
+  {caption && <figcaption class="t-small mt-3 text-slate">{caption}</figcaption>}
+  <details class="chart-table">
+    <summary>Show as a table</summary>
+    <div class="table-scroll">
+      <table class="spec-table mt-3">
+        <thead>
+          <tr><th scope="col">{title}</th><th scope="col" class="num">{valueHeading}</th></tr>
+        </thead>
+        <tbody>
+          {
+            rows.map((r) => (
+              <tr>
+                <th scope="row">
+                  {r.label}
+                  {r.note && ` (${r.note})`}
+                </th>
+                <td class="num">{r.display}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </details>
+</figure>

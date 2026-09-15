@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './graphics.css' layer(components);
 
 /*
  * Design tokens — DESIGN.md is authoritative. Tailwind's default palette, shadows and radii are

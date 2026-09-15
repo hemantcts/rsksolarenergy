@@ -33,6 +33,7 @@ export const NAV: NavGroup[] = [
     links: [
       ...CATEGORIES.map((c) => ({ href: `/products/${c.id}/`, label: c.name })),
       { href: '/products/', label: 'All UTL products' },
+      { href: '/utl-solar-vs-other-brands/', label: 'UTL vs other brands' },
       { href: '/brands-and-partners/', label: 'Other brands we stock' },
     ],
   },
@@ -68,6 +69,7 @@ export const NAV: NavGroup[] = [
     label: 'About',
     links: [
       { href: '/about/', label: 'About RSK' },
+      { href: '/why-choose-rsk-solar-energy/', label: 'Why choose RSK' },
       { href: '/installations/', label: 'Installations', note: `${BUSINESS.installs.commercial} commercial, ${BUSINESS.installs.residential} homes` },
       { href: '/reviews/', label: 'Customer reviews', note: `${BUSINESS.google.rating.toFixed(1)} from ${BUSINESS.google.reviewCount} Google reviews` },
       { href: '/utl-solar-distributor-punjab/', label: 'UTL Solar distributorship' },

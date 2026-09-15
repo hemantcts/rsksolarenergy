@@ -1,0 +1,71 @@
+---
+/**
+ * Illustration: a flat-roofed Punjab house with a tilted rooftop panel array, wired to the
+ * inverter, the net meter and the grid. Decorative (the surrounding copy carries the meaning),
+ * drawn in the site's own ink, green and accent yellow. Power lines drift slowly; the global
+ * reduced-motion rule stills them. Styles live in src/styles/graphics.css.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+type Pt = [number, number];
+const cells = (x0: number, y0: number) => {
+  // One tilted panel: a parallelogram with a 3 × 2 cell grid.
+  const bl: Pt = [x0, y0 + 32];
+  const br: Pt = [x0 + 84, y0 + 32];
+  const tr: Pt = [x0 + 96, y0];
+  const tl: Pt = [x0 + 12, y0];
+  const lerp = (a: Pt, b: Pt, t: number): Pt => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
+  const verticals = [1 / 3, 2 / 3].map((t): [Pt, Pt] => [lerp(bl, br, t), lerp(tl, tr, t)]);
+  const mid: [Pt, Pt] = [lerp(bl, tl, 0.5), lerp(br, tr, 0.5)];
+  return { outline: [bl, br, tr, tl].map((p) => p.join(',')).join(' '), lines: [...verticals, mid], glint: [lerp(tl, tr, 0.12), lerp(tl, tr, 0.34)] as [Pt, Pt], feet: [bl, br, tr] };
+};
+const panels = [cells(92, 118), cells(212, 118)];
+---
+
+<svg class:list={['rooftop-art', className]} viewBox="0 0 480 320" aria-hidden="true" focusable="false">
+  <line x1="16" y1="292" x2="464" y2="292" class="ground" />
+
+  <g transform="translate(404 62)">
+    <g class="rays">
+      {Array.from({ length: 8 }).map((_, i) => <line x1="0" y1="-31" x2="0" y2="-42" transform={`rotate(${i * 45})`} class="ray" />)}
+    </g>
+    <circle r="22" class="sun" />
+  </g>
+
+  <rect x="70" y="176" width="280" height="116" class="wall" />
+  <rect x="62" y="166" width="296" height="12" class="parapet" />
+  <rect x="100" y="204" width="58" height="40" class="window" />
+  <path d="M129 204 V244 M100 224 H158" class="frame" />
+  <rect x="262" y="204" width="58" height="40" class="window" />
+  <path d="M291 204 V244 M262 224 H320" class="frame" />
+  <rect x="190" y="222" width="40" height="70" class="door" />
+  <circle cx="222" cy="258" r="2.5" class="knob" />
+
+  {
+    panels.map((p) => (
+      <g>
+        {p.feet.map((f, i) => (
+          <line x1={f[0]} y1={f[1]} x2={f[0]} y2="166" class={i === 2 ? 'leg rear' : 'leg'} />
+        ))}
+        <polygon points={p.outline} class="panel" />
+        {p.lines.map((l) => (
+          <line x1={l[0][0]} y1={l[0][1]} x2={l[1][0]} y2={l[1][1]} class="cell" />
+        ))}
+        <line x1={p.glint[0][0]} y1={p.glint[0][1] + 4} x2={p.glint[1][0]} y2={p.glint[1][1] + 4} class="glint" />
+      </g>
+    ))
+  }
+
+  <path d="M306 132 C332 132 346 144 346 170 V196 H373 V206" class="wire dash" />
+  <rect x="356" y="206" width="34" height="46" rx="3" class="box" />
+  <circle cx="373" cy="220" r="4" class="led" />
+  <path d="M364 236 C368 230 372 230 376 236 S384 242 388 236" class="wave" />
+  <path d="M390 229 H400" class="wire dash" />
+  <rect x="400" y="212" width="26" height="36" rx="3" class="meter" />
+  <line x1="405" y1="224" x2="421" y2="224" class="dial" />
+  <line x1="446" y1="112" x2="446" y2="292" class="pole" />
+  <line x1="430" y1="124" x2="462" y2="124" class="pole" />
+  <path d="M426 222 C440 222 446 200 446 176" class="cable dash" />
+</svg>

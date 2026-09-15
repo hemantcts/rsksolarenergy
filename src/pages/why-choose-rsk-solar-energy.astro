@@ -1,0 +1,218 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import BarChart from '../components/charts/BarChart.astro';
+import PriceRangeChart from '../components/charts/PriceRangeChart.astro';
+import RooftopSolarArt from '../components/art/RooftopSolarArt.astro';
+import { BUSINESS, formatHours } from '../config/business';
+import { SOLAR_CONFIG } from '../config/solar-config';
+import { CITIES } from '../data/locations';
+import { billMessage } from '../lib/whatsapp';
+import { faqPage, type QA } from '../lib/seo';
+
+const path = '/why-choose-rsk-solar-energy/';
+const hours = formatHours();
+const direct = CITIES.filter((c) => c.tier === 'direct').map((c) => c.name);
+const count = (s: string) => parseInt(s, 10);
+const installs = BUSINESS.installs;
+const totalInstalls = count(installs.commercial) + count(installs.residential) + count(installs.solarPumps);
+
+const checklist = [
+  {
+    q: 'Is the installer an authorised distributor of the brand it sells?',
+    a: `Yes. RSK has been a ${BUSINESS.brand} distributor since ${BUSINESS.foundedYear}.`,
+    proof: { href: '/utl-solar-distributor-punjab/', label: 'Our UTL distributorship' },
+  },
+  {
+    q: 'Does its own team install, or a subcontractor?',
+    a: `Our own team installs in ${direct.slice(0, -1).join(', ')} and ${direct.at(-1)}. Elsewhere in Punjab we work through UTL dealers, and we say so.`,
+    proof: { href: '/solar-company-punjab/', label: 'Where we install' },
+  },
+  {
+    q: 'Will it file the subsidy and net-metering applications?',
+    a: 'Yes, for the on-grid and hybrid systems we install: the PM Surya Ghar application and the net-metering application.',
+    proof: { href: '/pm-surya-ghar-subsidy-punjab/', label: 'How the subsidy works' },
+  },
+  {
+    q: 'Are the panels DCR and ALMM-listed?',
+    a: 'Yes, on every subsidised home system. Both rules decide whether you get the subsidy.',
+    proof: { href: '/solar-panels/', label: 'Panels, with DCR status' },
+  },
+  {
+    q: 'Can you see prices before you call?',
+    a: 'Yes. Every system size has a published price range, built from our own quotes.',
+    proof: { href: '/3kw-solar-system-price-punjab/', label: 'See a price page' },
+  },
+  {
+    q: 'Are the reviews real, and can you check them?',
+    a: `${BUSINESS.google.rating.toFixed(1)} from ${BUSINESS.google.reviewCount} Google reviews and ${BUSINESS.justdial.rating.toFixed(1)} from ${BUSINESS.justdial.reviewCount} on Justdial, with links to both listings.`,
+    proof: { href: '/reviews/', label: 'Read the reviews' },
+  },
+  {
+    q: 'Is it a registered business with an office you can visit?',
+    a: `Yes: GST ${BUSINESS.registrations.gst}, Udyam ${BUSINESS.registrations.msme}, and an office at ${BUSINESS.address.street}${hours ? `, open ${hours.lines[0]}` : ''}.`,
+    proof: { href: '/contact/', label: 'Contact and directions' },
+  },
+  {
+    q: 'Will it tell you when solar will not pay back?',
+    a: `Yes. If you use ${SOLAR_CONFIG.freeUnits.perMonth} units a month or fewer, your bill is already zero, and our calculator says so.`,
+    proof: { href: '/solar-calculator/', label: 'Try the calculator' },
+  },
+  {
+    q: 'Will it put the installation warranty in writing?',
+    a: 'Ask us for it before you pay, and ask every other installer you compare for the same.',
+    proof: { href: '/contact/', label: 'Ask us' },
+  },
+];
+
+const installRows = [
+  { label: 'Commercial and industrial', value: count(installs.commercial), display: installs.commercial, emphasis: true },
+  { label: 'Homes', value: count(installs.residential), display: installs.residential, emphasis: true },
+  { label: 'Solar pumps and tubewells', value: count(installs.solarPumps), display: installs.solarPumps, emphasis: true },
+];
+const installTicks = [0, 50, 100, 150, 200, 250].map((v) => ({ value: v, label: String(v) }));
+
+const faq: QA[] = [
+  {
+    q: 'Why choose RSK Solar Energy over other installers?',
+    a: `RSK is an authorised ${BUSINESS.brand} distributor with its own installation team in Tricity, published price ranges for every system size, and ${BUSINESS.google.rating.toFixed(1)} from ${BUSINESS.google.reviewCount} Google reviews. Check each of those for yourself using the links on this page.`,
+  },
+  {
+    q: 'How many systems has RSK installed?',
+    a: `More than ${totalInstalls}: ${installs.commercial} commercial and industrial, ${installs.residential} residential and ${installs.solarPumps} solar pumps and tubewells, as of ${installs.asOf}.`,
+  },
+  {
+    q: 'What should I check before choosing a solar installer?',
+    a: 'Brand authorisation, who actually installs, whether they file the subsidy and net metering, DCR and ALMM-listed panels, published prices, reviews you can verify, a registered business address, and the installation warranty in writing.',
+  },
+];
+---
+
+<BaseLayout
+  title="Why Choose RSK Solar Energy: A Solar Buyer's Checklist"
+  description={`What to check before choosing any solar installer in Punjab, and RSK's answers with proof: UTL authorisation, own install team, ${BUSINESS.google.rating.toFixed(1)} Google rating and published prices.`}
+  crumbs={[{ name: 'Why choose RSK', path }]}
+  schema={[faqPage(faq)]}
+>
+  <header class="wrap grid-12 pt-8 pb-10 lg:items-end lg:pt-12">
+    <div class="lg:col-span-7">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Why choose RSK', path }]} />
+      <h1 class="t-h1 mt-6">Why choose RSK Solar Energy</h1>
+      <p class="t-lead measure mt-5">Before you choose any solar installer, ask these questions. Here are our answers, each with a link so you can check it yourself.</p>
+    </div>
+    <div class="lg:col-span-4 lg:col-start-9">
+      <RooftopSolarArt class="max-w-sm" />
+    </div>
+  </header>
+
+  <section class="sec-tight bg-white" aria-labelledby="facts-h">
+    <div class="wrap">
+      <h2 id="facts-h" class="sr-only">RSK in numbers</h2>
+      <ul class="grid grid-cols-2 gap-px border border-rule bg-rule lg:grid-cols-4">
+        <li class="bg-white p-5">
+          <p class="t-small text-slate">Google rating</p>
+          <p class="stat mt-1">{BUSINESS.google.rating.toFixed(1)}</p>
+          <p class="t-small text-slate">from {BUSINESS.google.reviewCount} reviews</p>
+        </li>
+        <li class="bg-white p-5">
+          <p class="t-small text-slate">Justdial rating</p>
+          <p class="stat mt-1">{BUSINESS.justdial.rating.toFixed(1)}</p>
+          <p class="t-small text-slate">from {BUSINESS.justdial.reviewCount} reviews</p>
+        </li>
+        <li class="bg-white p-5">
+          <p class="t-small text-slate">Systems installed</p>
+          <p class="stat mt-1">{totalInstalls}+</p>
+          <p class="t-small text-slate">as of {installs.asOf}</p>
+        </li>
+        <li class="bg-white p-5">
+          <p class="t-small text-slate">UTL Solar distributor</p>
+          <p class="stat mt-1">{BUSINESS.foundedYear}</p>
+          <p class="t-small text-slate">Phase 8B, Mohali</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="check-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="check-h" class="t-h2">The checklist</h2>
+        <p class="mt-4 text-slate">Nine questions worth asking every installer you are comparing, with ours answered.</p>
+      </div>
+      <ol class="ruled lg:col-span-7 lg:col-start-6">
+        {
+          checklist.map((c) => (
+            <li class="check">
+              <p class="font-semibold">{c.q}</p>
+              <p class="mt-1">{c.a}</p>
+              <p class="t-small mt-2">
+                <a href={c.proof.href} class="underline">
+                  {c.proof.label}
+                </a>
+              </p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec-tight bg-white" aria-labelledby="record-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="record-h" class="t-h2">What we have installed</h2>
+        <p class="mt-4 text-slate">Confirmed counts by type, as of {installs.asOf}. Each figure is a minimum.</p>
+      </div>
+      <div class="lg:col-span-7 lg:col-start-6">
+        <BarChart title="Systems installed by RSK, by type" rows={installRows} max={250} ticks={installTicks} valueHeading="Installed" />
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="price-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="price-h" class="t-h2">Prices you can see first</h2>
+        <p class="mt-4 text-slate">Every size, from our own quotes. The same figures appear on each price page and in the calculator.</p>
+      </div>
+      <div class="lg:col-span-7 lg:col-start-6">
+        <PriceRangeChart />
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-tight border-t border-rule bg-white" aria-labelledby="compare-h">
+    <div class="wrap grid-12 lg:items-center">
+      <div class="lg:col-span-7">
+        <h2 id="compare-h" class="t-h3">Comparing brands as well as installers?</h2>
+        <p class="mt-2 text-slate">See how UTL compares with Luminous, Microtek, Tata Power Solar, Waaree and Adani, using each brand's own published figures.</p>
+      </div>
+      <p class="lg:col-span-4 lg:col-start-9"><a href="/utl-solar-vs-other-brands/" class="btn btn-secondary">UTL vs other brands</a></p>
+    </div>
+  </section>
+
+  <section class="sec bg-white" aria-labelledby="cta-h">
+    <div class="wrap grid-12 lg:items-center">
+      <div class="lg:col-span-7">
+        <h2 id="cta-h" class="t-h2">Hold us to the checklist</h2>
+        <p class="mt-3 text-slate">Send your electricity bill and we reply with a system size, a price range and what your connection needs first.</p>
+      </div>
+      <div class="lg:col-span-4 lg:col-start-9">
+        <WhatsAppButton label="Send your bill on WhatsApp" message={billMessage()} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .stat {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 2.25rem;
+    line-height: 1.05;
+  }
+  .check {
+    padding-block: 1.1rem;
+  }
+</style>

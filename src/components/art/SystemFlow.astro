@@ -1,0 +1,86 @@
+---
+/**
+ * How-it-works diagram for on-grid, hybrid and off-grid systems. Built as HTML with small inline
+ * icons rather than one scaled SVG, so the labels stay readable on a phone. Grid placement uses
+ * classes, never inline style attributes, which the site's CSP blocks. The figcaption carries the
+ * full description for screen readers; the drawing itself is hidden from them. Styles live in
+ * src/styles/graphics.css (component style blocks are not CSP-hashed inside MDX).
+ */
+interface Props {
+  type: 'on-grid' | 'hybrid' | 'off-grid';
+  class?: string;
+}
+const { type, class: className } = Astro.props;
+const battery = type !== 'on-grid';
+const grid = type !== 'off-grid';
+
+const SUMMARY = {
+  'on-grid': 'On-grid: the panels feed the inverter, which runs your home. Surplus power goes to the PSPCL grid through the net meter, and the grid supplies you at night. There are no batteries, so the system switches off in a power cut.',
+  hybrid: 'Hybrid: the panels feed the inverter, which runs your home and charges the battery. The grid tops up and takes surplus through the net meter, and the battery keeps chosen circuits running in a power cut.',
+  'off-grid': 'Off-grid: the panels charge the battery through the inverter, and the battery runs your home after dark. There is no grid connection, so there is no net meter and no subsidy.',
+} as const;
+---
+
+<figure class:list={['system-flow not-prose', className]}>
+  <div class="flow-grid" aria-hidden="true">
+    <div class="node ga-panels">
+      <svg viewBox="0 0 24 24" class="icon"><path d="M4 15 L7 5 H20 L17 15 Z" /><path d="M5.5 10 H18.5 M10.3 5 L8.7 15 M15.2 5 L13.6 15 M8 15 V20 M15 15 V20" /></svg>
+      <span class="name">Solar panels</span>
+      <span class="sub">Power by day</span>
+    </div>
+    <div class="arrow along ga-a1"><svg viewBox="0 0 40 12"><path d="M2 6 H36" class="shaft" /><path d="M29 1.5 L37 6 L29 10.5" class="head" /></svg></div>
+    <div class="node ga-inverter">
+      <svg viewBox="0 0 24 24" class="icon"><rect x="4" y="4" width="16" height="16" rx="2" /><path d="M7 12 C8.5 8 10 8 12 12 S15.5 16 17 12" /></svg>
+      <span class="name">Inverter</span>
+      <span class="sub">DC to AC</span>
+    </div>
+    <div class="arrow along ga-a2"><svg viewBox="0 0 40 12"><path d="M2 6 H36" class="shaft" /><path d="M29 1.5 L37 6 L29 10.5" class="head" /></svg></div>
+    <div class="node ga-home">
+      <svg viewBox="0 0 24 24" class="icon"><path d="M3 11 L12 4 L21 11" /><path d="M5 10 V20 H19 V10 M10 20 V14 H14 V20" /></svg>
+      <span class="name">Your home</span>
+      <span class="sub">Lights, fans, AC</span>
+    </div>
+    {
+      battery && (
+        <>
+          <div class="arrow across ga-a3">
+            <svg viewBox="0 0 40 12">
+              <path d="M4 6 H36" class="shaft" />
+              <path d="M29 1.5 L37 6 L29 10.5 M11 1.5 L3 6 L11 10.5" class="head" />
+            </svg>
+          </div>
+          <div class="node ga-battery">
+            <svg viewBox="0 0 24 24" class="icon">
+              <rect x="3" y="7" width="16" height="10" rx="2" />
+              <path d="M21 10 V14" />
+              <rect x="6" y="10" width="3" height="4" class="charge" />
+              <rect x="10.5" y="10" width="3" height="4" class="charge" />
+            </svg>
+            <span class="name">Battery</span>
+            <span class="sub">Backup store</span>
+          </div>
+        </>
+      )
+    }
+    {
+      grid && (
+        <>
+          <div class="arrow across ga-a4">
+            <svg viewBox="0 0 40 12">
+              <path d="M4 6 H36" class="shaft" />
+              <path d="M29 1.5 L37 6 L29 10.5 M11 1.5 L3 6 L11 10.5" class="head" />
+            </svg>
+          </div>
+          <div class="node ga-grid">
+            <svg viewBox="0 0 24 24" class="icon">
+              <path d="M12 3 L7 21 M12 3 L17 21 M8.6 15 H15.4 M9.9 10 H14.1 M5 7 H19" />
+            </svg>
+            <span class="name">PSPCL grid</span>
+            <span class="sub">Through the net meter</span>
+          </div>
+        </>
+      )
+    }
+  </div>
+  <figcaption class="t-small mt-3 text-slate">{SUMMARY[type]}</figcaption>
+</figure>

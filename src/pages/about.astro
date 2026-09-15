@@ -4,6 +4,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaBlock from '../components/content/CtaBlock.astro';
 import { BUSINESS, formatAddressLines } from '../config/business';
 import { F } from '../lib/facts';
+import SolarPumpArt from '../components/art/SolarPumpArt.astro';
 
 const facts: [string, string][] = [
   ['Founded', String(BUSINESS.foundedYear)],
@@ -88,7 +89,10 @@ const facts: [string, string][] = [
 
   <section class="sec" aria-labelledby="what-h">
     <div class="wrap grid-12">
-      <h2 id="what-h" class="t-h2 lg:col-span-4">What we do</h2>
+      <div class="lg:col-span-4">
+        <h2 id="what-h" class="t-h2">What we do</h2>
+        <SolarPumpArt class="mt-8 max-w-sm" />
+      </div>
       <ul class="ruled lg:col-span-7 lg:col-start-6">
         <li><a href="/products/" class="font-semibold underline">Supply UTL Solar products</a><span class="mt-1 block text-slate">Panels, inverters and PCUs, batteries, charge controllers and complete kits.</span></li>
         <li><a href="/solar-calculator/" class="font-semibold underline">Rooftop systems for homes</a><span class="mt-1 block text-slate">On-grid systems with the PM Surya Ghar subsidy, and hybrid systems for backup.</span></li>

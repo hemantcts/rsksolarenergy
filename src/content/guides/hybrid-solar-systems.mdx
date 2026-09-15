@@ -30,6 +30,7 @@ related:
 ---
 
 import KitTable from '../../components/content/KitTable.astro';
+import SystemFlow from '../../components/art/SystemFlow.astro';
 import { F } from '../../lib/facts';
 import { HYBRID_QUOTES } from '../../data/sizes';
 import { grossCost } from '../../lib/calculator/calculate';
@@ -44,6 +45,8 @@ export const HYBRID_ROWS = HYBRID_QUOTES.map(({ kw }) => {
 });
 
 ## How a hybrid system works
+
+<SystemFlow type="hybrid" />
 
 A hybrid system has panels, a hybrid inverter, a battery bank and a connection to PSPCL. During the day, solar runs your home and charges the batteries. When the grid fails, the inverter switches your backed-up circuits to the batteries. When the sun is down and the batteries are low, the grid takes over.
 

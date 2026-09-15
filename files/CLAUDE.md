@@ -233,6 +233,15 @@ providing innovative and sustainable solutions..." — this could belong to any 
 any industry. Write specifics: system sizes, prices, timelines, model numbers, the
 subsidy process, named towns. Specificity is the credibility.
 
+**Brand comparisons** (/utl-solar-vs-other-brands/ and the /utl-vs-*/ pages). Compare only on
+figures a brand publishes itself, name the model, link the source and date the check. Say where
+the other brand is ahead as plainly as where UTL is; no "best" or "better than all" claims
+(ASCI requires comparative claims to be substantiated). RSK also stocks Luminous, so that page
+says so. Re-check the figures when updating `updated:`.
+
+**Why choose RSK** (/why-choose-rsk-solar-energy/) is a buyer’s checklist that names no
+competitor. Every answer links to its proof and reads from `BUSINESS`, so it never drifts.
+
 See `DESIGN.md` §7 for voice.
 
 ---

@@ -1,0 +1,74 @@
+---
+title: 'UTL vs Luminous Solar: Inverters, PCUs and Batteries'
+description: 'UTL and Luminous compared on solar PCU and battery warranties and product range, from each brand''s published figures. RSK stocks both, so here is how to choose.'
+h1: UTL vs Luminous
+lead: 'Two brands that cover the same ground: solar inverters, batteries, panels and charge controllers. Their warranties are closer than most sales talk suggests, and each one is ahead in a different place.'
+crumb: UTL vs Luminous
+updated: '2026-09-15'
+faq:
+  - q: Is UTL better than Luminous?
+    a: 'On some products. UTL''s Sigma+ hybrid PCU lists a 5-year warranty, longer than the 36 months on Luminous''s Solarverter PRO. For an off-grid PCU, Luminous''s 36 months is longer than the 2 years on UTL''s Gamma units. Their 150 Ah tubular battery warranties match.'
+  - q: Which is better for an inverter battery, UTL or Luminous?
+    a: 'Compare exact models. Luminous lists 36 months free and 24 months pro-rata on its 150 Ah Inverlast ILTT 18060 PRO. UTL lists 36 + 24 months on its 150 Ah UIT16036 and 60 months on its heavier UST1560.'
+  - q: Does RSK sell Luminous?
+    a: 'Yes. RSK is a UTL Solar distributor and also stocks Luminous products, so we can quote you either.'
+related:
+  - href: /utl-solar-vs-other-brands/
+    label: UTL compared with all five brands
+  - href: /blog/how-to-choose-solar-inverter-for-home/
+    label: How to choose a solar inverter
+  - href: /blog/lithium-vs-tubular-battery-for-solar/
+    label: Lithium or tubular battery for solar
+cta:
+  heading: Deciding between UTL and Luminous?
+  label: Ask for both quotes
+  message: 'Hi RSK, I am deciding between UTL and Luminous. What I want to run and my system type: '
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+
+export const pcu = [
+  { label: 'UTL Sigma+ hybrid PCU', value: 5, display: '5 yrs', emphasis: true, note: 'Grid-connected hybrid' },
+  { label: 'Luminous Solarverter PRO', value: 3, display: '3 yrs', note: 'Off-grid PCU, 2 to 10.1 kVA' },
+  { label: 'UTL Gamma solar inverter', value: 2, display: '2 yrs', emphasis: true, note: 'Off-grid, in UTL kits' },
+];
+export const years = [0, 1, 2, 3, 4, 5].map((v) => ({ value: v, label: `${v}` }));
+
+For a 150 Ah tubular battery the warranties match. For an off-grid solar PCU Luminous is ahead, and for a grid-connected hybrid system UTL is. RSK stocks both brands, so the useful question is which one suits your system, not which logo is better.
+
+## At a glance
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table min-w-lg">
+<caption>From each brand's published figures, checked 15 September 2026</caption>
+<thead><tr><th scope="col"></th><th scope="col">UTL</th><th scope="col">Luminous</th></tr></thead>
+<tbody>
+<tr><th scope="row">150 Ah tubular battery warranty</th><td>36 + 24 months (UIT16036); 60 months (UST1560)</td><td>36 months free + 24 months pro-rata (ILTT 18060 PRO)</td></tr>
+<tr><th scope="row">Off-grid solar PCU warranty</th><td>2 years (Gamma, in UTL's off-grid kits)</td><td>36 months (Solarverter PRO)</td></tr>
+<tr><th scope="row">Hybrid PCU warranty</th><td>5 years (Sigma+)</td><td>Not compared: we did not check a Luminous hybrid model</td></tr>
+<tr><th scope="row">Lists on its site</th><td>Panels, PCUs, on-grid inverters to 125 kW, tubular, SMF and lithium batteries, charge controllers, kits</td><td>Home and solar inverters, solar panels, solar batteries, charge controllers</td></tr>
+</tbody>
+</table>
+</div>
+
+<BarChart title="Warranty on a solar PCU" rows={pcu} max={5} ticks={years} valueHeading="Warranty, years" caption="The Sigma+ is a grid-connected hybrid PCU; the Solarverter PRO and Gamma units are off-grid. Compare the two off-grid bars with each other." />
+
+## Choose UTL if
+
+- **You want a grid-connected hybrid system.** The Sigma+ PCU in UTL's hybrid kits lists 5 years.
+- **You want the whole system from one brand,** including DCR panels for the PM Surya Ghar subsidy and lithium-ready inverters.
+- **You need on-grid string inverters for a larger roof.** UTL lists them from 1.5 kW to 125 kW.
+
+## Choose Luminous if
+
+- **You want an off-grid PCU with a longer warranty.** The Solarverter PRO lists 36 months.
+- **You already run a Luminous home inverter** and want parts from the same brand.
+
+## Where RSK fits
+
+RSK is a UTL Solar distributor in Mohali and stocks Luminous as well. Tell us what you want to keep running and for how long, and we will price both.
+
+## Sources
+
+- UTL: [UIT16036](/products/uit16036-solar-battery/), [UST1560](/products/utl-150ah-solar-inverter-battery-ust-1560/), [Sigma+ PCU](/products/sigma-plus-solar-pcu-2kva-48v/) and the [3 kW off-grid kit](/products/3kw-48v-off-grid-solar-system/), from UTL's specifications
+- Luminous: [Inverlast ILTT 18060 PRO](https://www.luminousindia.com/batteries/inverlast-iltt-18060-pro) and [Solarverter PRO PCU](https://www.luminousindia.com/product/solarverter-pro-pcu-75kva-96v), checked 15 September 2026
