@@ -1,8 +1,8 @@
 ---
-title: UTL Solar Panels in Mohali, 40 W to 400 W | RSK Solar Energy
-description: 'UTL mono PERC and polycrystalline solar panels from 40 W to 400 W, with full specifications. What to check before you buy, including ALMM listing for the subsidy.'
+title: 'UTL Solar Panels in Mohali: 40 W to 735 W'
+description: 'UTL mono PERC, N-type TOPCon and bifacial solar panels from 40 W to 735 W, with full specifications. What to check before you buy, including ALMM listing.'
 h1: Solar panels
-lead: 'Mono PERC and polycrystalline modules from UTL, from 40 W panels for a single light to 400 W modules for rooftop systems. What the numbers on a datasheet mean, and the one check that decides whether you get the subsidy.'
+lead: 'UTL modules from 40 W panels for a single light up to 735 W half-cut modules for large rooftop and commercial systems, in mono PERC, N-type TOPCon and bifacial. What the numbers on a datasheet mean, and the one check that decides whether you get the subsidy.'
 crumb: Solar panels
 kind: service
 serviceType: Solar panel supply
@@ -12,8 +12,8 @@ cta:
   label: Ask about panels on WhatsApp
   message: 'Hi RSK, I would like the price and availability of UTL solar panels. Wattage and quantity: '
 faq:
-  - q: Mono PERC or polycrystalline?
-    a: 'For rooftop systems, mono PERC. It gives more watts from the same roof area and handles heat slightly better. Small polycrystalline panels still make sense for lighting kits and small off-grid loads where cost matters more than space.'
+  - q: Mono PERC, TOPCon or polycrystalline?
+    a: 'For rooftop systems, a mono module. N-type TOPCon panels turn a little more sunlight into power than mono PERC and lose less output as they heat up, which counts on a Punjab roof in May. Bifacial versions also collect light reflected up from the roof surface. Small polycrystalline panels still make sense for lighting kits and small off-grid loads where cost matters more than space.'
   - q: How much roof does a panel need?
     a: 'A 72-cell module of 390 to 400 W is roughly 2 m long and 1 m wide. For a complete system, allow about 100 sq ft of shade-free roof per kW, including the gaps between rows for access and to avoid shading.'
   - q: Do the panels need to be ALMM-listed?
@@ -29,8 +29,19 @@ related:
 
 import { PRODUCTS } from '../../data/products';
 
+export const panelType = (p) => {
+  const text = [p.title, p.summary, ...p.features, ...(p.specs?.rows ?? []).flatMap((r) => ('values' in r ? [r.label, ...r.values] : []))].join(' ');
+  const bifacial = /bi-?facial/i.test(text) ? ' bifacial' : '';
+  if (/topcon/i.test(text)) return `N-type TOPCon${bifacial}`;
+  if (/mono|perc/i.test(text)) return `Mono PERC${bifacial}`;
+  if (/poly/i.test(text)) return 'Polycrystalline';
+  return 'See specification';
+};
+
+export const panelWatts = (p) => parseInt(p.title.match(/(\d{2,3})\s*(?:-?\s*watts?\b|wp?\b)/i)?.[1] ?? p.slug.match(/(?:^|-)(\d{2,3})(?:w|wp)(?:-|$)/)?.[1] ?? '0', 10);
+
 export const panels = PRODUCTS.filter((p) => p.category === 'solar-panels')
-  .map((p) => ({ ...p, watts: parseInt(p.title.match(/(\d+)\s*-?\s*watt/i)?.[1] ?? '0', 10) }))
+  .map((p) => ({ ...p, watts: panelWatts(p), type: panelType(p) }))
   .sort((a, b) => b.watts - a.watts);
 
 <div class="table-scroll not-prose my-8">
@@ -41,7 +52,7 @@ export const panels = PRODUCTS.filter((p) => p.category === 'solar-panels')
 {panels.map((p) => (
 <tr>
 <th scope="row"><a href={`/products/${p.slug}/`} class="underline">{p.title}</a></th>
-<td>{/mono/i.test(p.title) ? 'Mono PERC' : 'Polycrystalline'}</td>
+<td>{p.type}</td>
 <td class="num">{p.watts ? `${p.watts} W` : 'Range'}</td>
 </tr>
 ))}

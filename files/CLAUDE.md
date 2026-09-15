@@ -149,7 +149,7 @@ page.** Ask rather than inventing.
 | `/service/battery-material/` | `/solar-panels/` |
 | `/service/solar-panel-service/` | `/off-grid-solar-systems/` |
 | `/services/` | `/` |
-| `/contact/` | `/` (sticky WhatsApp bar replaces it) |
+| `/contact/` | not redirected: a real contact page exists since September 2026 (NAP, hours, directions) |
 | `/thank-you/` | handled in-app |
 | `/product/[slug]/` | `/products/[slug]/` (all 57) |
 
@@ -188,7 +188,7 @@ Every route must export:
 
 | Type | Where |
 |---|---|
-| `LocalBusiness` | Site-wide. Full NAP, hours, geo, `aggregateRating` (5.0 / 33 reviews) |
+| `LocalBusiness` | Site-wide. Full NAP, hours, geo, `sameAs`. No `aggregateRating` or `Review`: the ratings come from Google Maps, and Google’s review-snippet policy does not allow marking up ratings collected elsewhere |
 | `Product` | Every catalogue item |
 | `FAQPage` | Subsidy pages, system-size pages |
 | `Service` | Each system-size and service page |

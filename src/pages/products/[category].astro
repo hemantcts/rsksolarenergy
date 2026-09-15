@@ -18,14 +18,14 @@ const products = productsIn(category);
 
 const itemList = {
   '@type': 'ItemList',
-  name: `${c.name} — UTL Solar products supplied by RSK Solar Energy`,
+  name: `${c.name}: UTL Solar products supplied by RSK Solar Energy`,
   numberOfItems: products.length,
   itemListElement: products.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(`/products/${p.slug}/`), name: p.title })),
 };
 ---
 
 <BaseLayout
-  title={c.name + fitSuffix(c.name, [' | UTL Solar Products | RSK Solar Mohali', ' | UTL Solar Products | RSK Solar', ' | UTL Solar | RSK Solar'], 60)}
+  title={c.name + fitSuffix(c.name, [' | UTL Solar Dealer in Mohali, Punjab', ' | UTL Solar Dealer in Mohali', ' | Mohali'], 60)}
   description={clampWords(`${products.length} ${c.name.toLowerCase()} from UTL Solar, each with full specifications. ${c.blurb} Ask RSK Solar Energy for price and stock on WhatsApp.`, 160)}
   crumbs={[{ name: 'Products', path: '/products/' }, { name: c.name, path }]}
   schema={[itemList]}

@@ -82,7 +82,7 @@ export const SIZE_COPY: Record<number, { suits: string; notes: string[] }> = {
   1: {
     suits: 'Homes just over the 300-unit line, where a small system is enough to bring net use back under it. RSK does not install on-grid systems this small, so this size comes as hybrid (with a battery) or off-grid.',
     notes: [
-      'Hybrid at 1 kW still receives the PM Surya Ghar subsidy, the same as on-grid — RSK’s hybrid installs are grid-tied and net-metered, not disconnected from PSPCL.',
+      'Hybrid at 1 kW still receives the PM Surya Ghar subsidy, the same as on-grid, because RSK’s hybrid installs are grid-tied and net-metered, not disconnected from PSPCL.',
       'Off-grid does not receive the subsidy, at any size, because it is not net-metered.',
       'A 1 kW system needs at least 1 kW of sanctioned load. Most homes already have more.',
     ],

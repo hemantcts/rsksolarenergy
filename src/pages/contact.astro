@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import Icon from '../components/Icon.astro';
+import { BUSINESS, PRIMARY_PHONE, formatAddressLines, formatHours } from '../config/business';
+import { CITIES, cityPath } from '../data/locations';
+import { billMessage, siteInspectionMessage } from '../lib/whatsapp';
+import { contactPage } from '../lib/seo';
+
+const path = '/contact/';
+const hours = formatHours();
+const direct = CITIES.filter((c) => c.tier === 'direct');
+const placeId = new URL(BUSINESS.google.reviewUrl).searchParams.get('placeid');
+const destination = encodeURIComponent([BUSINESS.name, ...formatAddressLines()].join(', '));
+const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destination}${placeId ? `&destination_place_id=${placeId}` : ''}`;
+---
+
+<BaseLayout
+  title="Contact RSK Solar Energy, Phase 8-B Mohali"
+  description={`Call, WhatsApp or visit RSK Solar Energy at ${BUSINESS.address.street}, Mohali. Phone numbers, email, directions and the areas we install in.`}
+  crumbs={[{ name: 'Contact', path }]}
+  schema={[contactPage(path)]}
+>
+  <header class="wrap pt-8 pb-10 lg:pt-12">
+    <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Contact', path }]} />
+    <h1 class="t-h1 mt-6">Contact RSK Solar Energy</h1>
+    <p class="t-lead measure mt-5">
+      WhatsApp is the quickest way to reach us. Send a photo of your electricity bill and we reply with a system size and the cost after subsidy.
+    </p>
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <WhatsAppButton label="Send your bill on WhatsApp" message={billMessage()} />
+      <a class="btn btn-secondary" href={`tel:${PRIMARY_PHONE.tel}`}>
+        <Icon name="phone" size={18} />
+        <span>Call {PRIMARY_PHONE.display}</span>
+      </a>
+    </div>
+  </header>
+
+  <section class="sec-tight bg-white" aria-labelledby="office-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-5">
+        <h2 id="office-h" class="t-h2">Our office</h2>
+        <address class="mt-5 not-italic">
+          <p class="font-semibold">{BUSINESS.name}</p>
+          {formatAddressLines().map((l) => <p>{l}</p>)}
+        </address>
+        <p class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+          <a href={directionsUrl} rel="noopener" target="_blank" class="underline">Get directions</a>
+          <a href={BUSINESS.google.mapsUrl} rel="noopener" target="_blank" class="underline">Open in Google Maps</a>
+        </p>
+
+        <h3 class="t-h3 mt-10">Opening hours</h3>
+        {
+          hours ? (
+            <div class="mt-2">
+              {hours.lines.map((l) => (
+                <p>{l}</p>
+              ))}
+              {hours.closed && <p class="text-slate">{hours.closed}</p>}
+            </div>
+          ) : (
+            <p class="mt-2 text-slate">Please call before you visit so someone is at the office to meet you. For a roof survey, we come to you.</p>
+          )
+        }
+      </div>
+
+      <div class="lg:col-span-6 lg:col-start-7">
+        <table class="spec-table">
+          <caption class="sr-only">Ways to contact RSK Solar Energy</caption>
+          <tbody>
+            {
+              BUSINESS.phones.map((p) => (
+                <tr>
+                  <th scope="row">{p.tel.endsWith(BUSINESS.whatsapp.slice(2)) ? 'Phone and WhatsApp' : 'Phone'}</th>
+                  <td class="text-right">
+                    <a href={`tel:${p.tel}`} class="t-value no-underline hover:underline">
+                      {p.display}
+                    </a>
+                  </td>
+                </tr>
+              ))
+            }
+            <tr>
+              <th scope="row">Email</th>
+              <td class="text-right">
+                <a href={`mailto:${BUSINESS.email}`} class="no-underline hover:underline">{BUSINESS.email}</a>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">GST</th>
+              <td class="t-value text-right">{BUSINESS.registrations.gst}</td>
+            </tr>
+          </tbody>
+        </table>
+        <SocialLinks class="mt-6" />
+        <p class="mt-6">
+          <a href={BUSINESS.google.reviewUrl} rel="noopener" target="_blank" class="underline">Leave us a Google review</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-tight" aria-labelledby="visit-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-5">
+        <h2 id="visit-h" class="t-h2">Free site inspection</h2>
+        <p class="mt-4">
+          Want someone to look at your roof and connection before you decide? We visit, check shading and your sanctioned load, and quote on the spot. The visit is free.
+        </p>
+        <div class="mt-6">
+          <WhatsAppButton label="Book a site inspection" message={siteInspectionMessage()} variant="secondary" />
+        </div>
+      </div>
+      <div class="lg:col-span-6 lg:col-start-7">
+        <h2 class="t-h3">Where our own team installs</h2>
+        <ul class="mt-4 grid grid-cols-2 gap-x-6 sm:grid-cols-3">
+          {
+            direct.map((c) => (
+              <li class="py-1.5">
+                <a href={cityPath(c.slug)} class="underline">
+                  {c.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-5 text-slate">
+          Elsewhere in Punjab we work through our UTL Solar dealer network. <a href="/solar-company-punjab/" class="underline">See every location</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-tight border-t border-rule bg-white" aria-labelledby="trade-h">
+    <div class="wrap grid-12 lg:items-center">
+      <div class="lg:col-span-7">
+        <h2 id="trade-h" class="t-h3">Electrician, installer or shop owner?</h2>
+        <p class="mt-2 text-slate">We supply UTL panels, inverters and batteries at wholesale pricing across Punjab.</p>
+      </div>
+      <p class="lg:col-span-4 lg:col-start-9"><a href="/solar-dealership-punjab/" class="btn btn-secondary">Dealer enquiries</a></p>
+    </div>
+  </section>
+</BaseLayout>

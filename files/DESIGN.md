@@ -240,11 +240,12 @@ height. The existing UTL battery spec table is the model.
 
 ### Sticky mobile bar
 Fixed bottom, ink ground: `WhatsApp | Call | Calculate`. Present on every page. This
-replaces the contact page.
+sits alongside the /contact/ page (added September 2026 for local SEO).
 
 ### Header
-Logo, phone number, one signal-filled CTA. Google rating badge (5.0, 33 reviews) at
-small size. Nothing else.
+A dark contact strip (rating, phone, and opening hours once supplied), then logo, main
+navigation with dropdowns, and the WhatsApp CTA. Navigation was added at RSK’s request in
+September 2026 for usability and SEO; menu data lives in src/data/nav.ts.
 
 ---
 

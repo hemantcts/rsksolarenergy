@@ -12,28 +12,34 @@ export interface CityLocation {
   district: string;
   tier: ServiceTier;
   /**
-   * Real, well-known, publicly verifiable facts about the city's economy — used to make the
+   * Real, well-known, publicly verifiable facts about the city's economy, used to make the
    * solar case locally relevant. Never a claim about RSK's own presence or activity there;
    * that lives in `tier` and the shared copy on the page template.
    */
   profile: string;
-  /** Reviews naming this city specifically. Only Mohali has these — see data/reviews.ts. */
+  /** Reviews naming this city specifically. Only Mohali has these (see data/reviews.ts). */
   reviews?: Review[];
+  /**
+   * Set only for cities outside Punjab. Punjab's 300 free units, the PSPCL tariff and PSPCL's
+   * net-metering process don't apply there, so the page template must not say they do.
+   * `place` is how the city is named in titles and headings.
+   */
+  outsidePunjab?: { place: string; utility: string };
 }
 
-// Only Mohali has reviews that explicitly name it — real reviewers, real install sizes,
+// Only Mohali has reviews that explicitly name it: real reviewers, real install sizes,
 // nothing invented (see data/reviews.ts). No other city gets a testimonial section.
 const mohaliReviews = REVIEWS.filter((r) => r.install?.includes('Mohali'));
 
 export const CITIES: CityLocation[] = [
-  // --- Direct service area: RSK's own installers (matches BUSINESS.serviceArea) ---
+  // Direct service area: RSK's own installers (matches BUSINESS.serviceArea)
   {
     slug: 'mohali',
     name: 'Mohali',
     district: 'Sahibzada Ajit Singh Nagar (Mohali)',
     tier: 'direct',
     profile:
-      'Home to RSK’s office at Phase 8-B, and to a large share of Tricity’s new residential construction and IT-sector offices — both strong candidates for rooftop solar on newly built, unshaded roofs.',
+      'Home to RSK’s office at Phase 8-B, and to a large share of Tricity’s new residential construction and IT-sector offices. Both are strong candidates for rooftop solar on newly built, unshaded roofs.',
     reviews: mohaliReviews,
   },
   {
@@ -42,7 +48,7 @@ export const CITIES: CityLocation[] = [
     district: 'Sahibzada Ajit Singh Nagar (Mohali)',
     tier: 'direct',
     profile:
-      'A fast-growing residential town on Mohali’s northwestern edge, with a large stock of independent houses — the roof type rooftop solar suits best.',
+      'A fast-growing residential town on Mohali’s northwestern edge, with a large stock of independent houses, which is the roof type rooftop solar suits best.',
   },
   {
     slug: 'zirakpur',
@@ -50,7 +56,7 @@ export const CITIES: CityLocation[] = [
     district: 'Sahibzada Ajit Singh Nagar (Mohali)',
     tier: 'direct',
     profile:
-      'A commercial and residential hub on the Chandigarh–Ambala highway, with a mix of showrooms, warehousing and housing societies — good ground for both home and commercial systems.',
+      'A commercial and residential hub on the Chandigarh–Ambala highway, with showrooms, warehousing and housing societies side by side. Good ground for both home and commercial systems.',
   },
   {
     slug: 'derabassi',
@@ -58,7 +64,7 @@ export const CITIES: CityLocation[] = [
     district: 'Sahibzada Ajit Singh Nagar (Mohali)',
     tier: 'direct',
     profile:
-      'An industrial town with a significant pharmaceutical and manufacturing base, alongside a growing residential population — industrial connections here pay from the first unit, with no free-units offset.',
+      'An industrial town with a large pharmaceutical and manufacturing base and a growing residential population. Industrial connections here pay from the first unit, with no free-units offset.',
   },
   {
     slug: 'chandigarh',
@@ -67,6 +73,7 @@ export const CITIES: CityLocation[] = [
     tier: 'direct',
     profile:
       'The planned capital shared by Punjab and Haryana, with wide flat-roofed sectors that are close to ideal for panel layout, and a well-established rooftop solar and net-metering process through its own utility.',
+    outsidePunjab: { place: 'Chandigarh', utility: 'Chandigarh’s own electricity distribution utility' },
   },
   {
     slug: 'panchkula',
@@ -75,16 +82,17 @@ export const CITIES: CityLocation[] = [
     tier: 'direct',
     profile:
       'A planned residential and business town bordering Chandigarh, with newer housing sectors and low-rise commercial buildings well suited to rooftop arrays.',
+    outsidePunjab: { place: 'Panchkula, Haryana', utility: 'UHBVN (Uttar Haryana Bijli Vitran Nigam)' },
   },
 
-  // --- Dealer-network reach across Punjab ---
+  // Dealer-network reach across Punjab
   {
     slug: 'ludhiana',
     name: 'Ludhiana',
     district: 'Ludhiana',
     tier: 'partner',
     profile:
-      'Punjab’s largest city and its industrial centre — hosiery, bicycle parts and auto components — with heavy daytime commercial and industrial power use that solar offsets well, since none of it qualifies for the domestic free-units scheme.',
+      'Punjab’s largest city and its industrial centre (hosiery, bicycle parts and auto components), with heavy daytime commercial and industrial power use that solar offsets well, since none of it qualifies for the domestic free-units scheme.',
   },
   {
     slug: 'amritsar',
@@ -92,7 +100,7 @@ export const CITIES: CityLocation[] = [
     district: 'Amritsar',
     tier: 'partner',
     profile:
-      'A major pilgrimage and tourism centre around the Golden Temple, surrounded by Punjab’s agricultural belt — a mix of hospitality businesses, retail and farm loads that all suit different system types.',
+      'A major pilgrimage and tourism centre around the Golden Temple, surrounded by Punjab’s agricultural belt. Hospitality businesses, retail and farm loads here each suit a different system type.',
   },
   {
     slug: 'jalandhar',
@@ -100,7 +108,7 @@ export const CITIES: CityLocation[] = [
     district: 'Jalandhar',
     tier: 'partner',
     profile:
-      'A manufacturing hub known for sports goods and leather goods, with a large NRI population and a correspondingly large stock of bigger independent houses — good candidates for larger home systems.',
+      'A manufacturing hub known for sports and leather goods, with a large NRI population and plenty of bigger independent houses. Those homes are good candidates for larger systems.',
   },
   {
     slug: 'patiala',
@@ -108,7 +116,7 @@ export const CITIES: CityLocation[] = [
     district: 'Patiala',
     tier: 'partner',
     profile:
-      'A heritage city and district headquarters with a mix of older heritage buildings, newer residential colonies and a university population — roof suitability varies more here than in newer towns, so a site check matters.',
+      'A heritage city and district headquarters with older heritage buildings, newer residential colonies and a university population. Roof suitability varies more here than in newer towns, so a site check matters.',
   },
   {
     slug: 'bathinda',
@@ -116,7 +124,7 @@ export const CITIES: CityLocation[] = [
     district: 'Bathinda',
     tier: 'partner',
     profile:
-      'A power and refining hub in Punjab’s cotton belt, with significant industrial and agricultural electricity demand — both categories pay from the first unit, with no free-units offset to work around.',
+      'A power and refining hub in Punjab’s cotton belt, with large industrial and agricultural electricity demand. Both categories pay from the first unit, with no free-units offset to work around.',
   },
   {
     slug: 'hoshiarpur',
@@ -124,7 +132,7 @@ export const CITIES: CityLocation[] = [
     district: 'Hoshiarpur',
     tier: 'partner',
     profile:
-      'A sub-mountainous district with a large NRI population and a strong tradition of well-built independent housing — homes here often have the roof area for a larger system than the bill alone would suggest.',
+      'A sub-mountainous district with a large NRI population and a strong tradition of well-built independent housing. Homes here often have the roof area for a bigger system than the bill alone would suggest.',
   },
   {
     slug: 'pathankot',
@@ -156,7 +164,7 @@ export const CITIES: CityLocation[] = [
     district: 'Sangrur',
     tier: 'partner',
     profile:
-      'At the heart of Punjab’s paddy and wheat belt, with heavy agricultural power use and groundwater pumping — a district where agricultural and domestic solar both have a real role to play.',
+      'At the heart of Punjab’s paddy and wheat belt, with heavy agricultural power use and groundwater pumping. Agricultural and domestic solar both have a real role here.',
   },
   {
     slug: 'khanna',
@@ -164,7 +172,7 @@ export const CITIES: CityLocation[] = [
     district: 'Ludhiana',
     tier: 'partner',
     profile:
-      'Home to one of Asia’s largest grain markets, with a business community built around agricultural trade, warehousing and transport — commercial and industrial loads that run through the day.',
+      'Home to one of Asia’s largest grain markets, with a business community built around agricultural trade, warehousing and transport. Those are daytime commercial loads that solar offsets well.',
   },
   {
     slug: 'rupnagar',
@@ -185,6 +193,9 @@ export const CITIES: CityLocation[] = [
 ];
 
 export const cityPath = (slug: string) => `/solar-company-${slug}/`;
+
+/** How a city is named in titles and headings: "Ludhiana, Punjab", "Panchkula, Haryana", "Chandigarh". */
+export const cityPlace = (c: CityLocation) => c.outsidePunjab?.place ?? `${c.name}, Punjab`;
 
 export function cityBySlug(slug: string): CityLocation | undefined {
   return CITIES.find((c) => c.slug === slug);

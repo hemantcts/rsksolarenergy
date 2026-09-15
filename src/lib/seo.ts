@@ -36,15 +36,16 @@ export interface QA {
 /**
  * Site-wide LocalBusiness. NAP matches the Google Business Profile.
  *
- * aggregateRating IS emitted (CLAUDE.md §6 asks for it) using the real Google Business Profile
- * figure — see BUSINESS.google.ratingCheckedOn — and is backed by the individually-authored
- * Review nodes visibly on /reviews/, not by markup alone. Note the tension: the rating is
- * aggregated from Google Maps, and Google's review-snippet guidance is unenthusiastic about
- * self-serving LocalBusiness ratings, so it may simply not earn stars. If a structured-data
- * warning ever appears in Search Console, this field is the first thing to drop.
+ * Deliberately no aggregateRating and no Review markup anywhere on the site. The 4.9 rating and
+ * the reviews quoted on /reviews/ were collected on Google Maps, and Google's review-snippet
+ * policy rules out marking up ratings gathered on another platform, as well as self-serving
+ * reviews on a LocalBusiness. Visitors still see the figures; they just aren't structured data.
  */
 export function localBusiness() {
   const a = BUSINESS.address;
+  const sameAs = [BUSINESS.google.mapsUrl, BUSINESS.social.facebook, BUSINESS.social.instagram, BUSINESS.social.youtube, BUSINESS.justdial.url].filter(
+    (u): u is string => !!u,
+  );
   return {
     '@type': ['LocalBusiness', 'HomeAndConstructionBusiness'],
     '@id': BUSINESS_ID,
@@ -66,7 +67,7 @@ export function localBusiness() {
       addressCountry: a.country,
     },
     ...(BUSINESS.geo ? { geo: { '@type': 'GeoCoordinates', latitude: BUSINESS.geo.lat, longitude: BUSINESS.geo.lng } } : {}),
-    ...(BUSINESS.hours
+    ...(BUSINESS.hours?.length
       ? {
           openingHoursSpecification: BUSINESS.hours.map((h) => ({
             '@type': 'OpeningHoursSpecification',
@@ -77,14 +78,7 @@ export function localBusiness() {
         }
       : {}),
     hasMap: BUSINESS.google.mapsUrl,
-    // Real figure from the live Google Business Profile (see BUSINESS.google.ratingCheckedOn),
-    // not invented — and backed by the actual Review nodes on /reviews/, not markup alone.
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: BUSINESS.google.rating,
-      reviewCount: BUSINESS.google.reviewCount,
-      bestRating: 5,
-    },
+    sameAs,
     areaServed: [...BUSINESS.serviceArea.map((c) => ({ '@type': 'City', name: c })), { '@type': 'State', name: 'Punjab' }],
     knowsAbout: [
       'Rooftop solar',
@@ -93,6 +87,9 @@ export function localBusiness() {
       'On-grid solar systems',
       'Hybrid solar systems',
       'Off-grid solar systems',
+      'Solar inverters',
+      'Solar batteries',
+      'Solar water pumps',
       'UTL Solar products',
     ],
     brand: { '@type': 'Brand', name: BUSINESS.brand },
@@ -128,7 +125,7 @@ export function faqPage(items: QA[]) {
   };
 }
 
-export function service(opts: { name: string; description: string; path: string; serviceType: string }) {
+export function service(opts: { name: string; description: string; path: string; serviceType: string; areaServed?: object }) {
   return {
     '@type': 'Service',
     name: opts.name,
@@ -136,7 +133,7 @@ export function service(opts: { name: string; description: string; path: string;
     url: abs(opts.path),
     serviceType: opts.serviceType,
     provider: { '@id': BUSINESS_ID },
-    areaServed: { '@type': 'State', name: 'Punjab' },
+    areaServed: opts.areaServed ?? { '@type': 'State', name: 'Punjab' },
   };
 }
 
@@ -149,8 +146,8 @@ export function product(p: { title: string; summary: string; slug: string; model
     brand: { '@type': 'Brand', name: p.brand },
     ...(p.model ? { model: p.model, mpn: p.model } : {}),
     category: p.category,
-    // No `offers`/price here — deliberate. RSK doesn't publish prices (CLAUDE.md §7); a Product
-    // offer without a real price would be either fabricated or misleadingly absent to Google.
+    // No `offers`/price: RSK doesn't publish prices (CLAUDE.md §7), and an offer without a real
+    // price would be either fabricated or misleadingly absent.
     ...(p.image ? { image: p.image } : {}),
   };
 }
@@ -170,19 +167,12 @@ export function article(opts: { title: string; description: string; path: string
   };
 }
 
-/**
- * Individual customer Review nodes for the reviews page. These are what back the
- * aggregateRating on localBusiness() — Google's guidance is comfortable with genuine,
- * individually-authored reviews that are visibly present on the page, which these are.
- */
-export function review(r: { name: string; date: string; rating: number; text: string }) {
+/** Marks a page as the business's contact page, pointing back at the site-wide LocalBusiness. */
+export function contactPage(path: string) {
   return {
-    '@type': 'Review',
-    itemReviewed: { '@id': BUSINESS_ID },
-    author: { '@type': 'Person', name: r.name },
-    datePublished: r.date,
-    reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5 },
-    reviewBody: r.text,
+    '@type': 'ContactPage',
+    url: abs(path),
+    about: { '@id': BUSINESS_ID },
   };
 }
 

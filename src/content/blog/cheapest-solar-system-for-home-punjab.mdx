@@ -1,0 +1,72 @@
+---
+title: 'The Cheapest Way to Get Solar for a Home in Punjab'
+description: 'Cheap solar in Punjab means the smallest system that clears your bill, bought with the subsidy. What that costs by size, and where cutting cost loses you money.'
+published: '2026-09-15'
+category: Subsidy and bills
+tags: ['cheap solar', 'low cost solar', 'solar price', 'PM Surya Ghar']
+faq:
+  - q: Is a 1 kW system the cheapest way to go solar?
+    a: 'It has the lowest price, but RSK does not install on-grid systems below 3 kW, so a 1 kW system is hybrid or off-grid. A home over 300 units a month usually needs 3 kW to clear its bill anyway, and on-grid is the lowest-cost way to get that.'
+  - q: Are cheap unbranded panels a good way to save?
+    a: 'Not on a subsidised system. The subsidy is paid only for ALMM-listed panels, so a cheaper panel that is not on the list can cost you the whole subsidy.'
+  - q: Can I get the subsidy on an off-grid system?
+    a: 'No. PM Surya Ghar pays only for grid-connected systems. Off-grid is cheaper to buy in small sizes, but it carries no subsidy.'
+related:
+  - href: /solar-calculator/
+    label: Find the smallest system that clears your bill
+  - href: /blog/solar-loan-financing-india/
+    label: Solar loans and financing
+  - href: /pm-surya-ghar-subsidy-punjab/
+    label: How the PM Surya Ghar subsidy works
+cta:
+  heading: Want the lowest price that works?
+  label: Send your bill on WhatsApp
+  message: 'Hi RSK, I want the most affordable solar system that clears my bill. I am sending my electricity bill.'
+---
+
+import DraftNote from '../../components/DraftNote.astro';
+import { F } from '../../lib/facts';
+import { sizeFacts, sizePath } from '../../data/sizes';
+import { inr, inrRange } from '../../lib/calculator/format';
+
+export const rows = [1, 2, 3, 5].map((kw) => ({ kw, s: sizeFacts(kw) }));
+export const s3 = sizeFacts(3);
+export const offGrid1 = sizeFacts(1).prices.offGrid;
+
+For most homes, the cheapest solar is the smallest on-grid system that brings the bill to zero, installed with the PM Surya Ghar subsidy. In Punjab that is often 3 kW, which comes to {inrRange(s3.primaryNet)} after the {inr(s3.subsidy)} subsidy. And if you use {F.free} units a month or fewer, the cheapest option is no system at all, because your bill is already zero.
+
+## What each size costs after the subsidy
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table">
+<caption>Home systems, installed, before and after the PM Surya Ghar subsidy</caption>
+<thead><tr><th scope="col">System</th><th scope="col">Type</th><th scope="col" class="num">Installed</th><th scope="col" class="num">Subsidy</th><th scope="col" class="num">You pay</th></tr></thead>
+<tbody>
+<tr><th scope="row">1 kW</th><td>Off-grid</td><td class="num">{inrRange(offGrid1)}</td><td class="num">₹0</td><td class="num">{inrRange(offGrid1)}</td></tr>
+{rows.map(({ kw, s }) => (
+<tr><th scope="row"><a href={sizePath(kw)} class="underline">{kw} kW</a></th><td>{s.primaryType === 'on-grid' ? 'On-grid' : 'Hybrid'}</td><td class="num">{inrRange(s.primaryGross)}</td><td class="num">{inr(s.subsidy)}</td><td class="num">{inrRange(s.primaryNet)}</td></tr>
+))}
+</tbody>
+</table>
+</div>
+
+<DraftNote />
+
+You pay the full installed price first. The subsidy is credited to your bank account {F.days} days after PSPCL inspects the system, so budget for the whole amount.
+
+## Why a bigger system isn't better value here
+
+Punjab's free units change the maths. Once solar brings your net use under {F.free} units a month, the bill is zero, and there is nothing left for extra panels to save. Surplus units sent to the grid are worth far less than the ones you use, so capacity beyond the size that clears your bill mostly adds cost.
+
+## Where cutting cost loses you money
+
+- **Panels that aren't ALMM-listed.** The subsidy is paid only for listed models. Saving a little on panels can cost you up to {F.cap}.
+- **An inverter that is too small or mismatched.** It clips output on good days, so the system never makes the units it was sized for.
+- **A flimsy mounting structure.** Panels carry a 25-year performance warranty. A structure that rusts or shifts in a storm costs more to redo than it saved.
+
+## Cheaper routes that do work
+
+- **Right-size first.** The [calculator](/solar-calculator/) finds the smallest system that takes your bill to zero, so you don't pay for panels you don't need.
+- **Spread the cost.** A bank solar loan turns the price into instalments. See [solar loans in India](/blog/solar-loan-financing-india/).
+- **Off-grid for small needs.** For a farmhouse, a tubewell room or basic backup, a small off-grid kit costs less upfront, though it gets no subsidy.
+- **Sort your sanctioned load early.** A system can't exceed it, and applying for an increase after quoting delays the job.

@@ -26,7 +26,6 @@ Redirect 301 /services/ /
 
 # Core pages.
 Redirect 301 /about-us/ /about/
-Redirect 301 /contact/ /
 Redirect 301 /thank-you/ /
 
 # Demo "projects" (lorem-ipsum content, two of them wind energy — RSK does not do wind).

@@ -3,6 +3,15 @@
  * NAP must match the Google Business Profile exactly (CLAUDE.md §6).
  * Anything marked TODO is listed in files/TODO-content.md.
  */
+export type Weekday = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
+
+/** One opening-hours rule. Times are 24-hour "HH:MM", the format schema.org expects. */
+export interface OpeningHours {
+  days: Weekday[];
+  opens: string;
+  closes: string;
+}
+
 export const BUSINESS = {
   name: 'RSK Solar Energy',
   siteUrl: 'https://rsksolarenergy.com',
@@ -22,7 +31,7 @@ export const BUSINESS = {
   // TODO: exact coordinates from the Google Business Profile pin.
   geo: null as null | { lat: number; lng: number },
 
-  /** Primary number listed first — confirmed by RSK. */
+  /** Primary number listed first, confirmed by RSK. */
   phones: [
     { display: '+91 90419 96918', tel: '+919041996918' },
     { display: '+91 94170 30347', tel: '+919417030347' },
@@ -33,8 +42,14 @@ export const BUSINESS = {
 
   email: 'rsksolarenergy@gmail.com',
 
-  // TODO: opening hours from the Google Business Profile. Not shown until supplied.
-  hours: null as null | { days: string; opens: string; closes: string }[],
+  /**
+   * TODO: opening hours from RSK, matching the Google Business Profile exactly.
+   * Everything that shows hours (header strip, footer, contact page, schema) reads this one
+   * field, so filling it in updates the whole site at once. Until then no hours are shown
+   * anywhere, rather than a guess. Example shape:
+   *   [{ days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '09:30', closes: '18:30' }]
+   */
+  hours: null as null | OpeningHours[],
 
   google: {
     rating: 4.9,
@@ -69,7 +84,7 @@ export const BUSINESS = {
   brand: 'UTL Solar',
 
   /**
-   * Social profile URLs. Left null until RSK supplies the real profile/channel URLs — a social
+   * Social profile URLs. Left null until RSK supplies the real profile/channel URLs. A social
    * link is never shown until it is genuinely confirmed (CLAUDE.md §6, same rule as Justdial's URL).
    */
   social: {
@@ -82,15 +97,15 @@ export const BUSINESS = {
   /** Registration numbers, shown in the footer and About for credibility. Confirmed by RSK. */
   registrations: {
     gst: '03GKGPK1207P1Z4',
-    // As supplied by RSK. Udyam registration numbers are usually printed "UDYAM-..." (no H) —
-    // worth checking this against the certificate before launch.
+    // As supplied by RSK. Udyam registration numbers are usually printed "UDYAM-..." (no H),
+    // so this needs checking against the certificate.
     msme: 'UDHYAM-PB-20-0093804',
   },
 
   /**
    * Google Analytics 4 measurement ID, supplied by RSK. Loaded site-wide from
    * `src/layouts/BaseLayout.astro`. Set to null to remove Google Analytics from every page
-   * without touching the layout — see the developer guide's "Google Analytics" section.
+   * without touching the layout. See the developer guide's "Google Analytics" section.
    */
   gaMeasurementId: 'G-VJHJ211TLW' as string | null,
 } as const;
@@ -100,4 +115,38 @@ export const PRIMARY_PHONE = BUSINESS.phones[0];
 export function formatAddressLines(): string[] {
   const a = BUSINESS.address;
   return [a.street, a.locality, [a.region, a.postalCode].filter(Boolean).join(' ')];
+}
+
+const WEEK: Weekday[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const shortDay = (i: number) => WEEK[i].slice(0, 3);
+
+function clock(t: string) {
+  const [h, m] = t.split(':').map(Number);
+  const h12 = h % 12 === 0 ? 12 : h % 12;
+  return `${h12}${m ? `:${String(m).padStart(2, '0')}` : ''} ${h >= 12 ? 'pm' : 'am'}`;
+}
+
+/** "Mon–Sat", or "Sat, Sun" for a two-day run, from any set of weekdays. */
+function dayRange(days: readonly Weekday[]) {
+  const idx = [...new Set(days.map((d) => WEEK.indexOf(d)))].sort((a, b) => a - b);
+  const runs: number[][] = [];
+  for (const i of idx) {
+    const run = runs.at(-1);
+    if (run && i === run.at(-1)! + 1) run.push(i);
+    else runs.push([i]);
+  }
+  return runs.map((r) => (r.length > 2 ? `${shortDay(r[0])}–${shortDay(r.at(-1)!)}` : r.map(shortDay).join(', '))).join(', ');
+}
+
+/**
+ * Opening hours as display lines ("Mon–Sat, 9:30 am to 6:30 pm") plus the closed days, or null
+ * while BUSINESS.hours is unset. Every place that shows hours goes through this.
+ */
+export function formatHours(): { lines: string[]; closed: string | null } | null {
+  const hours = BUSINESS.hours;
+  if (!hours?.length) return null;
+  const lines = hours.map((h) => `${dayRange(h.days)}, ${clock(h.opens)} to ${clock(h.closes)}`);
+  const open = new Set(hours.flatMap((h) => h.days));
+  const closedDays = WEEK.filter((d) => !open.has(d));
+  return { lines, closed: closedDays.length ? `${dayRange(closedDays)}: closed` : null };
 }

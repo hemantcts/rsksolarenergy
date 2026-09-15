@@ -1,0 +1,76 @@
+---
+title: 'How Much Solar Do You Need to Run a 1.5 Ton AC?'
+description: 'Around 3 kW covers a 1.5 ton AC used 8 hours a day. How to work it out from your AC''s energy label, and why running one on batteries is a much bigger job.'
+published: '2026-09-15'
+category: Sizing and systems
+tags: ['air conditioner', 'system size', '1.5 ton AC', 'sizing']
+faq:
+  - q: Can a 1 kW solar system run a 1.5 ton AC?
+    a: 'Not on its own. 1 kW of panels makes roughly 3 to 4 units on an average day, which is less than a 1.5 ton AC uses in a single evening of cooling.'
+  - q: Does a 5-star AC make much difference to the solar size?
+    a: 'Yes. A higher star rating uses fewer units for the same cooling, which can bring the system you need down by about a kilowatt for a heavily used AC.'
+  - q: Will the subsidy cover a system sized for my AC?
+    a: 'For a home, yes. The PM Surya Ghar subsidy applies to on-grid and hybrid systems, up to ₹78,000 for 3 kW or more.'
+related:
+  - href: /solar-calculator/
+    label: Size a system from your own bill
+  - href: /3kw-solar-system-price-punjab/
+    label: 3 kW solar system price in Punjab
+  - href: /blog/how-many-units-1kw-solar-produces-punjab/
+    label: How many units 1 kW of solar produces
+cta:
+  heading: Running an AC on solar?
+  label: Send your bill on WhatsApp
+  message: 'Hi RSK, I want solar that covers my air conditioner. AC size and hours a day: '
+---
+
+import { F } from '../../lib/facts';
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { effectiveYieldPerKw, sizeAtLeast } from '../../lib/calculator/sizing';
+
+export const perKwDay = effectiveYieldPerKw(SOLAR_CONFIG) / 365;
+export const unitsPerHour = 1.2;
+export const rows = [6, 8, 10].map((hours) => {
+  const daily = hours * unitsPerHour;
+  const kw = daily / perKwDay;
+  return { hours, daily, kw, system: sizeAtLeast(kw, SOLAR_CONFIG) };
+});
+export const eightHourMonth = Math.round(8 * unitsPerHour * 30);
+
+About 3 kW of panels, for a 1.5 ton AC used around 8 hours a day. That matches the AC's average daily units with solar generation over the year. It doesn't mean the panels run the AC at night: after dark, the power comes from the grid or a battery.
+
+## The calculation
+
+A 1.5 ton inverter AC typically uses around 1 to 1.4 units an hour on a hot Punjab afternoon, and less once the room has cooled. The table uses {unitsPerHour} units an hour as a working figure. Your AC's BEE star label is a better starting point: it shows the rated yearly consumption in units, based on 1,600 hours of use, so dividing that by 1,600 gives a rough units-per-hour figure for your model.
+
+Our estimates assume {F.perKwMonth} units a month from each kW of panels, about {perKwDay.toFixed(1)} a day averaged over the year.
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table">
+<caption>1.5 ton AC at {unitsPerHour} units an hour</caption>
+<thead><tr><th scope="col">AC use a day</th><th scope="col" class="num">Units a day</th><th scope="col" class="num">Panels to match</th><th scope="col" class="num">Nearest system</th></tr></thead>
+<tbody>
+{rows.map((r) => (
+<tr><th scope="row">{r.hours} hours</th><td class="num">{r.daily.toFixed(1)}</td><td class="num">{r.kw.toFixed(1)} kW</td><td class="num">{r.system} kW</td></tr>
+))}
+</tbody>
+</table>
+</div>
+
+Summer generates more than the yearly average, which works in your favour, since summer is when the AC runs hardest.
+
+## In Punjab, the AC is often what crosses the 300-unit line
+
+An AC used 8 hours a day adds roughly {eightHourMonth} units a month. For a home that was comfortably under {F.free} units, that is enough to cross the line, and once a general-category home crosses it, PSPCL charges for every unit, not just the extra ones. That is why the AC so often decides whether solar pays here. [Is solar worth it with 300 free units](/blog/solar-with-300-free-units-punjab/) has the numbers.
+
+## On-grid: the meter does the balancing
+
+With net metering, the panels don't need to power the AC directly. Daytime generation supplies the house first and any surplus goes to the grid; at night you draw from the grid. The meter nets the two over the billing cycle, which is why an on-grid system is sized on units rather than on the AC's running load.
+
+## Running an AC on batteries is a bigger job
+
+Off-grid, or during a power cut, the inverter has to carry the AC's load and the batteries have to hold the energy. Four 12 V, 150 Ah tubular batteries give about 3.2 kWh of everyday backup, which a 1.5 ton AC gets through in two to three hours. Cooling a room through the night on batteries takes a much larger bank and inverter, and rarely makes financial sense. [How many batteries a 3 kW system needs](/blog/how-many-batteries-for-3kw-solar-system/) goes through the backup maths.
+
+## Size it from your own bill
+
+The AC is one load among many. The [calculator](/solar-calculator/) works from your PSPCL bill as a whole and recommends the smallest system that takes it to zero.

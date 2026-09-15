@@ -19,41 +19,47 @@ Figures on this site are computed live from a single configuration (PSPCL FY 202
 
 ## Guides
 
-- [Become a UTL Solar Dealer in Punjab | RSK Solar Energy](https://rsksolarenergy.com/solar-dealership-punjab/): Partner with RSK Solar Energy, a UTL Solar distributor in Mohali. Wholesale UTL panels, inverters, batteries and kits for dealers and installers across Punjab.
-- [Commercial and Industrial Rooftop Solar in Punjab | RSK Solar Energy](https://rsksolarenergy.com/commercial-solar-punjab/): Rooftop solar for shops, offices, clinics, schools and factories in Mohali and Punjab. PSPCL NRS and industrial tariffs, sizing to sanctioned load, and payback.
-- [Hybrid Solar Systems with Battery Backup in Mohali | RSK Solar Energy](https://rsksolarenergy.com/hybrid-solar-systems/): UTL hybrid solar systems from 1 kW upwards, installed by RSK in Mohali. Real pricing, how hybrid works, when the batteries are worth it, and the subsidy position.
-- [Off-Grid Solar Systems in Mohali and Punjab | RSK Solar Energy](https://rsksolarenergy.com/off-grid-solar-systems/): UTL off-grid solar kits from 1 kW to 5 kW for farmhouses, tube-well rooms and sites without reliable power. Supplied and installed by RSK, Phase 8-B Mohali.
-- [On-Grid vs Off-Grid vs Hybrid Solar in Punjab | RSK Solar Energy](https://rsksolarenergy.com/on-grid-vs-off-grid-vs-hybrid/): The difference between on-grid, off-grid and hybrid rooftop solar: power cuts, batteries, subsidy, net metering and cost. Which one suits a Punjab home or business.
-- [PM Surya Ghar Subsidy in Punjab (2026): Amounts, Steps, Rejections](https://rsksolarenergy.com/pm-surya-ghar-subsidy-punjab/): How the PM Surya Ghar rooftop solar subsidy works for PSPCL homes: ₹30,000 to ₹78,000, who qualifies, the steps, the documents, and why applications get rejected.
-- [Rooftop Solar for Housing Societies and RWAs | RSK Solar Energy](https://rsksolarenergy.com/housing-society-solar/): PM Surya Ghar gives group housing societies and RWAs ₹18,000 per kW for common facilities, up to 500 kW. How it works for Tricity societies, and what to prepare.
-- [Solar Water Pumps for Punjab Farmers | RSK Solar Energy](https://rsksolarenergy.com/solar-pumps/): Solar-powered tubewells and water pumps for agriculture in Punjab. 100+ installations, PM-KUSUM subsidy, no diesel or grid dependency. Enquire on WhatsApp.
-- [UTL Solar Distributor in Mohali and Punjab | RSK Solar Energy](https://rsksolarenergy.com/utl-solar-distributor-punjab/): RSK Solar Energy, Phase 8-B Mohali, distributes UTL Solar panels, inverters, PCUs, batteries and complete kits across Punjab. Homeowners and trade buyers welcome.
-- [UTL Solar Panels in Mohali, 40 W to 400 W | RSK Solar Energy](https://rsksolarenergy.com/solar-panels/): UTL mono PERC and polycrystalline solar panels from 40 W to 400 W, with full specifications. What to check before you buy, including ALMM listing for the subsidy.
+- [Become a UTL Solar Dealer in Punjab: Wholesale Supply](https://rsksolarenergy.com/solar-dealership-punjab/): Partner with RSK Solar Energy, a UTL Solar distributor in Mohali. Wholesale UTL panels, inverters, batteries and kits for dealers and installers across Punjab.
+- [Commercial and Industrial Rooftop Solar in Punjab](https://rsksolarenergy.com/commercial-solar-punjab/): Rooftop solar for shops, offices, clinics, schools and factories in Mohali and Punjab. PSPCL NRS and industrial tariffs, sizing to sanctioned load, and payback.
+- [Hybrid Solar Systems with Battery Backup in Mohali](https://rsksolarenergy.com/hybrid-solar-systems/): UTL hybrid solar systems from 1 kW upwards, installed by RSK in Mohali. Real pricing, how hybrid works, when the batteries are worth it, and the subsidy position.
+- [Off-Grid Solar Systems in Mohali and Punjab](https://rsksolarenergy.com/off-grid-solar-systems/): UTL off-grid solar kits from 1 kW to 5 kW for farmhouses, tube-well rooms and sites without reliable power. Supplied and installed by RSK, Phase 8-B Mohali.
+- [On-Grid vs Off-Grid vs Hybrid Solar in Punjab](https://rsksolarenergy.com/on-grid-vs-off-grid-vs-hybrid/): The difference between on-grid, off-grid and hybrid rooftop solar: power cuts, batteries, subsidy, net metering and cost. Which one suits a Punjab home or business.
+- [PM Surya Ghar Subsidy in Punjab 2026: Amounts and Steps](https://rsksolarenergy.com/pm-surya-ghar-subsidy-punjab/): How the PM Surya Ghar rooftop solar subsidy works for PSPCL homes: ₹30,000 to ₹78,000, who qualifies, the steps, the documents, and why applications get rejected.
+- [Rooftop Solar for Housing Societies and RWAs in Punjab](https://rsksolarenergy.com/housing-society-solar/): PM Surya Ghar gives group housing societies and RWAs ₹18,000 per kW for common facilities, up to 500 kW. How it works for Tricity societies, and what to prepare.
+- [Solar Water Pumps and Tubewells for Punjab Farmers](https://rsksolarenergy.com/solar-pumps/): Solar-powered tubewells and water pumps for agriculture in Punjab. 100+ installations, PM-KUSUM subsidy, no diesel or grid dependency. Enquire on WhatsApp.
+- [UTL Solar Distributor in Mohali and Punjab](https://rsksolarenergy.com/utl-solar-distributor-punjab/): RSK Solar Energy, Phase 8-B Mohali, distributes UTL Solar panels, inverters, PCUs, batteries and complete kits across Punjab. Homeowners and trade buyers welcome.
+- [UTL Solar Panels in Mohali: 40 W to 735 W](https://rsksolarenergy.com/solar-panels/): UTL mono PERC, N-type TOPCon and bifacial solar panels from 40 W to 735 W, with full specifications. What to check before you buy, including ALMM listing.
 - [1 kW solar system price in Punjab](https://rsksolarenergy.com/1kw-solar-system-price-punjab/)
 - [2 kW solar system price in Punjab](https://rsksolarenergy.com/2kw-solar-system-price-punjab/)
 - [3 kW solar system price in Punjab](https://rsksolarenergy.com/3kw-solar-system-price-punjab/)
 - [5 kW solar system price in Punjab](https://rsksolarenergy.com/5kw-solar-system-price-punjab/)
 - [10 kW solar system price in Punjab](https://rsksolarenergy.com/10kw-solar-system-price-punjab/)
 
-## Blog (17 posts)
+## Blog (23 posts)
 
-- [Charging an EV From Your Own Rooftop Solar](https://rsksolarenergy.com/blog/ev-charging-from-rooftop-solar/)
-- [Commercial Solar in Punjab — A Different Calculation Entirely](https://rsksolarenergy.com/blog/commercial-solar-calculation-punjab/)
-- [How Long Do Solar Panels Actually Last?](https://rsksolarenergy.com/blog/how-long-do-solar-panels-last/)
-- [How to Size a Home Solar System in Punjab | RSK Solar Energy](https://rsksolarenergy.com/blog/how-to-size-home-solar-punjab/)
-- [Hybrid Solar Cost in Punjab — Is the Battery Worth It?](https://rsksolarenergy.com/blog/hybrid-solar-cost-is-battery-worth-it/)
-- [Is Solar Worth It in Punjab With 300 Free Units? | RSK Solar](https://rsksolarenergy.com/blog/solar-with-300-free-units-punjab/)
-- [Net Metering in Punjab — How PSPCL Actually Credits Your Export](https://rsksolarenergy.com/blog/net-metering-punjab-pspcl-explained/)
+- [Charging an EV From Rooftop Solar in Punjab](https://rsksolarenergy.com/blog/ev-charging-from-rooftop-solar/)
+- [Commercial Solar in Punjab: How the Calculation Differs](https://rsksolarenergy.com/blog/commercial-solar-calculation-punjab/)
+- [Housing Society Solar Subsidy: ₹18,000 per kW Explained](https://rsksolarenergy.com/blog/housing-society-solar-subsidy-explained/)
+- [How Long Do Solar Panels Last in India?](https://rsksolarenergy.com/blog/how-long-do-solar-panels-last/)
+- [How Many Batteries Does a 3 kW Solar System Need?](https://rsksolarenergy.com/blog/how-many-batteries-for-3kw-solar-system/)
+- [How Many Units Does a 1 kW Solar System Produce a Day in Punjab?](https://rsksolarenergy.com/blog/how-many-units-1kw-solar-produces-punjab/)
+- [How Much Solar Do You Need to Run a 1.5 Ton AC?](https://rsksolarenergy.com/blog/solar-system-for-1-5-ton-ac/)
+- [How to Choose a Solar Inverter for Your Home](https://rsksolarenergy.com/blog/how-to-choose-solar-inverter-for-home/)
+- [How to Read a Solar Panel Datasheet in India](https://rsksolarenergy.com/blog/solar-panel-datasheet-what-matters/)
+- [How to Size a Home Solar System in Punjab](https://rsksolarenergy.com/blog/how-to-size-home-solar-punjab/)
+- [Hybrid Solar Cost in Punjab: Is the Battery Worth It?](https://rsksolarenergy.com/blog/hybrid-solar-cost-is-battery-worth-it/)
+- [Is Solar Worth It in Punjab With 300 Free Units?](https://rsksolarenergy.com/blog/solar-with-300-free-units-punjab/)
+- [Lithium or Tubular Battery for Solar: Which Should You Buy?](https://rsksolarenergy.com/blog/lithium-vs-tubular-battery-for-solar/)
+- [Net Metering in Punjab: How PSPCL Credits Your Export](https://rsksolarenergy.com/blog/net-metering-punjab-pspcl-explained/)
 - [Off-Grid Solar vs Diesel Generator for Backup in Punjab](https://rsksolarenergy.com/blog/off-grid-solar-vs-diesel-generator-punjab/)
-- [PM-KUSUM Solar Pump Subsidy for Punjab Farmers, Explained](https://rsksolarenergy.com/blog/pm-kusum-solar-pump-subsidy-punjab-farmers/)
-- [Solar for Housing Societies — the ₹18,000/kW Subsidy Explained](https://rsksolarenergy.com/blog/housing-society-solar-subsidy-explained/)
+- [PM-KUSUM Solar Pump Subsidy for Punjab Farmers](https://rsksolarenergy.com/blog/pm-kusum-solar-pump-subsidy-punjab-farmers/)
 - [Solar for Schools and Clinics in Punjab](https://rsksolarenergy.com/blog/solar-for-schools-clinics-punjab/)
-- [Solar Inverter Warranty in India — What's Actually Covered](https://rsksolarenergy.com/blog/solar-inverter-warranty-india/)
-- [Solar Loans in India — How to Finance a Rooftop System](https://rsksolarenergy.com/blog/solar-loan-financing-india/)
-- [Solar Panel Datasheets in India — What Actually Matters](https://rsksolarenergy.com/blog/solar-panel-datasheet-what-matters/)
-- [Solar Panel Maintenance in Punjab — Dust, Heat and a Real Checklist](https://rsksolarenergy.com/blog/solar-panel-maintenance-punjab/)
-- [Solar ROI in Punjab — What Payback Actually Looks Like](https://rsksolarenergy.com/blog/solar-roi-punjab-real-numbers/)
-- [What Actually Happens on Solar Installation Day](https://rsksolarenergy.com/blog/solar-installation-day-what-to-expect/)
+- [Solar Installation Day: What Happens, Step by Step](https://rsksolarenergy.com/blog/solar-installation-day-what-to-expect/)
+- [Solar Inverter Warranty in India: What Is Covered](https://rsksolarenergy.com/blog/solar-inverter-warranty-india/)
+- [Solar Loans in India: How to Finance a Rooftop System](https://rsksolarenergy.com/blog/solar-loan-financing-india/)
+- [Solar Panel Maintenance in Punjab: Dust, Heat and Cleaning](https://rsksolarenergy.com/blog/solar-panel-maintenance-punjab/)
+- [Solar ROI in Punjab: Payback by Monthly Units](https://rsksolarenergy.com/blog/solar-roi-punjab-real-numbers/)
+- [The Cheapest Way to Get Solar for a Home in Punjab](https://rsksolarenergy.com/blog/cheapest-solar-system-for-home-punjab/)
 
 ## Products
 

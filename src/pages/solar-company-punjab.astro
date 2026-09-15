@@ -3,21 +3,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { BUSINESS } from '../config/business';
 import { CITIES, cityPath } from '../data/locations';
-import { breadcrumbs } from '../lib/seo';
 
 const path = '/solar-company-punjab/';
 const direct = CITIES.filter((c) => c.tier === 'direct');
 const partner = CITIES.filter((c) => c.tier === 'partner');
-const title = `Solar Company Locations Across Punjab | ${BUSINESS.name}`;
+const title = 'Rooftop Solar Across Punjab: Cities We Serve';
 const description = 'Where RSK Solar Energy installs directly, and where we reach through our UTL Solar dealer network, across Punjab.';
 ---
 
-<BaseLayout title={title} description={description} crumbs={[{ name: 'Locations', path }]} schema={[breadcrumbs([{ name: 'Locations', path }])]}>
+<BaseLayout title={title} description={description} crumbs={[{ name: 'Locations', path }]}>
   <header class="wrap pt-8 pb-10 lg:pt-12">
     <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Locations', path }]} />
     <h1 class="t-h1 mt-6">Solar across Punjab</h1>
     <p class="t-lead measure mt-5">
-      RSK installs directly in Mohali and the Tricity. Elsewhere in Punjab we reach you through our UTL Solar dealer network — see <a href="/solar-dealership-punjab/" class="underline">become a dealer</a> if that's you.
+      RSK installs directly in Mohali and the Tricity. Elsewhere in Punjab we reach you through our UTL Solar dealer network. See <a href="/solar-dealership-punjab/" class="underline">become a dealer</a> if that's you.
     </p>
   </header>
 

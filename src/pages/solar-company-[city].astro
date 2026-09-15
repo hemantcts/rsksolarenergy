@@ -2,14 +2,14 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Faq from '../components/Faq.astro';
-import CtaBlock from '../components/content/CtaBlock.astro';
 import SizeTable from '../components/content/SizeTable.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import Icon from '../components/Icon.astro';
-import { BUSINESS } from '../config/business';
+import { BUSINESS, PRIMARY_PHONE } from '../config/business';
 import { SOLAR_CONFIG } from '../config/solar-config';
-import { CITIES, cityPath, type CityLocation } from '../data/locations';
+import { CITIES, cityPath, cityPlace, type CityLocation } from '../data/locations';
 import { reviewMonth } from '../data/reviews';
+import { inr } from '../lib/calculator/format';
 import { locationMessage } from '../lib/whatsapp';
 import { faqPage, service, type QA } from '../lib/seo';
 
@@ -20,43 +20,68 @@ export function getStaticPaths() {
 const { city } = Astro.props as { city: CityLocation };
 const path = cityPath(city.slug);
 const direct = city.tier === 'direct';
+// Chandigarh and Panchkula are served directly but aren't in Punjab: no 300 free units, no PSPCL.
+const outside = city.outsidePunjab;
+const place = cityPlace(city);
 const cfg = SOLAR_CONFIG;
+const free = cfg.freeUnits.perMonth;
+const cap = inr(cfg.subsidy.residential.cap);
+const [d0, d1] = cfg.subsidy.disbursementDays;
 
-const title = `Solar Company in ${city.name}, Punjab | RSK Solar Energy`;
+const title = `Solar Company in ${place} | Rooftop Solar Installer`;
 const description = direct
-  ? `RSK Solar Energy installs on-grid, hybrid and off-grid rooftop solar in ${city.name}. UTL Solar distributor, PM Surya Ghar subsidy handled, based in Mohali.`
-  : `Rooftop solar in ${city.name} through RSK's UTL Solar dealer network. On-grid, hybrid and off-grid systems, PM Surya Ghar subsidy, priced after subsidy.`;
+  ? `RSK Solar Energy installs on-grid, hybrid and off-grid rooftop solar in ${city.name}, from Mohali. UTL Solar distributor. PM Surya Ghar subsidy filed for you.`
+  : `Rooftop solar in ${city.name} through RSK's UTL Solar dealer network. On-grid, hybrid and off-grid systems sized to your bill, with the PM Surya Ghar subsidy.`;
 
-const categoryAngles = [
-  { name: 'Residential', text: `Homes in ${city.name} using more than ${cfg.freeUnits.perMonth} units a month save from an on-grid or hybrid system, with the PM Surya Ghar subsidy up to ₹78,000. Under that line, we say so rather than sell you a system.` },
-  { name: 'Commercial', text: 'Shops, offices, clinics and schools pay PSPCL from the first unit, so solar saves from day one — no free-units line to clear first.' },
-  { name: 'Industrial', text: 'Manufacturing units on Punjab’s subsidised industrial tariff can offset a genuine share of daytime load; sizing is capped at sanctioned load or contract demand.' },
-  { name: 'Agricultural', text: 'Farm connections get free power in Punjab, so a grid-tied system does not pay back on bill savings for a tubewell alone. What we install for farmers instead is standalone solar water pumps — see the solar pumps page for that.' },
-];
+const categoryAngles = outside
+  ? [
+      {
+        name: 'Residential',
+        text: `Homes in ${city.name} can claim the PM Surya Ghar subsidy of up to ${cap}, which is a national scheme. Punjab's ${free} free units are a PSPCL scheme and don't apply here, so what solar saves depends on your tariff with ${outside.utility}.`,
+      },
+      { name: 'Commercial', text: 'Shops, offices, clinics and schools pay for their power from the first unit, so solar starts saving straight away. Payback depends on how much of the load runs in daylight.' },
+      { name: 'Industrial', text: 'Workshops and factories can offset a real share of daytime load. System size is capped at your sanctioned load or contract demand.' },
+    ]
+  : [
+      {
+        name: 'Residential',
+        text: `Homes in ${city.name} using more than ${free} units a month save from an on-grid or hybrid system, with the PM Surya Ghar subsidy of up to ${cap}. Under that line the bill is already zero, and we will tell you so.`,
+      },
+      { name: 'Commercial', text: 'Shops, offices, clinics and schools pay PSPCL from the first unit, so solar saves from day one. There is no free-units line to clear first.' },
+      { name: 'Industrial', text: 'Manufacturing units on Punjab’s subsidised industrial tariff can offset a real share of daytime load. Sizing is capped at sanctioned load or contract demand.' },
+      {
+        name: 'Agricultural',
+        text: 'Farm connections get free power in Punjab, so a grid-tied system does not pay back on bill savings for a tubewell alone. For farmers we install standalone solar water pumps instead; see the solar pumps page.',
+      },
+    ];
 
 const faq: QA[] = [
   {
     q: `Does RSK Solar Energy install in ${city.name}?`,
     a: direct
-      ? `Yes. ${city.name} is within RSK's direct service area, worked from our office at ${BUSINESS.address.street}, ${BUSINESS.address.locality}.`
-      : `RSK is based in Mohali. In ${city.name} we work through our UTL Solar dealer network — send your electricity bill on WhatsApp and we size the system and connect you with installation locally or from Mohali, whichever suits the job.`,
+      ? `Yes. ${city.name} is within RSK's own service area, covered from our office at ${BUSINESS.address.street}, ${BUSINESS.address.locality}.`
+      : `RSK is based in Mohali. In ${city.name} we work through our UTL Solar dealer network. Send your electricity bill on WhatsApp and we size the system, then arrange installation locally or from Mohali, whichever suits the job.`,
   },
   {
     q: `What does a solar system cost in ${city.name}?`,
-    a: `The same PSPCL tariff and PM Surya Ghar subsidy apply across Punjab, so pricing does not change by city. Use the calculator with your own bill for an exact figure, or see the size-by-size price pages.`,
+    a: outside
+      ? `System prices are the same as in Mohali, and the PM Surya Ghar subsidy is a national scheme. How much you save depends on your tariff with ${outside.utility}. Our calculator uses the PSPCL tariff, so for ${city.name} send us your bill and we work out the numbers.`
+      : 'System prices, the PSPCL tariff and the PM Surya Ghar subsidy are the same across Punjab, so pricing does not change by city. Enter your own bill in the calculator for your figures, or see the price page for each system size.',
   },
   {
     q: 'How much subsidy is available?',
-    a: `Up to ₹78,000 for a home on-grid or hybrid system of 3 kW or more, paid to your bank account ${cfg.subsidy.disbursementDays[0]}–${cfg.subsidy.disbursementDays[1]} days after inspection. See the full subsidy guide for eligibility.`,
+    a: `Up to ${cap} for a home on-grid or hybrid system of 3 kW or more, paid to your bank account ${d0} to ${d1} days after inspection. See the full subsidy guide for eligibility.`,
   },
   {
     q: 'Do you handle net metering and the subsidy paperwork?',
-    a: 'Yes, for on-grid and hybrid systems we install. We handle the PSPCL net-metering application and the PM Surya Ghar portal filing.',
+    a: outside
+      ? `Yes, for the on-grid and hybrid systems we install. We file the PM Surya Ghar application and the net-metering application with ${outside.utility}.`
+      : 'Yes, for the on-grid and hybrid systems we install. We file the PSPCL net-metering application and the PM Surya Ghar portal application.',
   },
 ];
 
 const schema = [
-  service({ name: `Rooftop solar in ${city.name}`, description, path, serviceType: 'Rooftop solar system installation' }),
+  service({ name: `Rooftop solar in ${city.name}`, description, path, serviceType: 'Rooftop solar system installation', areaServed: { '@type': 'City', name: city.name } }),
   faqPage(faq),
 ];
 ---
@@ -64,13 +89,17 @@ const schema = [
 <BaseLayout title={title} description={description} crumbs={[{ name: `Solar in ${city.name}`, path }]} schema={schema}>
   <header class="wrap pt-8 pb-10 lg:pt-12">
     <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: `Solar in ${city.name}`, path }]} />
-    <h1 class="t-h1 mt-6">Solar company in {city.name}, Punjab</h1>
+    <h1 class="t-h1 mt-6">Solar company in {place}</h1>
     <p class="t-lead measure mt-5">
-      {direct
-        ? `RSK Solar Energy installs on-grid, hybrid and off-grid rooftop solar in ${city.name}, worked directly from our office in Mohali.`
-        : `RSK Solar Energy is a UTL Solar distributor based in Mohali, reaching ${city.name} through our Punjab dealer network. Send your bill on WhatsApp and we size the system and arrange installation.`}
+      {
+        direct
+          ? `RSK Solar Energy installs on-grid, hybrid and off-grid rooftop solar in ${city.name}, with our own team working from the office in Mohali.`
+          : `RSK Solar Energy is a UTL Solar distributor based in Mohali, reaching ${city.name} through our Punjab dealer network. Send your bill on WhatsApp and we size the system and arrange installation.`
+      }
     </p>
-    <p class="t-small mt-4 text-slate">{city.district} district{!direct && ' · served through RSK’s dealer network, not a local branch office'}</p>
+    <p class="t-small mt-4 text-slate">
+      {outside ? city.district : `${city.district} district`}{!direct && ' · served through RSK’s dealer network, not a local branch office'}
+    </p>
   </header>
 
   <section class="sec-tight bg-white" aria-labelledby="local-h">
@@ -79,21 +108,28 @@ const schema = [
         <h2 id="local-h" class="t-h2">Solar in {city.name}</h2>
         <p class="mt-4">{city.profile}</p>
         <p class="mt-4">
-          {direct
-            ? `Because we work in ${city.name} directly, site surveys, installation and after-sales support all happen without a subcontractor in between.`
-            : `We don't claim a local branch in ${city.name} — being upfront about that is part of how we do business. What you get is UTL Solar pricing and specification, sized and quoted from Mohali, with installation arranged through a dealer or partner local to you.`}
+          {
+            direct
+              ? `Because we work in ${city.name} directly, the site survey, installation and after-sales visits are all done by our own team, without a subcontractor in between.`
+              : `We don't have a branch in ${city.name}. You get UTL Solar pricing and specification, sized and quoted from Mohali, with installation arranged through a dealer or partner near you.`
+          }
         </p>
+        {outside && <p class="mt-4 text-slate">{city.name} is not in Punjab, so electricity here is supplied by {outside.utility}, not PSPCL.</p>}
       </div>
       <div class="lg:col-span-6 lg:col-start-7">
         <table class="spec-table">
           <caption class="sr-only">Solar by connection type in {city.name}</caption>
           <tbody>
-            {categoryAngles.map((c) => (
-              <tr>
-                <th scope="row" class="font-semibold">{c.name}</th>
-                <td>{c.text}</td>
-              </tr>
-            ))}
+            {
+              categoryAngles.map((c) => (
+                <tr>
+                  <th scope="row" class="font-semibold">
+                    {c.name}
+                  </th>
+                  <td>{c.text}</td>
+                </tr>
+              ))
+            }
           </tbody>
         </table>
       </div>
@@ -105,10 +141,14 @@ const schema = [
       <div class="grid-12 items-end">
         <h2 id="sizes-h" class="t-h2 lg:col-span-6">System sizes and pricing</h2>
         <p class="text-slate lg:col-span-5 lg:col-start-8">
-          The same PSPCL tariff and PM Surya Ghar subsidy apply everywhere in Punjab, {city.name} included.
+          {
+            outside
+              ? `System prices and the PM Surya Ghar subsidy are the same in ${city.name} as in Mohali. The zero-bill figures we show for Punjab depend on its free units, so they are left out here.`
+              : `The PSPCL tariff and the PM Surya Ghar subsidy are the same everywhere in Punjab, ${city.name} included.`
+          }
         </p>
       </div>
-      <div class="mt-8"><SizeTable /></div>
+      <div class="mt-8"><SizeTable pspcl={!outside} /></div>
     </div>
   </section>
 
@@ -146,10 +186,16 @@ const schema = [
           <div class="lg:col-span-7 lg:col-start-6">
             <p class="text-rule">
               {direct
-                ? `We haven't recorded a review naming ${city.name} specifically yet, but our reviews are real and unedited — read them and judge for yourself.`
-                : `We're growing our dealer network across Punjab, ${city.name} included. Our existing reviews are all real and unedited.`}
+                ? `We haven't recorded a review naming ${city.name} yet. Every review on our reviews page is real and unedited, so read them and judge for yourself.`
+                : `We're growing our dealer network across Punjab, ${city.name} included. Every review on our reviews page is real and unedited.`}
             </p>
-            <p class="mt-4"><a href="/solar-dealership-punjab/" class="underline">Run a business in {city.name}? Become a UTL dealer</a></p>
+            {!outside && (
+              <p class="mt-4">
+                <a href="/solar-dealership-punjab/" class="underline">
+                  Run a business in {city.name}? Become a UTL dealer
+                </a>
+              </p>
+            )}
           </div>
         )
       }
@@ -161,18 +207,22 @@ const schema = [
       <div class="lg:col-span-5">
         <h2 id="net-h" class="t-h2">Subsidy and net metering</h2>
         <p class="mt-4">
-          PM Surya Ghar and PSPCL's net-metering rules are state-wide, so the process in {city.name} is the same as anywhere else in Punjab: apply on the portal, install with ALMM-listed panels, get the net meter fitted and inspected, then the subsidy is credited to your bank account.
+          {
+            outside
+              ? `PM Surya Ghar is a national scheme, so in ${city.name} it works as it does anywhere: apply on the portal, install ALMM-listed panels, have the net meter fitted and the system inspected, and the subsidy is credited to your bank account. The net meter comes from ${outside.utility}, not PSPCL.`
+              : `PM Surya Ghar and PSPCL's net-metering rules apply across Punjab, so the process in ${city.name} is the same as anywhere in the state: apply on the portal, install ALMM-listed panels, have the net meter fitted and inspected, and the subsidy is credited to your bank account.`
+          }
         </p>
         <p class="mt-4"><a href="/pm-surya-ghar-subsidy-punjab/" class="underline">Read the full subsidy guide</a></p>
       </div>
       <div class="lg:col-span-6 lg:col-start-7">
-        <p class="t-h3">Roughly one in three applications gets rejected. The usual reasons:</p>
+        <p class="t-h3">The usual reasons applications get rejected</p>
         <ul class="ruled mt-4">
-          <li>Non-ALMM-listed panels</li>
+          <li>Panels that aren't on the ALMM list</li>
           <li>A system sized above the sanctioned load</li>
-          <li>Aadhaar not seeded to the bank account used for the subsidy</li>
+          <li>Aadhaar not linked to the bank account used for the subsidy</li>
         </ul>
-        <p class="mt-4 text-slate">We check all three before we install, wherever you are in Punjab.</p>
+        <p class="mt-4 text-slate">We check all three before we install.</p>
       </div>
     </div>
   </section>
@@ -181,11 +231,22 @@ const schema = [
     <div class="wrap grid-12 items-center">
       <div class="lg:col-span-7">
         <h2 id="cta-h" class="t-h2">Get a solar estimate for {city.name}</h2>
-        <p class="mt-3 text-slate">Send your electricity bill on WhatsApp, or work it out yourself first.</p>
+        <p class="mt-3 text-slate">{outside ? 'Send your electricity bill on WhatsApp and we work out the size and the cost.' : 'Send your electricity bill on WhatsApp, or work it out yourself first.'}</p>
       </div>
       <div class="flex flex-col gap-3 sm:flex-row lg:col-span-5 lg:justify-end">
         <WhatsAppButton label={`Ask about solar in ${city.name}`} message={locationMessage(city.name)} />
-        <a class="btn btn-secondary" href="/solar-calculator/">Use the calculator</a>
+        {
+          outside ? (
+            <a class="btn btn-secondary" href={`tel:${PRIMARY_PHONE.tel}`}>
+              <Icon name="phone" size={18} />
+              <span>Call {PRIMARY_PHONE.display}</span>
+            </a>
+          ) : (
+            <a class="btn btn-secondary" href="/solar-calculator/">
+              Use the calculator
+            </a>
+          )
+        }
       </div>
     </div>
   </section>

@@ -14,7 +14,8 @@ import { SOLAR_CONFIG } from '../config/solar-config';
 import { monthlyBill } from '../lib/calculator/tariff';
 import { digits, inr } from '../lib/calculator/format';
 import { REVIEWS, reviewMonth } from '../data/reviews';
-import { CATEGORIES, PRODUCT_IMAGES, productsIn } from '../data/products';
+import { CATEGORIES, PRODUCTS, PRODUCT_IMAGES, productsIn, type ProductCategory } from '../data/products';
+import { CITIES, cityPath } from '../data/locations';
 import { BRAND_CATEGORIES } from '../data/brands';
 import { VIDEOS, youtubeThumbnail } from '../data/videos';
 import SocialLinks from '../components/SocialLinks.astro';
@@ -30,15 +31,32 @@ const bill700 = billAt(700);
 const minOnGridKw = cfg.sizing.minKwByType['on-grid'];
 const [d0, d1] = cfg.subsidy.disbursementDays;
 const reviews = REVIEWS.slice(0, 4);
-// One teaser tile per non-solar category, skipping UTL Solar (already shown above) — a taste of
-// the wider catalogue, not the full list, which lives on /brands-and-partners/.
+// One teaser tile per non-solar brand, skipping UTL Solar (already shown above). The full list
+// lives on /brands-and-partners/.
 const brandTeaser = BRAND_CATEGORIES.flatMap((c) => c.brands).filter((b) => b.name !== 'UTL Solar');
 
-// "Solar panel dealer/distributor in Mohali" is the dominant real search pattern for this
-// niche — it's what Sulekha, Justdial and IndiaMart rank pages for, not an invented phrase —
-// so the title leads with it rather than with our own "priced after subsidy" differentiator.
-// That differentiator still gets top billing in the description, which is what earns the click
-// once the title has already matched the query.
+// A recognisable, real product photo for each catalogue category. Falls back to the first product
+// with a photo if a featured slug is ever renamed.
+const FEATURED: Record<ProductCategory, string> = {
+  'solar-systems': '3kw-48v-hybrid-solar-system',
+  'solar-panels': '545-watt-topcon-bifacial-solar-panel',
+  inverters: 'gamma-plus-mppt-solar-inverter-3-kva-24-volt-lithium',
+  batteries: 'utl-150ah-solar-inverter-battery-ust-1560',
+  'charge-controllers': 'r-mppt-solar-management-unit-12v-24v-40a',
+  'ev-chargers': 'ev-battery-charger-48v-20a',
+  'lighting-and-appliances': 'solar-led-lightning-system',
+};
+const featured = CATEGORIES.map((c) => {
+  const inCategory = productsIn(c.id);
+  const product = inCategory.find((p) => p.slug === FEATURED[c.id] && PRODUCT_IMAGES[p.slug]) ?? inCategory.find((p) => PRODUCT_IMAGES[p.slug]);
+  return { c, product, count: inCategory.length };
+});
+
+const directCities = CITIES.filter((c) => c.tier === 'direct');
+const partnerCities = CITIES.filter((c) => c.tier === 'partner');
+
+// "Solar panel dealer/distributor in Mohali" is the dominant real search pattern for this niche
+// (it's what Sulekha, Justdial and IndiaMart rank pages for), so the title and H1 lead with it.
 const title = 'Solar Panel Dealer & Distributor in Mohali | RSK Solar Energy';
 const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid, hybrid and off-grid rooftop solar systems for homes, businesses and housing societies in Tricity.`;
 ---
@@ -52,7 +70,7 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
         <p class="t-lead mt-6 max-w-xl">
           Enter your PSPCL bill. We size the system, take off the PM Surya Ghar subsidy and show your payback, for homes and businesses in Mohali, Tricity and Punjab. If solar will not pay back for you, the calculator says so.
         </p>
-        <div class="mt-6 border-b border-rule pb-6 settle">
+        <div class="settle mt-6 border-b border-rule pb-6">
           <ul class="t-small flex flex-wrap gap-x-6 gap-y-2 text-slate">
             <li>{BUSINESS.brand} distributor, Phase 8-B Mohali</li>
             <li><RatingBadge class="inline-flex" /></li>
@@ -114,7 +132,7 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
                   <p class="text-rule">&ldquo;{reviews[0].text}&rdquo;</p>
                 </blockquote>
                 <p class="t-small mt-3 text-rule">
-                  {reviews[0].name}, Google review{reviews[0].install && ` — ${reviews[0].install}`}
+                  {reviews[0].name}, Google review{reviews[0].install && `, ${reviews[0].install}`}
                 </p>
               </div>
             )
@@ -146,7 +164,7 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
             { href: '/commercial-solar-punjab/', name: 'Commercial & industrial solar', blurb: 'Shops, offices, clinics, schools and factories, sized to your sanctioned load.' },
             { href: '/housing-society-solar/', name: 'Housing societies & RWAs', blurb: `Common-area systems, with ₹${digits(cfg.subsidy.society.perKw)} per kW subsidy up to ${cfg.subsidy.society.maxKw} kW.` },
             { href: '/on-grid-vs-off-grid-vs-hybrid/', name: 'Hybrid & off-grid systems', blurb: 'Battery backup for power cuts, and systems for sites with no reliable grid.' },
-            { href: '/products/', name: `${BUSINESS.brand} product supply`, blurb: 'Panels, inverters, batteries and charge controllers, with full specifications.' },
+            { href: '/solar-pumps/', name: 'Solar water pumps', blurb: `Tubewells and irrigation for farmers, ${BUSINESS.installs.solarPumps} installed.` },
           ].map((s) => (
             <li>
               <a href={s.href} class="grid grid-cols-[1fr_auto] gap-x-6 no-underline">
@@ -162,8 +180,51 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
     </div>
   </section>
 
+  <!-- Catalogue: real product photography, so the page shows what RSK actually supplies. -->
+  <section class="sec" aria-labelledby="products-h">
+    <div class="wrap">
+      <div class="grid-12 lg:items-end">
+        <div class="lg:col-span-6">
+          <h2 id="products-h" class="t-h2">UTL Solar panels, inverters and batteries</h2>
+          <p class="mt-4 text-slate">
+            RSK is a {BUSINESS.brand} distributor. Every product page carries the manufacturer's full specification. We don't sell online: ask on WhatsApp for today's price and stock.
+          </p>
+        </div>
+        <p class="t-small text-slate lg:col-span-5 lg:col-start-8">
+          Run a shop or install solar yourself? <a href="/solar-dealership-punjab/" class="underline">Become a UTL dealer</a> and buy at wholesale pricing.
+        </p>
+      </div>
+      <ul class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
+        {
+          featured.map(({ c, product, count }) => (
+            <li>
+              <a href={`/products/${c.id}/`} class="group flex h-full flex-col border border-rule bg-white no-underline hover:border-ink">
+                <span class="block aspect-square p-5">
+                  {product && <Image src={PRODUCT_IMAGES[product.slug]} alt={product.title} width={360} height={360} loading="lazy" class="h-full w-full object-contain" />}
+                </span>
+                <span class="mt-auto block border-t border-rule px-4 py-3">
+                  <span class="block font-semibold group-hover:underline">{c.name}</span>
+                  <span class="t-small block text-slate">{count} products</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a href="/products/" class="on-ink flex h-full min-h-48 flex-col justify-between bg-ink p-5 text-white no-underline hover:bg-slate">
+            <span class="t-readout">{PRODUCTS.length}</span>
+            <span>
+              <span class="block font-semibold">Browse every UTL product</span>
+              <span class="t-small block text-rule">With full specifications</span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
   <!-- The Punjab constraint, said plainly. -->
-  <section class="sec-open" aria-labelledby="line-h">
+  <section class="sec-open border-t border-rule" aria-labelledby="line-h">
     <div class="wrap grid-12">
       <div class="lg:col-span-5">
         <h2 id="line-h" class="t-h1">In Punjab, the {threshold}-unit line decides whether solar pays.</h2>
@@ -275,60 +336,60 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
     </div>
   </section>
 
-  <!-- Catalogue -->
-  <section class="sec" aria-labelledby="products-h">
+  <!-- Where we install: direct service area, then dealer-network reach. Links every city page. -->
+  <section class="sec-tight bg-white" aria-labelledby="areas-h">
     <div class="wrap grid-12">
       <div class="lg:col-span-4">
-        <h2 id="products-h" class="t-h2">UTL Solar products we supply</h2>
-        <p class="mt-4">
-          RSK is a {BUSINESS.brand} distributor. Panels, inverters, batteries and complete kits, with full specifications on every product page.
-        </p>
-        <p class="mt-6"><a href="/products/" class="btn btn-secondary">Browse all products</a></p>
-        <p class="t-small mt-4 text-slate">
-          Run a shop or install solar yourself? <a href="/solar-dealership-punjab/" class="underline">Become a UTL dealer</a> and buy at wholesale pricing.
-        </p>
+        <h2 id="areas-h" class="t-h2">Where we install</h2>
+        <p class="mt-4 text-slate">Our own team covers Tricity from the Phase 8-B office. Across the rest of Punjab we work through the UTL dealers we supply.</p>
+        <p class="mt-4"><a href="/contact/" class="underline">Contact and directions</a></p>
       </div>
-      <ul class="ruled lg:col-span-7 lg:col-start-6">
-        {
-          CATEGORIES.map((c) => {
-            const sample = productsIn(c.id).find((p) => PRODUCT_IMAGES[p.slug]);
-            return (
-              <li>
-                <a href={`/products/${c.id}/`} class="grid grid-cols-[auto_1fr_auto] items-center gap-x-5 no-underline">
-                  {sample ? (
-                    <span class="block h-14 w-14 shrink-0 border border-rule bg-white">
-                      <Image src={PRODUCT_IMAGES[sample.slug]} alt="" width={112} height={112} loading="lazy" class="aspect-square h-full w-full object-contain p-1.5" />
-                    </span>
-                  ) : (
-                    <span class="block h-14 w-14 shrink-0" aria-hidden="true" />
-                  )}
-                  <span>
-                    <span class="t-h3 block underline decoration-rule">{c.name}</span>
-                    <span class="mt-1 block text-slate">{c.blurb}</span>
-                  </span>
-                  <span class="t-value text-slate">{productsIn(c.id).length}</span>
-                </a>
-              </li>
-            );
-          })
-        }
-      </ul>
+      <div class="grid gap-8 sm:grid-cols-2 lg:col-span-7 lg:col-start-6">
+        <div>
+          <h3 class="t-small font-semibold text-slate">Our own installation team</h3>
+          <ul class="mt-3 grid grid-cols-2 gap-x-4">
+            {
+              directCities.map((c) => (
+                <li class="py-1.5">
+                  <a href={cityPath(c.slug)} class="underline">
+                    {c.name}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div>
+          <h3 class="t-small font-semibold text-slate">Through our Punjab dealer network</h3>
+          <ul class="mt-3 grid grid-cols-2 gap-x-4">
+            {
+              partnerCities.map((c) => (
+                <li class="py-1.5">
+                  <a href={cityPath(c.slug)} class="underline">
+                    {c.name}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Brands and dealer network: the UTL association, and a real named dealer partner. -->
-  <section class="sec-tight bg-white border-t border-rule" aria-labelledby="brands-h">
+  <section class="sec-tight border-t border-rule bg-white" aria-labelledby="brands-h">
     <div class="wrap grid-12">
       <div class="lg:col-span-4">
         <h2 id="brands-h" class="t-h2">Brands and dealer network</h2>
         <p class="mt-4 text-slate">Who we distribute for, and who we work with across Punjab.</p>
       </div>
-      <div class="lg:col-span-7 lg:col-start-6 grid gap-6 sm:grid-cols-2">
+      <div class="grid gap-6 sm:grid-cols-2 lg:col-span-7 lg:col-start-6">
         <div class="border border-rule p-6">
           <p class="t-small text-slate">Authorised distributor of</p>
           <Image src={utlLogo} alt="UTL Solar" width={200} class="mt-3 h-auto w-40" />
           <p class="mt-4 text-slate">
-            RSK Solar Energy distributes and installs {BUSINESS.brand} panels, inverters, batteries and complete systems. RSK is an independent distributor — not a UTL-owned outlet.
+            RSK Solar Energy distributes and installs {BUSINESS.brand} panels, inverters, batteries and complete systems. RSK is an independent distributor, not a UTL-owned outlet.
           </p>
           <p class="mt-4"><a href="/utl-solar-distributor-punjab/" class="underline">About our UTL distributorship</a></p>
         </div>
@@ -336,7 +397,7 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
           <p class="t-small text-slate">Dealer network partner</p>
           <Image src={kangLogo} alt="Kang Electricals" width={220} class="mt-3 h-auto w-44" />
           <p class="mt-3 text-slate">
-            Based in Morinda, Punjab, Kang Electricals stocks solar products, electric bikes and home appliances, including UTL — an important part of RSK's dealer network in the Rupnagar area.
+            Based in Morinda, Punjab, Kang Electricals stocks solar products, electric bikes and home appliances, including UTL. It is an important part of RSK's dealer network in the Rupnagar area.
           </p>
           <p class="mt-4">
             <a href="https://kangelectricals.in/" rel="noopener" target="_blank" class="underline">Visit kangelectricals.in</a>
@@ -347,7 +408,7 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
   </section>
 
   <!-- Also stocked: a teaser of other brands, full list on its own page. -->
-  <section class="sec-tight bg-white border-t border-rule" aria-labelledby="also-stock-h">
+  <section class="sec-tight border-t border-rule bg-white" aria-labelledby="also-stock-h">
     <div class="wrap grid-12 items-center">
       <div class="lg:col-span-4">
         <h2 id="also-stock-h" class="t-h2">Also stocked at RSK</h2>
@@ -401,7 +462,7 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
   <section class="sec-tight border-t border-rule bg-white" aria-labelledby="cta-h">
     <div class="wrap">
       <h2 id="cta-h" class="t-h2">Ready to talk?</h2>
-      <div class="mt-8 grid-12 grid gap-8">
+      <div class="grid-12 mt-8 grid gap-8">
         <div class="lg:col-span-6">
           <p class="t-h3">Send us your last electricity bill</p>
           <p class="mt-2 text-slate">A photo is enough. We reply with the right size, the cost after subsidy and what your connection needs first.</p>
@@ -412,7 +473,7 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
         </div>
         <div class="lg:col-span-6 lg:border-l lg:border-rule lg:pl-8">
           <p class="t-h3">Book a free site inspection</p>
-          <p class="mt-2 text-slate">Prefer someone to look at your roof and connection in person? We'll visit, measure and quote on the spot — no charge.</p>
+          <p class="mt-2 text-slate">Prefer someone to look at your roof and connection in person? We visit, measure and quote on the spot, at no charge.</p>
           <div class="mt-5">
             <WhatsAppButton label="Book a free site inspection" message={siteInspectionMessage()} />
           </div>

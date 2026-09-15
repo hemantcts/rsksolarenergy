@@ -1,0 +1,70 @@
+---
+title: 'How Many Units Does a 1 kW Solar System Produce a Day in Punjab?'
+description: 'Roughly 3.3 to 4 units a day on average, more from March to June and less in December and January fog. The figures we plan with, and what lowers them on a roof.'
+published: '2026-09-15'
+category: Sizing and systems
+tags: ['generation', 'units per day', '1 kW', 'winter', 'fog']
+faq:
+  - q: Why do some websites say 4 to 5 units per kW per day?
+    a: 'Many quote clear-day or before-loss figures. A clear spring day can get close to that. Averaged over a year, with heat, dust and winter haze, a Punjab rooftop usually lands lower, which is why we plan with a more cautious figure.'
+  - q: Do solar panels work on cloudy and foggy days?
+    a: 'Yes, but output drops a lot. Thick morning fog can hold generation close to zero until it lifts, and a heavily overcast day produces a small fraction of a sunny one.'
+  - q: How much roof space does 1 kW need?
+    a: 'About 100 sq ft of shade-free roof, which includes the gaps between panel rows for access and to avoid shading.'
+related:
+  - href: /blog/how-to-size-home-solar-punjab/
+    label: How to size a home solar system in Punjab
+  - href: /solar-calculator/
+    label: Work out the size for your bill
+  - href: /blog/solar-panel-maintenance-punjab/
+    label: Keeping output up through dust and heat
+---
+
+import { F } from '../../lib/facts';
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
+import { digits } from '../../lib/calculator/format';
+
+export const perKwYear = effectiveYieldPerKw(SOLAR_CONFIG);
+export const perKwDay = perKwYear / 365;
+export const sizes = [1, 2, 3, 5, 10];
+
+About {perKwDay.toFixed(1)} to 4 units a day, averaged over the year. Our calculator plans with {perKwDay.toFixed(1)} units per kW per day, after allowing for heat, dust and wiring losses. UTL's kit sheets quote 4 units a day per kW, the figure for a clear, sunny day. So a 3 kW system makes roughly {Math.round(3 * perKwDay)} to 12 units on an average day.
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table">
+<caption>Estimated generation in Punjab, after losses</caption>
+<thead><tr><th scope="col">System</th><th scope="col" class="num">Units a day</th><th scope="col" class="num">Units a month</th><th scope="col" class="num">Units a year</th></tr></thead>
+<tbody>
+{sizes.map((kw) => (
+<tr><th scope="row">{kw} kW</th><td class="num">{(kw * perKwDay).toFixed(1)}</td><td class="num">{digits((kw * perKwYear) / 12)}</td><td class="num">{digits(kw * perKwYear)}</td></tr>
+))}
+</tbody>
+</table>
+</div>
+
+## Where the figure comes from
+
+We start from a yield of about {F.yieldRaw} units a year per kW of panels in Punjab, before losses. Taking a fifth off that for real-world losses gives {F.perKwYear} units a year, or {F.perKwMonth} a month. It is a cautious number on purpose: a customer's bill should come in at or below our estimate, not above it.
+
+Output on a real roof falls with:
+
+- **Heat.** Panels lose efficiency as they get hotter, and a Punjab roof in May and June gets very hot.
+- **Dust.** A film of dust cuts output noticeably, which is why panels here need regular cleaning.
+- **Shade.** Even partial shade from a water tank or a neighbour's wall pulls a whole string of panels down.
+- **Direction and tilt.** Panels facing south at a sensible tilt produce the most in Punjab.
+- **Wiring and inverter losses.** A small share is always lost between the panels and your meter.
+
+## Summer, monsoon and winter fog
+
+**March to June** brings the longest days and the strongest sun, so generation is at its highest, even though the heat trims some efficiency.
+
+**July to September** is uneven. Monsoon cloud cuts some days sharply, while clear days between the rains still generate well.
+
+**December and January** are the weakest months. The days are short, the sun sits low, and fog and smog cover the plains. A thick foggy morning can produce almost nothing until the fog lifts, and a hazy week lowers output all day. Cold itself isn't the problem; panels work more efficiently when they're cool.
+
+That seasonal swing is why we size home systems on your bills across the year, including your hottest two-month bill, rather than on one good month.
+
+## What this means for sizing
+
+Divide the monthly units you want solar to cover by {F.perKwMonth} to get the kilowatts needed. In Punjab the target is often less than your full use, because bringing net units under {F.free} a month is what takes the bill to zero. [How to size a home system](/blog/how-to-size-home-solar-punjab/) walks through it step by step.

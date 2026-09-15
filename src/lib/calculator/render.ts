@@ -53,7 +53,7 @@ export function noteText(n: Note, config: SolarConfig = SOLAR_CONFIG): string {
       if (n.reason === 'category')
         return 'PM Surya Ghar covers homes and housing societies only. Businesses and industry get no subsidy, but they also get no free units, so solar saves from the first unit.';
       if (n.reason === 'system-type')
-        return 'PM Surya Ghar covers grid-connected, net-metered systems. Off-grid systems are not connected to PSPCL, so they do not qualify. A hybrid system does qualify — it is grid-tied with a battery added, not disconnected.';
+        return 'PM Surya Ghar covers grid-connected, net-metered systems. Off-grid systems are not connected to PSPCL, so they do not qualify. A hybrid system does qualify, because it is grid-tied with a battery added, not disconnected.';
       return 'The subsidy needs the applicant to own the house and hold the electricity connection. Tenants usually cannot claim it.';
     case 'large-system':
       return 'Systems above 10 kW are designed after a site survey. Treat this as a first estimate.';

@@ -6,8 +6,10 @@ import DraftNote from '../DraftNote.astro';
 
 interface Props {
   highlight?: number;
+  /** False outside Punjab, where the free-units zero-bill figures do not apply. */
+  pspcl?: boolean;
 }
-const { highlight } = Astro.props;
+const { highlight, pspcl = true } = Astro.props;
 ---
 
 <div class="not-prose">
@@ -21,7 +23,7 @@ const { highlight } = Astro.props;
           <th scope="col" class="num">Roof area</th>
           <th scope="col" class="num">Home subsidy</th>
           <th scope="col" class="num">After subsidy</th>
-          <th scope="col" class="num">Zero bill for homes using up to</th>
+          {pspcl && <th scope="col" class="num">Zero bill for homes using up to</th>}
         </tr>
       </thead>
       <tbody>
@@ -42,7 +44,7 @@ const { highlight } = Astro.props;
               <td class="num">{digits(s.roofSqFt)} sq ft</td>
               <td class="num">{inr(s.subsidy)}</td>
               <td class="num">{inrRange(s.primaryNet)}</td>
-              <td class="num">{digits(s.zeroBillRange[1])} units</td>
+              {pspcl && <td class="num">{digits(s.zeroBillRange[1])} units</td>}
             </tr>
           ))
         }
@@ -50,7 +52,7 @@ const { highlight } = Astro.props;
     </table>
   </div>
   <p class="t-small mt-3 text-slate">
-    Generation at {digits(SOLAR_CONFIG.generation.annualYieldPerKwp * SOLAR_CONFIG.generation.deratingFactor)} units per kW per year, after losses. Zero-bill figures assume a general-category home and that PSPCL applies the {SOLAR_CONFIG.freeUnits.perMonth} free units to net units.
+    Generation at {digits(SOLAR_CONFIG.generation.annualYieldPerKwp * SOLAR_CONFIG.generation.deratingFactor)} units per kW per year, after losses.{pspcl && ` Zero-bill figures assume a general-category home and that PSPCL applies the ${SOLAR_CONFIG.freeUnits.perMonth} free units to net units.`}
   </p>
   <div class="mt-3"><DraftNote /></div>
 </div>

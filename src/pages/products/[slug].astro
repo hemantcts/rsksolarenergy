@@ -19,9 +19,9 @@ const intro = p.summary || `${p.title} from ${p.brand}, supplied by RSK Solar En
 const descFull = `${p.title}${p.model ? ` (${p.model})` : ''}: ${p.brand} specifications, features and warranty. Ask RSK Solar Energy, Mohali, for price and stock on WhatsApp.`;
 const descShort = `${p.title}: ${p.brand} specifications and warranty. Ask RSK Solar Energy, Mohali, for price and stock.`;
 const description = [descFull, descShort].find((d) => d.length <= 160) ?? clampWords(descShort, 160);
-// Keep the product name — the actual keyword — whole, and append the longest brand/location
-// suffix that still fits. A blind slice was cutting it mid-word ("RSK Solar Energy Moh").
-const title = p.title + fitSuffix(p.title, [' | UTL Solar | RSK Solar Energy Mohali', ' | RSK Solar Energy Mohali', ' | RSK Solar Mohali', ' | RSK Solar'], 60);
+// Keep the product name (the actual keyword) whole and append the longest dealer/location suffix
+// that fits. No RSK brand here: in titles it competes with the homepage for branded searches.
+const title = p.title + fitSuffix(p.title, [' | UTL Solar Dealer in Mohali', ' | UTL Dealer, Mohali', ' | Mohali'], 60);
 const moreParas = p.description.filter((d) => !intro.startsWith(d.slice(0, 60)));
 const hasColumns = !!p.specs?.columns?.length;
 const isNumeric = (v: string) => /^[<>≥≤~±]?\s*[\d.,/×x*\-–% ]+\s*(v|a|w|kg|mm|ah|%|°c|v\s*dc|hz|kva|va|months?|years?|units per day|sqft|hr|ma)?[*]?$/i.test(v.trim());

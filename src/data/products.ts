@@ -54,7 +54,7 @@ export const CATEGORIES: { id: ProductCategory; name: string; blurb: string }[] 
   {
     id: 'inverters',
     name: 'Solar inverters and PCUs',
-    blurb: 'Home inverters, hybrid solar PCUs and on-grid string inverters — Heliac, Shamsi, Gamma+, Alfa+, Sigma+, Zeta, Sun-lion and more, 675 VA to 125 kW.',
+    blurb: 'Home inverters, hybrid solar PCUs and on-grid string inverters from 675 VA to 125 kW: Heliac, Shamsi, Gamma+, Alfa+, Sigma+, Zeta, Sun-lion and more.',
   },
   { id: 'batteries', name: 'Batteries', blurb: 'Tubular, SMF and lithium-ion (LiFePO4) batteries for inverters, solar systems and e-rickshaws.' },
   {
