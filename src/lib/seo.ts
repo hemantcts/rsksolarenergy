@@ -43,7 +43,7 @@ export interface QA {
  */
 export function localBusiness() {
   const a = BUSINESS.address;
-  const sameAs = [BUSINESS.google.mapsUrl, BUSINESS.social.facebook, BUSINESS.social.instagram, BUSINESS.social.youtube, BUSINESS.justdial.url].filter(
+  const sameAs = [BUSINESS.google.mapsUrl, BUSINESS.social.facebook, BUSINESS.social.instagram, BUSINESS.social.youtube, BUSINESS.social.x, BUSINESS.justdial.url].filter(
     (u): u is string => !!u,
   );
   return {

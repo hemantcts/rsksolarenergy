@@ -31,8 +31,7 @@ the site picks it up automatically (these fields are `null` and hidden until sup
 guessed):
 
 - Map coordinates (`geo`) — from the Google Business Profile pin
-- YouTube channel URL (`BUSINESS.social.youtube`) — once supplied, add real video links to
-  `src/data/videos.ts` and they appear on the homepage automatically, no code changes needed
+- ~~YouTube channel URL~~ Supplied 2026-09-15 (@RSKSOLARENERGY), with X (@rsksolarenergy). Still wanted: real video links for the homepage videos section (src/data/videos.ts).
 
 ## 🟡 Content still to add
 

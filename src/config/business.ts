@@ -100,8 +100,9 @@ export const BUSINESS = {
   social: {
     facebook: 'https://www.facebook.com/rsksolarenergy/' as string | null,
     instagram: 'https://www.instagram.com/rsksolarenergy' as string | null,
-    // TODO: RSK's YouTube channel URL, once supplied.
-    youtube: null as string | null,
+    // X and YouTube supplied by RSK, 2026-09-15.
+    x: 'https://x.com/rsksolarenergy' as string | null,
+    youtube: 'https://www.youtube.com/@RSKSOLARENERGY' as string | null,
   },
 
   /** Registration numbers, shown in the footer and About for credibility. Confirmed by RSK. */
