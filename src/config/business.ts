@@ -18,25 +18,29 @@ export const BUSINESS = {
   name: 'RSK Solar Energy',
   siteUrl: 'https://rsksolarenergy.com',
   description:
-    'UTL Solar distributor and rooftop solar installer at Phase 8-B, Mohali. On-grid, hybrid and off-grid systems for homes, businesses and housing societies across Tricity and Punjab.',
+    'UTL Solar distributor and rooftop solar installer at Phase 8B, Mohali. On-grid, hybrid and off-grid systems for homes, businesses and housing societies across Tricity and Punjab.',
   foundedYear: 2022,
 
+  /**
+   * Written exactly as the Google Business Profile shows it (RSK chose to match Google,
+   * 2026-09-15): "E 203, Phase 8B, Industrial Area, Sector 74, Sahibzada Ajit Singh Nagar,
+   * Punjab 140307".
+   */
   address: {
-    street: 'Plot No E-203, Phase 8-B',
-    locality: 'Sahibzada Ajit Singh Nagar (Mohali)',
+    street: 'E 203, Phase 8B, Industrial Area, Sector 74',
+    locality: 'Sahibzada Ajit Singh Nagar',
     region: 'Punjab',
     country: 'IN',
-    /** Confirmed by RSK, 2026-09-15. */
-    postalCode: '160055',
+    postalCode: '140307',
     /**
      * From RSK's own Justdial listing. Shown on the contact page as a directions hint only; it is
      * deliberately not part of formatAddressLines(), so the NAP lines stay identical everywhere.
      */
-    landmark: 'Opposite Nexa Tower, Sector 74',
+    landmark: 'Opposite Nexa Tower',
   },
 
-  // TODO: exact coordinates from the Google Business Profile pin.
-  geo: null as null | { lat: number; lng: number },
+  /** Google Maps pin for the listing, supplied by RSK, 2026-09-15 (the place's own coordinates). */
+  geo: { lat: 30.709732, lng: 76.6890954 } as null | { lat: number; lng: number },
 
   /** Primary number listed first, confirmed by RSK. */
   phones: [
@@ -123,14 +127,14 @@ export function formatAddressLines(): string[] {
 }
 
 const WEEK: Weekday[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const shortDay = (i: number) => WEEK[i].slice(0, 3);
+const shortDay = (i: number) => (WEEK[i] ?? '').slice(0, 3);
 const minutes = (t: string) => {
-  const [h, m] = t.split(':').map(Number);
+  const [h = 0, m = 0] = t.split(':').map(Number);
   return h * 60 + m;
 };
 
 function clock(t: string) {
-  const [h, m] = t.split(':').map(Number);
+  const [h = 0, m = 0] = t.split(':').map(Number);
   const h12 = h % 12 === 0 ? 12 : h % 12;
   return `${h12}${m ? `:${String(m).padStart(2, '0')}` : ''} ${h >= 12 ? 'pm' : 'am'}`;
 }
@@ -144,7 +148,7 @@ function dayRange(days: readonly Weekday[]) {
     if (run && i === run.at(-1)! + 1) run.push(i);
     else runs.push([i]);
   }
-  return runs.map((r) => (r.length > 2 ? `${shortDay(r[0])}–${shortDay(r.at(-1)!)}` : r.map(shortDay).join(', '))).join(', ');
+  return runs.map((r) => (r.length > 2 ? `${shortDay(r[0] ?? 0)}–${shortDay(r.at(-1) ?? 0)}` : r.map(shortDay).join(', '))).join(', ');
 }
 
 /**
@@ -164,11 +168,14 @@ export function formatHours(): { lines: string[]; breaks: string[]; closed: stri
   const breaks: string[] = [];
   for (const blocks of groups.values()) {
     const sorted = [...blocks].sort((a, b) => minutes(a.opens) - minutes(b.opens));
-    const days = dayRange(sorted[0].days);
-    lines.push(`${days}, ${clock(sorted[0].opens)} to ${clock(sorted.at(-1)!.closes)}`);
-    for (let i = 1; i < sorted.length; i++) {
-      breaks.push(`Closed ${clock(sorted[i - 1].closes)} to ${clock(sorted[i].opens)}`);
-    }
+    const first = sorted[0];
+    const last = sorted.at(-1);
+    if (!first || !last) continue;
+    lines.push(`${dayRange(first.days)}, ${clock(first.opens)} to ${clock(last.closes)}`);
+    sorted.slice(1).forEach((block, i) => {
+      const previous = sorted[i];
+      if (previous) breaks.push(`Closed ${clock(previous.closes)} to ${clock(block.opens)}`);
+    });
   }
   const open = new Set(hours.flatMap((h) => h.days));
   const closedDays = WEEK.filter((d) => !open.has(d));

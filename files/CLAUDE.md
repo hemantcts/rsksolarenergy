@@ -197,8 +197,8 @@ Every route must export:
 NAP must match Google Business Profile **exactly**:
 ```
 RSK Solar Energy
-Plot No E-203, Phase 8-B, Sahibzada Ajit Singh Nagar (Mohali), Punjab
-+91 94170 30347 / +91 90419 96918
+E 203, Phase 8B, Industrial Area, Sector 74, Sahibzada Ajit Singh Nagar, Punjab 140307
++91 90419 96918 / +91 94170 30347
 rsksolarenergy@gmail.com
 ```
 

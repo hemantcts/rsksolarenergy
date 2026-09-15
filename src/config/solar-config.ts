@@ -28,11 +28,17 @@ export interface TariffBand {
   fixedPerKwMonth: number;
 }
 
-export interface PriceBand {
-  /** Upper bound of system size for this band, kW (inclusive). */
-  upToKw: number;
-  /** ₹ per kW, low and high */
-  perKw: [number, number];
+/** Straight-line price model: gross = base + perKw × kW, never below minPerKw × kW. */
+export interface PriceModel {
+  base: number;
+  perKw: number;
+  minPerKw?: number;
+}
+
+/** A price RSK has quoted for an exact system size. */
+export interface PriceQuote {
+  kw: number;
+  amount: number;
 }
 
 export const SOLAR_CONFIG = {
@@ -151,40 +157,48 @@ export const SOLAR_CONFIG = {
   },
 
   pricing: {
-    // Overall status stays 'placeholder': on-grid (the primary, subsidised product line) and
-    // off-grid are band estimates, not RSK's price list. RSK approved publishing them as estimated
-    // ranges on 2026-09-15; every page that shows one labels it as an estimate (DraftNote).
-    // Hybrid at 3/5/6 kW is real (see hybridConfirmed below) and is used in place of the band
-    // estimate wherever it applies — see grossCost() in src/lib/calculator/calculate.ts.
-    status: 'placeholder' as ConfigStatus,
-    note: 'Includes panels, inverter, mounting structure, wiring, installation. Excludes net meter fee.',
-    onGrid: [
-      { upToKw: 3, perKw: [60000, 66000] },
-      { upToKw: 10, perKw: [55000, 60000] },
-      { upToKw: Infinity, perKw: [48000, 54000] },
-    ] satisfies PriceBand[],
-    hybrid: [
-      { upToKw: 3, perKw: [85000, 95000] },
-      { upToKw: 10, perKw: [78000, 88000] },
-      { upToKw: Infinity, perKw: [72000, 82000] },
-    ] satisfies PriceBand[],
-    offGrid: [
-      { upToKw: 3, perKw: [80000, 90000] },
-      { upToKw: 10, perKw: [74000, 84000] },
-      { upToKw: Infinity, perKw: [70000, 80000] },
-    ] satisfies PriceBand[],
     /**
-     * Real, itemised hybrid pricing from RSK (lithium hybrid kit: panels, hybrid inverter,
-     * 51.2V/100Ah lithium battery, mounting structure, DC/AC wiring, earthing, ACDB+DCDB,
-     * lightning arrester, cable tray, changeover switch, labour, net metering). Confirmed
-     * totals — used exactly, not as a range, wherever the system is exactly one of these sizes.
+     * Prices supplied by RSK, 2026-09-15. Every price on the site is a range that starts at the price
+     * and runs up by rangeUpPercent (RSK's choice). Where RSK has quoted an exact size, the range
+     * starts at that quote; every other size starts at a straight-line model fitted to the quotes,
+     * gross = base + perKw × kW. Sizes outside the quoted ones are extrapolations, and every page
+     * that shows a price labels it as an estimate (DraftNote).
      */
-    hybridConfirmed: [
-      { kw: 3, amount: 278010 },
-      { kw: 5, amount: 358030 },
-      { kw: 6, amount: 388320 },
-    ] as { kw: number; amount: number }[],
-    hybridConfirmedSource: 'RSK itemised BOM pricing, supplied 2026-09-11',
+    status: 'verified' as ConfigStatus,
+    verifiedOn: '2026-09-15',
+    note: 'Includes panels, inverter, mounting structure, wiring, installation. Excludes net meter fee.',
+    rangeUpPercent: 10 as number,
+    /** Exact fit through RSK's 3 kW (₹1,78,000) and 5 kW (₹2,50,000) on-grid prices. */
+    onGrid: { base: 70000, perKw: 36000 } as PriceModel,
+    /** Least-squares fit to RSK's 3, 5 and 6 kW lithium hybrid kit quotes (within 1.2% of each). */
+    hybrid: { base: 167700, perKw: 37233 } as PriceModel,
+    /**
+     * Exact fit through RSK's 3 kVA (₹1,40,000) and 5 kVA (₹2,70,000) off-grid prices, treated as 3
+     * and 5 kW. The line falls towards zero for small systems, so it never goes under the 3 kVA
+     * per-kVA rate.
+     */
+    offGrid: { base: -55000, perKw: 65000, minPerKw: 46667 } as PriceModel,
+    quotes: {
+      onGrid: [
+        { kw: 3, amount: 178000 },
+        { kw: 5, amount: 250000 },
+      ] as PriceQuote[],
+      /**
+       * Itemised lithium hybrid kit: panels, hybrid inverter, 51.2V/100Ah lithium battery, mounting
+       * structure, DC/AC wiring, earthing, ACDB+DCDB, lightning arrester, cable tray, changeover
+       * switch, labour and net metering.
+       */
+      hybrid: [
+        { kw: 3, amount: 278010 },
+        { kw: 5, amount: 358030 },
+        { kw: 6, amount: 388320 },
+      ] as PriceQuote[],
+      offGrid: [
+        { kw: 3, amount: 140000 },
+        { kw: 5, amount: 270000 },
+      ] as PriceQuote[],
+    },
+    quotesSource: 'RSK: hybrid itemised BOM pricing 2026-09-11; on-grid and off-grid prices 2026-09-15',
   },
 
   subsidy: {

@@ -39,7 +39,7 @@ export const CITIES: CityLocation[] = [
     district: 'Sahibzada Ajit Singh Nagar (Mohali)',
     tier: 'direct',
     profile:
-      'Home to RSK’s office at Phase 8-B, and to a large share of Tricity’s new residential construction and IT-sector offices. Both are strong candidates for rooftop solar on newly built, unshaded roofs.',
+      'Home to RSK’s office at Phase 8B, and to a large share of Tricity’s new residential construction and IT-sector offices. Both are strong candidates for rooftop solar on newly built, unshaded roofs.',
     reviews: mohaliReviews,
   },
   {

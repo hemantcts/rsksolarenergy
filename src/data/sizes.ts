@@ -1,5 +1,5 @@
 import { SOLAR_CONFIG } from '../config/solar-config';
-import { confirmedPrice, grossCost, isPriceConfirmed } from '../lib/calculator/calculate';
+import { grossCost, isPriceConfirmed } from '../lib/calculator/calculate';
 import { effectiveYieldPerKw, monthlyGenerationPerKw } from '../lib/calculator/sizing';
 import { residentialSubsidy } from '../lib/calculator/subsidy';
 import type { Range, SystemType } from '../lib/calculator/types';
@@ -72,8 +72,8 @@ export function sizeFacts(kw: number): SizeFacts {
 }
 
 /** RSK's confirmed hybrid price points, for display outside the calculator (e.g. the hybrid guide). */
-export const HYBRID_CONFIRMED = SOLAR_CONFIG.pricing.hybridConfirmed;
-export const hybridConfirmedAt = (kw: number) => confirmedPrice(kw, 'hybrid');
+/** Sizes RSK has quoted exact hybrid kit prices for. */
+export const HYBRID_QUOTES = SOLAR_CONFIG.pricing.quotes.hybrid;
 
 export const SIZE_PAGES: SizeFacts[] = SOLAR_CONFIG.sizing.sizePagesKw.map(sizeFacts);
 

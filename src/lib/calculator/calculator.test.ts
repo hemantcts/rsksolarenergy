@@ -30,13 +30,14 @@ const T: SolarConfig = {
   generation: { ...SOLAR_CONFIG.generation, annualYieldPerKwp: 1500, deratingFactor: 0.8 }, // 100 units/kW/month
   pricing: {
     ...SOLAR_CONFIG.pricing,
-    onGrid: [{ upToKw: Infinity, perKw: [50000, 60000] }],
-    hybrid: [{ upToKw: Infinity, perKw: [80000, 90000] }],
-    offGrid: [{ upToKw: Infinity, perKw: [70000, 80000] }],
-    // Fixture-only confirmed price, deliberately distinct from RSK's real numbers, so this
-    // suite stays isolated from them (kw 3 exercises the exact-price path; kw 5 exercises the
-    // band-estimate fallback).
-    hybridConfirmed: [{ kw: 3, amount: 99000 }],
+    // Fixture-only prices, deliberately distinct from RSK's real numbers. A flat per-kW model with a
+    // 20% range keeps on-grid 3 kW at [150000, 180000]. The single hybrid quote (kw 3) exercises the
+    // quote-anchored path; kw 5 exercises the formula path.
+    rangeUpPercent: 20,
+    onGrid: { base: 0, perKw: 50000 },
+    hybrid: { base: 0, perKw: 80000 },
+    offGrid: { base: 0, perKw: 70000 },
+    quotes: { onGrid: [], hybrid: [{ kw: 3, amount: 99000 }], offGrid: [] },
   },
 };
 
@@ -318,26 +319,31 @@ describe('calculate — RSK sells on-grid from 3 kW; hybrid and off-grid from 1 
   });
 });
 
-describe('confirmed hybrid pricing overrides the band estimate exactly', () => {
-  it('an exact match uses the confirmed price, not the band estimate', () => {
+describe('quoted prices anchor the range; other sizes use the price model', () => {
+  it('a size with a quote starts its range at the quote', () => {
     expect(confirmedPrice(3, 'hybrid', T)).toBe(99000);
     expect(isPriceConfirmed(3, 'hybrid', T)).toBe(true);
-    expect(grossCost(3, 'hybrid', T)).toEqual([99000, 99000]);
+    expect(grossCost(3, 'hybrid', T)).toEqual([99000, 118800]);
   });
-  it('a size with no confirmed price falls back to the band estimate', () => {
+  it('a size with no quote starts at the model, with the same range', () => {
     expect(confirmedPrice(5, 'hybrid', T)).toBeNull();
     expect(isPriceConfirmed(5, 'hybrid', T)).toBe(false);
-    expect(grossCost(5, 'hybrid', T)).toEqual([400000, 450000]); // 5 × [80000, 90000]
+    expect(grossCost(5, 'hybrid', T)).toEqual([400000, 480000]); // 5 × 80000, then +20%
   });
-  it('confirmed prices only apply to hybrid', () => {
+  it('quotes are kept per system type', () => {
     expect(confirmedPrice(3, 'on-grid', T)).toBeNull();
     expect(confirmedPrice(3, 'off-grid', T)).toBeNull();
+  });
+  it('minPerKw stops the model going below a per-kW floor for small systems', () => {
+    const withFloor = { ...T, pricing: { ...T.pricing, offGrid: { base: -55000, perKw: 65000, minPerKw: 46667 } } };
+    expect(grossCost(1, 'off-grid', withFloor)[0]).toBe(46667);
+    expect(grossCost(5, 'off-grid', withFloor)[0]).toBe(270000);
   });
   it('calculate() reports priceConfirmed on the result', () => {
     const confirmed = calculate(units(500, 'domestic', { systemType: 'hybrid', sanctionedLoadKw: 10 }), T);
     expect(confirmed.systemKw).toBe(3);
     expect(confirmed.priceConfirmed).toBe(true);
-    expect(confirmed.grossCost).toEqual([99000, 99000]);
+    expect(confirmed.grossCost).toEqual([99000, 118800]);
 
     const estimated = calculate(units(750, 'domestic', { systemType: 'hybrid', sanctionedLoadKw: 10 }), T);
     expect(estimated.systemKw).toBe(5);

@@ -1,4 +1,4 @@
-import { SOLAR_CONFIG, type PriceBand, type SolarConfig } from '../../config/solar-config';
+import { SOLAR_CONFIG, type SolarConfig } from '../../config/solar-config';
 import { computeSubsidy } from './subsidy';
 import {
   effectiveYieldPerKw,
@@ -21,30 +21,29 @@ export const INPUT_LIMITS = {
 
 const ZERO: BillBreakdown = { chargeableUnits: 0, energy: 0, fixed: 0, duty: 0, total: 0 };
 
-function priceBands(type: SystemType, config: SolarConfig): readonly PriceBand[] {
-  if (type === 'hybrid') return config.pricing.hybrid;
-  if (type === 'off-grid') return config.pricing.offGrid;
-  return config.pricing.onGrid;
-}
+type PriceKey = 'onGrid' | 'hybrid' | 'offGrid';
+const priceKey = (type: SystemType): PriceKey => (type === 'hybrid' ? 'hybrid' : type === 'off-grid' ? 'offGrid' : 'onGrid');
 
-/** RSK's confirmed exact total for this size and type, if one has been supplied. */
+/** RSK's own quoted price for exactly this size and system type, if one has been supplied. */
 export function confirmedPrice(kw: number, type: SystemType, config: SolarConfig = SOLAR_CONFIG): number | null {
-  if (type !== 'hybrid') return null;
-  return config.pricing.hybridConfirmed.find((p) => p.kw === kw)?.amount ?? null;
+  return config.pricing.quotes[priceKey(type)].find((q) => q.kw === kw)?.amount ?? null;
 }
 
-/** True when the price behind grossCost() is a real confirmed figure, not the placeholder band estimate. */
+/** True when the range for this size starts at one of RSK's own quotes rather than the formula. */
 export function isPriceConfirmed(kw: number, type: SystemType, config: SolarConfig = SOLAR_CONFIG): boolean {
   return confirmedPrice(kw, type, config) != null;
 }
 
+/**
+ * Installed price range. It starts at RSK's quote for this exact size where one exists, otherwise at
+ * the price model fitted to the quotes, and runs up by pricing.rangeUpPercent. Multiplying by
+ * (100 + percent) before dividing keeps whole-rupee results exact.
+ */
 export function grossCost(kw: number, type: SystemType, config: SolarConfig = SOLAR_CONFIG): Range {
-  const exact = confirmedPrice(kw, type, config);
-  if (exact != null) return [exact, exact];
-  const bands = priceBands(type, config);
-  const band = bands.find((b) => kw <= b.upToKw) ?? bands[bands.length - 1];
-  if (!band) return [0, 0];
-  return [kw * band.perKw[0], kw * band.perKw[1]];
+  const model = config.pricing[priceKey(type)];
+  const fromModel = Math.max(model.base + model.perKw * kw, (model.minPerKw ?? 0) * kw);
+  const start = confirmedPrice(kw, type, config) ?? fromModel;
+  return [start, (start * (100 + config.pricing.rangeUpPercent)) / 100];
 }
 
 /** Sum of annual savings over the horizon with tariff escalation and panel degradation. */

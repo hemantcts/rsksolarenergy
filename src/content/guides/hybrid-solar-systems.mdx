@@ -31,14 +31,16 @@ related:
 
 import KitTable from '../../components/content/KitTable.astro';
 import { F } from '../../lib/facts';
-import { HYBRID_CONFIRMED } from '../../data/sizes';
+import { HYBRID_QUOTES } from '../../data/sizes';
+import { grossCost } from '../../lib/calculator/calculate';
 import { residentialSubsidy } from '../../lib/calculator/subsidy';
-import { inr } from '../../lib/calculator/format';
+import { inr, inrRange } from '../../lib/calculator/format';
 import { SOLAR_CONFIG } from '../../config/solar-config';
 
-export const HYBRID_ROWS = HYBRID_CONFIRMED.map(({ kw, amount }) => {
+export const HYBRID_ROWS = HYBRID_QUOTES.map(({ kw }) => {
+  const [lo, hi] = grossCost(kw, 'hybrid', SOLAR_CONFIG);
   const subsidyAmount = residentialSubsidy(kw, SOLAR_CONFIG);
-  return { kw, price: inr(amount), subsidy: inr(subsidyAmount), net: inr(amount - subsidyAmount) };
+  return { kw, price: inrRange([lo, hi]), subsidy: inr(subsidyAmount), net: inrRange([lo - subsidyAmount, hi - subsidyAmount]) };
 });
 
 ## How a hybrid system works
@@ -63,7 +65,7 @@ The generation figures are UTL's own. For comparison, our calculator uses a more
 
 If power cuts are only an occasional nuisance, an on-grid system with the subsidy plus a small inverter-battery for the essentials is often cheaper. We will tell you which way the numbers fall for your connection.
 
-## What a hybrid system actually costs
+## What a hybrid system costs
 
 Pricing for the lithium hybrid kits we install most often. Panels, hybrid inverter, 51.2V/100Ah lithium battery, mounting structure, DC and AC wiring, earthing, ACDB+DCDB, lightning arrester, cable tray, changeover switch, labour and net metering are all included:
 
@@ -85,7 +87,7 @@ Pricing for the lithium hybrid kits we install most often. Panels, hybrid invert
 </table>
 </div>
 
-These are confirmed prices from RSK's own itemised quotes, not estimates. You pay the full amount first; the subsidy reaches your bank account {F.days} days after the DISCOM inspection.
+Each range starts at RSK's own itemised quote for that kit and runs up to {SOLAR_CONFIG.pricing.rangeUpPercent}% higher, to allow for the roof, structure and cable runs. You pay the full amount first; the subsidy reaches your bank account {F.days} days after the DISCOM inspection.
 
 ## Backup is sized to loads, not to the whole house
 
