@@ -83,6 +83,9 @@ const year = new Date().getFullYear();
                   {hours.lines.map((l) => (
                     <p>{l}</p>
                   ))}
+                  {hours.breaks.map((b) => (
+                    <p class="text-rule">{b}</p>
+                  ))}
                   {hours.closed && <p class="text-rule">{hours.closed}</p>}
                 </div>
               </div>

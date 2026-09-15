@@ -101,11 +101,32 @@ export const SIZE_COPY: Record<number, { suits: string; notes: string[] }> = {
       'Check your units before settling on 3 kW. Under Punjab’s free-units rules, a smaller hybrid system may already take your bill to zero, and the calculator will show you if it does.',
     ],
   },
+  4: {
+    suits: 'Homes that have outgrown 3 kW, usually because a second or third air conditioner has pushed summer bills up. Available on-grid or hybrid, both subsidised.',
+    notes: [
+      'The home subsidy is ₹78,000, the same as 3 kW, so the fourth kilowatt is paid for in full. Check that 3 kW really falls short before stepping up.',
+      'Check the sanctioned load on your bill before applying. If it is under 4 kW, PSPCL load enhancement comes first.',
+    ],
+  },
   5: {
     suits: 'Big homes with several air conditioners, and small shops and offices that pay from the first unit.',
     notes: [
       'For a home, the subsidy is capped at ₹78,000, the same as 3 kW, whether on-grid or hybrid.',
       'A 5 kW system needs 5 kW of sanctioned load. If yours is lower, PSPCL load enhancement comes first, before the subsidy application.',
+    ],
+  },
+  6: {
+    suits: 'Large homes where two or three air conditioners run most summer afternoons, and clinics or offices with steady daytime load.',
+    notes: [
+      'Hybrid at 6 kW is priced from one of RSK’s own itemised quotes: a lithium hybrid kit with installation and net metering included.',
+      'For a home the subsidy stays at ₹78,000, so every kilowatt above 3 is at full price. Size to the bill, not to the roof.',
+    ],
+  },
+  8: {
+    suits: 'Very large homes, and showrooms, clinics and offices with high daytime use. Businesses pay from the first unit, so savings start straight away.',
+    notes: [
+      'Commercial connections do not get the PM Surya Ghar subsidy. For a home it stays at ₹78,000, the same as 3 kW.',
+      'At this size the roof area and shading usually decide the layout, so the final design follows a site survey.',
     ],
   },
   10: {

@@ -138,7 +138,7 @@ export const SOLAR_CONFIG = {
      * the primary system (on-grid isn't offered that small); 3 kW and up feature on-grid.
      * See primaryTypeForKw() in src/data/sizes.ts.
      */
-    sizePagesKw: [1, 2, 3, 5, 10],
+    sizePagesKw: [1, 2, 3, 4, 5, 6, 8, 10],
     /** Above the largest standard size, round up to this step (commercial). */
     largeStepKw: 5,
     /**
@@ -152,7 +152,8 @@ export const SOLAR_CONFIG = {
 
   pricing: {
     // Overall status stays 'placeholder': on-grid (the primary, subsidised product line) and
-    // off-grid are still invented stand-ins pending RSK's price list. Do not ship those numbers.
+    // off-grid are band estimates, not RSK's price list. RSK approved publishing them as estimated
+    // ranges on 2026-09-15; every page that shows one labels it as an estimate (DraftNote).
     // Hybrid at 3/5/6 kW is real (see hybridConfirmed below) and is used in place of the band
     // estimate wherever it applies — see grossCost() in src/lib/calculator/calculate.ts.
     status: 'placeholder' as ConfigStatus,

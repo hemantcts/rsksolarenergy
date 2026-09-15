@@ -46,6 +46,7 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${dest
           <p class="font-semibold">{BUSINESS.name}</p>
           {formatAddressLines().map((l) => <p>{l}</p>)}
         </address>
+        <p class="t-small mt-2 text-slate">Landmark: {BUSINESS.address.landmark}</p>
         <p class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
           <a href={directionsUrl} rel="noopener" target="_blank" class="underline">Get directions</a>
           <a href={BUSINESS.google.mapsUrl} rel="noopener" target="_blank" class="underline">Open in Google Maps</a>
@@ -57,6 +58,9 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${dest
             <div class="mt-2">
               {hours.lines.map((l) => (
                 <p>{l}</p>
+              ))}
+              {hours.breaks.map((b) => (
+                <p class="text-slate">{b}</p>
               ))}
               {hours.closed && <p class="text-slate">{hours.closed}</p>}
             </div>
@@ -96,7 +100,7 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${dest
         </table>
         <SocialLinks class="mt-6" />
         <p class="mt-6">
-          <a href={BUSINESS.google.reviewUrl} rel="noopener" target="_blank" class="underline">Leave us a Google review</a>
+          <a href={BUSINESS.google.reviewUrl} rel="noopener" target="_blank" class="underline">Leave us a Google review</a>{BUSINESS.justdial.url && <><span class="mx-3 text-slate" aria-hidden="true">·</span><a href={BUSINESS.justdial.url} rel="noopener" target="_blank" class="underline">See our Justdial listing</a></>}
         </p>
       </div>
     </div>

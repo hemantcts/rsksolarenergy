@@ -42,7 +42,7 @@ const path = '/reviews/';
         <span class="t-readout">{BUSINESS.justdial.rating.toFixed(1)}</span>
         <span class="flex items-center gap-1"><Icon name="star" size={16} /><span>{BUSINESS.justdial.reviewCount} reviews</span></span>
       </p>
-      <p class="t-small mt-3 text-slate">RSK Solar Energy, Mohali Sector 74</p>
+      {BUSINESS.justdial.url ? <a href={BUSINESS.justdial.url} rel="noopener" target="_blank" class="mt-3 inline-block underline">Read on Justdial</a> : <p class="t-small mt-3 text-slate">RSK Solar Energy, Mohali Sector 74</p>}
     </div>
   </section>
 

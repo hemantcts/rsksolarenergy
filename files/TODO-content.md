@@ -30,10 +30,7 @@ Each of these is a `TODO` comment in `src/config/business.ts` — fill in the va
 the site picks it up automatically (these fields are `null` and hidden until supplied, not
 guessed):
 
-- Address PIN code (as shown on the Google Business Profile)
 - Map coordinates (`geo`) — from the Google Business Profile pin
-- Opening hours
-- Justdial profile URL (so the rating badge can link out directly, like the Google one does)
 - YouTube channel URL (`BUSINESS.social.youtube`) — once supplied, add real video links to
   `src/data/videos.ts` and they appear on the homepage automatically, no code changes needed
 

@@ -1,6 +1,6 @@
 ---
 title: 'UTL Solar Panels in Mohali: 40 W to 735 W'
-description: 'UTL mono PERC, N-type TOPCon and bifacial solar panels from 40 W to 735 W, with full specifications. What to check before you buy, including ALMM listing.'
+description: 'UTL mono PERC, N-type TOPCon and bifacial solar panels from 40 W to 735 W, with full specifications. What to check before you buy, including DCR and ALMM listing.'
 h1: Solar panels
 lead: 'UTL modules from 40 W panels for a single light up to 735 W half-cut modules for large rooftop and commercial systems, in mono PERC, N-type TOPCon and bifacial. What the numbers on a datasheet mean, and the one check that decides whether you get the subsidy.'
 crumb: Solar panels
@@ -16,13 +16,13 @@ faq:
     a: 'For rooftop systems, a mono module. N-type TOPCon panels turn a little more sunlight into power than mono PERC and lose less output as they heat up, which counts on a Punjab roof in May. Bifacial versions also collect light reflected up from the roof surface. Small polycrystalline panels still make sense for lighting kits and small off-grid loads where cost matters more than space.'
   - q: How much roof does a panel need?
     a: 'A 72-cell module of 390 to 400 W is roughly 2 m long and 1 m wide. For a complete system, allow about 100 sq ft of shade-free roof per kW, including the gaps between rows for access and to avoid shading.'
-  - q: Do the panels need to be ALMM-listed?
-    a: 'For the PM Surya Ghar subsidy, yes. Only models on the government’s ALMM list qualify. We confirm the listing of the exact model on your quote before installation.'
+  - q: Do the panels need to be DCR and ALMM-listed?
+    a: 'For the PM Surya Ghar subsidy, yes. A subsidised home system needs DCR panels, made with Indian-made cells, of a model on the government’s ALMM list. We confirm both for the exact model on your quote before installation.'
 related:
   - href: /products/
     label: Every panel in the catalogue, with specifications
   - href: /pm-surya-ghar-subsidy-punjab/
-    label: PM Surya Ghar subsidy and the ALMM rule
+    label: PM Surya Ghar subsidy, DCR and the ALMM list
   - href: /solar-calculator/
     label: Work out how many kW you need
 ---
@@ -40,19 +40,27 @@ export const panelType = (p) => {
 
 export const panelWatts = (p) => parseInt(p.title.match(/(\d{2,3})\s*(?:-?\s*watts?\b|wp?\b)/i)?.[1] ?? p.slug.match(/(?:^|-)(\d{2,3})(?:w|wp)(?:-|$)/)?.[1] ?? '0', 10);
 
+export const panelDcr = (p) => {
+  const text = [p.slug, p.title, p.summary, ...p.features, ...(p.specs?.rows ?? []).flatMap((r) => ('values' in r ? [r.label, ...r.values] : []))].join(' ');
+  if (/\bndcr\b|non[- ]?dcr/i.test(text)) return 'Non-DCR';
+  if (/\bdcr\b|domestic content/i.test(text)) return 'DCR';
+  return 'Ask us';
+};
+
 export const panels = PRODUCTS.filter((p) => p.category === 'solar-panels')
-  .map((p) => ({ ...p, watts: panelWatts(p), type: panelType(p) }))
+  .map((p) => ({ ...p, watts: panelWatts(p), type: panelType(p), dcr: panelDcr(p) }))
   .sort((a, b) => b.watts - a.watts);
 
 <div class="table-scroll not-prose my-8">
 <table class="spec-table">
-<caption>UTL panels in the catalogue</caption>
-<thead><tr><th scope="col">Panel</th><th scope="col">Type</th><th scope="col" class="num">Rating</th></tr></thead>
+<caption>UTL panels in the catalogue. Subsidised home systems need DCR panels.</caption>
+<thead><tr><th scope="col">Panel</th><th scope="col">Type</th><th scope="col">DCR</th><th scope="col" class="num">Rating</th></tr></thead>
 <tbody>
 {panels.map((p) => (
 <tr>
 <th scope="row"><a href={`/products/${p.slug}/`} class="underline">{p.title}</a></th>
 <td>{p.type}</td>
+<td>{p.dcr}</td>
 <td class="num">{p.watts ? `${p.watts} W` : 'Range'}</td>
 </tr>
 ))}
@@ -70,7 +78,7 @@ export const panels = PRODUCTS.filter((p) => p.category === 'solar-panels')
 
 ## The check that decides the subsidy
 
-PM Surya Ghar pays only for systems built with ALMM-listed modules. The inspector checks the model. If it is not on the list, the subsidy is lost and cannot be recovered after installation. Ask for the exact model number on your quote and check it against the current ALMM list before the panels go up.
+PM Surya Ghar pays only for systems built with DCR modules from the ALMM list: panels made in India with Indian-made cells. The inspector checks the model. If it is not on the list, the subsidy is lost and cannot be recovered after installation. Ask for the exact model number on your quote and check it against the current ALMM list before the panels go up.
 
 ## Panels alone, or a complete system?
 

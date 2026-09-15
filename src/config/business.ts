@@ -5,12 +5,14 @@
  */
 export type Weekday = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
 
-/** One opening-hours rule. Times are 24-hour "HH:MM", the format schema.org expects. */
+/** One opening-hours block. Times are 24-hour "HH:MM", the format schema.org expects. */
 export interface OpeningHours {
   days: Weekday[];
   opens: string;
   closes: string;
 }
+
+const MON_TO_SAT: Weekday[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 export const BUSINESS = {
   name: 'RSK Solar Energy',
@@ -24,8 +26,13 @@ export const BUSINESS = {
     locality: 'Sahibzada Ajit Singh Nagar (Mohali)',
     region: 'Punjab',
     country: 'IN',
-    // TODO: confirm PIN code as shown on the Google Business Profile before adding it.
-    postalCode: '',
+    /** Confirmed by RSK, 2026-09-15. */
+    postalCode: '160055',
+    /**
+     * From RSK's own Justdial listing. Shown on the contact page as a directions hint only; it is
+     * deliberately not part of formatAddressLines(), so the NAP lines stay identical everywhere.
+     */
+    landmark: 'Opposite Nexa Tower, Sector 74',
   },
 
   // TODO: exact coordinates from the Google Business Profile pin.
@@ -43,13 +50,15 @@ export const BUSINESS = {
   email: 'rsksolarenergy@gmail.com',
 
   /**
-   * TODO: opening hours from RSK, matching the Google Business Profile exactly.
-   * Everything that shows hours (header strip, footer, contact page, schema) reads this one
-   * field, so filling it in updates the whole site at once. Until then no hours are shown
-   * anywhere, rather than a guess. Example shape:
-   *   [{ days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '09:30', closes: '18:30' }]
+   * Confirmed by RSK, 2026-09-15: Monday to Saturday 9:30 am to 7 pm, closed 2 pm to 2:45 pm,
+   * closed Sunday. schema.org has no "break" field, so the day is two blocks, which is how
+   * Google expects a midday closure. Everything that shows hours (header strip, footer, contact
+   * page, mobile menu, schema) reads this one field.
    */
-  hours: null as null | OpeningHours[],
+  hours: [
+    { days: MON_TO_SAT, opens: '09:30', closes: '14:00' },
+    { days: MON_TO_SAT, opens: '14:45', closes: '19:00' },
+  ] as null | OpeningHours[],
 
   google: {
     rating: 4.9,
@@ -60,15 +69,12 @@ export const BUSINESS = {
     reviewUrl: 'https://search.google.com/local/writereview?placeid=ChIJK-ncoCnvDzkRBQ5k6r_hIjY',
   },
 
-  /**
-   * Secondary review platform. RSK also has a Justdial listing.
-   * TODO: get the Justdial profile URL from RSK so this can link out directly.
-   */
+  /** Secondary review platform. Profile URL supplied by RSK, 2026-09-15. */
   justdial: {
     rating: 5.0,
     reviewCount: 40,
     ratingCheckedOn: '2026-09-12',
-    url: null as string | null,
+    url: 'https://www.justdial.com/Mohali/Rsk-Solar-Energy-Opposite-Nexa-Tower-Mohali-Sector-74/0172PX172-X172-230604155006-M4D9_BZDET' as string | null,
   },
 
   /** Installation counts. Confirmed by RSK, 2026-09-12. */
@@ -85,7 +91,7 @@ export const BUSINESS = {
 
   /**
    * Social profile URLs. Left null until RSK supplies the real profile/channel URLs. A social
-   * link is never shown until it is genuinely confirmed (CLAUDE.md §6, same rule as Justdial's URL).
+   * link is never shown until it is genuinely confirmed (CLAUDE.md §6).
    */
   social: {
     facebook: 'https://www.facebook.com/rsksolarenergy/' as string | null,
@@ -97,9 +103,8 @@ export const BUSINESS = {
   /** Registration numbers, shown in the footer and About for credibility. Confirmed by RSK. */
   registrations: {
     gst: '03GKGPK1207P1Z4',
-    // As supplied by RSK. Udyam registration numbers are usually printed "UDYAM-..." (no H),
-    // so this needs checking against the certificate.
-    msme: 'UDHYAM-PB-20-0093804',
+    // Corrected from "UDHYAM-" to "UDYAM-" at RSK's instruction, 2026-09-15.
+    msme: 'UDYAM-PB-20-0093804',
   },
 
   /**
@@ -119,6 +124,10 @@ export function formatAddressLines(): string[] {
 
 const WEEK: Weekday[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const shortDay = (i: number) => WEEK[i].slice(0, 3);
+const minutes = (t: string) => {
+  const [h, m] = t.split(':').map(Number);
+  return h * 60 + m;
+};
 
 function clock(t: string) {
   const [h, m] = t.split(':').map(Number);
@@ -139,14 +148,29 @@ function dayRange(days: readonly Weekday[]) {
 }
 
 /**
- * Opening hours as display lines ("Mon–Sat, 9:30 am to 6:30 pm") plus the closed days, or null
- * while BUSINESS.hours is unset. Every place that shows hours goes through this.
+ * Opening hours for display, or null while BUSINESS.hours is unset. Blocks that share the same
+ * days are merged into one line, with any gap between them reported as a break, so two schema
+ * blocks read as "Mon–Sat, 9:30 am to 7 pm" plus "Closed 2 pm to 2:45 pm".
  */
-export function formatHours(): { lines: string[]; closed: string | null } | null {
+export function formatHours(): { lines: string[]; breaks: string[]; closed: string | null } | null {
   const hours = BUSINESS.hours;
   if (!hours?.length) return null;
-  const lines = hours.map((h) => `${dayRange(h.days)}, ${clock(h.opens)} to ${clock(h.closes)}`);
+  const groups = new Map<string, OpeningHours[]>();
+  for (const h of hours) {
+    const key = [...h.days].sort((a, b) => WEEK.indexOf(a) - WEEK.indexOf(b)).join(',');
+    groups.set(key, [...(groups.get(key) ?? []), h]);
+  }
+  const lines: string[] = [];
+  const breaks: string[] = [];
+  for (const blocks of groups.values()) {
+    const sorted = [...blocks].sort((a, b) => minutes(a.opens) - minutes(b.opens));
+    const days = dayRange(sorted[0].days);
+    lines.push(`${days}, ${clock(sorted[0].opens)} to ${clock(sorted.at(-1)!.closes)}`);
+    for (let i = 1; i < sorted.length; i++) {
+      breaks.push(`Closed ${clock(sorted[i - 1].closes)} to ${clock(sorted[i].opens)}`);
+    }
+  }
   const open = new Set(hours.flatMap((h) => h.days));
   const closedDays = WEEK.filter((d) => !open.has(d));
-  return { lines, closed: closedDays.length ? `${dayRange(closedDays)}: closed` : null };
+  return { lines, breaks, closed: closedDays.length ? `${dayRange(closedDays)}: closed` : null };
 }
