@@ -158,8 +158,10 @@ Redirect 301 /hybrid-solar-systems-with-battery-backup-innovative-and-sustainabl
   ExpiresByType image/png "access plus 1 month"
   ExpiresByType image/x-icon "access plus 1 year"
   ExpiresByType image/svg+xml "access plus 1 month"
-  ExpiresByType text/css "access plus 1 month"
-  ExpiresByType application/javascript "access plus 1 month"
+  # Everything under /_astro/ has a content hash in its filename, so a new build never reuses a URL.
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
   ExpiresByType application/manifest+json "access plus 1 month"
 </IfModule>
 

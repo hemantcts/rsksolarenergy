@@ -15,7 +15,24 @@ const path = `/blog/${entry.id}/`;
 // Frontmatter `title` doubles as the <title> tag, so it carries the "| RSK Solar" suffix — strip
 // it once and reuse everywhere a clean headline is needed (H1, breadcrumb, and the Article
 // schema's `headline`, which had been getting the raw suffixed value).
-const headline = d.title.replace(/ \| RSK.*$/, '');
+const clean = (title: string) => title.replace(/ \| RSK.*$/, '');
+const headline = clean(d.title);
+
+const chosen = d.related.length
+  ? d.related
+  : [
+      { href: '/solar-calculator/', label: 'Work out your own numbers in the calculator' },
+      { href: '/pm-surya-ghar-subsidy-punjab/', label: 'PM Surya Ghar subsidy in Punjab' },
+      { href: '/blog/', label: 'All guides' },
+    ];
+// Every guide also links to up to three others in its category, newest first, so none is left
+// reachable only from the blog index.
+const sameCategory = (await getCollection('blog'))
+  .filter((p) => p.id !== entry.id && p.data.category === d.category && !chosen.some((r) => r.href === `/blog/${p.id}/`))
+  .sort((a, b) => (b.data.updated ?? b.data.published).localeCompare(a.data.updated ?? a.data.published))
+  .slice(0, 3)
+  .map((p) => ({ href: `/blog/${p.id}/`, label: clean(p.data.title) }));
+const related = [...chosen, ...sameCategory];
 ---
 
 <GuideLayout
@@ -31,11 +48,7 @@ const headline = d.title.replace(/ \| RSK.*$/, '');
   faq={d.faq}
   updated={d.updated ?? d.published}
   ogType="article"
-  related={d.related.length ? d.related : [
-    { href: '/solar-calculator/', label: 'Work out your own numbers in the calculator' },
-    { href: '/pm-surya-ghar-subsidy-punjab/', label: 'PM Surya Ghar subsidy in Punjab' },
-    { href: '/blog/', label: 'All guides' },
-  ]}
+  related={related}
   {...(d.cta ? { cta: d.cta } : {})}
 >
   <Content />

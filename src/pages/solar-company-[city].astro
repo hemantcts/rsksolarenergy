@@ -11,7 +11,7 @@ import { CITIES, cityPath, cityPlace, type CityLocation } from '../data/location
 import { reviewMonth } from '../data/reviews';
 import { inr } from '../lib/calculator/format';
 import { locationMessage } from '../lib/whatsapp';
-import { faqPage, service, type QA } from '../lib/seo';
+import { faqPage, fitSuffix, service, type QA } from '../lib/seo';
 
 export function getStaticPaths() {
   return CITIES.map((city) => ({ params: { city: city.slug }, props: { city } }));
@@ -31,10 +31,12 @@ const free = cfg.freeUnits.perMonth;
 const cap = inr(cfg.subsidy.residential.cap);
 const [d0, d1] = cfg.subsidy.disbursementDays;
 
-const title = `Solar Company in ${place} | Rooftop Solar Installer`;
+// Long town names (Sri Muktsar Sahib, Mandi Gobindgarh) take the shorter suffix so the title stays within 65 characters.
+const titleBase = `Solar Company in ${place}`;
+const title = titleBase + fitSuffix(titleBase, [' | Rooftop Solar Installer', ' | Solar Installer'], 65);
 const description = direct
-  ? `RSK Solar Energy installs on-grid, hybrid and off-grid rooftop solar in ${city.name}, from Mohali. UTL Solar distributor. PM Surya Ghar subsidy filed for you.`
-  : `Rooftop solar in ${city.name} through RSK's UTL Solar dealer network. On-grid, hybrid and off-grid systems sized to your bill, with the PM Surya Ghar subsidy.`;
+  ? `Rooftop solar in ${city.name} by RSK Solar Energy, UTL Solar distributor in Mohali: on-grid, hybrid and off-grid systems, subsidy filed for you.`
+  : `Rooftop solar in ${city.name} through RSK's UTL Solar dealers: on-grid, hybrid and off-grid systems sized to your bill, with the PM Surya Ghar subsidy.`;
 
 const categoryAngles = outside
   ? [
