@@ -99,7 +99,7 @@ function freeUnitsBlock(r: CalcResult, input: CalcInput, o: RenderOptions, confi
 </div>
 <p>Punjab gives homes ${config.freeUnits.perMonth} free units a month (${config.freeUnits.perBillingCycle} on a two-month bill)${
     r.monthlyUnits ? `, and at about ${digits(r.monthlyUnits)} units a month you are inside that` : ''
-  }. PSPCL charges you nothing, so there is no bill for solar to reduce. We would rather tell you now than sell you a system that cannot pay back.</p>
+  }. PSPCL charges you nothing, so there is no bill for solar to reduce. We would rather tell you now than sell you a system that can’t pay for itself.</p>
 <p class="calc-subhead">Solar can still make sense if</p>
 <ul class="ruled calc-cases">
   <li><strong>Your use is about to rise.</strong> A new AC, an EV, an extension or a bigger family can push you over ${config.freeUnits.perMonth} units. ${
@@ -148,7 +148,7 @@ export function renderResult(r: CalcResult, input: CalcInput, o: RenderOptions):
   if (r.outcome === 'agricultural') {
     return simpleBlock(
       'Our honest answer',
-      'Farm connections get free power, so rooftop solar will not pay back on savings.',
+      'Farm connections get free power, so rooftop solar won’t pay for itself through bill savings.',
       'Punjab supplies agricultural connections free of charge. There is no bill for solar to reduce. For solar water pumps, the relevant scheme is PM-KUSUM.',
       r,
       input,

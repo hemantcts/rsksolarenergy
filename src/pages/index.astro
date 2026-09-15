@@ -74,7 +74,7 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
       <div class="pt-10 pb-12 lg:col-span-7 lg:pt-16 lg:pb-20 lg:pr-6">
         <h1 class="t-display max-w-[16ch]">Solar panel dealer &amp; distributor in Mohali, Punjab</h1>
         <p class="t-lead mt-6 max-w-xl">
-          Enter your PSPCL bill. We size the system, take off the PM Surya Ghar subsidy and show your payback, for homes and businesses in Mohali, Tricity and Punjab. If solar will not pay back for you, the calculator says so.
+          Enter your PSPCL bill. We size the system, take off the PM Surya Ghar subsidy and show your payback, for homes and businesses in Mohali, Tricity and Punjab. If solar won’t pay for itself in your case, the calculator will tell you.
         </p>
         <div class="settle mt-6 border-b border-rule pb-6">
           <ul class="t-small flex flex-wrap gap-x-6 gap-y-2 text-slate">
@@ -188,7 +188,6 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
           ))
         }
       </ul>
-      <RooftopSolarArt class="mt-10 max-w-md" />
       </div>
     </div>
   </section>
@@ -321,23 +320,25 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
 
   <!-- Subsidy: the one fact that prevents the most common surprise, not the full process. -->
   <section class="sec-tight" aria-labelledby="subsidy-strip-h">
-    <div class="wrap grid-12 items-start">
+    <div class="wrap grid-12 lg:items-center">
       <div class="lg:col-span-5">
         <h2 id="subsidy-strip-h" class="t-h2">You pay first. The subsidy comes after.</h2>
         <p class="mt-4">
           PM Surya Ghar pays up to <span class="t-value">{inr(cfg.subsidy.residential.cap)}</span> towards a home system, credited to your bank account {d0}–{d1} days after PSPCL inspects it. It is never deducted from the price, and homes are only one part of it: housing societies and businesses have their own numbers too.
         </p>
       </div>
-      <div class="mt-6 lg:col-span-6 lg:col-start-7 lg:mt-0">
-        <a href="/pm-surya-ghar-subsidy-punjab/" class="btn btn-secondary">Read the full subsidy guide</a>
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-center lg:col-span-6 lg:col-start-7">
+        <RooftopSolarArt class="max-w-xs sm:w-1/2" />
+        <a href="/pm-surya-ghar-subsidy-punjab/" class="btn btn-secondary self-start sm:self-center">Read the full subsidy guide</a>
       </div>
     </div>
   </section>
 
   <!-- Real reviews, on ink. -->
   <section class="on-ink sec-open bg-ink text-white" aria-labelledby="reviews-h">
-    <div class="wrap grid-12">
-      <div class="lg:col-span-4">
+    <div class="wrap">
+      <div class="grid-12 lg:items-end">
+      <div class="lg:col-span-5">
         <h2 id="reviews-h" class="t-h2">What customers say</h2>
         <div class="mt-8 flex items-center gap-3">
           <Image src={googleLogo} alt="Google" width={28} height={28} class="h-7 w-7 shrink-0" />
@@ -350,16 +351,17 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
           <Image src={justdialLogo} alt="Justdial" width={220} height={57} class="h-5 w-auto shrink-0" />
           <p class="text-rule">{BUSINESS.justdial.rating.toFixed(1)} from {BUSINESS.justdial.reviewCount} reviews</p>
         </div>
-        <p class="mt-6 flex flex-col gap-2">
+      </div>
+        <p class="flex flex-col gap-2 lg:col-span-6 lg:col-start-7 lg:flex-row lg:flex-wrap lg:justify-end lg:gap-x-6">
           <a href="/reviews/" class="underline">Read every review</a>
           <a href={BUSINESS.google.mapsUrl} class="underline" rel="noopener" target="_blank">Open our Google listing</a>
           {BUSINESS.justdial.url && <a href={BUSINESS.justdial.url} class="underline" rel="noopener" target="_blank">Open our Justdial listing</a>}
         </p>
       </div>
-      <ul class="ruled lg:col-span-7 lg:col-start-6">
+      <ul class="mt-10 grid gap-x-12 md:grid-cols-2">
         {
           reviews.map((r) => (
-            <li class="py-6">
+            <li class="border-t border-slate py-6">
               <blockquote>
                 <p class="t-lead">{r.text}</p>
               </blockquote>
@@ -376,16 +378,18 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
 
   <!-- Where we install: direct service area, then dealer-network reach. Links every city page. -->
   <section class="sec-tight bg-white" aria-labelledby="areas-h">
-    <div class="wrap grid-12">
-      <div class="lg:col-span-4">
+    <div class="wrap">
+      <div class="grid-12 lg:items-end">
+      <div class="lg:col-span-6">
         <h2 id="areas-h" class="t-h2">Where we install</h2>
         <p class="mt-4 text-slate">Our own team covers Tricity, Kurali, Morinda, Ropar and the towns around them from the Phase 8B office. Across the rest of Punjab we work through the UTL dealers we supply.</p>
-        <p class="mt-4"><a href="/contact/" class="underline">Contact and directions</a></p>
       </div>
-      <div class="grid gap-8 sm:grid-cols-2 lg:col-span-7 lg:col-start-6">
+        <p class="flex flex-wrap gap-x-6 gap-y-2 lg:col-span-5 lg:col-start-8 lg:justify-end"><a href="/contact/" class="underline">Contact and directions</a><a href="/solar-company-punjab/" class="underline">All locations by district</a></p>
+      </div>
+      <div class="mt-10 grid gap-8">
         <div>
           <h3 class="t-small font-semibold text-slate">Our own installation team</h3>
-          <ul class="mt-3 grid grid-cols-2 gap-x-4">
+          <ul class="mt-3 grid grid-cols-2 gap-x-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
             {
               directCities.map((c) => (
                 <li class="py-1.5">
@@ -399,7 +403,7 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
         </div>
         <div>
           <h3 class="t-small font-semibold text-slate">Through our Punjab dealer network</h3>
-          <ul class="mt-3 grid grid-cols-2 gap-x-4">
+          <ul class="mt-3 grid grid-cols-2 gap-x-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
             {
               partnerCities.map((c) => (
                 <li class="py-1.5">
@@ -417,12 +421,12 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
 
   <!-- Brands and dealer network: the UTL association, and a real named dealer partner. -->
   <section class="sec-tight border-t border-rule bg-white" aria-labelledby="brands-h">
-    <div class="wrap grid-12">
-      <div class="lg:col-span-4">
-        <h2 id="brands-h" class="t-h2">Brands and dealer network</h2>
-        <p class="mt-4 text-slate">Who we distribute for, and who we work with across Punjab.</p>
+    <div class="wrap">
+      <div class="grid-12 lg:items-end">
+        <h2 id="brands-h" class="t-h2 lg:col-span-6">Brands and dealer network</h2>
+        <p class="text-slate lg:col-span-5 lg:col-start-8">Who we distribute for, and who we work with across Punjab.</p>
       </div>
-      <div class="grid gap-6 sm:grid-cols-2 lg:col-span-7 lg:col-start-6">
+      <div class="mt-8 grid gap-6 sm:grid-cols-2">
         <div class="border border-rule p-6">
           <p class="t-small text-slate">Authorised distributor of</p>
           <Image src={utlLogo} alt="UTL Solar" width={200} class="mt-3 h-auto w-40" />
@@ -471,8 +475,15 @@ const description = `UTL Solar dealer and distributor in Mohali, Punjab. On-grid
       <div class="lg:col-span-4">
         <h2 id="follow-h" class="t-h2">Follow RSK</h2>
         <p class="mt-4 text-slate">Installation photos and updates from Phase 8B, Mohali.</p>
-        <SocialLinks class="mt-5" />
+        {VIDEOS.length > 0 && <SocialLinks class="mt-5" />}
       </div>
+      {
+        VIDEOS.length === 0 && (
+          <div class="lg:col-span-7 lg:col-start-6 lg:flex lg:justify-end">
+            <SocialLinks class="gap-6 [&_svg]:h-8 [&_svg]:w-8" />
+          </div>
+        )
+      }
       {
         VIDEOS.length > 0 && (
           <ul class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:col-span-7 lg:col-start-6 lg:mt-0">
