@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Faq from '../components/Faq.astro';
 import BarChart from '../components/charts/BarChart.astro';
 import PriceRangeChart from '../components/charts/PriceRangeChart.astro';
 import RooftopSolarArt from '../components/art/RooftopSolarArt.astro';
@@ -189,6 +190,13 @@ const faq: QA[] = [
         <p class="mt-2 text-slate">See how UTL compares with Luminous, Microtek, Tata Power Solar, Waaree and Adani, using each brand's own published figures.</p>
       </div>
       <p class="lg:col-span-4 lg:col-start-9"><a href="/utl-solar-vs-other-brands/" class="btn btn-secondary">UTL vs other brands</a></p>
+    </div>
+  </section>
+
+  <!-- The same questions as the FAQPage schema: Google needs structured FAQs to be visible. -->
+  <section class="sec-tight border-t border-rule">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-8"><Faq items={faq} heading="Questions about choosing an installer" /></div>
     </div>
   </section>
 

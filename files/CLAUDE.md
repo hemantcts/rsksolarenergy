@@ -209,6 +209,27 @@ rsksolarenergy@gmail.com
 - Descriptive alt text on every image (real descriptions, not keyword stuffing)
 - All images WebP/AVIF, hero preloaded, everything below fold lazy
 
+### Enforced on every build
+`scripts/seo-guard.mjs` runs at the end of `npm run build` and **fails the build** if any page
+breaks these rules, so they cannot quietly regress:
+- Title present, unique, 65 characters or fewer (UTL catalogue product names: 80); description
+  present, unique, 160 or fewer
+- Brand name kept out of titles except the homepage, About, Contact, Reviews, Careers, Why choose
+  RSK and legal/payment pages (Highprime playbook)
+- Exactly one H1, no skipped heading levels
+- Self-referencing canonical; og:title, og:description, og:image, og:url and twitter:card
+- Valid JSON-LD; identical LocalBusiness on every page; BreadcrumbList everywhere but the
+  homepage; no AggregateRating or Review; Service + FAQPage on size and city pages, Article on
+  blog posts, Product on product pages
+- FAQPage question count equals the FAQs visible on the page
+- Every image has alt, width and height; every internal link resolves and ends in a slash
+- Only the official phone numbers (read from /contact/)
+- No RSK-side warranty or guarantee wording; no em dashes in site copy (catalogue text exempt)
+- Sitemap lists exactly the indexable pages; noindex only on /404.html and
+  /awards-and-recognition/; robots.txt, image sitemap, llms.txt and ErrorDocument 404 present
+
+If a rule fails, fix the page. Change the rule only when the policy changes, and update this list.
+
 ### Language
 Plan for Hindi and Punjabi versions of the subsidy pages. A large share of the target
 audience searches in those languages and competitors do not serve them. Build routing
