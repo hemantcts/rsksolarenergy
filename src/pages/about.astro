@@ -7,6 +7,11 @@ import { F } from '../lib/facts';
 import SolarPumpArt from '../components/art/SolarPumpArt.astro';
 import { Image } from 'astro:assets';
 import officePhoto from '../assets/office/rsk-solar-energy-office-mohali.jpg';
+import meetingCabin from '../assets/office/office-meeting-cabin.jpg';
+import teamAtWork from '../assets/office/office-team-at-work.jpg';
+import panelsAndBatteries from '../assets/office/warehouse-panels-and-batteries.jpg';
+import pcusAndInverters from '../assets/office/warehouse-pcus-and-inverters.jpg';
+import panelStack from '../assets/office/warehouse-panel-stack.jpg';
 
 const facts: [string, string][] = [
   ['Founded', String(BUSINESS.foundedYear)],
@@ -61,6 +66,35 @@ const facts: [string, string][] = [
     <aside class="lg:col-span-4 lg:col-start-9">
       <CtaBlock />
     </aside>
+  </section>
+
+  <section class="sec-tight bg-white" aria-labelledby="place-h">
+    <div class="wrap">
+      <h2 id="place-h" class="t-h2">Our office and warehouse</h2>
+      <p class="measure mt-3 text-slate">E-203, Phase 8B, Mohali: the office, and the store rooms where UTL stock waits for dispatch and installation. You are welcome to visit during opening hours.</p>
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <figure>
+          <Image src={meetingCabin} alt="Meeting cabin at the RSK Solar Energy office in Phase 8B, Mohali" widths={[400, 800, 1200]} sizes="(min-width: 64rem) 30vw, (min-width: 40rem) 50vw, 100vw" class="aspect-[4/3] w-full border border-rule object-cover" />
+          <figcaption class="t-small mt-2 text-slate">The meeting cabin, where we go through sizing, quotes and paperwork.</figcaption>
+        </figure>
+        <figure>
+          <Image src={teamAtWork} alt="RSK Solar Energy office team working at their desks in Mohali" widths={[400, 800, 1200]} sizes="(min-width: 64rem) 30vw, (min-width: 40rem) 50vw, 100vw" class="aspect-[4/3] w-full border border-rule object-cover" />
+          <figcaption class="t-small mt-2 text-slate">Our office team at E-203.</figcaption>
+        </figure>
+        <figure>
+          <Image src={panelsAndBatteries} alt="Solar panels, UTL lithium batteries and solar PCUs in the RSK Solar Energy store room" widths={[400, 800, 1200]} sizes="(min-width: 64rem) 30vw, (min-width: 40rem) 50vw, 100vw" class="aspect-[4/3] w-full border border-rule object-cover" />
+          <figcaption class="t-small mt-2 text-slate">Panels, lithium and tubular batteries, and PCUs in the store room.</figcaption>
+        </figure>
+        <figure>
+          <Image src={pcusAndInverters} alt="Boxed UTL Gamma+ and Heliac solar PCUs and Taqnia inverters in stock at RSK Solar Energy" widths={[400, 800, 1200]} sizes="(min-width: 64rem) 30vw, (min-width: 40rem) 50vw, 100vw" class="aspect-[4/3] w-full border border-rule object-cover" />
+          <figcaption class="t-small mt-2 text-slate">UTL Gamma+ and Heliac solar PCUs and Taqnia inverters.</figcaption>
+        </figure>
+        <figure>
+          <Image src={panelStack} alt="A stack of solar panels leaning against the wall in the RSK Solar Energy store room" widths={[400, 800, 1200]} sizes="(min-width: 64rem) 30vw, (min-width: 40rem) 50vw, 100vw" class="aspect-[4/3] w-full border border-rule object-cover" />
+          <figcaption class="t-small mt-2 text-slate">Solar panels in the store room.</figcaption>
+        </figure>
+      </div>
+    </div>
   </section>
 
   <section class="on-ink sec-open bg-ink text-white" aria-labelledby="how-h">

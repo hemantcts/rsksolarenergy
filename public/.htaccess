@@ -84,6 +84,9 @@ Redirect 301 /project/wind-energy-plant/ /about/
 Redirect 301 /project/wind-energy-plant-2/ /about/
 Redirect 301 /projects/ /about/
 
+# City page renamed: Rupnagar is searched as Ropar (2026-09-15).
+Redirect 301 /solar-company-rupnagar/ /solar-company-ropar/
+
 # Old blog posts. One 2023 sizing post is replaced by a real equivalent; the rest were generic
 # filler (see TODO-content.md) and just go to the guides index.
 Redirect 301 /how-to-size-your-home-solar-system-in-2023/ /blog/how-to-size-home-solar-punjab/

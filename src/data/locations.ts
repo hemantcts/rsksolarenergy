@@ -175,8 +175,9 @@ export const CITIES: CityLocation[] = [
       'Home to one of Asia’s largest grain markets, with a business community built around agricultural trade, warehousing and transport. Those are daytime commercial loads that solar offsets well.',
   },
   {
-    slug: 'rupnagar',
-    name: 'Rupnagar',
+    // Renamed from "rupnagar" on 2026-09-15: people search "Ropar". The old URL 301s here.
+    slug: 'ropar',
+    name: 'Ropar',
     district: 'Rupnagar (Ropar)',
     tier: 'partner',
     profile:
@@ -189,6 +190,170 @@ export const CITIES: CityLocation[] = [
     tier: 'partner',
     profile:
       'A heritage town best known for the Rail Coach Factory, one of Indian Railways’ largest manufacturing units, alongside a mostly agricultural district.',
+  },
+
+  // Added 2026-09-15 at RSK's request: the remaining district headquarters and major towns, so
+  // every part of Punjab has a page. All reached through the dealer network until RSK confirms
+  // its own team works there (then change tier to 'direct').
+  {
+    slug: 'morinda',
+    name: 'Morinda',
+    district: 'Rupnagar (Ropar)',
+    tier: 'partner',
+    profile:
+      'A market town on the Kharar–Ludhiana road, with a cooperative sugar mill and a farming belt of paddy, wheat and sugarcane around it. Independent houses and shops here suit on-grid systems, and the farms suit solar pumps.',
+  },
+  {
+    slug: 'kurali',
+    name: 'Kurali',
+    district: 'Sahibzada Ajit Singh Nagar (Mohali)',
+    tier: 'partner',
+    profile:
+      'A growing town on the Chandigarh–Ropar highway between Kharar and Ropar, where new residential colonies sit next to farmland. Most homes are independent houses with their own roofs.',
+  },
+  {
+    slug: 'nangal',
+    name: 'Nangal',
+    district: 'Rupnagar (Ropar)',
+    tier: 'partner',
+    profile:
+      'A township built around the Bhakra Nangal hydro project, with the National Fertilizers plant and planned residential colonies. Flat-roofed government-era housing here is well suited to panels.',
+  },
+  {
+    slug: 'anandpur-sahib',
+    name: 'Anandpur Sahib',
+    district: 'Rupnagar (Ropar)',
+    tier: 'partner',
+    profile:
+      'A historic Sikh town, home to Takht Sri Kesgarh Sahib and the Hola Mohalla festival, with guest houses, shops and farms around it. Daytime commercial loads here pay from the first unit.',
+  },
+  {
+    slug: 'rajpura',
+    name: 'Rajpura',
+    district: 'Patiala',
+    tier: 'partner',
+    profile:
+      'A railway junction and industrial town on the Delhi–Amritsar highway, with an industrial focal point and warehousing. Commercial and industrial connections here pay for power from the first unit, so solar offsets it straight away.',
+  },
+  {
+    slug: 'nabha',
+    name: 'Nabha',
+    district: 'Patiala',
+    tier: 'partner',
+    profile:
+      'A former princely-state town with a grain market, schools and an agricultural hinterland. Older town-centre buildings and newer colonies differ a lot in roof condition, so a site check matters.',
+  },
+  {
+    slug: 'fatehgarh-sahib',
+    name: 'Fatehgarh Sahib',
+    district: 'Fatehgarh Sahib',
+    tier: 'partner',
+    profile:
+      'The district headquarters and a major Sikh pilgrimage site, twinned with Sirhind and its grain market. Homes, shops and rice-shelling units here each suit a different system type.',
+  },
+  {
+    slug: 'mandi-gobindgarh',
+    name: 'Mandi Gobindgarh',
+    district: 'Fatehgarh Sahib',
+    tier: 'partner',
+    profile:
+      'Punjab’s steel town, with a large cluster of rolling mills and furnaces. Industrial units here run heavy daytime loads, which rooftop solar offsets on every sunny working day.',
+  },
+  {
+    slug: 'phagwara',
+    name: 'Phagwara',
+    district: 'Kapurthala',
+    tier: 'partner',
+    profile:
+      'An industrial town on the Jalandhar–Ludhiana stretch of NH-44, known for its textile and manufacturing units and Lovely Professional University nearby. Hostels, PGs and factories here all run daytime loads.',
+  },
+  {
+    slug: 'nawanshahr',
+    name: 'Nawanshahr',
+    district: 'Shaheed Bhagat Singh Nagar (Nawanshahr)',
+    tier: 'partner',
+    profile:
+      'The headquarters of Shaheed Bhagat Singh Nagar district in the Doaba region, with a large NRI population and many spacious independent houses. Those roofs often fit a bigger system than the bill needs.',
+  },
+  {
+    slug: 'gurdaspur',
+    name: 'Gurdaspur',
+    district: 'Gurdaspur',
+    tier: 'partner',
+    profile:
+      'A district headquarters in the Majha region near the border, mostly agricultural, with a town centre of shops, schools and offices.',
+  },
+  {
+    slug: 'batala',
+    name: 'Batala',
+    district: 'Gurdaspur',
+    tier: 'partner',
+    profile:
+      'An industrial town long known for its iron foundries and agricultural machinery makers. Workshops and foundries here pay for daytime power from the first unit.',
+  },
+  {
+    slug: 'tarn-taran',
+    name: 'Tarn Taran',
+    district: 'Tarn Taran',
+    tier: 'partner',
+    profile:
+      'A district town near Amritsar, built around Gurdwara Sri Tarn Taran Sahib and its large sarovar, with an agricultural district around it.',
+  },
+  {
+    slug: 'barnala',
+    name: 'Barnala',
+    district: 'Barnala',
+    tier: 'partner',
+    profile:
+      'A Malwa district town with a strong farming base and large textile and paper manufacturing nearby. Industrial and commercial loads here pay from the first unit.',
+  },
+  {
+    slug: 'malerkotla',
+    name: 'Malerkotla',
+    district: 'Malerkotla',
+    tier: 'partner',
+    profile:
+      'Punjab’s newest district, formed in 2021, a historic town with a busy trading and small-industry base alongside its farming villages.',
+  },
+  {
+    slug: 'mansa',
+    name: 'Mansa',
+    district: 'Mansa',
+    tier: 'partner',
+    profile:
+      'A cotton-belt district in southern Malwa, mostly agricultural, with a district town of markets, schools and offices.',
+  },
+  {
+    slug: 'faridkot',
+    name: 'Faridkot',
+    district: 'Faridkot',
+    tier: 'partner',
+    profile:
+      'A district headquarters and a medical education centre, home to Baba Farid University of Health Sciences and its teaching hospital, with a farming district around it.',
+  },
+  {
+    slug: 'muktsar',
+    name: 'Sri Muktsar Sahib',
+    district: 'Sri Muktsar Sahib',
+    tier: 'partner',
+    profile:
+      'A historic district town known for its gurdwaras and the Maghi Mela, in a farming belt of cotton, wheat and kinnow.',
+  },
+  {
+    slug: 'fazilka',
+    name: 'Fazilka',
+    district: 'Fazilka',
+    tier: 'partner',
+    profile:
+      'A border district on Punjab’s south-western edge, farming cotton, wheat and kinnow, with a district town built around trade.',
+  },
+  {
+    slug: 'abohar',
+    name: 'Abohar',
+    district: 'Fazilka',
+    tier: 'partner',
+    profile:
+      'The centre of Punjab’s kinnow belt, a large citrus and cotton market town. Cold storage, grading units and shops here run daytime loads that solar offsets well.',
   },
 ];
 
