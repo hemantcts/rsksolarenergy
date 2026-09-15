@@ -41,6 +41,11 @@ Redirect 301 /projects/ /about/
 # City page renamed: Rupnagar is searched as Ropar (2026-09-15).
 Redirect 301 /solar-company-rupnagar/ /solar-company-ropar/
 
+# Duplicate EV charger listings merged into one page per model (2026-09-15).
+Redirect 301 /products/ev-battery-charger-48v-20a-2/ /products/ev-battery-charger-48v-20a/
+Redirect 301 /products/ev-battery-charger-48v-20a-3/ /products/ev-battery-charger-48v-20a/
+Redirect 301 /products/ev-battery-charger-60v-18a-2/ /products/ev-battery-charger-60v-18a/
+
 # Old blog posts. One 2023 sizing post is replaced by a real equivalent; the rest were generic
 # filler (see TODO-content.md) and just go to the guides index.
 Redirect 301 /how-to-size-your-home-solar-system-in-2023/ /blog/how-to-size-home-solar-punjab/

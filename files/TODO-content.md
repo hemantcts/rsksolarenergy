@@ -82,4 +82,4 @@ wording that makes clear it's an estimate (never presented as confirmed).
 | Subsidy disbursement | 30–45 days post-inspection | ✅ confirmed, consistent across sources |
 | Hybrid systems ARE subsidy-eligible (grid-tied, net-metered); off-grid is NOT | — | ✅ confirmed by RSK |
 | System size floors: on-grid from 3 kW; hybrid and off-grid from 1 kW | — | ✅ confirmed by RSK |
-- City service tiers (`src/data/locations.ts`): 20 locations were added on 2026-09-15 (Morinda, Kurali, Nangal, Anandpur Sahib, Rajpura, Nabha, Fatehgarh Sahib, Mandi Gobindgarh, Phagwara, Nawanshahr, Gurdaspur, Batala, Tarn Taran, Barnala, Malerkotla, Mansa, Faridkot, Sri Muktsar Sahib, Fazilka, Abohar), all as `partner` (dealer network). Confirm which ones RSK’s own team installs in, and change those to `direct`.
+- ~~City service tiers~~ Confirmed 2026-09-15: RSK’s own team installs in Morinda, Kurali and the towns around them (Ropar, Fatehgarh Sahib, Chamkaur Sahib, Khamanon), all now `direct`. If the own-team area grows, change `tier` in `src/data/locations.ts` and add the town to `BUSINESS.serviceArea`.

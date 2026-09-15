@@ -14056,7 +14056,7 @@
     "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/e-rickshaw-72V-10ALI-min.jpg"
   },
   {
-    "slug": "ev-battery-charger-48v-20a-2",
+    "slug": "ev-battery-charger-48v-20a",
     "oldSlug": null,
     "title": "EV Battery Charger 48V/20A",
     "category": "ev-chargers",
@@ -14075,39 +14075,6 @@
       "Powerful microcontroller",
       "Available in CAN communication"
     ],
-    "specs": null,
-    "source": "utl-catalogue",
-    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-60V18A-PRO-pic-1-min-1.jpg"
-  },
-  {
-    "slug": "ev-battery-charger-48v-20a-3",
-    "oldSlug": null,
-    "title": "EV Battery Charger 48V/20A",
-    "category": "ev-chargers",
-    "brand": "UTL Solar",
-    "model": null,
-    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
-    "description": [
-      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
-      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
-    ],
-    "features": [],
-    "specs": null,
-    "source": "utl-catalogue",
-    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-PRO-48V20A-CAN.jpg"
-  },
-  {
-    "slug": "ev-battery-charger-48v-20a",
-    "oldSlug": null,
-    "title": "EV Battery Charger 48V/20A",
-    "category": "ev-chargers",
-    "brand": "UTL Solar",
-    "model": null,
-    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
-    "description": [
-      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design."
-    ],
-    "features": [],
     "specs": null,
     "source": "utl-catalogue",
     "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/NPFC-48V18A-PRO-min.jpg"
@@ -14257,23 +14224,6 @@
     "specs": null,
     "source": "utl-catalogue",
     "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/EV-Charger-min.jpg"
-  },
-  {
-    "slug": "ev-battery-charger-60v-18a-2",
-    "oldSlug": null,
-    "title": "EV Battery Charger 60V/18A",
-    "category": "ev-chargers",
-    "brand": "UTL Solar",
-    "model": null,
-    "summary": "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections .",
-    "description": [
-      "UTL EV charger is SMPS based fully automatic systems with powerful micro controller that provide smart charging in battery type EV SMF, Lead Acid. It is equipped with multiple battery protection feature like overload, short circuit and Battery reverse protections . It also enhances battery life as well as save electricity which is embedded into robust cabinet with compact design.",
-      "1. Charge even on 140V input 2. Strong Anderson Connector 3. strong cabinet 4. SMPS Based Fully Automatic 5. Easy-to-understand battery charging graph 6. powerful microcontroller 7."
-    ],
-    "features": [],
-    "specs": null,
-    "source": "utl-catalogue",
-    "oldImage": "https://d3nut88kxhmnud.cloudfront.net/2023/12/PFC-PRO-48V20A-CAN-1-min.jpg"
   },
   {
     "slug": "ev-battery-charger-60v-18a",

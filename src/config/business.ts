@@ -90,7 +90,8 @@ export const BUSINESS = {
     asOf: '2026',
   },
 
-  serviceArea: ['Mohali', 'Kharar', 'Zirakpur', 'Derabassi', 'Chandigarh', 'Panchkula'],
+  // Towns RSK's own team installs in. Kurali, Morinda and the towns around them confirmed by RSK, 2026-09-15.
+  serviceArea: ['Mohali', 'Kharar', 'Zirakpur', 'Derabassi', 'Chandigarh', 'Panchkula', 'Kurali', 'Morinda', 'Ropar', 'Fatehgarh Sahib', 'Chamkaur Sahib', 'Khamanon'],
   brand: 'UTL Solar',
 
   /**

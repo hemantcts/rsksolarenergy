@@ -11,7 +11,7 @@ const districts = [...new Set(partner.map((c) => c.district))]
   .sort((a, b) => a.localeCompare(b))
   .map((d) => ({ district: d, cities: partner.filter((c) => c.district === d).sort((a, b) => a.name.localeCompare(b.name)) }));
 const title = 'Rooftop Solar Across Punjab: Cities We Serve';
-const description = `Rooftop solar in ${CITIES.length} locations across every district of Punjab: installed directly in Tricity, and through RSK's UTL Solar dealer network elsewhere.`;
+const description = `Rooftop solar in ${CITIES.length} locations across every district of Punjab: our own team in Tricity, Kurali, Morinda and Ropar, and UTL dealers elsewhere.`;
 ---
 
 <BaseLayout title={title} description={description} crumbs={[{ name: 'Locations', path }]}>
@@ -19,7 +19,7 @@ const description = `Rooftop solar in ${CITIES.length} locations across every di
     <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Locations', path }]} />
     <h1 class="t-h1 mt-6">Solar across Punjab</h1>
     <p class="t-lead measure mt-5">
-      RSK installs directly in Mohali and the Tricity. Elsewhere in Punjab we reach you through our UTL Solar dealer network. See <a href="/solar-dealership-punjab/" class="underline">become a dealer</a> if that's you.
+      RSK installs directly in Mohali, the Tricity, and around Kurali, Morinda and Ropar. Elsewhere in Punjab we reach you through our UTL Solar dealer network. See <a href="/solar-dealership-punjab/" class="underline">become a dealer</a> if that's you.
     </p>
   </header>
 

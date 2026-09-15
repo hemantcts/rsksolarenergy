@@ -32,7 +32,8 @@ export interface CityLocation {
 const mohaliReviews = REVIEWS.filter((r) => r.install?.includes('Mohali'));
 
 export const CITIES: CityLocation[] = [
-  // Direct service area: RSK's own installers (matches BUSINESS.serviceArea)
+  // Direct service area: RSK's own installers. Keep BUSINESS.serviceArea in step with every
+  // city marked direct here (Chandigarh and Panchkula included).
   {
     slug: 'mohali',
     name: 'Mohali',
@@ -179,7 +180,7 @@ export const CITIES: CityLocation[] = [
     slug: 'ropar',
     name: 'Ropar',
     district: 'Rupnagar (Ropar)',
-    tier: 'partner',
+    tier: 'direct',
     profile:
       'An industrial town on the Sutlej with IIT Ropar and a cluster of manufacturing units, alongside a mostly residential and agricultural district around it.',
   },
@@ -193,13 +194,30 @@ export const CITIES: CityLocation[] = [
   },
 
   // Added 2026-09-15 at RSK's request: the remaining district headquarters and major towns, so
-  // every part of Punjab has a page. All reached through the dealer network until RSK confirms
-  // its own team works there (then change tier to 'direct').
+  // every part of Punjab has a page. RSK confirmed the same day that its own team installs in
+  // Morinda, Kurali and the towns around them (Ropar, Fatehgarh Sahib, Chamkaur Sahib, Khamanon),
+  // so those are 'direct'; the rest are reached through the dealer network.
+  {
+    slug: 'chamkaur-sahib',
+    name: 'Chamkaur Sahib',
+    district: 'Rupnagar (Ropar)',
+    tier: 'direct',
+    profile:
+      'A historic Sikh town, the site of the Battle of Chamkaur and Gurdwara Katalgarh Sahib, in a farming belt near the Sutlej. Independent houses and farms here suit on-grid systems and solar pumps.',
+  },
+  {
+    slug: 'khamanon',
+    name: 'Khamanon',
+    district: 'Fatehgarh Sahib',
+    tier: 'direct',
+    profile:
+      'A sub-divisional town on the Kharar–Ludhiana road between Morinda and Samrala, serving the farming villages around it with shops, schools and a grain market.',
+  },
   {
     slug: 'morinda',
     name: 'Morinda',
     district: 'Rupnagar (Ropar)',
-    tier: 'partner',
+    tier: 'direct',
     profile:
       'A market town on the Kharar–Ludhiana road, with a cooperative sugar mill and a farming belt of paddy, wheat and sugarcane around it. Independent houses and shops here suit on-grid systems, and the farms suit solar pumps.',
   },
@@ -207,7 +225,7 @@ export const CITIES: CityLocation[] = [
     slug: 'kurali',
     name: 'Kurali',
     district: 'Sahibzada Ajit Singh Nagar (Mohali)',
-    tier: 'partner',
+    tier: 'direct',
     profile:
       'A growing town on the Chandigarh–Ropar highway between Kharar and Ropar, where new residential colonies sit next to farmland. Most homes are independent houses with their own roofs.',
   },
@@ -247,7 +265,7 @@ export const CITIES: CityLocation[] = [
     slug: 'fatehgarh-sahib',
     name: 'Fatehgarh Sahib',
     district: 'Fatehgarh Sahib',
-    tier: 'partner',
+    tier: 'direct',
     profile:
       'The district headquarters and a major Sikh pilgrimage site, twinned with Sirhind and its grain market. Homes, shops and rice-shelling units here each suit a different system type.',
   },
