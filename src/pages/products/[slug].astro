@@ -61,7 +61,7 @@ const isNumeric = (v: string) => /^[<>≥≤~±]?\s*[\d.,/×x*\-–% ]+\s*(v|a|w
     {
       PRODUCT_IMAGES[p.slug] && (
         <div class="lg:col-span-4 lg:col-start-9 lg:row-start-1 lg:order-2 mb-8 lg:mb-0">
-          <div class="border border-rule bg-white lg:sticky lg:top-8">
+          <div class="border border-rule bg-white lg:sticky lg:top-28">
             <Image src={PRODUCT_IMAGES[p.slug]} alt={`${p.title}, ${p.brand}${p.model ? ` model ${p.model}` : ''}`} width={480} height={480} loading="eager" fetchpriority="high" class="aspect-square w-full object-contain p-6" />
           </div>
         </div>
@@ -149,7 +149,7 @@ const isNumeric = (v: string) => /^[<>≥≤~±]?\s*[\d.,/×x*\-–% ]+\s*(v|a|w
     </div>
 
     <aside class="lg:col-span-4 lg:col-start-9" aria-label="Price and availability">
-      <div class="lg:sticky lg:top-8">
+      <div class="lg:sticky lg:top-28">
         <CtaBlock
           heading="Price and availability"
           body="We do not sell online. Ask on WhatsApp and we reply with the current price and stock, and whether it suits your system."

@@ -1,8 +1,11 @@
 ---
 /**
- * Contact strip (md and up), then logo, main navigation and the WhatsApp action.
- * Navigation was added at RSK's request; it replaces the earlier logo-and-CTA-only header
- * described in DESIGN.md §6. Menu data lives in src/data/nav.ts.
+ * Contact strip (md and up, scrolls away), then the sticky bar: logo, main navigation and the
+ * Menu button. Navigation was added at RSK's request; it replaces the earlier logo-and-CTA-only
+ * header described in DESIGN.md §6. Menu data lives in src/data/nav.ts.
+ *
+ * On phones and tablets the menu is a panel pinned under the bar that scrolls on its own while
+ * the page behind it is locked, so the bar never moves when the menu is open.
  */
 import { Image } from 'astro:assets';
 import logo from '../assets/brand/logo.png';
@@ -19,31 +22,31 @@ const here = Astro.url.pathname;
 const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
 ---
 
-<header>
-  <div class="on-ink hidden bg-ink text-white md:block">
-    <div class="wrap t-small flex h-10 items-center justify-between gap-6">
-      <p class="text-rule">{BUSINESS.brand} distributor · Phase 8B, Mohali</p>
-      <ul class="flex items-center gap-6">
-        {
-          hoursText && (
-            <li class="hidden items-center gap-2 text-rule lg:flex">
-              <Icon name="clock" size={15} />
-              <span>{hoursText}</span>
-            </li>
-          )
-        }
-        <li><RatingBadge class="inline-flex" /></li>
-        <li>
-          <a href={`tel:${PRIMARY_PHONE.tel}`} class="inline-flex items-center gap-2 no-underline hover:underline">
-            <Icon name="phone" size={15} />
-            <span class="t-value">{PRIMARY_PHONE.display}</span>
-          </a>
-        </li>
-      </ul>
-    </div>
+<div class="on-ink hidden bg-ink text-white md:block">
+  <div class="wrap t-small flex h-10 items-center justify-between gap-6">
+    <p class="text-rule">{BUSINESS.brand} distributor · Phase 8B, Mohali</p>
+    <ul class="flex items-center gap-6">
+      {
+        hoursText && (
+          <li class="hidden items-center gap-2 text-rule lg:flex">
+            <Icon name="clock" size={15} />
+            <span>{hoursText}</span>
+          </li>
+        )
+      }
+      <li><RatingBadge class="inline-flex" /></li>
+      <li>
+        <a href={`tel:${PRIMARY_PHONE.tel}`} class="inline-flex items-center gap-2 no-underline hover:underline">
+          <Icon name="phone" size={15} />
+          <span class="t-value">{PRIMARY_PHONE.display}</span>
+        </a>
+      </li>
+    </ul>
   </div>
+</div>
 
-  <div class="border-b border-rule">
+<header class="site-header" data-site-header>
+  <div class="border-b border-rule bg-paper">
     <div class="wrap flex h-16 items-center justify-between gap-4 md:h-20">
       <a href="/" class="shrink-0" aria-label="RSK Solar Energy, home">
         <Image src={logo} alt="RSK Solar Energy" width={156} densities={[1, 2]} format="webp" loading="eager" fetchpriority="high" class="h-auto w-33 md:w-39" />
@@ -89,26 +92,27 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
         <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
           <span class="menu-icon-open"><Icon name="menu" size={22} /></span>
           <span class="menu-icon-close"><Icon name="close" size={22} /></span>
-          <span>Menu</span>
+          <span class="menu-label-open">Menu</span>
+          <span class="menu-label-close">Close</span>
         </button>
       </div>
     </div>
   </div>
 
-  <div id="mobile-menu" class="border-b border-rule bg-white xl:hidden" hidden data-mobile-menu>
-    <nav class="wrap pb-8" aria-label="Main menu">
+  <div id="mobile-menu" class="mobile-menu xl:hidden" hidden data-mobile-menu>
+    <nav class="wrap pt-2 pb-10" aria-label="Main menu">
       <ul class="mobile-groups">
         {
           NAV.map((g) => (
             <li>
-              <details open={inGroup(g.links)}>
+              <details name="mobile-nav" open={inGroup(g.links)}>
                 <summary>
                   <span>{g.label}</span>
                   <span class="nav-chevron">
                     <Icon name="chevron-down" size={20} />
                   </span>
                 </summary>
-                <ul class="pb-3">
+                <ul class="mobile-links">
                   {g.links.map((l) => (
                     <li>
                       <a href={l.href} class="mobile-link" aria-current={l.href === here ? 'page' : undefined}>
@@ -121,7 +125,7 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
             </li>
           ))
         }
-        <li><a href={CONTACT_LINK.href} class="mobile-plain">Contact and directions</a></li>
+        <li><a href={CONTACT_LINK.href} class="mobile-plain" aria-current={here === CONTACT_LINK.href ? 'page' : undefined}>Contact and directions</a></li>
       </ul>
       <div class="mt-6 grid gap-3 sm:grid-cols-2">
         <WhatsAppButton label="Send your bill on WhatsApp" message={billMessage()} />
@@ -130,12 +134,19 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
           <span>Call {PRIMARY_PHONE.display}</span>
         </a>
       </div>
-      {hoursText && <p class="t-small mt-4 text-slate">Office hours: {hoursText}</p>}
+      {hoursText && <p class="t-small mt-5 text-slate">Office hours: {hoursText}</p>}
     </nav>
   </div>
 </header>
 
 <style>
+  /* Above the fixed mobile contact bar (z-index 50), so the open menu covers it. */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+  }
+
   .nav-item {
     position: relative;
   }
@@ -212,11 +223,19 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
     gap: 0.5rem;
     min-height: 2.75rem;
     padding: 0 0.875rem;
-    background: none;
+    background: var(--color-white);
     border: 1px solid var(--color-rule);
     border-radius: var(--radius-sm);
     font-weight: 500;
     cursor: pointer;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease;
+  }
+  .menu-toggle[aria-expanded='true'] {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-white);
   }
   @media (min-width: 80rem) {
     .menu-toggle {
@@ -228,21 +247,55 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
     display: inline-flex;
   }
   .menu-icon-close,
-  .menu-toggle[aria-expanded='true'] .menu-icon-open {
+  .menu-label-close,
+  .menu-toggle[aria-expanded='true'] .menu-icon-open,
+  .menu-toggle[aria-expanded='true'] .menu-label-open {
     display: none;
   }
   .menu-toggle[aria-expanded='true'] .menu-icon-close {
     display: inline-flex;
   }
+  .menu-toggle[aria-expanded='true'] .menu-label-close {
+    display: inline;
+  }
 
-  .mobile-groups > li {
+  /* The panel fills the screen below the bar and scrolls by itself; nav.ts sets --menu-height
+     to the exact space left and locks the page behind it. */
+  .mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: var(--menu-height, calc(100dvh - 4rem));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    background: var(--color-white);
+    box-shadow: 0 16px 32px rgb(13 27 42 / 0.12);
+  }
+  .mobile-menu:not([hidden]) {
+    animation: menu-in 180ms ease-out;
+  }
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+  :global(html.menu-open) {
+    overflow: hidden;
+  }
+
+  .mobile-groups > li + li {
     border-top: 1px solid var(--color-rule);
   }
   .mobile-groups summary {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-block: 0.9rem;
+    gap: 1rem;
+    min-height: 3.5rem;
+    font-size: 1.0625rem;
     font-weight: 600;
     list-style: none;
     cursor: pointer;
@@ -250,18 +303,31 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
   .mobile-groups summary::-webkit-details-marker {
     display: none;
   }
+  .mobile-groups details[open] summary {
+    color: var(--color-signal);
+  }
+  .mobile-links {
+    padding-bottom: 0.75rem;
+  }
   .mobile-link {
     display: block;
-    padding: 0.6rem 0.25rem;
+    padding: 0.65rem 0.875rem;
+    border-left: 2px solid var(--color-rule);
     text-decoration: none;
   }
+  .mobile-link:hover {
+    background: var(--color-paper);
+  }
   .mobile-link[aria-current='page'] {
+    border-left-color: var(--color-signal);
+    background: var(--color-paper);
     font-weight: 600;
-    text-decoration: underline;
   }
   .mobile-plain {
-    display: block;
-    padding-block: 0.9rem;
+    display: flex;
+    align-items: center;
+    min-height: 3.5rem;
+    font-size: 1.0625rem;
     font-weight: 600;
     text-decoration: none;
   }
