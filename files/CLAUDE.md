@@ -24,6 +24,18 @@ business owner in Punjab more likely to contact RSK?
 primary lead-generation asset, the primary SEO asset, and the primary sales tool.
 Build it first, build it well, test it thoroughly. Spec in `SPEC-calculator.md`.
 
+### The new-house calculator
+
+`/new-house-solar-calculator/` is for people with no PSPCL bill yet (building or buying).
+Appliances and usage go in; daily, monthly, peak-summer and yearly units, connected load and
+three size ranges (essential, recommended, higher) come out. Every figure lives in
+`src/config/appliance-config.ts` (status `assumption`); generation comes from
+`SOLAR_CONFIG.generation`, so both calculators agree. Logic: `src/lib/appliance/estimate.ts`
+(tested in `estimate.test.ts`); HTML: `src/lib/appliance/render.ts`, used for both the
+build-time worked example and the live result. Form defaults and parser defaults must stay
+identical, because share links only carry the fields a visitor changed. Results are ranges
+rounded to 0.5 kW and never promise a bill, saving or payback.
+
 ---
 
 ## 2. Non-negotiable constraints
@@ -92,6 +104,7 @@ compromised. Keep the surface small.
 ```
 /                                     Home
 /solar-calculator/                    ← build first
+/new-house-solar-calculator/          No bill yet: appliances in, units and a size range out
 /pm-surya-ghar-subsidy-punjab/        Subsidy guide (high-intent SEO)
 
   System size pages (money pages)

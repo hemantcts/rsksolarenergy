@@ -1,0 +1,369 @@
+/*
+ * New-house solar calculator (src/components/NewHouseCalculator.astro) and its result
+ * (src/lib/appliance/render.ts). Imported by the component (so only that page carries it), not scoped, because the result is
+ * injected as HTML and scoped styles would not reach it.
+ */
+
+@layer components {
+/* ---------- Progress ---------- */
+.nh-progress {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.25rem;
+  counter-reset: none;
+}
+.nh-progress li {
+  display: grid;
+  justify-items: center;
+  gap: 0.25rem;
+  padding-top: 0.625rem;
+  border-top: 3px solid var(--color-rule);
+  color: var(--color-slate);
+  font-size: 0.75rem;
+  text-align: center;
+}
+.nh-progress li.is-done {
+  border-top-color: var(--color-ink);
+  color: var(--color-ink);
+  cursor: pointer;
+}
+.nh-progress li[aria-current='step'] {
+  border-top-color: var(--color-signal);
+  color: var(--color-ink);
+  font-weight: 600;
+}
+.nh-dot-n {
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+.nh-dot-label {
+  display: none;
+}
+@media (min-width: 40rem) {
+  .nh-dot-label {
+    display: block;
+  }
+}
+
+/* ---------- Steps ---------- */
+.nh-form {
+  margin-top: 1.5rem;
+}
+.nh-form.is-stepped .nh-step:not(.is-current) {
+  display: none;
+}
+.nh-step {
+  min-width: 0;
+  display: grid;
+  gap: 1rem;
+}
+.nh-step + .nh-step {
+  margin-top: 2.5rem;
+}
+.nh-form.is-stepped .nh-step + .nh-step {
+  margin-top: 0;
+}
+.nh-step legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+}
+.nh-step legend + * {
+  clear: both;
+}
+.nh-step-title:focus {
+  outline: none;
+}
+.nh-step-intro {
+  color: var(--color-slate);
+  max-width: 60ch;
+}
+.nh-subhead {
+  font-weight: 600;
+  font-size: 1.0625rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-rule);
+}
+.nh-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+@media (min-width: 40rem) {
+  .nh-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.nh-indent {
+  margin: 0.75rem 0 0 2rem;
+}
+
+/* ---------- Appliance rows ---------- */
+.nh-rows {
+  display: grid;
+}
+.nh-row {
+  display: grid;
+  gap: 0.625rem;
+  padding-block: 0.875rem;
+  border-bottom: 1px solid var(--color-rule);
+}
+.nh-row:first-child {
+  border-top: 1px solid var(--color-rule);
+}
+.nh-row-name {
+  font-weight: 500;
+}
+.nh-row-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  align-items: center;
+}
+@media (min-width: 48rem) {
+  .nh-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+/* Quantity stepper: big − and + targets either side of a small field. */
+.nh-stepper {
+  display: inline-grid;
+  grid-template-columns: 3rem 3.5rem 3rem;
+  border: 1px solid var(--color-slate);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+}
+.nh-stepper .input {
+  min-height: 3rem;
+  border: 0;
+  border-inline: 1px solid var(--color-rule);
+  border-radius: 0;
+  padding-inline: 0.25rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+.nh-stepper button {
+  min-height: 3rem;
+  font-size: 1.375rem;
+  line-height: 1;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+.nh-stepper button:hover {
+  background: var(--color-paper);
+}
+.nh-stepper button:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: -2px;
+}
+.nh-amount {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  color: var(--color-slate);
+}
+.nh-amount .input {
+  width: 4.75rem;
+  min-height: 3rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--color-ink);
+}
+.nh-amount-fixed {
+  min-width: 9rem;
+}
+.nh-extra .select {
+  min-height: 3rem;
+  width: auto;
+  min-width: 8.5rem;
+}
+
+/* ---------- ACs and custom appliances ---------- */
+.nh-ac {
+  padding-block: 1rem;
+  border-top: 1px solid var(--color-rule);
+}
+.nh-ac-grid,
+.nh-custom {
+  display: grid;
+  gap: 1rem;
+  margin-top: 0.625rem;
+  grid-template-columns: 1fr 1fr;
+}
+@media (min-width: 48rem) {
+  .nh-ac-grid {
+    grid-template-columns: auto 1fr 1fr 8rem;
+    align-items: end;
+  }
+}
+.nh-custom {
+  padding-block: 1rem;
+  border-top: 1px solid var(--color-rule);
+}
+.nh-custom-name {
+  grid-column: 1 / -1;
+}
+@media (min-width: 48rem) {
+  .nh-custom {
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    align-items: end;
+  }
+  .nh-custom-name {
+    grid-column: auto;
+  }
+}
+
+/* ---------- Future plans ---------- */
+.nh-checks {
+  display: grid;
+  gap: 0.25rem;
+}
+.nh-check {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding-block: 0.625rem;
+  cursor: pointer;
+}
+.nh-check input {
+  width: 1.375rem;
+  height: 1.375rem;
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+  accent-color: var(--color-ink);
+}
+
+/* ---------- Navigation ---------- */
+.nh-nav {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-ink);
+}
+.nh-nav .btn {
+  flex: 1 1 0;
+  min-height: 3.5rem;
+}
+@media (min-width: 40rem) {
+  .nh-nav .btn {
+    flex: 0 0 auto;
+    padding-inline: 2rem;
+  }
+  .nh-nav [data-nh-next],
+  .nh-nav [data-nh-submit] {
+    margin-left: auto;
+  }
+}
+.nh-form:not(.is-stepped) [data-nh-back],
+.nh-form:not(.is-stepped) [data-nh-next] {
+  display: none;
+}
+
+/* ---------- Result ---------- */
+.nh-result-wrap {
+  margin-top: 1.5rem;
+}
+.nh-result {
+  display: grid;
+  gap: 2.25rem;
+}
+.nh-callout {
+  border-left: 3px solid var(--color-signal);
+  padding: 0.25rem 0 0.25rem 1rem;
+  max-width: var(--container-text);
+}
+.nh-callout p + p {
+  margin-top: 0.375rem;
+}
+.nh-cards {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 64rem) {
+  .nh-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.nh-card {
+  border: 1px solid var(--color-rule);
+  background: var(--color-white);
+  padding: 1.25rem;
+}
+.nh-card-mid {
+  border: 2px solid var(--color-ink);
+}
+.nh-card-title {
+  font-weight: 600;
+}
+.nh-card-kw {
+  font-size: 1.875rem;
+  line-height: 1.1;
+  margin-top: 0.375rem;
+}
+.nh-card-desc {
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+  color: var(--color-slate);
+}
+.nh-facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.375rem 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-rule);
+  font-size: 0.9375rem;
+}
+.nh-facts dt {
+  color: var(--color-slate);
+}
+.nh-facts dd {
+  text-align: right;
+}
+.nh-more {
+  border-top: 1px solid var(--color-rule);
+  border-bottom: 1px solid var(--color-rule);
+}
+.nh-more summary {
+  padding-block: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.nh-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  align-items: center;
+  margin-top: 1.25rem;
+}
+
+/* ---------- Print: only the estimate ---------- */
+@media print {
+  .site-header,
+  footer,
+  .nh-progress,
+  [data-nh-status],
+  .nh-form,
+  .nh-tools,
+  .calc-actions,
+  .calc-modes,
+  .desktop-call-btn,
+  .sticky-bar,
+  [data-print-hide] {
+    display: none !important;
+  }
+  .nh-card {
+    break-inside: avoid;
+  }
+  body {
+    background: #fff;
+  }
+}
+}

@@ -88,7 +88,7 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
 
       <div class="flex items-center gap-3">
         <RatingBadge class="inline-flex md:hidden" compact />
-        <WhatsAppButton label="WhatsApp us" message={billMessage()} class="hidden 2xl:inline-flex" />
+        <WhatsAppButton label="Get a quote" class="hidden whitespace-nowrap md:inline-flex xl:hidden min-[85rem]:inline-flex" />
         <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
           <span class="menu-icon-open"><Icon name="menu" size={22} /></span>
           <span class="menu-icon-close"><Icon name="close" size={22} /></span>

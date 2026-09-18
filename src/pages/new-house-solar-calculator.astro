@@ -1,0 +1,197 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CalcModes from '../components/CalcModes.astro';
+import NewHouseCalculator from '../components/NewHouseCalculator.astro';
+import Faq from '../components/Faq.astro';
+import CtaBlock from '../components/content/CtaBlock.astro';
+import { APPLIANCE_CONFIG as cfg } from '../config/appliance-config';
+import { SOLAR_CONFIG } from '../config/solar-config';
+import { cityPath } from '../data/locations';
+import { sizePath } from '../data/sizes';
+import { estimateFrom } from '../lib/appliance/estimate';
+import { approxUnits, renderHouseResult } from '../lib/appliance/render';
+import { digits } from '../lib/calculator/format';
+import { effectiveYieldPerKw } from '../lib/calculator/sizing';
+import { F } from '../lib/facts';
+import { faqPage, type QA } from '../lib/seo';
+
+const path = '/new-house-solar-calculator/';
+const perKwYear = Math.round(effectiveYieldPerKw(SOLAR_CONFIG));
+
+// Worked example: a three-bedroom home with two inverter ACs, the kind of house we are asked about most.
+const exampleFields = new URLSearchParams({
+  'home': '3 BHK house',
+  'district': 'Mohali',
+  'ac0-qty': '2',
+  'ac0-hours': '8',
+  'q-fan': '5',
+  'q-led-bulb': '12',
+  'q-microwave': '1',
+});
+const example = estimateFrom(exampleFields);
+const exampleHtml = renderHouseResult(example.estimate, example.input, { heading: 'Worked example: a three-bedroom home in Mohali' });
+const exRec = example.estimate.scenarios.find((s) => s.id === 'recommended')!;
+
+const acRows = cfg.ac.tons.map((t) => ({ t, inv: cfg.ac.avgKw.inverter[t] ?? 0, std: cfg.ac.avgKw.standard[t] ?? 0 }));
+
+const faq: QA[] = [
+  {
+    q: 'How do I work out solar for a new house with no electricity bill?',
+    a: 'Estimate the units your appliances will use, then divide by what one kW of panels makes in a year. The calculator on this page does both: you choose your ACs, geysers, fridge, lights, fans and other appliances, and it gives your daily, monthly and yearly units and a solar size range to match. After a few months of bills, the bill calculator can check the estimate.',
+  },
+  {
+    q: 'How much solar does a 3 BHK house in Punjab need?',
+    a: `It depends mostly on the ACs. A three-bedroom home with two 1.5 ton inverter ACs, used eight hours a day through summer, comes to roughly ${approxUnits(example.estimate.household.monthly)} units a month on average, which needs about ${exRec.kwRange[0]} to ${exRec.kwRange[1]} kW. Without ACs, the same home often stays under Punjab’s ${F.free} free units and solar has little to save.`,
+  },
+  {
+    q: 'How many units does a 1.5 ton AC use?',
+    a: `We assume about ${cfg.ac.avgKw.inverter[1.5]} units an hour for a 1.5 ton inverter AC and ${cfg.ac.avgKw.standard[1.5]} for a non-inverter one, averaged over a Punjab summer day with the compressor cycling. The rated figure on the box is higher, but an AC rarely runs flat out for a whole hour. Eight hours a day for five months comes to about ${digits(Math.round(cfg.ac.avgKw.inverter[1.5]! * 8 * 150))} units a year for the inverter model.`,
+  },
+  {
+    q: 'Should I size solar for an EV I haven’t bought yet?',
+    a: 'You can, and the calculator shows the EV separately so you can decide. Sizing for it now means one installation and one net-metering application. Adding panels later is also possible if the roof has room and your sanctioned load allows it, so leave space on the roof either way.',
+  },
+  {
+    q: 'What is the difference between connected load and units?',
+    a: 'Connected load is the power drawn if everything were switched on at once, in kW. Units (kWh) are the energy actually used over time. Solar is sized from units. Connected load matters for the sanctioned load you ask PSPCL for, and an on-grid system cannot be larger than your sanctioned load.',
+  },
+  {
+    q: 'Can I get the PM Surya Ghar subsidy on a new house?',
+    a: 'Yes, once the house has its own PSPCL connection in the owner’s name. You apply on the national portal with that connection’s consumer number and install after PSPCL approves feasibility. The subsidy guide covers the steps and the reasons applications get rejected.',
+  },
+];
+---
+
+<BaseLayout
+  title="Solar Calculator for a New House, Based on Appliances"
+  description="No electricity bill yet? Choose your ACs, geysers, fridge and other appliances to estimate your units and the solar size your new home in Punjab needs."
+  crumbs={[{ name: 'Solar calculator', path: '/solar-calculator/' }, { name: 'New house', path }]}
+  schema={[faqPage(faq)]}
+>
+  <section class="wrap grid-12 pt-8 pb-16 lg:pt-12 lg:pb-24">
+    <div class="lg:col-span-8">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Solar calculator', path: '/solar-calculator/' }, { name: 'New house', path }]} />
+      <h1 class="t-h1 mt-6">Solar calculator for a new house</h1>
+      <p class="t-lead mt-5 measure">
+        Building or buying a home and don’t have an electricity bill yet? Choose your appliances and how you use them. We estimate your units and the solar size to match, as a range, with no phone number needed.
+      </p>
+      <div class="mt-8" data-print-hide><CalcModes current="house" /></div>
+      <div class="mt-10">
+        <NewHouseCalculator />
+      </div>
+    </div>
+
+    <aside class="lg:col-span-3 lg:col-start-10" aria-label="Talk to us instead" data-print-hide>
+      <div class="lg:sticky lg:top-28">
+        <CtaBlock
+          heading="Have house plans?"
+          label="Send my plans on WhatsApp"
+          message="Hi RSK Solar Energy, I am building a new house and would like help sizing solar. I can send the plans and a list of appliances."
+          body="Send the drawings or a list of rooms and appliances. We suggest a size, where the panels should go and what to plan for during construction."
+          showInspection={false}
+        />
+      </div>
+    </aside>
+  </section>
+
+  <section class="sec bg-white" aria-labelledby="how-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="how-h" class="t-h2">How the estimate is worked out</h2>
+      </div>
+      <div class="prose lg:col-span-7 lg:col-start-6">
+        <ol>
+          <li>For each appliance, we work out the units it uses on a day it runs. Lights and fans use their wattage and hours. Fridges, routers and CCTV run all day. Washing machines, irons and ovens are counted per load or use, and geysers per hot-water use, because a geyser heats its tank and then switches off.</li>
+          <li>ACs use an average draw for their size and type, not the rating on the box, because the compressor cycles on and off.</li>
+          <li>Seasons matter in Punjab. ACs run only in the months you choose, fans for about {Math.round(cfg.seasons.fans / 30)} months, coolers for about {Math.round(cfg.seasons.cooler / 30)} and geysers mainly in winter. That gives a yearly total and a separate peak-summer month.</li>
+          <li>The yearly units are divided by what a kW of panels makes in Punjab: about {digits(perKwYear)} units a year after losses, give or take {Math.round((cfg.generationRange[1] - 1) * 100)}% for roof direction, shade and weather. That is why the answer is a range.</li>
+          <li>An EV and anything you plan to add are shown separately, so you can size for now or for later.</li>
+        </ol>
+        <p>The same generation figures drive the <a href="/solar-calculator/">bill calculator</a>, so the two agree once you have a real PSPCL bill to check against.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec-tight" aria-labelledby="ac-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="ac-h" class="t-h2">What an AC uses in a Punjab summer</h2>
+        <p class="mt-4 text-slate">Average units an hour while the AC is switched on, the figures the calculator uses. A hotter room, a lower thermostat setting or an older AC uses more.</p>
+      </div>
+      <div class="lg:col-span-7 lg:col-start-6">
+        <div class="table-scroll">
+          <table class="spec-table">
+            <caption>Average units an hour, by AC size</caption>
+            <thead><tr><th scope="col">AC size</th><th scope="col" class="num">Inverter</th><th scope="col" class="num">Non-inverter</th><th scope="col" class="num">Inverter, 8 hours a day for 5 months</th></tr></thead>
+            <tbody>
+              {acRows.map((r) => (
+                <tr>
+                  <th scope="row">{r.t} ton</th>
+                  <td class="num">{r.inv}</td>
+                  <td class="num">{r.std}</td>
+                  <td class="num">{digits(Math.round(r.inv * 8 * 150))} units</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="t-small mt-4 text-slate">
+          Geysers are counted per use: about {cfg.geyser.sizes.find((g) => g.id === '25')?.kwhPerUse} unit to heat a 25 litre tank from cold in winter. For more on ACs and solar, see <a href="/blog/solar-system-for-1-5-ton-ac/" class="underline">solar for a 1.5 ton AC</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-white" aria-labelledby="plan-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="plan-h" class="t-h2">Planning solar while you build</h2>
+        <p class="mt-4 text-slate">These cost little during construction and a lot to fix afterwards.</p>
+      </div>
+      <div class="prose lg:col-span-7 lg:col-start-6">
+        <h3>Ask PSPCL for enough sanctioned load</h3>
+        <p>An on-grid rooftop system can be at most {SOLAR_CONFIG.netMetering.maxSystemPercentOfSanctionedLoad}% of your sanctioned load. If you plan a 5 kW system, apply for at least 5 kW on the new connection. Raising it later means a separate load-enhancement application before the solar one.</p>
+        <h3>Keep the roof clear and shade-free</h3>
+        <p>Allow about {SOLAR_CONFIG.generation.sqFtPerKw} sq ft of open roof per kW. Put the stair cabin and water tanks on the north side where they won’t shade the panels, and keep the south-facing area clear.</p>
+        <h3>Leave a path for the cables</h3>
+        <p>A conduit from the roof to where the inverter will sit, near the main distribution board, saves chasing walls later. The inverter needs a shaded, ventilated spot.</p>
+        <h3>Decide early about backup</h3>
+        <p>If you want lights and fans to run during power cuts, wire them to a separate backup board now. A hybrid system can then run just that board from its battery. See <a href="/hybrid-solar-systems/">hybrid solar systems</a> and <a href="/on-grid-vs-off-grid-vs-hybrid/">on-grid, off-grid or hybrid</a>.</p>
+        <h3>Subsidy timing</h3>
+        <p>The PM Surya Ghar subsidy needs the house’s own PSPCL connection in the owner’s name, and approval before installation. Plan the solar for after the connection is live. The <a href="/pm-surya-ghar-subsidy-punjab/">subsidy guide</a> has the steps.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="example-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-8">
+        <p id="example-h" class="calc-kicker">
+          A typical case: two 1.5 ton inverter ACs, two 25 litre geysers, five fans, twelve LED bulbs, a fridge, a TV and the usual kitchen and laundry.
+        </p>
+        <div class="mt-6" set:html={exampleHtml} />
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-white" aria-labelledby="next-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="next-h" class="t-h2">Next steps</h2>
+      </div>
+      <ul class="ruled lg:col-span-7 lg:col-start-6">
+        <li><a href="/solar-calculator/" class="font-semibold underline">Solar calculator from your electricity bill</a><span class="block text-slate">Once the house has a few months of PSPCL bills.</span></li>
+        <li><a href={sizePath(3)} class="font-semibold underline">3 kW</a>, <a href={sizePath(5)} class="font-semibold underline">5 kW</a> and <a href={sizePath(8)} class="font-semibold underline">8 kW</a> system prices<span class="block text-slate">What each size costs in Punjab, after the subsidy.</span></li>
+        <li><a href={cityPath('mohali')} class="font-semibold underline">Rooftop solar in Mohali</a> and <a href="/solar-company-punjab/" class="font-semibold underline">across Punjab</a><span class="block text-slate">Where our own team installs, and where our dealers do.</span></li>
+        <li><a href="/contact/" class="font-semibold underline">Contact RSK Solar Energy</a><span class="block text-slate">Phase 8B, Mohali. Call, WhatsApp or visit.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec border-t border-rule">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-8"><Faq items={faq} /></div>
+    </div>
+  </section>
+</BaseLayout>

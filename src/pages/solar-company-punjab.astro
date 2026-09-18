@@ -1,8 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Faq from '../components/Faq.astro';
+import CtaBlock from '../components/content/CtaBlock.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
 import { BUSINESS } from '../config/business';
+import { SOLAR_CONFIG } from '../config/solar-config';
 import { CITIES, cityPath } from '../data/locations';
+import { CATEGORIES } from '../data/products';
+import { sizePath } from '../data/sizes';
+import { F } from '../lib/facts';
+import { faqPage, type QA } from '../lib/seo';
 
 const path = '/solar-company-punjab/';
 const direct = CITIES.filter((c) => c.tier === 'direct');
@@ -10,20 +18,139 @@ const partner = CITIES.filter((c) => c.tier === 'partner');
 const districts = [...new Set(partner.map((c) => c.district))]
   .sort((a, b) => a.localeCompare(b))
   .map((d) => ({ district: d, cities: partner.filter((c) => c.district === d).sort((a, b) => a.name.localeCompare(b.name)) }));
-const title = 'Rooftop Solar Across Punjab: Cities We Serve';
-const description = `Rooftop solar in ${CITIES.length} locations across every district of Punjab: our own team in Tricity, Kurali, Morinda and Ropar, and UTL dealers elsewhere.`;
+const title = 'Solar Company in Punjab: Homes, Businesses and Farms';
+const description = `Rooftop solar, commercial systems and solar pumps across Punjab. Own team in Tricity, Kurali, Morinda and Ropar; UTL dealers in ${CITIES.length - direct.length} more towns.`;
+const onGridMin = SOLAR_CONFIG.sizing.minKwByType['on-grid'];
+
+const services = [
+  {
+    title: 'Homes',
+    body: `On-grid, hybrid and off-grid rooftop systems, with the PM Surya Ghar subsidy and net-metering paperwork handled for you. On-grid starts at ${onGridMin} kW.`,
+    links: [
+      { href: '/solar-calculator/', label: 'Size it from your bill' },
+      { href: '/new-house-solar-calculator/', label: 'New house? Size it from your appliances' },
+      { href: sizePath(3), label: '3 kW system price' },
+      { href: sizePath(5), label: '5 kW system price' },
+    ],
+  },
+  {
+    title: 'Shops, offices, clinics and schools',
+    body: 'Non-residential connections pay for every unit with no free allowance, so solar saves from the first unit. Sized to your sanctioned load.',
+    links: [
+      { href: '/commercial-solar-punjab/', label: 'Commercial rooftop solar' },
+      { href: '/blog/solar-for-schools-clinics-punjab/', label: 'Solar for schools and clinics' },
+    ],
+  },
+  {
+    title: 'Factories and industry',
+    body: 'Larger rooftop systems for industrial connections billed on the Punjab industrial tariff. We size from your bills and your roof, and design after a site survey.',
+    links: [
+      { href: '/commercial-solar-punjab/', label: 'Commercial and industrial solar' },
+      { href: '/blog/commercial-solar-calculation-punjab/', label: 'How a commercial system is sized' },
+    ],
+  },
+  {
+    title: 'Farms and tubewells',
+    body: `Solar water pumps for tubewells and irrigation, off diesel and off the agricultural feeder schedule. ${BUSINESS.installs.solarPumps} solar pump systems installed so far.`,
+    links: [
+      { href: '/solar-pumps/', label: 'Solar water pumps' },
+      { href: '/blog/pm-kusum-solar-pump-subsidy-punjab-farmers/', label: 'PM-KUSUM pump subsidy' },
+    ],
+  },
+  {
+    title: 'Housing societies',
+    body: 'Common-area systems for lifts, pumps and lighting, with the society rate of the PM Surya Ghar subsidy.',
+    links: [{ href: '/housing-society-solar/', label: 'Housing society solar' }],
+  },
+  {
+    title: 'Dealers and installers',
+    body: 'UTL panels, inverters, batteries and kits at dealer pricing, for electricians and shops across Punjab who sell under their own name.',
+    links: [
+      { href: '/solar-dealership-punjab/', label: 'Become a UTL dealer' },
+      { href: '/utl-solar-distributor-punjab/', label: 'UTL Solar distributor' },
+    ],
+  },
+];
+
+const steps = [
+  ['Send your bill or house plans', 'A photo of a PSPCL bill is enough. For a house under construction, a list of rooms and appliances works too.'],
+  ['Size and quote', 'We work out the size from your units, check it against your sanctioned load and roof, and quote on-grid, hybrid or off-grid as suits you.'],
+  ['Site survey', 'We check the roof, shade, structure and cable route before the design is fixed.'],
+  ['Application', 'For subsidised home systems, the application goes on the PM Surya Ghar portal and PSPCL approves feasibility before anything is installed.'],
+  ['Installation', 'Mounting structure, panels, inverter, wiring and earthing, by our own team or, outside our area, a UTL dealer.'],
+  ['Net meter and inspection', 'PSPCL fits the net meter and inspects the system. For subsidised homes the subsidy then goes to your bank account.'],
+];
+
+const faq: QA[] = [
+  {
+    q: 'Do you install solar all over Punjab?',
+    a: `Our own team installs in ${direct.slice(0, -1).map((c) => c.name).join(', ')} and ${direct.at(-1)?.name}. In the rest of Punjab we size and quote from Mohali and the installation is done through our UTL Solar dealer network.`,
+  },
+  {
+    q: 'What is the difference between your own team and the dealer network?',
+    a: 'Near Mohali, RSK Solar Energy’s own team surveys and installs. Further away, a local UTL dealer or partner installs the same UTL equipment, and we handle sizing and quoting and support the dealer. Tell us your town and we tell you which applies.',
+  },
+  {
+    q: 'Which brand do you install?',
+    a: `We are a ${BUSINESS.brand} distributor, so most systems use UTL panels, inverters and batteries. Product warranties are UTL’s own, on UTL’s terms. We also stock some other electrical brands, listed on the brands page.`,
+  },
+  {
+    q: 'Is solar worth it for a Punjab home with 300 free units?',
+    a: `Only if you use more than ${F.free} units a month. Under that, your bill is already zero. Above it, general-category homes pay for every unit, so solar has a real bill to cut. The calculator tells you which side of the line you are on.`,
+  },
+  {
+    q: 'Do you install solar for factories and farms?',
+    a: `Yes. Commercial and industrial rooftop systems are sized to your bills, roof and sanctioned load. For farms we install solar water pumps for tubewells, which come under the PM-KUSUM scheme instead of PM Surya Ghar.`,
+  },
+];
 ---
 
-<BaseLayout title={title} description={description} crumbs={[{ name: 'Locations', path }]}>
+<BaseLayout title={title} description={description} crumbs={[{ name: 'Locations', path }]} schema={[faqPage(faq)]}>
   <header class="wrap pt-8 pb-10 lg:pt-12">
     <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Locations', path }]} />
-    <h1 class="t-h1 mt-6">Solar across Punjab</h1>
-    <p class="t-lead measure mt-5">
-      RSK Solar Energy installs directly in Mohali, the Tricity, and around Kurali, Morinda and Ropar. Elsewhere in Punjab we reach you through our UTL Solar dealer network. See <a href="/solar-dealership-punjab/" class="underline">become a dealer</a> if that's you.
-    </p>
+    <div class="grid-12 mt-6 items-end">
+      <div class="lg:col-span-8">
+        <h1 class="t-h1">Solar company for homes, businesses and farms across Punjab</h1>
+        <p class="t-lead measure mt-5">
+          RSK Solar Energy is a {BUSINESS.brand} distributor based in Phase 8B, Mohali, since {BUSINESS.foundedYear}. Our own team installs in the Tricity and around Kurali, Morinda and Ropar. Elsewhere in Punjab we size and quote from Mohali, and our UTL dealer network installs.
+        </p>
+        <ul class="t-small mt-6 flex flex-wrap gap-x-6 gap-y-2 text-slate">
+          <li><span class="t-value text-ink">{BUSINESS.installs.residential}</span> homes</li>
+          <li><span class="t-value text-ink">{BUSINESS.installs.commercial}</span> commercial systems</li>
+          <li><span class="t-value text-ink">{BUSINESS.installs.solarPumps}</span> solar pumps</li>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-3 lg:col-span-4">
+        <WhatsAppButton label="Ask about solar in your town" message="Hi RSK Solar Energy, I would like to know about solar in Punjab. My town and what I need it for: " />
+        <a class="btn btn-secondary" href="/solar-calculator/">Work out your size</a>
+      </div>
+    </div>
   </header>
 
-  <section class="sec-tight bg-white" aria-labelledby="direct-h">
+  <section class="sec bg-white" aria-labelledby="services-h">
+    <div class="wrap">
+      <h2 id="services-h" class="t-h2">What we install</h2>
+      <ul class="mt-8 grid gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-3">
+        {
+          services.map((s) => (
+            <li class="bg-white p-6">
+              <h3 class="t-h3">{s.title}</h3>
+              <p class="mt-2 text-slate">{s.body}</p>
+              <ul class="t-small mt-4 grid gap-1.5">
+                {s.links.map((l) => (
+                  <li>
+                    <a href={l.href} class="underline">{l.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec-tight" aria-labelledby="direct-h">
     <div class="wrap grid-12">
       <div class="lg:col-span-4">
         <h2 id="direct-h" class="t-h2">Where we install directly</h2>
@@ -42,7 +169,7 @@ const description = `Rooftop solar in ${CITIES.length} locations across every di
     </div>
   </section>
 
-  <section class="sec" aria-labelledby="partner-h">
+  <section class="sec bg-white" aria-labelledby="partner-h">
     <div class="wrap grid-12">
       <div class="lg:col-span-4">
         <h2 id="partner-h" class="t-h2">Where our dealer network reaches</h2>
@@ -63,6 +190,56 @@ const description = `Rooftop solar in ${CITIES.length} locations across every di
             </ul>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="process-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="process-h" class="t-h2">How an installation goes</h2>
+        <p class="mt-3 text-slate">The same steps wherever you are in Punjab.</p>
+      </div>
+      <ol class="ruled lg:col-span-7 lg:col-start-6">
+        {
+          steps.map(([h, b], i) => (
+            <li class="grid grid-cols-[2.5rem_1fr] gap-x-4">
+              <span class="t-value text-slate">{String(i + 1).padStart(2, '0')}</span>
+              <span>
+                <strong class="block">{h}</strong>
+                <span class="text-slate">{b}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec bg-white" aria-labelledby="punjab-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="punjab-h" class="t-h2">What’s different about solar in Punjab</h2>
+      </div>
+      <div class="prose lg:col-span-7 lg:col-start-6">
+        <p>
+          Homes get {F.free} free units a month. Under that, a home’s bill is already zero and solar has nothing to save; above it, general-category homes pay for every unit. That one rule decides most home sizing here. See <a href="/blog/solar-with-300-free-units-punjab/">solar with 300 free units</a>.
+        </p>
+        <p>
+          A rooftop system can be at most {SOLAR_CONFIG.netMetering.maxSystemPercentOfSanctionedLoad}% of your sanctioned load, and PSPCL fits the net meter. The <a href="/blog/net-metering-punjab-pspcl-explained/">net metering guide</a> and the <a href="/pm-surya-ghar-subsidy-punjab/">PM Surya Ghar subsidy guide</a> cover the rules and the paperwork.
+        </p>
+        <p>
+          Products: we supply the full UTL range, from {CATEGORIES.map((c) => c.name.toLowerCase()).slice(0, 3).join(', ')} to complete kits. Browse the <a href="/products/">UTL catalogue</a> or the <a href="/brands-and-partners/">other brands we stock</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec border-t border-rule">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-7"><Faq items={faq} heading="Questions about solar in Punjab" /></div>
+      <div class="lg:col-span-4 lg:col-start-9">
+        <CtaBlock />
       </div>
     </div>
   </section>

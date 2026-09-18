@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Calculator from '../components/Calculator.astro';
+import CalcModes from '../components/CalcModes.astro';
 import Faq from '../components/Faq.astro';
 import SizeTable from '../components/content/SizeTable.astro';
 import TariffTable from '../components/content/TariffTable.astro';
@@ -55,6 +56,7 @@ const faq: QA[] = [
       <p class="t-lead mt-5 measure">
         Size, PM Surya Ghar subsidy, cost after subsidy and payback, worked out from your PSPCL bill with the {cfg.pspcl.tariffYear} tariff and Punjab's free-units rules. No phone number needed to see the result.
       </p>
+      <div class="mt-8"><CalcModes current="bill" /></div>
       <div class="settle mt-8 mb-8 border-t border-ink"></div>
       <Calculator variant="full" id="calc" example={example} exampleCaption="Example: a home using 900 units on a two-month bill. Enter your own figures above." />
     </div>

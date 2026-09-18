@@ -1,0 +1,297 @@
+---
+/**
+ * New-house solar calculator: for homes with no electricity bill yet. The visitor picks appliances
+ * and usage over six short steps; the estimate is computed in the browser by the same code that
+ * renders the worked example at build time (src/lib/appliance/). All figures live in
+ * src/config/appliance-config.ts. Without JS every step shows at once and the worked example on the
+ * page stands in for the result.
+ */
+import { APPLIANCE_CONFIG as cfg, type StepId } from '../config/appliance-config';
+import { CITIES } from '../data/locations';
+import { applianceRow } from '../lib/appliance/form';
+import '../styles/new-house.css';
+
+interface Props {
+  id?: string;
+}
+const { id = 'nh' } = Astro.props;
+
+const STEPS = [
+  { key: 'home', title: 'About your home', short: 'Home' },
+  { key: 'cooling', title: 'ACs and cooling', short: 'Cooling' },
+  { key: 'kitchen', title: 'Kitchen and laundry', short: 'Kitchen' },
+  { key: 'lights', title: 'Lights, fans and electronics', short: 'Lights' },
+  { key: 'water', title: 'Geysers, pumps and EV', short: 'Water, EV' },
+  { key: 'future', title: 'Anything else, and future plans', short: 'Plans' },
+];
+const inStep = (...steps: StepId[]) => cfg.appliances.filter((a) => steps.includes(a.step));
+const districts = [...new Set(CITIES.map((c) => c.name))].sort((a, b) => a.localeCompare(b));
+const L = cfg.limits;
+---
+
+<div class="nh" data-nh={id}>
+  <ol class="nh-progress" aria-label="Calculator steps" data-nh-progress hidden>
+    {STEPS.map((s, i) => <li data-nh-dot={i}><span class="nh-dot-n">{i + 1}</span><span class="nh-dot-label">{s.short}</span></li>)}
+    <li data-nh-dot={STEPS.length}><span class="nh-dot-n">{STEPS.length + 1}</span><span class="nh-dot-label">Result</span></li>
+  </ol>
+  <p class="t-small text-slate mt-3" data-nh-status aria-live="polite" hidden></p>
+
+  <form class="nh-form" id={`${id}-form`} data-nh-form action="/new-house-solar-calculator/" method="get" novalidate aria-label="New house solar calculator">
+    {/* 1. Home */}
+    <fieldset class="nh-step" data-nh-step="0">
+      <legend><h2 class="t-h3 nh-step-title" tabindex="-1">1. {STEPS[0]!.title}</h2></legend>
+      <p class="nh-step-intro">A few basics. Nothing here is required, and you can change any answer later.</p>
+      <div class="nh-grid">
+        <div>
+          <span class="field-label" id={`${id}-people-l`}>People living in the house</span>
+          <div class="nh-stepper">
+            <button type="button" data-nh-inc="-1" aria-label="One fewer person">−</button>
+            <input class="input" name="people" type="text" inputmode="numeric" value="4" data-min="1" data-max={L.people} data-int aria-labelledby={`${id}-people-l`} />
+            <button type="button" data-nh-inc="1" aria-label="One more person">+</button>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for={`${id}-home`}>Type of home</label>
+          <select class="select" id={`${id}-home`} name="home">
+            <option value="">Choose (optional)</option>
+            <option>1 or 2 BHK flat or house</option>
+            <option>3 BHK house</option>
+            <option>4 BHK or larger house</option>
+            <option>Kothi or independent villa</option>
+            <option>Farmhouse</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for={`${id}-district`}>Where in Punjab?</label>
+          <select class="select" id={`${id}-district`} name="district">
+            <option value="">Choose (optional)</option>
+            {districts.map((d) => <option>{d}</option>)}
+            <option>Elsewhere in Punjab</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for={`${id}-backup`}>Backup during power cuts?</label>
+          <select class="select" id={`${id}-backup`} name="backup">
+            <option value="none">No, grid-connected is fine</option>
+            <option value="essentials">Yes, for lights, fans and the fridge</option>
+            <option value="ac">Yes, and for one AC too</option>
+          </select>
+          <span class="field-hint">Backup needs a battery and a hybrid system.</span>
+        </div>
+      </div>
+    </fieldset>
+
+    {/* 2. Cooling */}
+    <fieldset class="nh-step" data-nh-step="1">
+      <legend><h2 class="t-h3 nh-step-title" tabindex="-1">2. {STEPS[1]!.title}</h2></legend>
+      <p class="nh-step-intro">ACs use more power than anything else in a Punjab home. Set how many you will have, their size and the hours they run on a summer day. Set the number to 0 if you won’t have any.</p>
+      {
+        Array.from({ length: L.acSlots }, (_, i) => (
+          <div class="nh-ac" data-nh-ac={i}>
+            <p class="nh-row-name">{i === 0 ? 'Air conditioners' : `ACs of another size (${i + 1})`}</p>
+            <div class="nh-ac-grid">
+              <div>
+                <span class="field-label" id={`${id}-ac${i}-q`}>How many</span>
+                <div class="nh-stepper">
+                  <button type="button" data-nh-inc="-1" aria-label="One fewer AC">−</button>
+                  <input class="input" name={`ac${i}-qty`} type="text" inputmode="numeric" value={i === 0 ? cfg.ac.defaultSlot.qty : 0} data-min="0" data-max={L.qty} data-int aria-labelledby={`${id}-ac${i}-q`} />
+                  <button type="button" data-nh-inc="1" aria-label="One more AC">+</button>
+                </div>
+              </div>
+              <div>
+                <label class="field-label" for={`${id}-ac${i}-tons`}>Size</label>
+                <select class="select" id={`${id}-ac${i}-tons`} name={`ac${i}-tons`}>
+                  {cfg.ac.tons.map((t) => <option value={t} selected={t === cfg.ac.defaultSlot.tons}>{t} ton</option>)}
+                </select>
+              </div>
+              <div>
+                <label class="field-label" for={`${id}-ac${i}-type`}>Type</label>
+                <select class="select" id={`${id}-ac${i}-type`} name={`ac${i}-type`}>
+                  <option value="inverter">Inverter</option>
+                  <option value="standard">Non-inverter</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-label" for={`${id}-ac${i}-hours`}>Hours a day</label>
+                <input class="input" id={`${id}-ac${i}-hours`} name={`ac${i}-hours`} type="text" inputmode="decimal" value={i === 0 ? cfg.ac.defaultSlot.hours : cfg.ac.defaultHours} data-min="0" data-max={L.hoursPerDay} />
+              </div>
+            </div>
+          </div>
+        ))
+      }
+      <div class="nh-grid mt-2">
+        <div>
+          <label class="field-label" for={`${id}-ac-season`}>How much of the year do the ACs run?</label>
+          <select class="select" id={`${id}-ac-season`} name="ac-season">
+            {cfg.ac.seasons.map((s) => <option value={s.id} selected={s.id === cfg.ac.defaultSeason}>{s.label}</option>)}
+          </select>
+        </div>
+      </div>
+      <h3 class="nh-subhead">Other cooling and heating</h3>
+      <div class="nh-rows">{inStep('cooling').map((a) => <Fragment set:html={applianceRow(a, id)} />)}</div>
+    </fieldset>
+
+    {/* 3. Kitchen and laundry */}
+    <fieldset class="nh-step" data-nh-step="2">
+      <legend><h2 class="t-h3 nh-step-title" tabindex="-1">3. {STEPS[2]!.title}</h2></legend>
+      <p class="nh-step-intro">We have filled in a typical kitchen. Change the numbers to match yours; 0 means you don’t have it.</p>
+      <div class="nh-rows">{inStep('kitchen').map((a) => <Fragment set:html={applianceRow(a, id)} />)}</div>
+      <h3 class="nh-subhead">Laundry</h3>
+      <div class="nh-rows">{inStep('laundry').map((a) => <Fragment set:html={applianceRow(a, id)} />)}</div>
+    </fieldset>
+
+    {/* 4. Lights, fans, electronics */}
+    <fieldset class="nh-step" data-nh-step="3">
+      <legend><h2 class="t-h3 nh-step-title" tabindex="-1">4. {STEPS[3]!.title}</h2></legend>
+      <p class="nh-step-intro">Count the lights and fans, pick the wattage printed on the bulb or box, and roughly how long they are on each day.</p>
+      <div class="nh-rows">{inStep('lights').map((a) => <Fragment set:html={applianceRow(a, id)} />)}</div>
+      <h3 class="nh-subhead">Electronics</h3>
+      <div class="nh-rows">{inStep('electronics').map((a) => <Fragment set:html={applianceRow(a, id)} />)}</div>
+    </fieldset>
+
+    {/* 5. Geysers, pumps, EV */}
+    <fieldset class="nh-step" data-nh-step="4">
+      <legend><h2 class="t-h3 nh-step-title" tabindex="-1">5. {STEPS[4]!.title}</h2></legend>
+      <p class="nh-step-intro">For geysers we count baths or hot-water uses a day, because a geyser heats its tank and then switches off.</p>
+      <div class="nh-rows">
+        {
+          cfg.geyser.sizes.map((g) => (
+            <div class="nh-row">
+              <p class="nh-row-name" id={`${id}-g-${g.id}-l`}>Geyser, {g.label}</p>
+              <div class="nh-row-controls">
+                <div class="nh-stepper">
+                  <button type="button" data-nh-inc="-1" aria-label={`One fewer ${g.label} geyser`}>−</button>
+                  <input class="input" name={`g-${g.id}-qty`} type="text" inputmode="numeric" value={'defaultQty' in g ? g.defaultQty : 0} data-min="0" data-max={L.qty} data-int aria-labelledby={`${id}-g-${g.id}-l`} />
+                  <button type="button" data-nh-inc="1" aria-label={`One more ${g.label} geyser`}>+</button>
+                </div>
+                <label class="nh-amount">
+                  <input class="input" name={`g-${g.id}-uses`} type="text" inputmode="decimal" value={cfg.geyser.defaultUsesPerDay} data-min="0" data-max={L.usesPerDay} aria-label={`${g.label} geyser, uses a day`} />
+                  <span>uses a day</span>
+                </label>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <div class="nh-grid mt-4">
+        <div>
+          <label class="field-label" for={`${id}-g-season`}>When are the geysers used?</label>
+          <select class="select" id={`${id}-g-season`} name="g-season">
+            {cfg.geyser.seasons.map((s) => <option value={s.id} selected={s.id === cfg.geyser.defaultSeason}>{s.label}</option>)}
+          </select>
+        </div>
+      </div>
+
+      <h3 class="nh-subhead">Water pumps</h3>
+      <div class="nh-rows">{inStep('water').map((a) => <Fragment set:html={applianceRow(a, id)} />)}</div>
+
+      <h3 class="nh-subhead">Electric vehicle</h3>
+      <div class="nh-grid">
+        <div>
+          <label class="field-label" for={`${id}-ev`}>Do you have or plan an EV?</label>
+          <select class="select" id={`${id}-ev`} name="ev" data-nh-ev>
+            <option value="none">No EV</option>
+            <option value="planned">Planning to buy one</option>
+            <option value="owned">Already have one</option>
+          </select>
+          <span class="field-hint">We show EV charging separately from the house.</span>
+        </div>
+        <div data-nh-ev-only>
+          <label class="field-label" for={`${id}-ev-vehicle`}>Vehicle</label>
+          <select class="select" id={`${id}-ev-vehicle`} name="ev-vehicle">
+            {cfg.ev.vehicles.map((v) => <option value={v.id}>{v.label}</option>)}
+          </select>
+        </div>
+        <div data-nh-ev-only>
+          <label class="field-label" for={`${id}-ev-km`}>Kilometres a day</label>
+          <input class="input" id={`${id}-ev-km`} name="ev-km" type="text" inputmode="decimal" placeholder="30" data-min="0" data-max={L.kmPerDay} />
+          <span class="field-hint">Not sure? Leave it blank, or use the two boxes below instead.</span>
+        </div>
+        <div data-nh-ev-only>
+          <label class="field-label" for={`${id}-ev-battery`}>Or battery size (kWh)</label>
+          <input class="input" id={`${id}-ev-battery`} name="ev-battery" type="text" inputmode="decimal" placeholder="30" data-min="0" data-max={L.evBatteryKwh} />
+        </div>
+        <div data-nh-ev-only>
+          <label class="field-label" for={`${id}-ev-charges`}>and full charges a week</label>
+          <input class="input" id={`${id}-ev-charges`} name="ev-charges" type="text" inputmode="decimal" placeholder="2" data-min="0" data-max={L.chargesPerWeek} />
+        </div>
+      </div>
+    </fieldset>
+
+    {/* 6. Custom and future */}
+    <fieldset class="nh-step" data-nh-step="5">
+      <legend><h2 class="t-h3 nh-step-title" tabindex="-1">6. {STEPS[5]!.title}</h2></legend>
+      <p class="nh-step-intro">Add anything we haven’t listed. If you don’t know the wattage, leave it blank and we assume {Math.round(cfg.customDefaultKw * 1000)} W.</p>
+      {
+        Array.from({ length: L.customSlots }, (_, i) => (
+          <div class="nh-custom">
+            <div class="nh-custom-name">
+              <label class="field-label" for={`${id}-c${i}-name`}>Appliance {i + 1}</label>
+              <input class="input" id={`${id}-c${i}-name`} name={`c${i}-name`} type="text" maxlength="40" autocomplete="off" placeholder={['Aquarium', 'Treadmill', 'Water cooler'][i]} />
+            </div>
+            <div>
+              <label class="field-label" for={`${id}-c${i}-qty`}>How many</label>
+              <input class="input" id={`${id}-c${i}-qty`} name={`c${i}-qty`} type="text" inputmode="numeric" value="0" data-min="0" data-max={L.qty} data-int />
+            </div>
+            <div>
+              <label class="field-label" for={`${id}-c${i}-watts`}>Watts (if known)</label>
+              <input class="input" id={`${id}-c${i}-watts`} name={`c${i}-watts`} type="text" inputmode="decimal" data-min="0" data-max={L.customWatts} />
+            </div>
+            <div>
+              <label class="field-label" for={`${id}-c${i}-hours`}>Hours a day</label>
+              <input class="input" id={`${id}-c${i}-hours`} name={`c${i}-hours`} type="text" inputmode="decimal" value="0" data-min="0" data-max={L.hoursPerDay} />
+            </div>
+            <div>
+              <label class="field-label" for={`${id}-c${i}-days`}>Days a week</label>
+              <input class="input" id={`${id}-c${i}-days`} name={`c${i}-days`} type="text" inputmode="numeric" value="7" data-min="0" data-max={L.daysPerWeek} />
+            </div>
+          </div>
+        ))
+      }
+
+      <h3 class="nh-subhead">Planning to add later?</h3>
+      <p class="nh-step-intro">Tick anything you expect to add in the next few years. We show it separately, so you can size for it now or add panels later.</p>
+      <ul class="nh-checks">
+        {
+          cfg.future.map((f) => (
+            <li>
+              <label class="nh-check">
+                <input type="checkbox" name="future" value={f.id} />
+                <span>{f.label}<span class="calc-sub">{f.detail}</span></span>
+              </label>
+            </li>
+          ))
+        }
+        <li>
+          <label class="nh-check">
+            <input type="checkbox" name="future" value="other" />
+            <span>Another major appliance</span>
+          </label>
+          <div class="nh-grid nh-indent">
+            <div>
+              <label class="field-label" for={`${id}-fo-watts`}>Watts</label>
+              <input class="input" id={`${id}-fo-watts`} name="fo-watts" type="text" inputmode="decimal" placeholder="1500" data-min="0" data-max={L.customWatts} />
+            </div>
+            <div>
+              <label class="field-label" for={`${id}-fo-hours`}>Hours a day</label>
+              <input class="input" id={`${id}-fo-hours`} name="fo-hours" type="text" inputmode="decimal" placeholder="2" data-min="0" data-max={L.hoursPerDay} />
+            </div>
+          </div>
+        </li>
+      </ul>
+    </fieldset>
+
+    <div class="nh-nav" data-nh-nav>
+      <button type="button" class="btn btn-secondary" data-nh-back hidden>Back</button>
+      <button type="button" class="btn btn-primary" data-nh-next hidden>Next</button>
+      <button type="submit" class="btn btn-primary" data-nh-submit>See my estimate</button>
+    </div>
+    <noscript><p class="calc-fineprint">The calculator needs JavaScript to work out your figures. The worked example further down this page shows the kind of result you get.</p></noscript>
+  </form>
+
+  <div id={`${id}-result`} class="calc-result nh-result-wrap" tabindex="-1" aria-live="polite" data-nh-result hidden></div>
+</div>
+
+<script>
+  import '../scripts/new-house-calculator';
+</script>

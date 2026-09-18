@@ -1,0 +1,54 @@
+---
+/** Switch between the two calculators: from a PSPCL bill, or from appliances for a new house. */
+interface Props {
+  current: 'bill' | 'house';
+}
+const { current } = Astro.props;
+---
+
+<nav class="calc-modes" aria-label="Choose a calculator">
+  <a href="/solar-calculator/" aria-current={current === 'bill' ? 'page' : undefined}>
+    I have an electricity bill
+    <small>Size, subsidy and payback from your PSPCL bill</small>
+  </a>
+  <a href="/new-house-solar-calculator/" aria-current={current === 'house' ? 'page' : undefined}>
+    I’m building or buying a new house
+    <small>No bill yet: estimate from your appliances</small>
+  </a>
+</nav>
+
+<style>
+.calc-modes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--color-slate);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+}
+.calc-modes a {
+  display: grid;
+  align-content: center;
+  gap: 0.125rem;
+  min-height: 3.5rem;
+  padding: 0.625rem 0.875rem;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  line-height: 1.3;
+  text-decoration: none;
+}
+.calc-modes a + a {
+  border-left: 1px solid var(--color-slate);
+}
+.calc-modes a[aria-current='page'] {
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+.calc-modes a:not([aria-current]):hover {
+  background: var(--color-paper);
+}
+.calc-modes small {
+  font-weight: 400;
+  font-size: 0.8125rem;
+  opacity: 0.8;
+}
+</style>
