@@ -1,0 +1,46 @@
+---
+/**
+ * A brand's range from the catalogue: each category with its product count and a few example
+ * products, linking brand → category → product. Only global classes (it renders inside MDX too,
+ * where scoped styles are not CSP-hashed).
+ */
+import { CATEGORIES, PRODUCTS, productsIn, type Product } from '../../data/products';
+
+interface Props {
+  brand: string;
+  /** Example products shown per category. */
+  examples?: number;
+}
+const { brand, examples = 3 } = Astro.props;
+const rows = CATEGORIES.map((c) => ({ c, items: productsIn(c.id).filter((p) => p.brand === brand) })).filter((r) => r.items.length);
+const total = PRODUCTS.filter((p) => p.brand === brand).length;
+/** Examples spread across the category (smallest, middle, largest), not just the first few. */
+function spread(items: Product[], k: number): Product[] {
+  if (items.length <= k) return items;
+  return Array.from({ length: k }, (_, i) => items[Math.round((i * (items.length - 1)) / Math.max(k - 1, 1))]!);
+}
+---
+
+<div class="not-prose">
+  <ul class="ruled">
+    {
+      rows.map(({ c, items }) => (
+        <li class="grid gap-x-6 gap-y-2 sm:grid-cols-[1fr_auto]">
+          <div>
+            <a href={`/products/${c.id}/`} class="font-semibold underline">
+              {c.name}
+            </a>
+            <span class="mt-1 block text-slate">{c.blurb}</span>
+            <span class="t-small mt-2 block text-slate">
+              For example: <Fragment set:html={spread(items, examples).map((p) => `<a href="/products/${p.slug}/" class="underline">${p.title.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</a>`).join(', ')} />
+            </span>
+          </div>
+          <span class="t-value text-slate sm:text-right">{items.length} products</span>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="t-small mt-4 text-slate">
+    {total} {brand} products in all, each with full specifications. <a href="/products/" class="underline">Browse the catalogue</a>.
+  </p>
+</div>

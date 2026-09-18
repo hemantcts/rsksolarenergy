@@ -1,0 +1,139 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Faq from '../components/Faq.astro';
+import CtaBlock from '../components/content/CtaBlock.astro';
+import BrandRange from '../components/content/BrandRange.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { BUSINESS } from '../config/business';
+import { BRAND_CATEGORIES } from '../data/brands';
+import { cityPath } from '../data/locations';
+import { faqPage, type QA } from '../lib/seo';
+
+const path = '/brands/';
+const utl = BRAND_CATEGORIES.flatMap((c) => c.brands).find((b) => b.relationship === 'distributor')!;
+const others = BRAND_CATEGORIES.map((c) => ({ ...c, brands: c.brands.filter((b) => b.relationship !== 'distributor') })).filter((c) => c.brands.length);
+const otherCount = others.reduce((n, c) => n + c.brands.length, 0);
+const slug = (s: string) => s.replace(/[^a-z0-9]+/gi, '-').toLowerCase();
+
+const faq: QA[] = [
+  {
+    q: 'Which solar brand does RSK Solar Energy install?',
+    a: `Mainly ${BUSINESS.brand}. We are a ${BUSINESS.brand} distributor, and the systems we design and install use UTL panels, inverters and batteries. The full UTL range is listed on this site with specifications.`,
+  },
+  {
+    q: 'Can I buy Luminous, Polycab or Fujiyama products from you?',
+    a: 'We stock these brands. What is in stock changes, so send the product or model on WhatsApp and we confirm availability and price. We don’t list them in the online catalogue.',
+  },
+  {
+    q: 'Are you an authorised dealer for every brand on this page?',
+    a: `No, and we don’t claim to be. We are a ${BUSINESS.brand} distributor. The other brands are ones we stock and supply; for those, ask the manufacturer if you need an authorised-dealer invoice for a particular scheme or warranty.`,
+  },
+  {
+    q: 'Who gives the warranty on these products?',
+    a: 'The manufacturer, on its own terms. Each product carries the brand’s warranty, and RSK Solar Energy does not add a separate warranty of its own. Keep the invoice and the product’s serial number.',
+  },
+  {
+    q: 'Do you deliver outside Mohali?',
+    a: 'Our own team installs in the Tricity and around Kurali, Morinda and Ropar. For supply elsewhere in Punjab, and for dealers, we agree delivery when you order.',
+  },
+];
+---
+
+<BaseLayout
+  title="Solar and Electrical Brands We Supply in Punjab"
+  description={`UTL Solar, which we distribute and install, and ${otherCount} more brands we stock in Mohali: solar and power, fans and coolers, appliances and tubewell motors.`}
+  crumbs={[{ name: 'Brands', path }]}
+  schema={[faqPage(faq)]}
+>
+  <header class="wrap pt-8 pb-10 lg:pt-12">
+    <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Brands', path }]} />
+    <h1 class="t-h1 mt-6">Brands we supply</h1>
+    <p class="t-lead measure mt-5">
+      One brand we distribute and install, {BUSINESS.brand}, and {otherCount} more we stock at our Phase 8B, Mohali store. Here is how we work with each, so you know what to expect when you ask.
+    </p>
+  </header>
+
+  <section class="sec bg-white" aria-labelledby="utl-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        {utl.logo && <span class="inline-block border border-rule bg-white p-3"><Image src={utl.logo} alt="UTL Solar" width={200} densities={[1, 2]} class="block h-auto w-36" /></span>}
+        <h2 id="utl-h" class="t-h2 mt-6">{utl.name}: the brand we distribute</h2>
+        <p class="mt-4 text-slate">
+          We distribute UTL Solar products from Mohali, design and install UTL systems for homes, businesses and farms, and supply UTL to other dealers and installers across Punjab.
+        </p>
+        <ul class="t-small mt-6 grid gap-2">
+          <li><a href="/utl-solar-distributor-punjab/" class="underline">UTL Solar range, prices and dealer supply</a></li>
+          <li><a href="/utl-solar-vs-other-brands/" class="underline">How UTL compares with other brands</a></li>
+          <li><a href="/solar-dealership-punjab/" class="underline">Become a UTL dealer</a></li>
+        </ul>
+      </div>
+      <div class="lg:col-span-7 lg:col-start-6">
+        <BrandRange brand={utl.name} examples={2} />
+      </div>
+    </div>
+  </section>
+
+  {
+    others.map((cat) => (
+      <section class="sec-tight border-t border-rule" aria-labelledby={`cat-${slug(cat.title)}`}>
+        <div class="wrap grid-12">
+          <div class="lg:col-span-4">
+            <h2 id={`cat-${slug(cat.title)}`} class="t-h2">
+              {cat.title}
+            </h2>
+            <p class="mt-4 text-slate">{cat.blurb}</p>
+          </div>
+          <ul class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:col-span-7 lg:col-start-6">
+            {cat.brands.map((b) => (
+              <li class="flex flex-col border border-rule bg-white">
+                <span class="flex h-24 items-center justify-center p-4">
+                  {b.logo ? <Image src={b.logo} alt={b.name} width={200} class="h-auto max-h-14 w-auto max-w-full object-contain" /> : <span class="t-h3 text-center">{b.name}</span>}
+                </span>
+                <span class="t-small border-t border-rule px-3 py-2 text-slate">
+                  <span class="block font-medium text-ink">{b.name}</span>
+                  Stocked in Mohali
+                  {b.link && (
+                    <a href={b.link.href} class="mt-1 block underline">
+                      {b.link.label}
+                    </a>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="sec bg-white border-t border-rule" aria-labelledby="work-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="work-h" class="t-h2">How we work with brands</h2>
+      </div>
+      <div class="prose lg:col-span-7 lg:col-start-6">
+        <p>
+          With {BUSINESS.brand} we are a distributor. We carry the range, size and install complete systems, deal with UTL on stock and specifications, and supply other dealers at wholesale prices.
+        </p>
+        <p>
+          The other brands on this page are ones we stock and sell. We don’t describe ourselves as an authorised or official dealer for them. Stock changes, so ask on WhatsApp before you visit.
+        </p>
+        <p>
+          Warranties are always the manufacturer’s own, on the manufacturer’s terms. Choosing a system rather than a single product? Start with the <a href="/solar-calculator/">solar calculator</a>, or the <a href="/new-house-solar-calculator/">new-house calculator</a> if you don’t have a bill yet. We install in <a href={cityPath('mohali')}>Mohali</a> and the Tricity with our own team and <a href="/solar-company-punjab/">across Punjab</a> through our dealer network.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec border-t border-rule">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-7"><Faq items={faq} heading="Questions about brands" /></div>
+      <div class="lg:col-span-4 lg:col-start-9">
+        <CtaBlock heading="Ask about a product" label="Ask about a brand on WhatsApp" message="Hi RSK Solar Energy, I would like to check availability and price. Brand and product or model: " body="Tell us the brand and the product or model, and we confirm availability and price." showInspection={false} />
+        <div class="mt-4"><WhatsAppButton label="Ask for UTL prices" message="Hi RSK Solar Energy, I would like prices and stock for UTL products. Items and quantities: " variant="secondary" /></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,6 +1,6 @@
 ---
-title: 'UTL Solar Distributor in Mohali and Punjab'
-description: 'RSK Solar Energy, Phase 8B Mohali, distributes UTL Solar panels, inverters, batteries and complete kits across Punjab. Homes and trade buyers.'
+title: 'UTL Solar Dealer and Distributor in Mohali, Punjab'
+description: 'UTL Solar panels, inverters, PCUs, batteries and kits from a UTL distributor in Mohali. Supply and installation for homes, businesses and dealers in Punjab.'
 h1: UTL Solar distributor in Mohali and Punjab
 lead: 'RSK Solar Energy distributes UTL Solar products from Phase 8B, Mohali: panels, inverters and PCUs, batteries, charge controllers and complete kits, for homeowners, businesses and trade buyers across Punjab.'
 crumb: UTL Solar distributor
@@ -18,7 +18,17 @@ faq:
     a: 'Both. We supply UTL products on their own, and we design and install complete rooftop systems for homes, businesses and housing societies.'
   - q: Where are you?
     a: 'Plot No E-203, Phase 8B, Sahibzada Ajit Singh Nagar (Mohali), Punjab. We serve Mohali, Kharar, Zirakpur, Derabassi, Chandigarh, Panchkula and the rest of Punjab.'
+  - q: Which UTL inverter suits a home?
+    a: 'It depends on the system. A grid-connected system with the PM Surya Ghar subsidy uses an on-grid inverter. If you want power during cuts, a hybrid PCU with a battery. A farmhouse or site with no grid supply needs an off-grid system. Tell us your bill or the loads you want to run and we suggest a model and size from the UTL range.'
+  - q: Can UTL products be used for commercial installations?
+    a: 'Yes. The UTL range includes on-grid string inverters up to 125 kW, used for shops, offices, schools and factories. Commercial systems are sized to your bills, roof and sanctioned load, and we design them after a site survey.'
+  - q: Can I buy a single UTL panel or battery without a full system?
+    a: 'Yes. We sell UTL products on their own as well as in complete systems. Tell us what you already have, such as your inverter model or battery voltage, and we check that the new part matches.'
 related:
+  - href: /brands/
+    label: Every brand we supply
+  - href: /utl-solar-vs-other-brands/
+    label: How UTL compares with other brands
   - href: /products/
     label: The full UTL catalogue, with specifications
   - href: /solar-dealership-punjab/
@@ -29,28 +39,37 @@ related:
     label: UTL off-grid kits
 ---
 
-import { CATEGORIES, productsIn } from '../../data/products';
+import { Image } from 'astro:assets';
+import BrandRange from '../../components/content/BrandRange.astro';
+import utlLogo from '../../assets/brand/utl-logo.png';
+
+<div class="not-prose my-8"><span class="inline-block border border-rule bg-white p-3"><Image src={utlLogo} alt="UTL Solar" width={200} densities={[1, 2]} class="block h-auto w-36" /></span></div>
 
 ## The UTL range we carry
 
-<div class="not-prose my-8">
-<ul class="ruled">
-{CATEGORIES.map((c) => (
-<li class="grid grid-cols-[1fr_auto] gap-x-6">
-<span><a href={`/products/${c.id}/`} class="font-semibold underline">{c.name}</a><span class="mt-1 block text-slate">{c.blurb}</span></span>
-<span class="t-value text-slate">{productsIn(c.id).length}</span>
-</li>
-))}
-</ul>
-</div>
+<div class="not-prose my-8"><BrandRange brand="UTL Solar" /></div>
 
 Every product page lists UTL's specifications in full, including ratings, voltages, dimensions, weights and warranty. If a figure matters for your design, we confirm it against the current UTL datasheet before you order.
+
+## Which UTL product for which job
+
+- A grid-connected home or business: UTL solar panels with an on-grid inverter. This is the system that gets the PM Surya Ghar subsidy for homes.
+- Power cuts: a hybrid PCU with batteries, which runs your essentials when the grid is down. See [hybrid solar systems](/hybrid-solar-systems/).
+- No grid at all, such as a farmhouse or a site: a matched off-grid kit. See [off-grid solar systems](/off-grid-solar-systems/).
+- An inverter you already own: a UTL charge controller or solar management unit can add panels to it.
+- E-rickshaws and e-bikes: UTL lithium batteries and EV battery chargers.
+
+Not sure which size you need? The [solar calculator](/solar-calculator/) works it out from your PSPCL bill, and the [new-house calculator](/new-house-solar-calculator/) from your appliances.
 
 ## Why buy from a local distributor
 
 Panels, charge controllers, inverters and batteries have to work together. Ask us before you order parts separately and we will check that the combination works.
 
 You also get a local contact in Phase 8B, Mohali, with two phone lines and WhatsApp, for questions before and after you buy.
+
+## Where we supply and install
+
+Our own team installs UTL systems in [Mohali](/solar-company-mohali/), the Tricity and around Kurali, Morinda and Ropar. Elsewhere, we supply UTL products and quote systems for [homes and businesses across Punjab](/solar-company-punjab/), with installation through our dealer network.
 
 ## For homeowners
 

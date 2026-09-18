@@ -87,6 +87,9 @@ Redirect 301 /projects/ /about/
 # City page renamed: Rupnagar is searched as Ropar (2026-09-15).
 Redirect 301 /solar-company-rupnagar/ /solar-company-ropar/
 
+# Brand directory moved to a shorter URL (2026-09-19).
+Redirect 301 /brands-and-partners/ /brands/
+
 # Duplicate EV charger listings merged into one page per model (2026-09-15).
 Redirect 301 /products/ev-battery-charger-48v-20a-2/ /products/ev-battery-charger-48v-20a/
 Redirect 301 /products/ev-battery-charger-48v-20a-3/ /products/ev-battery-charger-48v-20a/

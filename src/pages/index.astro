@@ -37,7 +37,7 @@ const minOnGridKw = cfg.sizing.minKwByType['on-grid'];
 const [d0, d1] = cfg.subsidy.disbursementDays;
 const reviews = REVIEWS.slice(0, 4);
 // One teaser tile per non-solar brand, skipping UTL Solar (already shown above). The full list
-// lives on /brands-and-partners/.
+// lives on /brands/.
 const brandTeaser = BRAND_CATEGORIES.flatMap((c) => c.brands).filter((b) => b.name !== 'UTL Solar');
 
 // A recognisable, real product photo for each catalogue category. Falls back to the first product
@@ -456,7 +456,7 @@ const description = `UTL Solar distributor and dealer in Mohali, Punjab. On-grid
       <div class="lg:col-span-4">
         <h2 id="also-stock-h" class="t-h2">Also stocked at RSK Solar Energy</h2>
         <p class="mt-4 text-slate">Fans, coolers, appliances and tubewell motors, alongside our solar equipment.</p>
-        <p class="mt-4"><a href="/brands-and-partners/" class="underline">See every brand we stock</a></p>
+        <p class="mt-4"><a href="/brands/" class="underline">See every brand we supply</a></p>
       </div>
       <ul class="mt-8 grid grid-cols-3 gap-4 sm:grid-cols-6 lg:col-span-7 lg:col-start-6 lg:mt-0">
         {

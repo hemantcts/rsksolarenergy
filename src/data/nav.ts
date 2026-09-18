@@ -34,7 +34,7 @@ export const NAV: NavGroup[] = [
       ...CATEGORIES.map((c) => ({ href: `/products/${c.id}/`, label: c.name })),
       { href: '/products/', label: 'All UTL products' },
       { href: '/utl-solar-vs-other-brands/', label: 'UTL vs other brands' },
-      { href: '/brands-and-partners/', label: 'Other brands we stock' },
+      { href: '/brands/', label: 'All brands we supply' },
     ],
   },
   {

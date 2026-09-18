@@ -53,7 +53,7 @@ const blogPosts = listContentDir('../src/content/blog/');
 const STATIC_PAGES = [
   { path: 'about', name: 'About RSK Solar Energy' },
   { path: 'reviews', name: 'Customer reviews' },
-  { path: 'brands-and-partners', name: 'Brands RSK Solar Energy stocks' },
+  { path: 'brands', name: 'Brands RSK Solar Energy supplies, and how it works with each' },
   { path: 'solar-company-punjab', name: 'Where RSK Solar Energy works in Punjab' },
   { path: 'careers', name: 'Careers' },
   { path: 'privacy-policy', name: 'Privacy policy' },
