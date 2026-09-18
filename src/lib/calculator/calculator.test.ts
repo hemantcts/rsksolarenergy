@@ -489,10 +489,10 @@ describe('live config sanity', () => {
 describe('format', () => {
   it('uses Indian digit grouping', () => {
     expect(inr(107000)).toBe('₹1,07,000');
-    expect(inrRange([107000, 120000])).toBe('₹1,07,000 – 1,20,000');
+    expect(inrRange([107000, 120000])).toBe('₹1,07,000 to 1,20,000');
     expect(inrRange([107400, 107400])).toBe('₹1,07,000');
     expect(inrWords(1140000)).toBe('₹11.4 lakh');
     expect(inrWords(12000000)).toBe('₹1.2 crore');
-    expect(yearsRange([3.52, 3.94])).toBe('3.5 – 3.9 years');
+    expect(yearsRange([3.52, 3.94])).toBe('3.5 to 3.9 years');
   });
 });

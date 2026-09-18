@@ -180,7 +180,7 @@ export function renderResult(r: CalcResult, input: CalcInput, o: RenderOptions):
     row('System cost', fig(inrRange(r.grossCost), a)),
     hasSubsidy
       ? row('PM Surya Ghar subsidy', `− ${fig(inr(r.subsidy.amount), a)}`, {
-          sub: `paid to your bank ${config.subsidy.disbursementDays[0]}–${config.subsidy.disbursementDays[1]} days after inspection`,
+          sub: `paid to your bank ${config.subsidy.disbursementDays[0]} to ${config.subsidy.disbursementDays[1]} days after inspection`,
         })
       : row('PM Surya Ghar subsidy', '₹0', { sub: 'not eligible, see below' }),
   ].join('');
@@ -209,7 +209,7 @@ ${draftBanner()}
   <tbody class="calc-net"><tr><th scope="row">Your net cost${hasSubsidy ? ' after subsidy' : ''}</th><td class="num"><span class="t-readout">${fig(inrRange(netRange), a)}</span></td></tr></tbody>
   <tbody>${savingRows}</tbody>
 </table>
-${hasSubsidy ? `<p class="calc-fineprint"><strong>You pay the full system cost first.</strong> The subsidy is credited to your bank account about ${config.subsidy.disbursementDays[0]}–${config.subsidy.disbursementDays[1]} days after the DISCOM inspection. It is not deducted upfront.</p>` : ''}
+${hasSubsidy ? `<p class="calc-fineprint"><strong>You pay the full system cost first.</strong> The subsidy is credited to your bank account about ${config.subsidy.disbursementDays[0]} to ${config.subsidy.disbursementDays[1]} days after the DISCOM inspection. It is not deducted upfront.</p>` : ''}
 ${notes.length ? `<ul class="calc-notes">${notes.map((n) => `<li>${esc(noteText(n, config))}</li>`).join('')}</ul>` : ''}
 ${o.variant === 'full' ? `<p class="calc-fineprint">${esc(assumptions(config))}</p>` : ''}
 <div class="calc-actions">

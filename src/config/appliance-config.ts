@@ -161,7 +161,7 @@ export const APPLIANCE_CONFIG = {
   future: [
     { id: 'ac', label: 'Another AC', detail: '1.5 ton inverter, 6 hours a day in summer', kwhPerYear: 0.9 * 6 * 150 },
     { id: 'geyser', label: 'Another geyser', detail: '25 litre, two uses a day in winter', kwhPerYear: (1.0 * 2 + 0.3) * 120 },
-    { id: 'fridge', label: 'A larger refrigerator', detail: 'extra over a standard one', kwhPerYear: 0.6 * 365 },
+    { id: 'fridge', label: 'A larger refrigerator', detail: 'the extra units over a standard one', kwhPerYear: 0.6 * 365 },
     { id: 'office', label: 'A home office', detail: 'computer, screen and lights, 8 hours on weekdays', kwhPerYear: 0.25 * 8 * 260 },
     { id: 'pump', label: 'Another water pump', detail: '1 HP, 1 hour a day', kwhPerYear: 1.0 * 365 },
     { id: 'pool', label: 'Pool or fountain pump', detail: '1 HP, 4 hours a day for 6 months', kwhPerYear: 1.0 * 4 * 180 },

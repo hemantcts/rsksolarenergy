@@ -150,7 +150,7 @@ function dayRange(days: readonly Weekday[]) {
     if (run && i === run.at(-1)! + 1) run.push(i);
     else runs.push([i]);
   }
-  return runs.map((r) => (r.length > 2 ? `${shortDay(r[0] ?? 0)}–${shortDay(r.at(-1) ?? 0)}` : r.map(shortDay).join(', '))).join(', ');
+  return runs.map((r) => (r.length > 2 ? `${shortDay(r[0] ?? 0)} to ${shortDay(r.at(-1) ?? 0)}` : r.map(shortDay).join(', '))).join(', ');
 }
 
 /**

@@ -37,7 +37,7 @@ const description = `${kw} kW ${primaryLabel.toLowerCase()} solar in Punjab: ${i
 const faq: QA[] = [
   {
     q: `What is the price of a ${kw} kW solar system in Punjab?`,
-    a: `A ${primaryLabel.toLowerCase()} ${kw} kW system costs ${inrRange(s.primaryGross)} installed. After the PM Surya Ghar subsidy of ${inr(s.subsidy)}, a home pays ${inrRange(s.primaryNet)}.${
+    a: `${/^[aeiou]/i.test(primaryLabel) ? 'An' : 'A'} ${primaryLabel.toLowerCase()} ${kw} kW system costs ${inrRange(s.primaryGross)} installed. After the PM Surya Ghar subsidy of ${inr(s.subsidy)}, a home pays ${inrRange(s.primaryNet)}.${
       s.offersOnGrid
         ? ` A hybrid system with a battery costs ${inrRange(s.prices.hybrid)} and is subsidised the same way; an off-grid system costs ${inrRange(s.prices.offGrid)} and does not qualify for the subsidy.`
         : ` RSK Solar Energy does not install on-grid systems this small; 3 kW is the smallest on-grid system we offer. An off-grid system at ${kw} kW costs ${inrRange(s.prices.offGrid)}, but does not qualify for the subsidy.`
@@ -100,12 +100,12 @@ const schema = [
           <tr><th scope="row">Minimum sanctioned load</th><td class="num">{kw} kW</td></tr>
           <tr>
             <th scope="row">Takes a home to a zero bill if it uses</th>
-            <td class="num">{digits(s.zeroBillRange[0])} – {digits(s.zeroBillRange[1])} units a month</td>
+            <td class="num">{digits(s.zeroBillRange[0])} to {digits(s.zeroBillRange[1])} units a month</td>
           </tr>
         </tbody>
       </table>
       <p class="calc-fineprint mt-4">
-        <strong>You pay the full price first.</strong> The subsidy is credited to your bank account {cfg.subsidy.disbursementDays[0]}–{cfg.subsidy.disbursementDays[1]} days after the PSPCL inspection.
+        <strong>You pay the full price first.</strong> The subsidy is credited to your bank account {cfg.subsidy.disbursementDays[0]} to {cfg.subsidy.disbursementDays[1]} days after the PSPCL inspection.
       </p>
       <div class="mt-4"><DraftNote /></div>
       {s.primaryGrossConfirmed && (

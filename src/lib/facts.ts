@@ -21,7 +21,7 @@ export const F = {
   subThird: inr(C.subsidy.residential.secondBandPerKw),
   societyPerKw: inr(C.subsidy.society.perKw),
   societyMax: `${C.subsidy.society.maxKw} kW`,
-  days: `${C.subsidy.disbursementDays[0]}–${C.subsidy.disbursementDays[1]}`,
+  days: `${C.subsidy.disbursementDays[0]} to ${C.subsidy.disbursementDays[1]}`,
   tariffYear: C.pspcl.tariffYear,
   duty: `${C.pspcl.electricityDutyPercent}%`,
   rateLow: `₹${dom0.slabs[0]!.rate.toFixed(2)}`,
