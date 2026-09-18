@@ -66,9 +66,9 @@ export const BUSINESS = {
 
   google: {
     rating: 4.9,
-    reviewCount: 38,
-    // Confirmed by RSK from the live Google Business Profile card, 2026-09-12.
-    ratingCheckedOn: '2026-09-12',
+    reviewCount: 41,
+    // Count updated by RSK, 2026-09-19 (was 38 on 2026-09-12). Rating carried over from 2026-09-12.
+    ratingCheckedOn: '2026-09-19',
     mapsUrl: 'https://maps.google.com/?cid=3900928441643699717',
     reviewUrl: 'https://search.google.com/local/writereview?placeid=ChIJK-ncoCnvDzkRBQ5k6r_hIjY',
   },
