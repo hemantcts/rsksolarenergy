@@ -17,7 +17,7 @@ export function approxUnits(n: number): string {
   const step = n >= 1000 ? 50 : n >= 100 ? 10 : 1;
   return digits(Math.round(n / step) * step);
 }
-const kwRange = ([a, b]: [number, number]) => (a === b ? kw(a) : `${Number.isInteger(a) ? a : a.toFixed(1)}–${kw(b)}`);
+const kwRange = ([a, b]: [number, number]) => (a === b ? kw(a) : `${Number.isInteger(a) ? a : a.toFixed(1)} to ${kw(b)}`);
 const pct = (x: number) => `${Math.round(x * 100)}%`;
 
 export interface HouseRenderOptions {
@@ -58,7 +58,7 @@ function scenarioCard(s: Scenario, cfg: ApplianceConfig, onGridMin: number): str
     <dt>Example system</dt><dd>${esc(kw(s.exampleKw))}${s.exampleKw < onGridMin ? ' <span class="calc-sub">hybrid or off-grid at this size</span>' : ''}</dd>
     <dt>Panels</dt><dd>about ${s.panels} × ${cfg.panelWatts} W</dd>
     <dt>Roof area</dt><dd>about ${digits(s.roofSqFt)} sq ft</dd>
-    <dt>Solar generation</dt><dd>${approxUnits(s.generationRange[0])}–${approxUnits(s.generationRange[1])} units a year</dd>
+    <dt>Solar generation</dt><dd>${approxUnits(s.generationRange[0])} to ${approxUnits(s.generationRange[1])} units a year</dd>
     <dt>Covers</dt><dd>about ${pct(Math.min(s.coverage, 9.99))} of current use</dd>
   </dl>
 </li>`;
@@ -111,7 +111,7 @@ export function renderHouseResult(e: Estimate, input: HouseInput, o: HouseRender
   <h2 class="t-h2">${heading}</h2>
   <p class="calc-kicker mt-4">Recommended solar capacity</p>
   <p class="calc-system"><span class="t-value">${esc(kwRange(rec.kwRange))}</span></p>
-  <p class="calc-cover">For about ${approxUnits(e.household.monthly)} units a month on average${e.ev?.timing === 'owned' ? ', plus your EV' : ''}. A range, because roof direction, shade and weather change what panels make.</p>
+  <p class="calc-cover">For about ${approxUnits(e.household.monthly)} units a month on average${e.ev?.timing === 'owned' ? ', plus your EV' : ''}. It’s a range because roof direction, shade and weather change what the panels make.</p>
 </div>
 
 <div>
@@ -122,10 +122,10 @@ export function renderHouseResult(e: Estimate, input: HouseInput, o: HouseRender
       <tr class="calc-strong"><th scope="row">A month, on average</th><td class="num">${approxUnits(e.household.monthly)} units</td></tr>
       <tr><th scope="row">A month in peak summer<span class="calc-sub">ACs, coolers and fans all running</span></th><td class="num">${approxUnits(e.household.peakMonth)} units</td></tr>
       <tr><th scope="row">A year</th><td class="num">${approxUnits(e.household.annual)} units</td></tr>
-      <tr><th scope="row">Connected load<span class="calc-sub">Everything switched on at once, in kW. It is not your monthly use.</span></th><td class="num">${esc(kw(e.connectedKw))}</td></tr>
+      <tr><th scope="row">Connected load<span class="calc-sub">Everything switched on at once, in kW</span></th><td class="num">${esc(kw(e.connectedKw))}</td></tr>
     </tbody>
   </table></div>
-  <p class="calc-fineprint mt-3">One unit is one kWh. Connected load decides the sanctioned load to ask PSPCL for on the new connection, and an on-grid system can’t be larger than the sanctioned load. Solar is sized from the units, not the load.</p>
+  <p class="calc-fineprint mt-3">One unit is one kWh. Connected load decides the sanctioned load to ask PSPCL for on the new connection, and an on-grid system can’t be larger than the sanctioned load. The solar size itself comes from the units.</p>
 </div>
 
 ${
@@ -138,7 +138,7 @@ ${freeUnitsBlock(e, solar)}
 
 <div>
   <h3 class="t-h3">Three ways to size it</h3>
-  <p class="calc-fineprint mt-2">None of these is the right answer for everyone. They show the range, from covering the basics to leaving room for what comes next.</p>
+  <p class="calc-fineprint mt-2">Which one suits you depends on your budget and your plans. They run from covering the basics to leaving room for what you add later.</p>
   <ul class="nh-cards mt-4">${e.scenarios.map((s) => scenarioCard(s, cfg, e.onGridMinKw)).join('')}</ul>
 </div>
 
@@ -173,6 +173,6 @@ ${notes.length ? `<ul class="calc-notes" role="note">${notes.map((n) => `<li>${e
   ${share}
 </div>
 
-<p class="calc-fineprint">This is an estimate to start a conversation, not a design. Real use depends on your family’s habits and the season, and AC use swings the most. Solar output depends on shade, roof direction and tilt, the panels and inverter chosen, and the weather. It assumes ${digits(Math.round(solar.generation.annualYieldPerKwp * solar.generation.deratingFactor))} units per kW a year, give or take ${Math.round((cfg.generationRange[1] - 1) * 100)}%. We confirm the size after a site survey, and we don’t promise a particular bill, saving or payback.</p>
+<p class="calc-fineprint">Treat this as a starting point for a conversation with us. Real use depends on your family’s habits and the season, and AC use swings the most. Solar output depends on shade, roof direction and tilt, the panels and inverter chosen, and the weather. It assumes ${digits(Math.round(solar.generation.annualYieldPerKwp * solar.generation.deratingFactor))} units per kW a year, give or take ${Math.round((cfg.generationRange[1] - 1) * 100)}%. We fix the size after a site survey, and we don’t promise a particular bill, saving or payback.</p>
 </div>`;
 }

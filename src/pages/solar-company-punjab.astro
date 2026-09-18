@@ -7,7 +7,6 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 import { BUSINESS } from '../config/business';
 import { SOLAR_CONFIG } from '../config/solar-config';
 import { CITIES, cityPath } from '../data/locations';
-import { CATEGORIES } from '../data/products';
 import { sizePath } from '../data/sizes';
 import { F } from '../lib/facts';
 import { faqPage, type QA } from '../lib/seo';
@@ -35,7 +34,7 @@ const services = [
   },
   {
     title: 'Shops, offices, clinics and schools',
-    body: 'Non-residential connections pay for every unit with no free allowance, so solar saves from the first unit. Sized to your sanctioned load.',
+    body: 'Non-residential connections pay for every unit with no free allowance, so solar saves from the first unit. We size the system to your sanctioned load.',
     links: [
       { href: '/commercial-solar-punjab/', label: 'Commercial rooftop solar' },
       { href: '/blog/solar-for-schools-clinics-punjab/', label: 'Solar for schools and clinics' },
@@ -223,13 +222,13 @@ const faq: QA[] = [
       </div>
       <div class="prose lg:col-span-7 lg:col-start-6">
         <p>
-          Homes get {F.free} free units a month. Under that, a home’s bill is already zero and solar has nothing to save; above it, general-category homes pay for every unit. That one rule decides most home sizing here. See <a href="/blog/solar-with-300-free-units-punjab/">solar with 300 free units</a>.
+          Homes get {F.free} free units a month. Under that, a home’s bill is already zero and solar has nothing to save; above it, general-category homes pay for every unit, and that rule drives most home sizing here. See <a href="/blog/solar-with-300-free-units-punjab/">solar with 300 free units</a>.
         </p>
         <p>
           A rooftop system can be at most {SOLAR_CONFIG.netMetering.maxSystemPercentOfSanctionedLoad}% of your sanctioned load, and PSPCL fits the net meter. The <a href="/blog/net-metering-punjab-pspcl-explained/">net metering guide</a> and the <a href="/pm-surya-ghar-subsidy-punjab/">PM Surya Ghar subsidy guide</a> cover the rules and the paperwork.
         </p>
         <p>
-          Products: we supply the full UTL range, from {CATEGORIES.map((c) => c.name.toLowerCase()).slice(0, 3).join(', ')} to complete kits. Browse the <a href="/products/">UTL catalogue</a> or the <a href="/brands/">other brands we stock</a>.
+          We supply the full UTL range, from single panels and batteries to complete kits. Browse the <a href="/products/">UTL catalogue</a> or the <a href="/brands/">other brands we stock</a>.
         </p>
       </div>
     </div>

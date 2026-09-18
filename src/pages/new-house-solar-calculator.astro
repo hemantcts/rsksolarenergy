@@ -74,7 +74,7 @@ const faq: QA[] = [
       <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Solar calculator', path: '/solar-calculator/' }, { name: 'New house', path }]} />
       <h1 class="t-h1 mt-6">Solar calculator for a new house</h1>
       <p class="t-lead mt-5 measure">
-        Building or buying a home and don’t have an electricity bill yet? Choose your appliances and how you use them. We estimate your units and the solar size to match, as a range, with no phone number needed.
+        Building or buying a home and don’t have an electricity bill yet? Choose your appliances and how you use them, and we estimate your units and a solar size range to match. You don’t need to give a phone number.
       </p>
       <div class="mt-8" data-print-hide><CalcModes current="house" /></div>
       <div class="mt-10">
@@ -103,9 +103,9 @@ const faq: QA[] = [
       <div class="prose lg:col-span-7 lg:col-start-6">
         <ol>
           <li>For each appliance, we work out the units it uses on a day it runs. Lights and fans use their wattage and hours. Fridges, routers and CCTV run all day. Washing machines, irons and ovens are counted per load or use, and geysers per hot-water use, because a geyser heats its tank and then switches off.</li>
-          <li>ACs use an average draw for their size and type, not the rating on the box, because the compressor cycles on and off.</li>
-          <li>Seasons matter in Punjab. ACs run only in the months you choose, fans for about {Math.round(cfg.seasons.fans / 30)} months, coolers for about {Math.round(cfg.seasons.cooler / 30)} and geysers mainly in winter. That gives a yearly total and a separate peak-summer month.</li>
-          <li>The yearly units are divided by what a kW of panels makes in Punjab: about {digits(perKwYear)} units a year after losses, give or take {Math.round((cfg.generationRange[1] - 1) * 100)}% for roof direction, shade and weather. That is why the answer is a range.</li>
+          <li>ACs are counted at an average draw for their size and type. The compressor cycles on and off, so that average sits well below the rating on the box.</li>
+          <li>In Punjab, use changes a lot with the season. ACs run only in the months you choose, fans for about {Math.round(cfg.seasons.fans / 30)} months, coolers for about {Math.round(cfg.seasons.cooler / 30)} and geysers mainly in winter. That gives a yearly total and a separate peak-summer month.</li>
+          <li>The yearly units are divided by what a kW of panels makes in Punjab: about {digits(perKwYear)} units a year after losses, give or take {Math.round((cfg.generationRange[1] - 1) * 100)}% for roof direction, shade and weather, which is why the answer is a range.</li>
           <li>An EV and anything you plan to add are shown separately, so you can size for now or for later.</li>
         </ol>
         <p>The same generation figures drive the <a href="/solar-calculator/">bill calculator</a>, so the two agree once you have a real PSPCL bill to check against.</p>
@@ -147,7 +147,7 @@ const faq: QA[] = [
     <div class="wrap grid-12">
       <div class="lg:col-span-4">
         <h2 id="plan-h" class="t-h2">Planning solar while you build</h2>
-        <p class="mt-4 text-slate">These cost little during construction and a lot to fix afterwards.</p>
+        <p class="mt-4 text-slate">Each of these is cheap to do while the house is going up and expensive to change once it is finished.</p>
       </div>
       <div class="prose lg:col-span-7 lg:col-start-6">
         <h3>Ask PSPCL for enough sanctioned load</h3>
