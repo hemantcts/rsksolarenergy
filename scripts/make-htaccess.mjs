@@ -41,6 +41,9 @@ Redirect 301 /projects/ /about/
 # City page renamed: Rupnagar is searched as Ropar (2026-09-15).
 Redirect 301 /solar-company-rupnagar/ /solar-company-ropar/
 
+# Combined battery calculator split into hybrid and off-grid pages (2026-09-22).
+Redirect 301 /hybrid-off-grid-solar-calculator/ /hybrid-solar-calculator/
+
 # Brand directory moved to a shorter URL (2026-09-19).
 Redirect 301 /brands-and-partners/ /brands/
 

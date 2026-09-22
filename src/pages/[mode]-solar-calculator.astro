@@ -1,0 +1,230 @@
+---
+/**
+ * /hybrid-solar-calculator/ and /off-grid-solar-calculator/: one calculator, one mode per page,
+ * each with its own copy, examples and FAQs (two different searches, two different buyers).
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CalcModes from '../components/CalcModes.astro';
+import BackupCalculator from '../components/BackupCalculator.astro';
+import Faq from '../components/Faq.astro';
+import CtaBlock from '../components/content/CtaBlock.astro';
+import { BACKUP_CONFIG as cfg } from '../config/backup-config';
+import { SOLAR_CONFIG } from '../config/solar-config';
+import { estimateBackupFrom, type BackupEstimate } from '../lib/backup/estimate';
+import { renderBackupResult } from '../lib/backup/render';
+import { digits, inr, inrRange, kw } from '../lib/calculator/format';
+import { faqPage, type QA } from '../lib/seo';
+
+export function getStaticPaths() {
+  return [{ params: { mode: 'hybrid' } }, { params: { mode: 'off-grid' } }];
+}
+
+const mode = Astro.params.mode as 'hybrid' | 'off-grid';
+const hybrid = mode === 'hybrid';
+const path = `/${mode}-solar-calculator/`;
+const sqFtPerKw = SOLAR_CONFIG.generation.sqFtPerKw;
+const est = (f: Record<string, string>) => estimateBackupFrom(new URLSearchParams({ mode, ...f })).estimate;
+const kwh = (n: number) => (n < 10 ? n.toFixed(1) : String(Math.round(n)));
+const L = (n: number) => `${Math.round(n * 100)}%`;
+
+const base = est({});
+const cases: { name: string; e: BackupEstimate }[] = hybrid
+  ? [
+      { name: `Lights, fans, fridge, TV and Wi-Fi, ${cfg.backupHours.default}-hour cut, lithium`, e: base },
+      { name: 'The same with tubular batteries', e: est({ battery: 'tubular' }) },
+      { name: 'The same for an 8-hour cut', e: est({ 'backup-hours': '8' }) },
+      { name: 'The same plus a 1.5 ton AC', e: est({ 'q-ac-15': '1' }) },
+    ]
+  : [
+      { name: 'Farmhouse: lights, fans, fridge, TV, Wi-Fi, 1 HP pump, lithium', e: base },
+      { name: 'The same with one cloudy day of reserve', e: est({ autonomy: '1' }) },
+      { name: 'The same with tubular batteries', e: est({ battery: 'tubular' }) },
+      { name: 'Small site: lights, two fans and a TV only', e: est({ 'q-led-bulb': '4', 'q-led-tube': '0', 'q-fan': '2', 'q-fridge': '0', 'q-router': '0', 'q-pump': '0', 'q-mixer': '0' }) },
+    ];
+const withAc = hybrid ? cases[3]!.e : base;
+const cloudy = hybrid ? base : cases[1]!.e;
+const exampleHtml = renderBackupResult(base, estimateBackupFrom(new URLSearchParams({ mode })).input, {
+  heading: hybrid ? `Worked example: backup for a ${cfg.backupHours.default}-hour power cut` : 'Worked example: an off-grid farmhouse',
+});
+const bankLine = (e: BackupEstimate) => `${e.bank.count} ${e.bank.unitName} batter${e.bank.count === 1 ? 'y' : 'ies'}`;
+
+const page = hybrid
+  ? {
+      title: 'Hybrid Solar Calculator: Battery Backup and Inverter Size',
+      description: 'Choose what must run during power cuts. Get the hybrid inverter size, UTL batteries, panels, roof area in sq ft, price and PM Surya Ghar subsidy.',
+      h1: 'Hybrid solar calculator',
+      crumb: 'Hybrid',
+      lead: 'Pick the appliances that have to keep running during a power cut and how long cuts last. You get the inverter, the UTL batteries, the panels, the roof area and a price after the subsidy. No phone number needed.',
+      cta: 'Hi RSK Solar Energy, I would like a hybrid solar system with battery backup. What needs to run during a cut, and for how long: ',
+    }
+  : {
+      title: 'Off-Grid Solar Calculator: Batteries, Panels and Inverter',
+      description: 'For farmhouses, tubewell rooms and sites with no grid. Enter your appliances to get the panels, UTL batteries, inverter, roof area in sq ft and a price.',
+      h1: 'Off-grid solar calculator',
+      crumb: 'Off-grid',
+      lead: 'For a farmhouse, tubewell room or site with no electricity connection. Enter what will run and for how long each day, and you get the panels, UTL batteries, inverter, roof area and a price range. No phone number needed.',
+      cta: 'Hi RSK Solar Energy, I would like an off-grid solar system. The site and what needs to run each day: ',
+    };
+
+const steps = hybrid
+  ? [
+      `The inverter has to carry everything on backup at once, plus a motor starting. A fridge compressor or a pump draws two to three times its running power for a few seconds, and an inverter can briefly carry about ${cfg.inverter.surgeCapability} times its rating.`,
+      'The battery covers the appliances you chose for the length of one cut. Pumps, irons and mixers only count for the few minutes they actually run.',
+      `Batteries are sized so they aren’t drained too far: about ${L(cfg.battery.lithium.usable)} for lithium and ${L(cfg.battery.tubular.usable)} for tubular, after ${L(1 - cfg.inverter.efficiency)} inverter losses. The battery voltage follows the inverter, as in UTL’s kits: 24 V at 1 kVA, 48 V at 2 to 3 kVA, 96 V at 5 kVA.`,
+      `Panels have to refill the battery on a sunny day. The standard kit is never smaller than the inverter, and each kW of panels needs about ${sqFtPerKw} sq ft of roof.`,
+      'The price is our standard hybrid kit of that size, less the PM Surya Ghar subsidy, because hybrid systems stay connected to PSPCL.',
+    ]
+  : [
+      'List everything the site will use and the hours each runs a day. That gives the day’s units.',
+      `The battery covers the units used after sunset, about ${L(cfg.offGridNightShare)} of the day’s total, plus any cloudy-day reserve you choose. Lithium is used to about ${L(cfg.battery.lithium.usable)} of its capacity and tubular to ${L(cfg.battery.tubular.usable)}, after ${L(1 - cfg.inverter.efficiency)} inverter losses.`,
+      `Panels make the whole day’s units in December and January, when fog cuts output to about ${L(cfg.winterYieldFactor)} of the yearly average. Sizing for summer is the most common off-grid mistake.`,
+      `The inverter carries everything running at once plus a pump or fridge starting. Each kW of panels needs about ${sqFtPerKw} sq ft of shade-free roof.`,
+      'The price is our standard off-grid system of that size. Off-grid systems get no PM Surya Ghar subsidy, because they are not connected to PSPCL.',
+    ];
+
+const faq: QA[] = hybrid
+  ? [
+      {
+        q: 'How many batteries do I need for a hybrid solar system?',
+        a: `It depends on what has to run during a cut and for how long, not on the panel size. Lights, fans, a fridge, a TV and Wi-Fi for ${cfg.backupHours.default} hours take about ${kwh(base.batteryKwh)} units, which ${bankLine(base)} cover. The same loads through an 8-hour cut need about ${kwh(cases[2]!.e.batteryKwh)} units.`,
+      },
+      {
+        q: 'What size hybrid inverter do I need?',
+        a: `Add up the watts of everything on backup that runs at once, then allow for motors starting. The calculator picks the next standard size, from ${cfg.inverter.sizes[0]!.kva} kVA up to ${cfg.inverter.sizes.at(-1)!.kva} kVA. Lights, fans, a fridge and a TV fit a ${base.inverterKva} kVA inverter.`,
+      },
+      {
+        q: 'Can a hybrid system run an AC during a power cut?',
+        a: `It can, but the battery gets much bigger. Adding one 1.5 ton inverter AC to a ${cfg.backupHours.default}-hour cut takes the battery from about ${kwh(base.batteryKwh)} to ${kwh(withAc.batteryKwh)} units and the system to ${kw(withAc.kitKw)}. Most homes keep ACs on the grid and back up lights, fans and the fridge.`,
+      },
+      {
+        q: 'Lithium or tubular for a hybrid system?',
+        a: 'Tubular costs less to buy and suits a system that only uses the battery during occasional cuts. Lithium lasts about twice as many cycles, weighs far less and needs no water, so it pays off where cuts are daily.',
+      },
+      {
+        q: 'Does a hybrid system get the PM Surya Ghar subsidy?',
+        a: `Yes. Our hybrid systems stay connected to PSPCL through a net meter, so they qualify the same way as on-grid, up to ${inr(SOLAR_CONFIG.subsidy.residential.cap)} for a home. The subsidy does not cover the battery.`,
+      },
+      {
+        q: 'How much roof does a hybrid system need?',
+        a: `About ${sqFtPerKw} sq ft of shade-free roof per kW of panels, the same as on-grid. A 3 kW hybrid system needs about ${digits(3 * sqFtPerKw)} sq ft.`,
+      },
+    ]
+  : [
+      {
+        q: 'How many solar panels do I need for an off-grid system?',
+        a: `Enough to make a whole day’s units in December and January, not in summer. A farmhouse with lights, fans, a fridge, a TV and a 1 HP pump uses about ${kwh(base.dailyKwh)} units a day and needs about ${kw(base.kitKw)} of panels.`,
+      },
+      {
+        q: 'How many batteries does an off-grid system need?',
+        a: `Enough for the night, plus any cloudy days you want covered. The farmhouse above needs about ${kwh(base.batteryKwh)} units from the battery each night (${bankLine(base)}). With one cloudy day of reserve that rises to about ${kwh(cloudy.batteryKwh)} units.`,
+      },
+      {
+        q: 'Lithium or tubular for off-grid?',
+        a: 'An off-grid battery is used every night, so cycle life matters most. Lithium costs more to buy but lasts about twice as many cycles and needs no water, and it often works out cheaper over the years. Tubular is the lower-cost start.',
+      },
+      {
+        q: 'Can an off-grid system run a water pump?',
+        a: `Yes, if the inverter can handle the pump starting. A 1 HP pump draws about three times its running power for a few seconds, which is why the farmhouse example needs a ${base.inverterKva} kVA inverter. For a tubewell used for irrigation, a dedicated solar pump is usually the better choice.`,
+      },
+      {
+        q: 'Does an off-grid system get the PM Surya Ghar subsidy?',
+        a: 'No. The subsidy is for grid-connected, net-metered systems. If the site has a PSPCL connection, a hybrid system gets the subsidy and still gives battery backup.',
+      },
+      {
+        q: 'How much roof does an off-grid system need?',
+        a: `About ${sqFtPerKw} sq ft of shade-free roof per kW of panels. A 3 kW off-grid system needs about ${digits(3 * sqFtPerKw)} sq ft, on a roof or a ground-mounted frame.`,
+      },
+    ];
+---
+
+<BaseLayout title={page.title} description={page.description} crumbs={[{ name: 'Solar calculator', path: '/solar-calculator/' }, { name: page.crumb, path }]} schema={[faqPage(faq)]}>
+  <section class="wrap grid-12 pt-8 pb-16 lg:pt-12 lg:pb-24">
+    <div class="lg:col-span-8">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Solar calculator', path: '/solar-calculator/' }, { name: page.crumb, path }]} />
+      <h1 class="t-h1 mt-6">{page.h1}</h1>
+      <p class="t-lead mt-5 measure">{page.lead}</p>
+      <div class="mt-8" data-print-hide><CalcModes current={mode} /></div>
+      <div class="mt-10">
+        <BackupCalculator mode={mode} />
+      </div>
+    </div>
+
+    <aside class="lg:col-span-3 lg:col-start-10" aria-label="Talk to us instead" data-print-hide>
+      <div class="lg:sticky lg:top-28">
+        <CtaBlock
+          heading="Rather we sized it?"
+          label={hybrid ? 'Ask about backup on WhatsApp' : 'Ask about off-grid on WhatsApp'}
+          message={page.cta}
+          body="Tell us what must run and for how long. We suggest the inverter, batteries and panels, and check the site on a visit."
+          showInspection={false}
+        />
+      </div>
+    </aside>
+  </section>
+
+  <section class="sec bg-white" aria-labelledby="how-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="how-h" class="t-h2">How it sizes {hybrid ? 'a hybrid' : 'an off-grid'} system</h2>
+      </div>
+      <div class="prose lg:col-span-7 lg:col-start-6">
+        <ol>{steps.map((s) => <li>{s}</li>)}</ol>
+        {
+          hybrid ? (
+            <p>
+              For the bill saving on your PSPCL connection, the <a href="/solar-calculator/">bill calculator</a> sizes hybrid systems from your bill. <a href="/hybrid-solar-systems/">Hybrid solar systems</a> covers how they work and what they cost. No grid at all? Use the <a href="/off-grid-solar-calculator/">off-grid calculator</a>.
+            </p>
+          ) : (
+            <p>
+              <a href="/off-grid-solar-systems/">Off-grid solar systems</a> covers the UTL kits and upkeep, and <a href="/solar-pumps/">solar water pumps</a> covers irrigation. If the site has a PSPCL connection, the <a href="/hybrid-solar-calculator/">hybrid calculator</a> gives backup with the subsidy.
+            </p>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="compare-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="compare-h" class="t-h2">Typical {hybrid ? 'hybrid' : 'off-grid'} systems</h2>
+        <p class="mt-4 text-slate">From the calculator. Prices are for our standard {hybrid ? 'hybrid kit' : 'off-grid system'} of each size; the battery bank shown can change them.</p>
+      </div>
+      <div class="table-scroll lg:col-span-7 lg:col-start-6">
+        <table class="spec-table">
+          <thead><tr><th scope="col">Case</th><th scope="col">Inverter</th><th scope="col">Battery</th><th scope="col">System</th><th scope="col" class="num">Roof</th><th scope="col" class="num">{hybrid ? 'After subsidy' : 'Installed'}</th></tr></thead>
+          <tbody>
+            {
+              cases.map(({ name, e }) => (
+                <tr>
+                  <th scope="row">{name}</th>
+                  <td>{e.inverterKva} kVA</td>
+                  <td>{e.bank.count} × {e.bank.kind}</td>
+                  <td>{kw(e.kitKw)}</td>
+                  <td class="num">{digits(e.kitKw * sqFtPerKw)} sq ft</td>
+                  <td class="num">{inrRange([e.price[0] - e.subsidy, e.price[1] - e.subsidy])}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-white" aria-labelledby="example-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-8">
+        <p id="example-h" class="calc-kicker">The first case in full, as the calculator shows it.</p>
+        <div class="mt-6" set:html={exampleHtml} />
+      </div>
+    </div>
+  </section>
+
+  <section class="sec border-t border-rule">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-8"><Faq items={faq} /></div>
+    </div>
+  </section>
+</BaseLayout>

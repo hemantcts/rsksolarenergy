@@ -1,7 +1,7 @@
 ---
 /** Switch between the calculators: from a PSPCL bill, from appliances for a new house, or for battery systems. */
 interface Props {
-  current: 'bill' | 'house' | 'battery';
+  current: 'bill' | 'house' | 'hybrid' | 'off-grid';
 }
 const { current } = Astro.props;
 ---
@@ -15,9 +15,13 @@ const { current } = Astro.props;
     I’m building or buying a new house
     <small>No bill yet: estimate from your appliances</small>
   </a>
-  <a href="/hybrid-off-grid-solar-calculator/" aria-current={current === 'battery' ? 'page' : undefined}>
-    I need battery backup or no grid
-    <small>Hybrid and off-grid: inverter, batteries, panels</small>
+  <a href="/hybrid-solar-calculator/" aria-current={current === 'hybrid' ? 'page' : undefined}>
+    I need backup in power cuts
+    <small>Hybrid: grid plus battery</small>
+  </a>
+  <a href="/off-grid-solar-calculator/" aria-current={current === 'off-grid' ? 'page' : undefined}>
+    There is no grid connection
+    <small>Off-grid: panels and batteries only</small>
   </a>
 </nav>
 
@@ -45,11 +49,16 @@ const { current } = Astro.props;
 }
 @media (min-width: 40rem) {
   .calc-modes {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .calc-modes a + a {
     border-top: 0;
+  }
+  .calc-modes a:nth-child(even) {
     border-left: 1px solid var(--color-slate);
+  }
+  .calc-modes a:nth-child(n + 3) {
+    border-top: 1px solid var(--color-slate);
   }
 }
 .calc-modes a[aria-current='page'] {

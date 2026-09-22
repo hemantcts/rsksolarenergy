@@ -1,5 +1,5 @@
 /**
- * Hybrid and off-grid calculator in the browser: mode switch, steppers, input clean-up, live
+ * Hybrid or off-grid calculator in the browser (the page fixes the mode): steppers, input clean-up, live
  * result after the first calculation, share link and print. Estimate and HTML come from
  * src/lib/backup/, the same code that renders the worked example at build time.
  */
@@ -11,7 +11,6 @@ function init(root: HTMLElement) {
   const result = root.querySelector<HTMLElement>('[data-bk-result]');
   if (!form || !result) return;
   let shown = false;
-  let edited = false;
 
   const params = () => {
     const out = new URLSearchParams();
@@ -35,8 +34,7 @@ function init(root: HTMLElement) {
   }
 
   function sync() {
-    const offGrid = form!.querySelector<HTMLInputElement>('[name="mode"]:checked')?.value === 'off-grid';
-    form!.dataset.mode = offGrid ? 'off-grid' : 'hybrid';
+    const offGrid = form!.querySelector<HTMLInputElement>('[name="mode"]')?.value === 'off-grid';
     root.querySelectorAll<HTMLElement>('[data-bk-hybrid-only]').forEach((el) => (el.hidden = offGrid));
     root.querySelectorAll<HTMLElement>('[data-bk-offgrid-only]').forEach((el) => (el.hidden = !offGrid));
   }
@@ -61,20 +59,12 @@ function init(root: HTMLElement) {
     if (!btn || !input) return;
     input.value = String((Number(input.value) || 0) + Number(btn.dataset.bkInc));
     clean(input);
-    edited = true;
     if (shown) compute(false);
   });
 
   form.addEventListener('change', (ev) => {
     const t = ev.target as HTMLInputElement;
-    if (t.name === 'mode') {
-      // Until the visitor changes a quantity, switching mode loads that mode's typical set.
-      if (!edited) form.querySelectorAll<HTMLInputElement>('input[data-hybrid]').forEach((i) => (i.value = t.value === 'off-grid' ? i.dataset.offgrid ?? '0' : i.dataset.hybrid ?? '0'));
-      sync();
-    } else if (t instanceof HTMLInputElement && t.type === 'text') {
-      clean(t);
-      if (t.name.startsWith('q-')) edited = true;
-    }
+    if (t instanceof HTMLInputElement && t.type === 'text') clean(t);
     if (shown) compute(false);
   });
 
@@ -102,19 +92,12 @@ function init(root: HTMLElement) {
     }
   });
 
-  // A shared link (or ?mode=off-grid from the guides) fills the form. Only real answers compute.
+  // A shared link fills the form. The page decides the mode, so a mode in the link is ignored.
   const q = new URLSearchParams(location.search);
-  if (q.get('mode') === 'off-grid' || q.get('mode') === 'hybrid') {
-    const radio = form.querySelector<HTMLInputElement>(`[name="mode"][value="${q.get('mode')}"]`);
-    if (radio && !radio.checked) {
-      radio.checked = true;
-      form.querySelectorAll<HTMLInputElement>('input[data-hybrid]').forEach((i) => (i.value = radio.value === 'off-grid' ? i.dataset.offgrid ?? '0' : i.dataset.hybrid ?? '0'));
-    }
-  }
   const answered = [...q.keys()].some((k) => k !== 'mode');
   if (answered) {
     for (const el of form.elements) {
-      if (!(el instanceof HTMLInputElement || el instanceof HTMLSelectElement) || !el.name || !q.has(el.name)) continue;
+      if (!(el instanceof HTMLInputElement || el instanceof HTMLSelectElement) || !el.name || el.name === 'mode' || !q.has(el.name)) continue;
       const v = q.get(el.name) ?? '';
       if (el instanceof HTMLInputElement && el.type === 'radio') el.checked = el.value === v;
       else if (el instanceof HTMLSelectElement) {
@@ -124,7 +107,6 @@ function init(root: HTMLElement) {
         clean(el);
       }
     }
-    edited = true;
   }
   sync();
   if (answered) compute(false);

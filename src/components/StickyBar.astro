@@ -50,6 +50,13 @@ import Icon from './Icon.astro';
   .sticky-bar a + a {
     border-left: 1px solid var(--color-slate);
   }
+  /* 320 px phones: tighter so all three labels fit. */
+  @media (max-width: 22.5rem) {
+    .sticky-bar a {
+      gap: 0.375rem;
+      font-size: 0.875rem;
+    }
+  }
   .sticky-bar .is-primary {
     background: var(--color-signal);
     color: var(--color-white);

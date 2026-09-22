@@ -36,7 +36,7 @@ build-time worked example and the live result. Form defaults and parser defaults
 identical, because share links only carry the fields a visitor changed. Results are ranges
 rounded to 0.5 kW and never promise a bill, saving or payback.
 
-`/hybrid-off-grid-solar-calculator/` sizes battery systems from the loads that must keep running:
+`/hybrid-solar-calculator/` and `/off-grid-solar-calculator/` (one template, `[mode]-solar-calculator.astro`) size battery systems from the loads that must keep running:
 inverter kVA (running watts plus the largest motor start), a UTL battery bank at the kit voltage
 (lithium or tubular), panels (hybrid: refill after a cut; off-grid: a foggy winter day), roof area
 and the standard-kit price. Figures in `src/config/backup-config.ts`, logic in `src/lib/backup/`.
@@ -111,7 +111,8 @@ compromised. Keep the surface small.
 /                                     Home
 /solar-calculator/                    ← build first
 /new-house-solar-calculator/          No bill yet: appliances in, units and a size range out
-/hybrid-off-grid-solar-calculator/    Battery systems: loads in, inverter, batteries, panels, roof area out
+/hybrid-solar-calculator/             Backup for power cuts: loads in, inverter, batteries, panels, roof area out
+/off-grid-solar-calculator/           No grid: the same, panels sized for winter, battery for the night
 /pm-surya-ghar-subsidy-punjab/        Subsidy guide (high-intent SEO)
 
   System size pages (money pages)

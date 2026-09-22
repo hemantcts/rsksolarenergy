@@ -42,7 +42,8 @@ export const NAV: NavGroup[] = [
     links: [
       { href: '/solar-calculator/', label: 'Solar calculator', note: 'Size, subsidy and payback from your bill' },
       { href: '/new-house-solar-calculator/', label: 'New house solar calculator', note: 'No bill yet? Estimate from your appliances' },
-      { href: '/hybrid-off-grid-solar-calculator/', label: 'Hybrid and off-grid calculator', note: 'Inverter, batteries and panels for backup' },
+      { href: '/hybrid-solar-calculator/', label: 'Hybrid solar calculator', note: 'Battery backup for power cuts' },
+      { href: '/off-grid-solar-calculator/', label: 'Off-grid solar calculator', note: 'Sites with no grid connection' },
       { href: '/pm-surya-ghar-subsidy-punjab/', label: 'PM Surya Ghar subsidy' },
       ...SOLAR_CONFIG.sizing.sizePagesKw.map((kw) => ({ href: sizePath(kw), label: `${kw} kW system price` })),
     ],

@@ -1,6 +1,6 @@
 ---
 /**
- * Hybrid and off-grid calculator: pick what has to run on the battery, get the inverter, battery
+ * Hybrid or off-grid calculator (one mode per page): pick what has to run on the battery, get the inverter, battery
  * bank, panels, roof area and a price range. Logic in src/lib/backup/, figures in
  * src/config/backup-config.ts. Reuses the new-house calculator's row and stepper styles.
  */
@@ -16,16 +16,8 @@ const offGrid = mode === 'off-grid';
 ---
 
 <div class="bk" data-bk>
-  <form class="nh-form bk-form" data-bk-form data-mode={mode} action="/hybrid-off-grid-solar-calculator/" method="get" novalidate aria-label="Hybrid and off-grid solar calculator">
-    <fieldset class="nh-step">
-      <legend class="field-label">What kind of system?</legend>
-      <div class="segmented">
-        <label><input type="radio" name="mode" value="hybrid" checked={!offGrid} />Hybrid: grid plus battery backup</label>
-        <label><input type="radio" name="mode" value="off-grid" checked={offGrid} />Off-grid: no grid at all</label>
-      </div>
-      <p class="field-hint" data-bk-hybrid-only hidden={offGrid}>The battery runs your chosen appliances during power cuts. The rest of the time, solar cuts your PSPCL bill.</p>
-      <p class="field-hint" data-bk-offgrid-only hidden={!offGrid}>For farmhouses, tubewell rooms and sites without a connection. Solar and the battery supply every unit you use.</p>
-    </fieldset>
+  <form class="nh-form bk-form" data-bk-form data-mode={mode} action={`/${mode}-solar-calculator/`} method="get" novalidate aria-label={offGrid ? 'Off-grid solar calculator' : 'Hybrid solar calculator'}>
+    <input type="hidden" name="mode" value={mode} />
 
     <div class="nh-grid">
       <div data-bk-hybrid-only hidden={offGrid}>
@@ -61,7 +53,7 @@ const offGrid = mode === 'off-grid';
               <div class="nh-row-controls">
                 <div class="nh-stepper">
                   <button type="button" data-bk-inc="-1" aria-label={`One fewer: ${l.label}`}>−</button>
-                  <input class="input" name={`q-${l.id}`} type="text" inputmode="numeric" value={offGrid ? l.qty.offGrid : l.qty.hybrid} data-hybrid={l.qty.hybrid} data-offgrid={l.qty.offGrid} data-max={L.qty} aria-labelledby={`bk-${l.id}-l`} />
+                  <input class="input" name={`q-${l.id}`} type="text" inputmode="numeric" value={offGrid ? l.qty.offGrid : l.qty.hybrid} data-max={L.qty} aria-labelledby={`bk-${l.id}-l`} />
                   <button type="button" data-bk-inc="1" aria-label={`One more: ${l.label}`}>+</button>
                 </div>
                 <label class="nh-amount" data-bk-offgrid-only hidden={!offGrid}>
