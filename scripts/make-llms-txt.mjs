@@ -81,6 +81,7 @@ Figures on this site are computed live from a single configuration (PSPCL ${c.ps
 
 - [Solar calculator](${site}/solar-calculator/): enter a PSPCL electricity bill or unit count and get recommended system size, PM Surya Ghar subsidy amount, net cost, and payback period, computed from the rules above.
 - [New house solar calculator](${site}/new-house-solar-calculator/): for homes with no electricity bill yet. Choose appliances (ACs by tonnage and type, geysers, fridge, lights, fans, pumps, EV) and usage; returns estimated daily, monthly and yearly units, connected load, and three solar capacity ranges (essential, recommended, higher) with panel count, roof area and generation range. Indicative only; final sizing needs a site survey.
+- [Hybrid and off-grid solar calculator](${site}/hybrid-off-grid-solar-calculator/): choose the appliances that must run during power cuts (hybrid) or with no grid (off-grid); returns inverter kVA, a UTL battery bank (lithium or tubular), panel kW, roof area in sq ft and an installed price range. Indicative only.
 
 ## Guides
 

@@ -344,6 +344,11 @@
   margin-top: 1.25rem;
 }
 
+/* Hybrid and off-grid result: labels need room on a phone. */
+.bk-spec th {
+  width: 60%;
+}
+
 /* ---------- Print: only the estimate ---------- */
 @media print {
   .site-header,

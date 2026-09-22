@@ -192,7 +192,6 @@ export function renderResult(r: CalcResult, input: CalcInput, o: RenderOptions):
     row('Yearly saving', fig(inr(r.annualSaving, 100), a)),
     row('Payback', r.paybackYears ? esc(yearsRange(r.paybackYears)) : 'No bill saving to pay back against'),
     o.variant === 'full' ? row(`${config.projection.horizonYears}-year saving`, esc(inrWords(r.lifetimeSaving))) : '',
-    o.variant === 'full' ? row('Roof area needed', `about ${digits(r.roofSqFt)}<span class="calc-unit"> sq ft</span>`) : '',
   ].join('');
 
   const notes = r.notes.filter((n) => o.variant === 'full' || ['capped-by-load', 'subsidy-ineligible', 'zero-bill-sizing'].includes(n.code));
@@ -203,6 +202,7 @@ ${draftBanner()}
   <p class="calc-kicker">Recommended system</p>
   <p class="calc-system"><span class="t-value">${esc(String(r.systemKw))}</span> kW ${TYPE[r.systemType]}</p>
   <p class="calc-cover">${esc(coverLine)}</p>
+  <p class="calc-cover">Needs about <strong>${fig(digits(r.roofSqFt), a)} sq ft</strong> of shade-free roof, at ${digits(config.generation.sqFtPerKw)} sq ft per kW.</p>
 </div>
 <table class="spec-table calc-table">
   <tbody>${costRows}</tbody>

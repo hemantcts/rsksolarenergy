@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CalcModes from '../components/CalcModes.astro';
+import BackupCalculator from '../components/BackupCalculator.astro';
+import Faq from '../components/Faq.astro';
+import CtaBlock from '../components/content/CtaBlock.astro';
+import { BACKUP_CONFIG as cfg } from '../config/backup-config';
+import { SOLAR_CONFIG } from '../config/solar-config';
+import { estimateBackupFrom } from '../lib/backup/estimate';
+import { renderBackupResult } from '../lib/backup/render';
+import { digits, inrRange, kw } from '../lib/calculator/format';
+import { faqPage, type QA } from '../lib/seo';
+
+const path = '/hybrid-off-grid-solar-calculator/';
+const sqFtPerKw = SOLAR_CONFIG.generation.sqFtPerKw;
+
+// Worked examples from the calculator's own defaults.
+const hy = estimateBackupFrom(new URLSearchParams({ mode: 'hybrid' }));
+const hyAc = estimateBackupFrom(new URLSearchParams({ mode: 'hybrid', 'q-ac-15': '1' }));
+const og = estimateBackupFrom(new URLSearchParams({ mode: 'off-grid' }));
+const exampleHtml = renderBackupResult(hy.estimate, hy.input, { heading: 'Worked example: backup for a 4-hour power cut' });
+const kwh = (n: number) => (n < 10 ? n.toFixed(1) : String(Math.round(n)));
+
+const faq: QA[] = [
+  {
+    q: 'How many batteries do I need for a hybrid solar system?',
+    a: `It depends on what has to run during a cut and for how long, not on the panel size. Lights, fans, a fridge, a TV and Wi-Fi for ${cfg.backupHours.default} hours take about ${kwh(hy.estimate.batteryKwh)} units, which ${hy.estimate.bank.count === 1 ? 'one' : hy.estimate.bank.count} ${hy.estimate.bank.unitName} batter${hy.estimate.bank.count === 1 ? 'y covers' : 'ies cover'}. Add a 1.5 ton AC and the same cut needs about ${kwh(hyAc.estimate.batteryKwh)} units.`,
+  },
+  {
+    q: 'What size inverter do I need?',
+    a: `Add up the watts of everything that runs at the same time, then allow for motors starting, because a fridge compressor or a pump draws two to three times its running power for a few seconds. The calculator does this and picks the next standard size, from ${cfg.inverter.sizes[0]!.kva} kVA up to ${cfg.inverter.sizes.at(-1)!.kva} kVA.`,
+  },
+  {
+    q: 'Lithium or tubular batteries?',
+    a: `Tubular costs less to buy and suits a hybrid system that only uses the battery during occasional cuts. Lithium can be used to about ${Math.round(cfg.battery.lithium.usable * 100)}% of its capacity each day against about ${Math.round(cfg.battery.tubular.usable * 100)}% for tubular, weighs far less and needs no water, so it usually suits off-grid systems that cycle every night.`,
+  },
+  {
+    q: 'How much roof does a hybrid or off-grid system need?',
+    a: `About ${sqFtPerKw} sq ft of shade-free roof for every kW of panels, the same as an on-grid system. A 3 kW system needs about ${digits(3 * sqFtPerKw)} sq ft. The calculator shows the area for the system it suggests.`,
+  },
+  {
+    q: 'Do hybrid and off-grid systems get the PM Surya Ghar subsidy?',
+    a: 'Hybrid systems do. They stay connected to PSPCL through a net meter, so they qualify the same way as on-grid systems. Off-grid systems have no grid connection, so they don’t.',
+  },
+];
+---
+
+<BaseLayout
+  title="Hybrid and Off-Grid Solar Calculator: Battery and Inverter Size"
+  description="Choose what must run during power cuts, or with no grid at all. Get the inverter size, UTL batteries, solar panels, roof area in sq ft and a price range."
+  crumbs={[{ name: 'Solar calculator', path: '/solar-calculator/' }, { name: 'Hybrid and off-grid', path }]}
+  schema={[faqPage(faq)]}
+>
+  <section class="wrap grid-12 pt-8 pb-16 lg:pt-12 lg:pb-24">
+    <div class="lg:col-span-8">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Solar calculator', path: '/solar-calculator/' }, { name: 'Hybrid and off-grid', path }]} />
+      <h1 class="t-h1 mt-6">Hybrid and off-grid solar calculator</h1>
+      <p class="t-lead mt-5 measure">
+        Pick the appliances that have to keep running, during power cuts or with no grid at all. You get the inverter size, the UTL batteries, the panels, the roof area and a price range. No phone number needed.
+      </p>
+      <div class="mt-8" data-print-hide><CalcModes current="battery" /></div>
+      <div class="mt-10">
+        <BackupCalculator />
+      </div>
+    </div>
+
+    <aside class="lg:col-span-3 lg:col-start-10" aria-label="Talk to us instead" data-print-hide>
+      <div class="lg:sticky lg:top-28">
+        <CtaBlock
+          heading="Rather we sized it?"
+          label="Ask about backup on WhatsApp"
+          message="Hi RSK Solar Energy, I would like a hybrid or off-grid solar system. What needs to run, and for how long: "
+          body="Tell us what must keep running and for how long. We suggest the inverter, batteries and panels, and check your wiring on a site visit."
+          showInspection={false}
+        />
+      </div>
+    </aside>
+  </section>
+
+  <section class="sec bg-white" aria-labelledby="how-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="how-h" class="t-h2">How it sizes the system</h2>
+      </div>
+      <div class="prose lg:col-span-7 lg:col-start-6">
+        <ol>
+          <li>The inverter has to carry everything that runs at once, plus a motor starting. A fridge compressor or a 1 HP pump draws two to three times its running power for a few seconds, and an inverter can briefly carry about {cfg.inverter.surgeCapability} times its rating.</li>
+          <li>For a hybrid system, the battery covers the appliances you chose for the length of a cut. Pumps, irons and mixers only count for the few minutes they actually run.</li>
+          <li>For an off-grid system, the battery covers the units used after sunset, about {Math.round(cfg.offGridNightShare * 100)}% of the day’s total, plus any cloudy-day reserve you choose.</li>
+          <li>Batteries are sized so they aren’t drained too far: about {Math.round(cfg.battery.lithium.usable * 100)}% for lithium and {Math.round(cfg.battery.tubular.usable * 100)}% for tubular, after {Math.round((1 - cfg.inverter.efficiency) * 100)}% inverter losses. The battery voltage follows the inverter, as in UTL’s own kits: 24 V at 1 kVA, 48 V at 2 to 3 kVA and 96 V at 5 kVA.</li>
+          <li>Panels refill the battery on a sunny day for hybrid. For off-grid they make the whole day’s units in December and January, when fog cuts output to about {Math.round(cfg.winterYieldFactor * 100)}% of the yearly average. Each kW of panels needs about {sqFtPerKw} sq ft of roof.</li>
+        </ol>
+        <p>For bill savings on a grid connection, the <a href="/solar-calculator/">bill calculator</a> sizes on-grid and hybrid systems from your PSPCL bill. The guides on <a href="/hybrid-solar-systems/">hybrid solar systems</a> and <a href="/off-grid-solar-systems/">off-grid solar systems</a> cover prices and how each works.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="compare-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="compare-h" class="t-h2">Three typical cases</h2>
+        <p class="mt-4 text-slate">From the calculator, with lithium batteries. The price is for our standard kit of each size; the battery bank shown can change it.</p>
+      </div>
+      <div class="table-scroll lg:col-span-7 lg:col-start-6">
+        <table class="spec-table">
+          <thead><tr><th scope="col">Case</th><th scope="col">Inverter</th><th scope="col">Battery</th><th scope="col">System</th><th scope="col" class="num">Roof</th><th scope="col" class="num">Installed</th></tr></thead>
+          <tbody>
+            {[
+              { name: `Hybrid: lights, fans, fridge, TV, Wi-Fi, ${cfg.backupHours.default}-hour cut`, e: hy.estimate },
+              { name: `Hybrid: the same plus a 1.5 ton AC`, e: hyAc.estimate },
+              { name: 'Off-grid: farmhouse with lights, fans, fridge, TV and a 1 HP pump', e: og.estimate },
+            ].map(({ name, e }) => (
+              <tr>
+                <th scope="row">{name}</th>
+                <td>{e.inverterKva} kVA</td>
+                <td>{e.bank.count} × {e.bank.unitName}</td>
+                <td>{kw(e.kitKw)}</td>
+                <td class="num">{digits(e.kitKw * sqFtPerKw)} sq ft</td>
+                <td class="num">{inrRange(e.price)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-white" aria-labelledby="example-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-8">
+        <p id="example-h" class="calc-kicker">The first case in full, as the calculator shows it.</p>
+        <div class="mt-6" set:html={exampleHtml} />
+      </div>
+    </div>
+  </section>
+
+  <section class="sec border-t border-rule">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-8"><Faq items={faq} /></div>
+    </div>
+  </section>
+</BaseLayout>

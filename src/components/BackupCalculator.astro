@@ -1,0 +1,107 @@
+---
+/**
+ * Hybrid and off-grid calculator: pick what has to run on the battery, get the inverter, battery
+ * bank, panels, roof area and a price range. Logic in src/lib/backup/, figures in
+ * src/config/backup-config.ts. Reuses the new-house calculator's row and stepper styles.
+ */
+import { BACKUP_CONFIG as cfg } from '../config/backup-config';
+import '../styles/new-house.css';
+
+interface Props {
+  mode?: 'hybrid' | 'off-grid';
+}
+const { mode = 'hybrid' } = Astro.props;
+const L = cfg.limits;
+const offGrid = mode === 'off-grid';
+---
+
+<div class="bk" data-bk>
+  <form class="nh-form bk-form" data-bk-form data-mode={mode} action="/hybrid-off-grid-solar-calculator/" method="get" novalidate aria-label="Hybrid and off-grid solar calculator">
+    <fieldset class="nh-step">
+      <legend class="field-label">What kind of system?</legend>
+      <div class="segmented">
+        <label><input type="radio" name="mode" value="hybrid" checked={!offGrid} />Hybrid: grid plus battery backup</label>
+        <label><input type="radio" name="mode" value="off-grid" checked={offGrid} />Off-grid: no grid at all</label>
+      </div>
+      <p class="field-hint" data-bk-hybrid-only hidden={offGrid}>The battery runs your chosen appliances during power cuts. The rest of the time, solar cuts your PSPCL bill.</p>
+      <p class="field-hint" data-bk-offgrid-only hidden={!offGrid}>For farmhouses, tubewell rooms and sites without a connection. Solar and the battery supply every unit you use.</p>
+    </fieldset>
+
+    <div class="nh-grid">
+      <div data-bk-hybrid-only hidden={offGrid}>
+        <label class="field-label" for="bk-backup-hours">How long do power cuts last?</label>
+        <select class="select" id="bk-backup-hours" name="backup-hours">
+          {cfg.backupHours.options.map((h) => <option value={h} selected={h === cfg.backupHours.default}>{h} hours</option>)}
+        </select>
+      </div>
+      <div data-bk-offgrid-only hidden={!offGrid}>
+        <label class="field-label" for="bk-autonomy">Reserve for cloudy or foggy days</label>
+        <select class="select" id="bk-autonomy" name="autonomy">
+          {cfg.autonomyDays.options.map((d) => <option value={d} selected={d === cfg.autonomyDays.default}>{d === 0 ? 'None, overnight only' : `${d} full day${d > 1 ? 's' : ''}`}</option>)}
+        </select>
+      </div>
+      <fieldset>
+        <legend class="field-label">Battery type</legend>
+        <div class="segmented">
+          <label><input type="radio" name="battery" value="lithium" checked />Lithium</label>
+          <label><input type="radio" name="battery" value="tubular" />Tubular</label>
+        </div>
+      </fieldset>
+    </div>
+
+    <fieldset class="nh-step">
+      <legend><h2 class="t-h3 nh-step-title">What has to run on the battery?</h2></legend>
+      <p class="nh-step-intro" data-bk-hybrid-only hidden={offGrid}>Only what you need during a cut. Most homes back up lights, fans, the fridge and Wi-Fi, and leave ACs and geysers on the grid.</p>
+      <p class="nh-step-intro" data-bk-offgrid-only hidden={!offGrid}>Everything the site will use, with roughly how many hours a day each runs.</p>
+      <div class="nh-rows">
+        {
+          cfg.loads.map((l) => (
+            <div class="nh-row">
+              <p class="nh-row-name" id={`bk-${l.id}-l`}>{l.label}</p>
+              <div class="nh-row-controls">
+                <div class="nh-stepper">
+                  <button type="button" data-bk-inc="-1" aria-label={`One fewer: ${l.label}`}>−</button>
+                  <input class="input" name={`q-${l.id}`} type="text" inputmode="numeric" value={offGrid ? l.qty.offGrid : l.qty.hybrid} data-hybrid={l.qty.hybrid} data-offgrid={l.qty.offGrid} data-max={L.qty} aria-labelledby={`bk-${l.id}-l`} />
+                  <button type="button" data-bk-inc="1" aria-label={`One more: ${l.label}`}>+</button>
+                </div>
+                <label class="nh-amount" data-bk-offgrid-only hidden={!offGrid}>
+                  <input class="input" name={`h-${l.id}`} type="text" inputmode="decimal" value={l.hoursPerDay} data-max={L.hoursPerDay} aria-label={`${l.label}, hours a day`} />
+                  <span>hrs a day</span>
+                </label>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <div class="nh-custom">
+        <div class="nh-custom-name">
+          <label class="field-label" for="bk-c-name">Anything else</label>
+          <input class="input" id="bk-c-name" name="c-name" type="text" maxlength="40" autocomplete="off" placeholder="Borewell light, printer" />
+        </div>
+        <div>
+          <label class="field-label" for="bk-c-watts">Watts each</label>
+          <input class="input" id="bk-c-watts" name="c-watts" type="text" inputmode="decimal" data-max={L.watts} />
+        </div>
+        <div>
+          <label class="field-label" for="bk-c-qty">How many</label>
+          <input class="input" id="bk-c-qty" name="c-qty" type="text" inputmode="numeric" value="0" data-max={L.qty} />
+        </div>
+        <div>
+          <label class="field-label" for="bk-c-hours">Hours a day</label>
+          <input class="input" id="bk-c-hours" name="c-hours" type="text" inputmode="decimal" data-max={L.hoursPerDay} />
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="nh-nav">
+      <button type="submit" class="btn btn-primary">Size my system</button>
+    </div>
+    <noscript><p class="calc-fineprint">The calculator needs JavaScript to work out your figures. The worked example further down this page shows the kind of result you get.</p></noscript>
+  </form>
+
+  <div id="bk-result" class="calc-result nh-result-wrap" tabindex="-1" aria-live="polite" data-bk-result hidden></div>
+</div>
+
+<script>
+  import '../scripts/backup-calculator';
+</script>
