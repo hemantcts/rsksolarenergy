@@ -1,0 +1,160 @@
+/*
+ * Site search: the header box and panel, and the results on /search/. Imported by the components
+ * (so only pages with search carry it) and not scoped, because results are injected as HTML.
+ */
+
+@layer components {
+  /* ---------- Header button and panel ---------- */
+  .search-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0 0.875rem;
+    background: var(--color-white);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .search-toggle:hover {
+    border-color: var(--color-ink);
+  }
+  .search-toggle-label {
+    display: none;
+  }
+  @media (min-width: 64rem) {
+    .search-toggle-label {
+      display: inline;
+    }
+  }
+
+  .search-panel {
+    position: absolute;
+    inset: 100% 0 auto 0;
+    z-index: 70;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-ink);
+    box-shadow: 0 12px 24px rgb(13 27 42 / 0.08);
+    max-height: calc(100dvh - 4rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .search-panel[hidden] {
+    display: none;
+  }
+  .search-panel-inner {
+    padding-block: 1rem 1.25rem;
+  }
+  .search-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .search-field .search-field-icon {
+    position: absolute;
+    left: 0.875rem;
+    color: var(--color-slate);
+    pointer-events: none;
+  }
+  .search-field .input {
+    min-height: 3.25rem;
+    padding-left: 2.75rem;
+    padding-right: 3rem;
+    font-size: 1.0625rem;
+  }
+  .search-field .input::-webkit-search-cancel-button {
+    display: none;
+  }
+  .search-close {
+    position: absolute;
+    right: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--color-slate);
+    cursor: pointer;
+  }
+  .search-close:hover {
+    color: var(--color-ink);
+  }
+
+  /* ---------- Suggestions ---------- */
+  .search-suggest:empty {
+    display: none;
+  }
+  .search-suggest {
+    margin-top: 0.75rem;
+    border-top: 1px solid var(--color-rule);
+  }
+  .search-suggest a {
+    display: block;
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--color-rule);
+    text-decoration: none;
+  }
+  .search-suggest a:hover,
+  .search-suggest a.is-active {
+    background: var(--color-paper);
+  }
+  .search-suggest a.is-active {
+    outline: 2px solid var(--color-ink);
+    outline-offset: -2px;
+  }
+  .search-suggest .s-title {
+    font-weight: 500;
+  }
+  .search-suggest .s-meta,
+  .search-suggest .s-text {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--color-slate);
+    margin-top: 0.125rem;
+  }
+  .search-suggest .s-all {
+    font-weight: 600;
+  }
+  .search-suggest .s-head {
+    padding: 0.75rem 0.5rem 0.25rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-slate);
+  }
+  .search-hint {
+    margin-top: 0.75rem;
+    color: var(--color-slate);
+  }
+  .search-suggest mark,
+  .search-results mark {
+    background: var(--color-accent);
+    color: var(--color-ink);
+    padding: 0 0.1em;
+  }
+
+  /* ---------- /search/ page ---------- */
+  .search-form {
+    display: flex;
+    gap: 0.75rem;
+    max-width: 40rem;
+  }
+  .search-form .input {
+    min-height: 3.5rem;
+    font-size: 1.0625rem;
+  }
+  .search-form .btn {
+    min-height: 3.5rem;
+    padding-inline: 1.5rem;
+    flex: 0 0 auto;
+  }
+  .search-group + .search-group {
+    margin-top: 2.5rem;
+  }
+  .search-results li {
+    padding-block: 1rem;
+  }
+  html.search-open {
+    overflow: hidden;
+  }
+}

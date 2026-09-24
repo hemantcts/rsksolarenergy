@@ -24,7 +24,7 @@ const BRAND_IN_TITLE = new Set([
   '/awards-and-recognition/',
 ]);
 /** The only pages allowed to be noindex. Keep in sync with the sitemap filter in astro.config.mjs. */
-const NOINDEX_ALLOWED = new Set(['/404.html', '/awards-and-recognition/']);
+const NOINDEX_ALLOWED = new Set(['/404.html', '/awards-and-recognition/', '/search/']);
 const TITLE_MAX = 65;
 /** Product names come from UTL's catalogue and can run long; those only warn up to this. */
 const PRODUCT_TITLE_MAX = 80;

@@ -1,0 +1,48 @@
+---
+/**
+ * Header search: a button that opens a panel with a box and instant results as you type.
+ * Matching happens in the browser with src/lib/search/query.ts, against the index built from the
+ * pages that were actually built, so new pages appear without any list to update.
+ */
+import Icon from './Icon.astro';
+import '../styles/search.css';
+---
+
+<div class="search-box" data-search-box>
+  <button type="button" class="search-toggle" aria-expanded="false" aria-controls="site-search-panel" data-search-toggle>
+    <Icon name="search" size={20} />
+    <span class="search-toggle-label">Search</span>
+  </button>
+
+  <div class="search-panel" id="site-search-panel" hidden data-search-panel>
+    <div class="wrap search-panel-inner">
+      <form role="search" action="/search/" method="get" data-search-form>
+        <label class="sr-only" for="site-search">Search this website</label>
+        <div class="search-field">
+          <Icon name="search" size={20} class="search-field-icon" />
+          <input
+            class="input"
+            id="site-search"
+            name="q"
+            type="search"
+            autocomplete="off"
+            enterkeyhint="search"
+            placeholder="Search products, prices, guides, towns"
+            role="combobox"
+            aria-expanded="false"
+            aria-controls="site-search-results"
+            aria-autocomplete="list"
+            data-search-input
+          />
+          <button type="button" class="search-close" aria-label="Close search" data-search-close><Icon name="close" size={20} /></button>
+        </div>
+      </form>
+      <div id="site-search-results" class="search-suggest" role="listbox" aria-label="Search results" data-search-suggest></div>
+      <p class="t-small search-hint" data-search-hint>Type to search. Press Enter for all results.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  import '../scripts/search-box';
+</script>

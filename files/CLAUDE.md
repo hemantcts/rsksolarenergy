@@ -42,6 +42,13 @@ inverter kVA (running watts plus the largest motor start), a UTL battery bank at
 and the standard-kit price. Figures in `src/config/backup-config.ts`, logic in `src/lib/backup/`.
 Every calculator shows roof area at `SOLAR_CONFIG.generation.sqFtPerKw`.
 
+### Site search
+
+`/search/` and the header box share `src/lib/search/query.ts` (typo tolerance, synonyms, "3kw" =
+"3 kW", grouped results). The index is `scripts/make-search-index.mjs`, which reads the pages that
+were actually built after `astro build`, so **a new page is searchable as soon as it exists** and
+there is no page list to maintain. Pages marked noindex are left out.
+
 ---
 
 ## 2. Non-negotiable constraints
@@ -111,6 +118,7 @@ compromised. Keep the surface small.
 /                                     Home
 /solar-calculator/                    ← build first
 /new-house-solar-calculator/          No bill yet: appliances in, units and a size range out
+/search/                              Site search (noindex)
 /hybrid-solar-calculator/             Backup for power cuts: loads in, inverter, batteries, panels, roof area out
 /off-grid-solar-calculator/           No grid: the same, panels sized for winter, battery for the night
 /pm-surya-ghar-subsidy-punjab/        Subsidy guide (high-intent SEO)

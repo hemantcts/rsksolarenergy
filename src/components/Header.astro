@@ -13,6 +13,7 @@ import { BUSINESS, PRIMARY_PHONE, formatHours } from '../config/business';
 import { CONTACT_LINK, NAV, type NavLink } from '../data/nav';
 import { billMessage } from '../lib/whatsapp';
 import RatingBadge from './RatingBadge.astro';
+import SearchBox from './SearchBox.astro';
 import WhatsAppButton from './WhatsAppButton.astro';
 import Icon from './Icon.astro';
 
@@ -87,7 +88,8 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
       </nav>
 
       <div class="flex items-center gap-3">
-        <RatingBadge class="inline-flex max-[24rem]:hidden md:hidden" compact />
+        {/* The rating sits in the contact strip from md up; on phones the bar has room for search and the menu, not both. */}
+        <SearchBox />
         <WhatsAppButton label="Get a quote" class="hidden whitespace-nowrap md:inline-flex xl:hidden min-[85rem]:inline-flex" />
         <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
           <span class="menu-icon-open"><Icon name="menu" size={22} /></span>
@@ -126,6 +128,7 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
           ))
         }
         <li><a href={CONTACT_LINK.href} class="mobile-plain" aria-current={here === CONTACT_LINK.href ? 'page' : undefined}>Contact and directions</a></li>
+        <li><a href="/search/" class="mobile-plain">Search this website</a></li>
       </ul>
       <div class="mt-6 grid gap-3 sm:grid-cols-2">
         <WhatsAppButton label="Send your bill on WhatsApp" message={billMessage()} />
@@ -245,6 +248,13 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
   .menu-icon-open,
   .menu-icon-close {
     display: inline-flex;
+  }
+  /* 320 px phones: the icon alone, so the logo, search and menu all fit. */
+  @media (max-width: 24rem) {
+    .menu-label-open,
+    .menu-label-close {
+      display: none;
+    }
   }
   .menu-icon-close,
   .menu-label-close,

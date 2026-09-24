@@ -77,13 +77,13 @@ const description = descBase.length + descAsk.length <= 160 ? descBase + descAsk
               <a href={`/products/${p.slug}/`} class="block w-20 shrink-0 border border-rule bg-white md:col-span-2 md:w-full" aria-hidden="true" tabindex="-1">
                 {PRODUCT_IMAGES[p.slug] && <Image src={PRODUCT_IMAGES[p.slug]} alt="" width={160} height={160} loading="lazy" class="aspect-square w-full object-contain p-2" />}
               </a>
-              <div class="md:col-span-3">
+              <div class="md:col-span-3 min-w-0">
                 <a href={`/products/${p.slug}/`} class="t-h3 underline decoration-rule underline-offset-4 hover:decoration-ink">
                   {p.title}
                 </a>
                 {p.model && <span class="t-small mt-1 block text-slate">Model <span class="t-value text-ink">{p.model}</span></span>}
               </div>
-              <dl class="t-small grid grid-cols-[auto_1fr] content-start gap-x-4 gap-y-1 md:col-span-5">
+              <dl class="t-small grid grid-cols-[auto_1fr] content-start gap-x-4 gap-y-1 md:col-span-4">
                 {keyFacts(p).map((f) => (
                   <>
                     <dt class="text-slate">{f.label}</dt>
@@ -91,8 +91,8 @@ const description = descBase.length + descAsk.length <= 160 ? descBase + descAsk
                   </>
                 ))}
               </dl>
-              <div class="md:col-span-2 md:text-right">
-                <a href={whatsappUrl(productMessage(p.title, p.model ?? undefined))} class="btn-chip t-small" rel="noopener" target="_blank">
+              <div class="md:col-span-3 md:text-right">
+                <a href={whatsappUrl(productMessage(p.title, p.model ?? undefined, path))} class="btn-chip t-small" rel="noopener" target="_blank">
                   Ask Discounted Price
                 </a>
               </div>

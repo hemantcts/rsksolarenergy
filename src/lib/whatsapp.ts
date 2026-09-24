@@ -22,8 +22,14 @@ export function sizeMessage(sizeKw: number, type = 'on-grid'): string {
   return `Hi RSK Solar Energy, I would like to ask about a ${sizeKw}kW ${type} solar system. My location is: `;
 }
 
-export function productMessage(title: string, model?: string): string {
-  return `Hi RSK Solar Energy, I would like the price and availability of: ${title}${model ? ` (model ${model})` : ''}.`;
+/**
+ * `path` is added as a link so we can see which page an enquiry came from: the product page
+ * itself, or the category listing it was browsing.
+ */
+export function productMessage(title: string, model?: string, path?: string): string {
+  const lines = [`Hi RSK Solar Energy, I would like the price and availability of: ${title}${model ? ` (model ${model})` : ''}.`];
+  if (path) lines.push(`Page: ${BUSINESS.siteUrl}${path}`);
+  return lines.join('\n');
 }
 
 export function topicMessage(topic: string): string {

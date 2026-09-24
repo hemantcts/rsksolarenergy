@@ -154,7 +154,7 @@ const isNumeric = (v: string) => /^[<>≥≤~±]?\s*[\d.,/×x*\-–% ]+\s*(v|a|w
           heading="Price and availability"
           body="We do not sell online. Ask on WhatsApp and we reply with the current price and stock, and whether it suits your system."
           label="Ask the discounted price on WhatsApp"
-          message={productMessage(p.title, p.model ?? undefined)}
+          message={productMessage(p.title, p.model ?? undefined, `/products/${p.slug}/`)}
         />
         {
           related.length > 0 && (

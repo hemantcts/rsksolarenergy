@@ -1,0 +1,71 @@
+---
+/**
+ * Site search. The index is built from the built pages (scripts/make-search-index.mjs) and matched
+ * in the browser, so it covers every page, including ones added later. noindex: a search page is
+ * for visitors, not for Google.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { CATEGORIES } from '../data/products';
+import { CITIES, cityPath } from '../data/locations';
+import { sizePath } from '../data/sizes';
+import '../styles/search.css';
+
+const path = '/search/';
+const popular = [
+  { href: '/solar-calculator/', label: 'Solar calculator' },
+  { href: '/pm-surya-ghar-subsidy-punjab/', label: 'PM Surya Ghar subsidy' },
+  { href: sizePath(3), label: '3 kW system price' },
+  { href: sizePath(5), label: '5 kW system price' },
+  { href: '/products/solar-panels/', label: 'Solar panels' },
+  { href: '/products/inverters/', label: 'Solar inverters and PCUs' },
+  { href: '/products/batteries/', label: 'Batteries' },
+  { href: '/hybrid-solar-calculator/', label: 'Hybrid calculator' },
+  { href: '/off-grid-solar-calculator/', label: 'Off-grid calculator' },
+  { href: '/solar-pumps/', label: 'Solar water pumps' },
+  { href: cityPath('mohali'), label: 'Solar in Mohali' },
+  { href: '/solar-company-punjab/', label: 'Solar across Punjab' },
+];
+---
+
+<BaseLayout title="Search this website" description="Search every page on rsksolarenergy.com: UTL products, system prices, calculators, guides and the towns we serve." crumbs={[{ name: 'Search', path }]} noindex={true}>
+  <section class="wrap pt-8 pb-16 lg:pt-12 lg:pb-24">
+    <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Search', path }]} />
+    <h1 class="t-h1 mt-6">Search</h1>
+    <p class="t-lead measure mt-5">Products, prices, calculators, guides and towns. Type a few words.</p>
+
+    <form class="search-form mt-8" role="search" action={path} method="get" data-search-form>
+      <label class="sr-only" for="q">Search this website</label>
+      <input class="input" id="q" name="q" type="search" autocomplete="off" autofocus enterkeyhint="search" placeholder="Try: 3 kW price, subsidy, lithium battery, Ludhiana" data-search-input />
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <p class="t-small mt-3 text-slate" data-search-status role="status" aria-live="polite"></p>
+    <div class="mt-8 search-results" data-search-results></div>
+
+    <noscript>
+      <p class="measure mt-6">Search needs JavaScript. The links below cover most of the site, and the <a href="/products/" class="underline">product catalogue</a> lists everything we sell.</p>
+    </noscript>
+
+    <section class="mt-12 border-t border-ink pt-8" aria-labelledby="popular-h">
+      <h2 id="popular-h" class="t-h3">Most looked for</h2>
+      <ul class="t-small mt-4 flex flex-wrap gap-x-6 gap-y-2">
+        {popular.map((l) => <li><a href={l.href} class="underline">{l.label}</a></li>)}
+      </ul>
+
+      <h2 class="t-h3 mt-10">Product categories</h2>
+      <ul class="t-small mt-4 flex flex-wrap gap-x-6 gap-y-2">
+        {CATEGORIES.map((c) => <li><a href={`/products/${c.id}/`} class="underline">{c.name}</a></li>)}
+      </ul>
+
+      <h2 class="t-h3 mt-10">Towns</h2>
+      <ul class="t-small mt-4 flex flex-wrap gap-x-6 gap-y-2">
+        {CITIES.map((c) => <li><a href={cityPath(c.slug)} class="underline">{c.name}</a></li>)}
+      </ul>
+    </section>
+  </section>
+</BaseLayout>
+
+<script>
+  import '../scripts/search';
+</script>
