@@ -7,7 +7,7 @@ import { APPLIANCE_CONFIG, type ApplianceConfig } from '../../config/appliance-c
 import { PRIMARY_PHONE } from '../../config/business';
 import { SOLAR_CONFIG, type SolarConfig } from '../../config/solar-config';
 import { digits, kw } from '../calculator/format';
-import { whatsappUrl } from '../whatsapp';
+import { whatsappUrl, withSource } from '../whatsapp';
 import type { Estimate, HouseInput, Scenario } from './estimate';
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -25,13 +25,15 @@ export interface HouseRenderOptions {
   interactive?: boolean;
   /** Absolute or root-relative link that reproduces this result. */
   shareUrl?: string;
+  /** The page this result is on, named in the message when there is no share link. */
+  page?: string;
   /** The result's h2. The worked example on the page uses its own. */
   heading?: string;
   cfg?: ApplianceConfig;
   solar?: SolarConfig;
 }
 
-export function houseMessage(e: Estimate, input: HouseInput, shareUrl?: string): string {
+export function houseMessage(e: Estimate, input: HouseInput, shareUrl?: string, page?: string): string {
   const rec = e.scenarios.find((s) => s.id === 'recommended');
   const fut = e.scenarios.find((s) => s.id === 'future');
   const lines = ['Hi RSK Solar Energy, I used the new-house solar calculator on your website.'];
@@ -45,7 +47,7 @@ export function houseMessage(e: Estimate, input: HouseInput, shareUrl?: string):
   if (input.backup !== 'none') lines.push(`Backup wanted: ${input.backup === 'ac' ? 'essentials and one AC' : 'essentials'}`);
   if (shareUrl) lines.push(`My answers: ${shareUrl}`);
   lines.push('Please send me a quote.');
-  return lines.join('\n');
+  return withSource(lines.join('\n'), shareUrl ? undefined : page);
 }
 
 function scenarioCard(s: Scenario, cfg: ApplianceConfig, onGridMin: number): string {
@@ -166,8 +168,8 @@ ${notes.length ? `<ul class="calc-notes" role="note">${notes.map((n) => `<li>${e
   <h3 class="t-h3">Turn this into a quote</h3>
   <p class="mt-2">Send us the estimate and your plans or site address. We check the roof, shade and your sanctioned load and come back with a system and a price.</p>
   <div class="calc-actions mt-4">
-    <a class="btn btn-primary" href="${esc(whatsappUrl(houseMessage(e, input, o.shareUrl)))}" rel="noopener" target="_blank" data-wa>Get my solar quote</a>
-    <a class="btn btn-secondary" href="${esc(whatsappUrl('Hi RSK Solar Energy, I am building a new house and have a question about solar.'))}" rel="noopener" target="_blank">WhatsApp us</a>
+    <a class="btn btn-primary" href="${esc(whatsappUrl(houseMessage(e, input, o.shareUrl, o.page)))}" rel="noopener" target="_blank" data-wa>Get my solar quote</a>
+    <a class="btn btn-secondary" href="${esc(whatsappUrl(withSource('Hi RSK Solar Energy, I am building a new house and have a question about solar.', o.shareUrl ?? o.page)))}" rel="noopener" target="_blank">WhatsApp us</a>
     <a class="btn btn-secondary" href="tel:${esc(PRIMARY_PHONE.tel)}">Call RSK Solar Energy</a>
   </div>
   ${share}

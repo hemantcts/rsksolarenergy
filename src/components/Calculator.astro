@@ -18,7 +18,7 @@ interface Props {
 const { variant, id, example, exampleCaption } = Astro.props;
 const full = variant === 'full';
 const outputId = `${id}-result`;
-const exampleHtml = example ? renderResult(calculate(example), example, { variant, shareQuery: toQuery(example) }) : '';
+const exampleHtml = example ? renderResult(calculate(example), example, { variant, shareQuery: toQuery(example), page: Astro.url.pathname }) : '';
 const kind = example?.consumption.kind ?? 'bill';
 const period = String(example?.consumption.periodMonths ?? 2);
 const value = example ? String(example.consumption.value) : '';

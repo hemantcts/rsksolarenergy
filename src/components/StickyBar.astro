@@ -1,12 +1,12 @@
 ---
 /** Fixed bottom bar on mobile: WhatsApp | Call | Calculate. Replaces the contact page (DESIGN.md §6). */
 import { PRIMARY_PHONE } from '../config/business';
-import { whatsappUrl, billMessage } from '../lib/whatsapp';
+import { whatsappUrl, withSource, billMessage } from '../lib/whatsapp';
 import Icon from './Icon.astro';
 ---
 
 <nav class="sticky-bar on-ink md:hidden" aria-label="Contact RSK Solar Energy">
-  <a href={whatsappUrl(billMessage())} rel="noopener" target="_blank" class="is-primary">
+  <a href={whatsappUrl(withSource(billMessage(), Astro.url.pathname))} rel="noopener" target="_blank" class="is-primary">
     <Icon name="whatsapp" size={20} />
     <span>WhatsApp</span>
   </a>

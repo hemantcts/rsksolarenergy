@@ -129,6 +129,7 @@ function show(form: HTMLFormElement, output: HTMLElement, input: CalcInput & { d
   output.innerHTML = renderResult(result, input, {
     variant,
     shareQuery: toQuery(input),
+    page: location.pathname,
     animate: opts.animate && result.outcome === 'ok',
     ...(input.district ? { district: input.district } : {}),
   });

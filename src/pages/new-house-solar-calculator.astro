@@ -30,7 +30,7 @@ const exampleFields = new URLSearchParams({
   'q-microwave': '1',
 });
 const example = estimateFrom(exampleFields);
-const exampleHtml = renderHouseResult(example.estimate, example.input, { heading: 'Worked example: a three-bedroom home in Mohali' });
+const exampleHtml = renderHouseResult(example.estimate, example.input, { heading: 'Worked example: a three-bedroom home in Mohali', page: path });
 const exRec = example.estimate.scenarios.find((s) => s.id === 'recommended')!;
 
 const acRows = cfg.ac.tons.map((t) => ({ t, inv: cfg.ac.avgKw.inverter[t] ?? 0, std: cfg.ac.avgKw.standard[t] ?? 0 }));

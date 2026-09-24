@@ -5,7 +5,7 @@
  */
 import { BUSINESS } from '../../config/business';
 import { SOLAR_CONFIG, type SolarConfig } from '../../config/solar-config';
-import { calculatorMessage, whatsappUrl } from '../whatsapp';
+import { calculatorMessage, whatsappUrl, withSource } from '../whatsapp';
 import { digits, inr, inrRange, inrWords, kw, yearsRange } from './format';
 import type { CalcInput, CalcResult, Note, Range } from './types';
 
@@ -13,6 +13,8 @@ export interface RenderOptions {
   variant: 'hero' | 'full';
   /** Query string that reproduces this result on /solar-calculator/. */
   shareQuery: string;
+  /** The page the calculator is on, added to the WhatsApp message. */
+  page?: string;
   district?: string;
   /** Mark figures for the count-up (client only). */
   animate?: boolean;
@@ -78,14 +80,17 @@ function draftBanner(): string {
   return `<p class="calc-draft" role="note"><strong>Estimated price range.</strong> Prices are indicative and subject to change. Contact us for the latest pricing and a customised quotation.</p>`;
 }
 
-function waButton(r: CalcResult, input: CalcInput, district: string | undefined, label: string): string {
+function waButton(r: CalcResult, input: CalcInput, district: string | undefined, label: string, page?: string): string {
   const url = whatsappUrl(
-    calculatorMessage(r, {
-      kind: input.consumption.kind,
-      value: input.consumption.value,
-      periodMonths: input.consumption.periodMonths,
-      ...(district ? { district } : {}),
-    }),
+    withSource(
+      calculatorMessage(r, {
+        kind: input.consumption.kind,
+        value: input.consumption.value,
+        periodMonths: input.consumption.periodMonths,
+        ...(district ? { district } : {}),
+      }),
+      page,
+    ),
   );
   return `<a class="btn btn-primary" href="${esc(url)}" rel="noopener" target="_blank" data-wa>${esc(label)}</a>`;
 }
@@ -110,7 +115,7 @@ function freeUnitsBlock(r: CalcResult, input: CalcInput, o: RenderOptions, confi
   <li><strong>You face frequent power cuts.</strong> A hybrid system with batteries keeps essentials running. The return is backup, not savings.</li>
   <li><strong>You are often close to the line.</strong> One hot month over ${config.freeUnits.perMonth} units brings a full bill.</li>
 </ul>
-<div class="calc-actions">${waButton(r, input, o.district, 'Talk to us about whether solar makes sense for you')}</div>`;
+<div class="calc-actions">${waButton(r, input, o.district, 'Talk to us about whether solar makes sense for you', o.page)}</div>`;
 }
 
 function belowThresholdBlock(r: CalcResult, input: CalcInput, o: RenderOptions, config: SolarConfig): string {
@@ -126,14 +131,14 @@ function belowThresholdBlock(r: CalcResult, input: CalcInput, o: RenderOptions, 
   <li>Is it a shop or office connection? Choose that connection type.</li>
   <li>Are you in the SC, BC, BPL or Freedom Fighter category? Those homes pay only for units above ${config.freeUnits.perMonth}. Use the full calculator and enter your units.</li>
 </ul>
-<div class="calc-actions">${waButton(r, input, o.district, 'Send us your bill on WhatsApp')}</div>`;
+<div class="calc-actions">${waButton(r, input, o.district, 'Send us your bill on WhatsApp', o.page)}</div>`;
 }
 
 function simpleBlock(kicker: string, title: string, body: string, r: CalcResult, input: CalcInput, o: RenderOptions, cta: string): string {
   return `
 <div class="calc-verdict"><p class="calc-kicker">${esc(kicker)}</p><h3 class="t-h2">${esc(title)}</h3></div>
 <p>${body}</p>
-<div class="calc-actions">${waButton(r, input, o.district, cta)}</div>`;
+<div class="calc-actions">${waButton(r, input, o.district, cta, o.page)}</div>`;
 }
 
 export function renderResult(r: CalcResult, input: CalcInput, o: RenderOptions): string {
@@ -213,7 +218,7 @@ ${hasSubsidy ? `<p class="calc-fineprint"><strong>You pay the full system cost f
 ${notes.length ? `<ul class="calc-notes">${notes.map((n) => `<li>${esc(noteText(n, config))}</li>`).join('')}</ul>` : ''}
 ${o.variant === 'full' ? `<p class="calc-fineprint">${esc(assumptions(config))}</p>` : ''}
 <div class="calc-actions">
-  ${waButton(r, input, o.district, 'Send this to RSK Solar Energy on WhatsApp')}
+  ${waButton(r, input, o.district, 'Send this to RSK Solar Energy on WhatsApp', o.page)}
   ${
     o.variant === 'hero'
       ? `<a class="btn btn-secondary" href="/solar-calculator/?${esc(o.shareQuery)}">See the full breakdown</a>`

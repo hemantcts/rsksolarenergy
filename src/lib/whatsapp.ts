@@ -7,6 +7,16 @@ export function whatsappUrl(message: string, number: string = BUSINESS.whatsapp)
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 }
 
+/**
+ * Appends the page the visitor was on, so an enquiry on WhatsApp says where it came from.
+ * `path` is a site path ("/products/xyz/"); a query string is kept, a hash is dropped.
+ */
+export function withSource(message: string, path?: string): string {
+  if (!path) return message;
+  const clean = path.split('#')[0] ?? path;
+  return `${message}\nPage: ${BUSINESS.siteUrl}${clean}`;
+}
+
 export const GENERIC_MESSAGE =
   'Hi RSK Solar Energy, I found you on your website. I would like to discuss rooftop solar. I can send my last electricity bill.';
 
@@ -22,14 +32,8 @@ export function sizeMessage(sizeKw: number, type = 'on-grid'): string {
   return `Hi RSK Solar Energy, I would like to ask about a ${sizeKw}kW ${type} solar system. My location is: `;
 }
 
-/**
- * `path` is added as a link so we can see which page an enquiry came from: the product page
- * itself, or the category listing it was browsing.
- */
 export function productMessage(title: string, model?: string, path?: string): string {
-  const lines = [`Hi RSK Solar Energy, I would like the price and availability of: ${title}${model ? ` (model ${model})` : ''}.`];
-  if (path) lines.push(`Page: ${BUSINESS.siteUrl}${path}`);
-  return lines.join('\n');
+  return withSource(`Hi RSK Solar Energy, I would like the price and availability of: ${title}${model ? ` (model ${model})` : ''}.`, path);
 }
 
 export function topicMessage(topic: string): string {

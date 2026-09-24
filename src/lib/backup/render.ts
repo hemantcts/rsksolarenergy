@@ -6,7 +6,7 @@ import { BACKUP_CONFIG } from '../../config/backup-config';
 import { PRIMARY_PHONE } from '../../config/business';
 import { SOLAR_CONFIG, type SolarConfig } from '../../config/solar-config';
 import { digits, inr, inrRange, kw } from '../calculator/format';
-import { whatsappUrl } from '../whatsapp';
+import { whatsappUrl, withSource } from '../whatsapp';
 import type { BackupEstimate, BackupInput } from './estimate';
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
@@ -17,7 +17,7 @@ function row(label: string, value: string, sub?: string, subHtml = false): strin
   return `<tr><th scope="row">${esc(label)}${sub ? `<span class="calc-sub">${subHtml ? sub : esc(sub)}</span>` : ''}</th><td class="num">${value}</td></tr>`;
 }
 
-export function backupMessage(e: BackupEstimate, input: BackupInput, shareUrl?: string): string {
+export function backupMessage(e: BackupEstimate, input: BackupInput, shareUrl?: string, page?: string): string {
   const lines = [`Hi RSK Solar Energy, I used the ${e.mode === 'hybrid' ? 'hybrid' : 'off-grid'} solar calculator on your website.`];
   lines.push(`Loads: ${e.lines.map((l) => `${l.qty} × ${l.label}`).join(', ') || 'none chosen'}`);
   if (e.mode === 'hybrid') lines.push(`Backup for: ${input.backupHours} hours of a power cut`);
@@ -25,12 +25,14 @@ export function backupMessage(e: BackupEstimate, input: BackupInput, shareUrl?: 
   lines.push(`Suggested: ${kw(e.kitKw)} ${e.mode}, ${kva(e.inverterKva)} inverter, ${e.bank.count} × ${e.bank.unitName}`);
   if (shareUrl) lines.push(`My answers: ${shareUrl}`);
   lines.push('Please send me a quote.');
-  return lines.join('\n');
+  return withSource(lines.join('\n'), shareUrl ? undefined : page);
 }
 
 export interface BackupRenderOptions {
   heading?: string;
   shareUrl?: string;
+  /** The page this result is on, named in the message when there is no share link. */
+  page?: string;
   interactive?: boolean;
   solar?: SolarConfig;
 }
@@ -100,7 +102,7 @@ ${notes.length ? `<ul class="calc-notes" role="note">${notes.map((n) => `<li>${e
   <h3 class="t-h3">Turn this into a quote</h3>
   <p class="mt-2">Send us the estimate and your address. We check the roof, the wiring and which circuits to back up, and come back with a system and a price.</p>
   <div class="calc-actions mt-4">
-    <a class="btn btn-primary" href="${esc(whatsappUrl(backupMessage(e, input, o.shareUrl)))}" rel="noopener" target="_blank" data-wa>Get my solar quote</a>
+    <a class="btn btn-primary" href="${esc(whatsappUrl(backupMessage(e, input, o.shareUrl, o.page)))}" rel="noopener" target="_blank" data-wa>Get my solar quote</a>
     <a class="btn btn-secondary" href="tel:${esc(PRIMARY_PHONE.tel)}">Call RSK Solar Energy</a>
   </div>
   ${tools}

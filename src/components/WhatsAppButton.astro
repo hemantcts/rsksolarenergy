@@ -1,5 +1,5 @@
 ---
-import { whatsappUrl, GENERIC_MESSAGE } from '../lib/whatsapp';
+import { whatsappUrl, withSource, GENERIC_MESSAGE } from '../lib/whatsapp';
 import Icon from './Icon.astro';
 
 interface Props {
@@ -8,11 +8,14 @@ interface Props {
   message?: string;
   variant?: 'primary' | 'secondary';
   class?: string;
+  /** The message already names the page, so don't add it twice. */
+  noSource?: boolean;
 }
-const { label, message = GENERIC_MESSAGE, variant = 'primary', class: className } = Astro.props;
+const { label, message = GENERIC_MESSAGE, variant = 'primary', class: className, noSource = false } = Astro.props;
+const href = whatsappUrl(noSource ? message : withSource(message, Astro.url.pathname));
 ---
 
-<a class:list={['btn', `btn-${variant}`, className]} href={whatsappUrl(message)} rel="noopener" target="_blank">
+<a class:list={['btn', `btn-${variant}`, className]} href={href} rel="noopener" target="_blank">
   <Icon name="whatsapp" size={20} />
   <span>{label}</span>
 </a>

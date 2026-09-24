@@ -46,6 +46,7 @@ const withAc = hybrid ? cases[3]!.e : base;
 const cloudy = hybrid ? base : cases[1]!.e;
 const exampleHtml = renderBackupResult(base, estimateBackupFrom(new URLSearchParams({ mode })).input, {
   heading: hybrid ? `Worked example: backup for a ${cfg.backupHours.default}-hour power cut` : 'Worked example: an off-grid farmhouse',
+  page: path,
 });
 const bankLine = (e: BackupEstimate) => `${e.bank.count} ${e.bank.unitName} batter${e.bank.count === 1 ? 'y' : 'ies'}`;
 
