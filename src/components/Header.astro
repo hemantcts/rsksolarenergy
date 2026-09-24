@@ -29,7 +29,7 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
     <ul class="flex items-center gap-6">
       {
         hoursText && (
-          <li class="hidden items-center gap-2 text-rule lg:flex">
+          <li class="hidden items-center gap-2 text-rule xl:flex">
             <Icon name="clock" size={15} />
             <span>{hoursText}</span>
           </li>
@@ -53,13 +53,13 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
         <Image src={logo} alt="RSK Solar Energy" width={156} densities={[1, 2]} format="webp" loading="eager" fetchpriority="high" class="h-auto w-33 md:w-39" />
       </a>
 
-      <nav class="hidden xl:block" aria-label="Main">
+      <nav class="hidden lg:block" aria-label="Main">
         <ul class="flex items-center">
           {
             NAV.map((g, i) => (
               <li class="nav-item" data-nav-item>
                 <button type="button" class:list={['nav-trigger', { 'is-current': inGroup(g.links) }]} aria-expanded="false" aria-controls={`nav-panel-${i}`} data-nav-trigger>
-                  <span>{g.label}</span>
+                  <span>{g.short ?? g.label}</span>
                   <span class="nav-chevron">
                     <Icon name="chevron-down" size={18} />
                   </span>
@@ -90,7 +90,7 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
       <div class="flex items-center gap-3">
         {/* The rating sits in the contact strip from md up; on phones the bar has room for search and the menu, not both. */}
         <SearchBox />
-        <WhatsAppButton label="Get a quote" class="hidden whitespace-nowrap md:inline-flex xl:hidden min-[85rem]:inline-flex" />
+        <WhatsAppButton label="Get a quote" class="hidden whitespace-nowrap md:inline-flex lg:hidden min-[75rem]:inline-flex" />
         <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
           <span class="menu-icon-open"><Icon name="menu" size={22} /></span>
           <span class="menu-icon-close"><Icon name="close" size={22} /></span>
@@ -101,7 +101,7 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
     </div>
   </div>
 
-  <div id="mobile-menu" class="mobile-menu xl:hidden" hidden data-mobile-menu>
+  <div id="mobile-menu" class="mobile-menu lg:hidden" hidden data-mobile-menu>
     <nav class="wrap pt-2 pb-10" aria-label="Main menu">
       <ul class="mobile-groups">
         {
@@ -157,7 +157,8 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
     display: inline-flex;
     align-items: center;
     gap: 0.125rem;
-    padding: 0.5rem 0.7rem;
+    padding: 0.5rem 0.55rem;
+    white-space: nowrap;
     background: none;
     border: 0;
     border-radius: var(--radius-sm);
@@ -240,9 +241,14 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
     border-color: var(--color-ink);
     color: var(--color-white);
   }
-  @media (min-width: 80rem) {
+  @media (min-width: 64rem) {
     .menu-toggle {
       display: none;
+    }
+  }
+  @media (min-width: 80rem) {
+    .nav-trigger {
+      padding-inline: 0.7rem;
     }
   }
   .menu-icon-open,

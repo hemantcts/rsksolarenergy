@@ -6,7 +6,7 @@ const header = document.querySelector<HTMLElement>('[data-site-header]');
 const menuToggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
 const mobileMenu = document.querySelector<HTMLElement>('[data-mobile-menu]');
 // Matches the xl breakpoint where the desktop navigation takes over.
-const desktop = window.matchMedia('(min-width: 80rem)');
+const desktop = window.matchMedia('(min-width: 64rem)'); // matches the nav's lg: breakpoint
 
 const menuIsOpen = () => menuToggle?.getAttribute('aria-expanded') === 'true';
 

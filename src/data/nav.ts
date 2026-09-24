@@ -11,6 +11,8 @@ export interface NavLink {
 }
 export interface NavGroup {
   label: string;
+  /** Shorter wording for the desktop bar, where seven items share one row. */
+  short?: string;
   links: NavLink[];
 }
 
@@ -18,6 +20,7 @@ export interface NavGroup {
 export const NAV: NavGroup[] = [
   {
     label: 'Solar systems',
+    short: 'Systems',
     links: [
       { href: '/on-grid-vs-off-grid-vs-hybrid/', label: 'On-grid, off-grid or hybrid', note: 'Which type suits your connection' },
       { href: '/hybrid-solar-systems/', label: 'Hybrid solar systems', note: 'Battery backup for power cuts' },
@@ -39,6 +42,7 @@ export const NAV: NavGroup[] = [
   },
   {
     label: 'Prices & subsidy',
+    short: 'Prices',
     links: [
       { href: '/solar-calculator/', label: 'Solar calculator', note: 'Size, subsidy and payback from your bill' },
       { href: '/new-house-solar-calculator/', label: 'New house solar calculator', note: 'No bill yet? Estimate from your appliances' },
@@ -50,6 +54,7 @@ export const NAV: NavGroup[] = [
   },
   {
     label: 'Areas we serve',
+    short: 'Areas',
     links: [
       ...CITIES.filter((c) => c.tier === 'direct').map((c) => ({ href: cityPath(c.slug), label: `Solar in ${c.name}` })),
       { href: '/solar-company-punjab/', label: 'All locations in Punjab' },
