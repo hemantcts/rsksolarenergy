@@ -1,0 +1,118 @@
+---
+title: 'Building a House? Plan for Solar Before the Roof Is Poured'
+description: 'Eight things to sort while the house is going up: sanctioned load, a clear roof, cable route, backup wiring and the subsidy, so solar is simple afterwards.'
+published: '2026-09-23'
+category: 'Residential and commercial'
+tags: ['new house', 'planning', 'sanctioned load', 'PM Surya Ghar']
+faq:
+  - q: Should I install solar while the house is being built?
+    a: 'Usually just after. The PM Surya Ghar subsidy needs the electricity connection in the owner’s name, and PSPCL has to approve feasibility before anything goes up, so the system follows the connection. What you can do during construction is make the roof and the wiring ready for it.'
+  - q: How much sanctioned load should I ask PSPCL for?
+    a: 'Enough for the system you want, because a rooftop system can be at most 100% of your sanctioned load. If you expect a 5 kW system, apply for at least 5 kW. Raising it later means a separate load-enhancement application before the solar one.'
+  - q: How do I know what size I will need with no electricity bill?
+    a: 'Estimate it from the appliances you plan to run. The new-house calculator asks for your ACs, geysers, fridge, lights, fans and the rest, then gives your likely units and a size range. Once a few real bills arrive, the bill calculator can check it.'
+related:
+  - href: /new-house-solar-calculator/
+    label: Size solar from your appliances
+  - href: /pm-surya-ghar-subsidy-punjab/
+    label: The subsidy, step by step
+  - href: /hybrid-solar-calculator/
+    label: Planning backup for power cuts
+cta:
+  heading: Building now?
+  label: Send your house plans on WhatsApp
+  message: 'Hi RSK Solar Energy, I am building a house and would like to plan for solar. I can send the drawings and a list of appliances. My town: '
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { estimateFrom } from '../../lib/appliance/estimate';
+import { approxUnits } from '../../lib/appliance/render';
+
+export const cases = [
+  { label: 'No AC', fields: { 'ac0-qty': '0' } },
+  { label: 'One 1.5 ton AC', fields: { 'ac0-qty': '1' } },
+  { label: 'Two 1.5 ton ACs', fields: { 'ac0-qty': '2' } },
+  { label: 'Three ACs and an EV', fields: { 'ac0-qty': '3', ev: 'owned', 'ev-km': '30' } },
+];
+export const results = cases.map((c) => {
+  const e = estimateFrom(new URLSearchParams(c.fields)).estimate;
+  return { ...c, monthly: e.currentAnnual / 12, kw: e.scenarios.find((s) => s.id === 'recommended')?.kwRange ?? [0, 0] };
+});
+export const rows = results.map((r) => ({
+  label: r.label,
+  value: r.monthly,
+  display: `${approxUnits(r.monthly)} units`,
+  emphasis: r.label === 'Two 1.5 ton ACs',
+  note: `about ${r.kw[0]} to ${r.kw[1]} kW of panels`,
+}));
+export const ticks = [0, 250, 500, 750, 1000].map((v) => ({ value: v, label: String(v) }));
+
+A house takes months to build and a solar system takes days to install, so there is no need to do them together. There is a lot you can do while the house is going up that makes the solar simple, and cheap, afterwards.
+
+Most of it costs nothing at this stage. All of it is awkward once the plaster is on.
+
+## First, get a rough idea of the size
+
+Everything else follows from this. The size of a home system in Punjab is driven by air conditioning more than anything else:
+
+<div class="not-prose my-8">
+<BarChart
+  title="Estimated use for the same house, by how many ACs it runs"
+  rows={rows}
+  max={1000}
+  ticks={ticks}
+  valueHeading="Units a month"
+  caption="From our new-house calculator: a four-person home with a fridge, lights, fans, a TV, a washing machine and the usual kitchen, with ACs added. Summer months run well above these averages."
+/>
+</div>
+
+Two ACs take the same house from about {approxUnits(results[0].monthly)} units a month to about {approxUnits(results[2].monthly)}, and a third AC with an EV in the driveway pushes it past {approxUnits(results[3].monthly)}. Work through the [new-house calculator](/new-house-solar-calculator/) with the appliances you actually plan to buy, and you will have a size range to plan around.
+
+## Eight things to do while you build
+
+### 1. Ask PSPCL for enough sanctioned load
+
+A rooftop system can be at most {SOLAR_CONFIG.netMetering.maxSystemPercentOfSanctionedLoad}% of your sanctioned load. Apply for the new connection with the system in mind: 5 kW of load for a 5 kW system. Going back later for load enhancement is a separate application, and it has to be done before the solar one.
+
+### 2. Keep the south side of the roof clear
+
+Panels need about {SOLAR_CONFIG.generation.sqFtPerKw} sq ft each per kW, and they need it without shade. Put the water tanks, the stair cabin and the dish on the north side, where their shadows fall away from the panels. Winter shadows are much longer than the ones you see in June.
+
+### 3. Plan the structure while the slab is designed
+
+Panels usually sit on an elevated structure, which keeps the terrace usable underneath. Tell whoever designs the slab that it will carry one, and finish the waterproofing before anything is fixed to it.
+
+### 4. Leave a conduit from the roof to the inverter
+
+A 40 mm conduit from the terrace down to where the inverter will hang saves chasing finished walls. Put the inverter somewhere shaded and ventilated, close to the main distribution board, not in a sealed cupboard and not in the afternoon sun.
+
+### 5. Put in an earthing pit for the solar
+
+Solar needs its own earthing, plus a lightning arrester on the roof. Digging a pit costs little while the site is already dug up and a great deal once the driveway is laid.
+
+### 6. Decide about backup before the wiring is done
+
+If you want lights and fans to run through a power cut, they need to sit on their own backup board. Doing that now costs a few hundred rupees in wire. Doing it later means rewiring circuits. The [hybrid calculator](/hybrid-solar-calculator/) shows what a battery for those circuits looks like.
+
+### 7. Put a water tap on the terrace
+
+Panels need a wash every few weeks in dusty and smoky months. A tap on the roof turns that into a five-minute job. Carrying buckets upstairs is how panels end up never being cleaned.
+
+### 8. Keep the connection and the paperwork in the owner's name
+
+The subsidy is paid to the person who owns the house and holds the electricity connection, into a bank account in the same name. Mismatched names are one of the most common reasons applications stall. The [subsidy guide](/pm-surya-ghar-subsidy-punjab/) has the full list of documents.
+
+## What the order of events looks like
+
+1. Sanctioned load applied for with the solar system in mind.
+2. House finished, PSPCL connection live in the owner's name.
+3. Application on the PM Surya Ghar portal, and PSPCL approves feasibility.
+4. Installation, which takes a few days for a home system.
+5. PSPCL fits the net meter and inspects, then the subsidy reaches your bank account.
+
+Nothing should be installed before step 3, which is why the panels wait until the house has its own connection.
+
+## Send us the drawings
+
+We are happy to mark up a roof plan before the slab is poured: where the panels go, where the conduit runs, where the inverter hangs. Send the drawings and a list of the appliances you plan to run, and we will tell you the size to plan for. We install in [Mohali](/solar-company-mohali/) and the Tricity with our own team, and [across Punjab](/solar-company-punjab/) through our dealers.

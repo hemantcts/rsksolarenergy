@@ -1,0 +1,92 @@
+---
+title: 'Solar in a Punjab Winter: What Fog Does to Your Output'
+description: 'December and January fog cuts rooftop solar output by about a quarter in Punjab. What that means for on-grid, hybrid and off-grid systems, with the numbers.'
+published: '2026-09-16'
+category: 'Sizing and systems'
+tags: ['winter', 'generation', 'off-grid solar', 'net metering']
+faq:
+  - q: How much does fog reduce solar output in Punjab?
+    a: 'We plan on about a quarter less than the yearly average through the foggy weeks of December and January. A dense fog day can be far worse than that, and a clear winter day can be close to normal, so the useful figure is the average across the season rather than any one day.'
+  - q: Do I need a bigger system because of winter?
+    a: 'On a grid-connected system, no. The grid fills the gap in winter and your system makes more than your average in spring and autumn. An off-grid system is different, because nothing fills the gap, so we size those for the worst weeks of the year.'
+  - q: Does cleaning the panels help in winter?
+    a: 'Yes, and it matters more than in summer. Winter light is already weak, so a layer of dust or smoke residue takes a bigger share of what is left. A wash with plain water in the morning is enough.'
+related:
+  - href: /blog/how-many-units-1kw-solar-produces-punjab/
+    label: Units a 1 kW system makes in a day
+  - href: /off-grid-solar-calculator/
+    label: Off-grid calculator, sized for winter
+  - href: /blog/solar-panel-maintenance-punjab/
+    label: Cleaning and maintenance in Punjab
+cta:
+  heading: Not sure what your roof would make?
+  label: Ask about generation on WhatsApp
+  message: 'Hi RSK Solar Energy, I would like to know what a system on my roof would generate through the year. My town and roof direction: '
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { BACKUP_CONFIG } from '../../config/backup-config';
+import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
+import { digits } from '../../lib/calculator/format';
+
+export const perKwDay = effectiveYieldPerKw(SOLAR_CONFIG) / 365;
+export const winter = BACKUP_CONFIG.winterYieldFactor;
+export const sizes = [1, 2, 3, 5, 10];
+export const rows = sizes.map((kw) => ({
+  label: `${kw} kW`,
+  value: kw * perKwDay * winter,
+  display: `${(kw * perKwDay * winter).toFixed(1)} units`,
+  emphasis: kw === 3,
+  note: `${(kw * perKwDay).toFixed(1)} units on an average day`,
+}));
+export const ticks = [0, 10, 20, 30].map((v) => ({ value: v, label: String(v) }));
+
+Ask anyone in Mohali what January mornings are like and you will hear about the fog. It sits over the Tricity for days at a time, and solar panels feel it. They keep working through fog. They just make less.
+
+We plan on roughly {Math.round((1 - winter) * 100)}% less than the yearly average through the foggy weeks. That figure is our own planning allowance, used when we size off-grid systems, and it is the number behind the chart below.
+
+## What a system makes on a foggy winter day
+
+<div class="not-prose my-8">
+<BarChart
+  title="Units a day through the foggy weeks, by system size"
+  rows={rows}
+  max={30}
+  ticks={ticks}
+  valueHeading="Units a day"
+  caption={`Our planning figures: ${perKwDay.toFixed(1)} units per kW on an average day across the year, and about ${Math.round(winter * 100)}% of that in dense winter fog. A clear December day lands between the two.`}
+/>
+</div>
+
+A 3 kW system that gives you about {(3 * perKwDay).toFixed(1)} units on an average day is down to roughly {(3 * perKwDay * winter).toFixed(1)} units in the fog. Over a month that is a difference of about {digits(Math.round(3 * perKwDay * (1 - winter) * 30))} units.
+
+## Why this rarely matters on a grid-connected system
+
+Your system does not have to match your use day by day. Under net metering, PSPCL bills you on the difference between what you draw and what you export over the billing cycle, so a weak fortnight in January is balanced by the long clear days of March and October, when output runs above the yearly average.
+
+That is why the [calculator](/solar-calculator/) sizes from your yearly units instead of a winter day. Sizing a grid-tied system for the worst fortnight of the year would mean buying capacity that sits idle for the other eleven months.
+
+Two things are worth knowing anyway:
+
+- Punjab's {SOLAR_CONFIG.freeUnits.perMonth} free units are counted per bill, so a winter cycle where your solar makes less and your geyser runs more can push a general-category home over the line. [Solar with 300 free units](/blog/solar-with-300-free-units-punjab/) explains why one unit over the line costs so much.
+- If your bill is already near zero in summer, check a winter bill before deciding the system is too small.
+
+## Off-grid is the one that has to be sized for fog
+
+An off-grid system has no grid to fall back on. If the panels cannot make the day's units in the fog, the battery runs down and the lights go out, so those systems are sized for December and January from the start, not for the yearly average.
+
+The [off-grid calculator](/off-grid-solar-calculator/) does that for you: it takes the units you use in a day, then sizes the panels against a foggy winter day rather than an average one. It also lets you add a cloudy-day reserve to the battery, which is worth doing for a farmhouse or a tubewell room you cannot reach every week.
+
+Hybrid systems sit in between. The panels can be sized on the yearly average, because the grid is still there, but the battery works harder in winter: shorter days, more evening load, and less surplus to recharge it. The [hybrid calculator](/hybrid-solar-calculator/) sizes the battery around the loads you want to keep running.
+
+## Getting more out of a winter day
+
+- Wash the panels. Dust, and the greasy film that settles in smoky weeks, cost you more when the light is already weak. Plain water in the morning is enough, and our [maintenance guide](/blog/solar-panel-maintenance-punjab/) covers how often.
+- Watch the shadows. The winter sun sits low, so a water tank, a stair cabin or a neighbour's wall throws a much longer shadow in January than in June. This is worth checking at the survey rather than after installation.
+- Leave the tilt alone. Changing the angle twice a year does gain a little, and on a home rooftop the gain is small enough that most owners never bother.
+- Do not judge the system by one bad morning. Compare a full billing cycle with the same cycle last year.
+
+## What we do before quoting
+
+We look at the roof for winter shadows, not just the shade you can see on the day of the survey, and we size grid-tied systems on your yearly units. For off-grid, we size to the foggy weeks. If you want to see the figures for your own use, start with the [solar calculator](/solar-calculator/), or tell us your town and roof direction on WhatsApp.

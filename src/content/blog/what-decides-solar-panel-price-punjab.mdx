@@ -1,0 +1,94 @@
+---
+title: 'What Decides a Solar Panel’s Price in Punjab?'
+description: 'Watts, DCR status and the technology set what a solar panel costs. What changes the price per watt, and why the panel is only part of a system price.'
+published: '2026-09-19'
+category: 'Panels and inverters'
+tags: ['solar panels', 'price', 'DCR', 'TOPCon']
+faq:
+  - q: Why do you not publish a price per solar panel?
+    a: 'Panel prices move with the market, and what you pay depends on the model, the quantity and the day. We publish installed system prices as ranges, and we send current panel prices on WhatsApp so nobody quotes you from a page that went stale months ago.'
+  - q: Are DCR panels more expensive?
+    a: 'They usually cost more than non-DCR panels of the same wattage, because they have to be made in India with Indian-made cells. For a subsidised home system you have no choice: PM Surya Ghar only pays out on DCR, ALMM-listed panels. Without the subsidy, the cheaper panel can work out better overall.'
+  - q: Is a 545 W panel better than two 265 W panels?
+    a: 'For a rooftop, usually yes. Fewer, larger panels mean fewer clamps, less wiring and less structure for the same kilowatts, and they take up less roof. Small panels still make sense for a street light, a pump or a system that has to fit an awkward space.'
+related:
+  - href: /solar-panels/
+    label: UTL solar panels, 40 W to 735 W
+  - href: /pm-surya-ghar-subsidy-punjab/
+    label: Why the subsidy needs DCR panels
+  - href: /3kw-solar-system-price-punjab/
+    label: What a full 3 kW system costs
+cta:
+  heading: Want today’s panel price?
+  label: Ask for panel prices on WhatsApp
+  message: 'Hi RSK Solar Energy, I would like the current price of solar panels. Wattage, quantity and my town: '
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+import { PRODUCTS } from '../../data/products';
+
+export const panels = PRODUCTS.filter((p) => p.category === 'solar-panels').length;
+export const watts = [165, 265, 545, 735];
+export const rows = watts.map((w) => ({
+  label: `${w} W panels`,
+  value: Math.ceil(3000 / w),
+  display: `${Math.ceil(3000 / w)} panels`,
+  emphasis: w === 545,
+  note: `${((Math.ceil(3000 / w) * w) / 1000).toFixed(2)} kW array`,
+}));
+export const ticks = [0, 5, 10, 15, 20].map((v) => ({ value: v, label: String(v) }));
+
+"What is the price of a solar panel?" is the question we are asked most often on WhatsApp, and it has no single answer. Two panels can both be 540 W and cost quite different amounts. Here is what actually moves the number.
+
+## Price follows watts, then price per watt
+
+Panels are sold by the watt. A 735 W panel costs more than a 165 W one because it makes more power, so the figure to compare is the price per watt, not the price per panel.
+
+Per watt, larger panels are usually the better buy for a rooftop. They also cut everything around them, because a 3 kW array needs far fewer of them:
+
+<div class="not-prose my-8">
+<BarChart
+  title="Panels needed for a 3 kW array"
+  rows={rows}
+  max={20}
+  ticks={ticks}
+  valueHeading="Panels"
+  caption={`Wattages from our catalogue of ${panels} UTL panels. Fewer panels means fewer clamps, less cable, less mounting structure and less roof: a 3 kW array of 545 W panels needs about ${Math.ceil(3000 / 545)} of them, against ${Math.ceil(3000 / 265)} at 265 W.`}
+/>
+</div>
+
+That is why most home systems we install now use panels in the 500 W to 600 W range. The small ones still have their place on a street light, a pump or a roof with an awkward shape.
+
+## DCR or non-DCR changes the price
+
+DCR panels are made in India with Indian-made cells. Non-DCR panels are not, and they usually cost less per watt.
+
+The choice is made for you if you want the subsidy. PM Surya Ghar only pays on DCR panels from the government's ALMM list, and a panel that is not on the list fails inspection, which cannot be fixed afterwards. Our [subsidy guide](/pm-surya-ghar-subsidy-punjab/) covers what gets checked.
+
+Without the subsidy you are free to choose, and a non-DCR system can come in lower than a subsidised one before the subsidy lands. Ask us to price it both ways before deciding.
+
+## The technology in the panel
+
+Our [panels page](/solar-panels/) covers these in detail.
+
+- Mono PERC is the established choice, and the cheapest per watt.
+- N-Type TOPCon converts a little more of the same sunlight and holds up better in heat, which matters in a Punjab summer. It costs more.
+- Bifacial panels also take light reflected off the roof below them. On a white or light-coloured terrace with an elevated structure, that is a real gain. Flat on a dark roof, it is mostly wasted.
+
+For most homes the gap between these matters less than roof space and price. On a small roof where every square foot counts, the efficient panel earns its premium.
+
+## The panel is not the system
+
+A panel price tells you little about what a system costs. Everything else has to be paid for: the inverter, the mounting structure, DC and AC cable, earthing, the ACDB and DCDB, the lightning arrester, labour, and the net-metering paperwork. The panels are one line in that list.
+
+That is why we publish prices by system size rather than by panel. A [3 kW system](/3kw-solar-system-price-punjab/) and a [5 kW system](/5kw-solar-system-price-punjab/) each have their own page with an installed price range and the subsidy taken off. The [calculator](/solar-calculator/) works out which size your bill needs, and the [new-house calculator](/new-house-solar-calculator/) does it from your appliances if you have no bill yet.
+
+## What to ask a supplier
+
+- The exact model and wattage, not "540 watt panel".
+- Whether it is DCR and on the ALMM list, if the subsidy matters to you.
+- The manufacturer's warranty, product and performance, and who you claim it from.
+- The price per watt, so you can compare quotes properly.
+- What else is in the quote: structure, cable, earthing and labour, or panels alone.
+
+We are a UTL Solar distributor and we sell panels on their own as well as installed. Send the wattage and quantity on WhatsApp and we reply with the current price and stock. Buying to resell? See [become a UTL dealer](/solar-dealership-punjab/) for wholesale pricing, or [solar across Punjab](/solar-company-punjab/) for supply and delivery.
