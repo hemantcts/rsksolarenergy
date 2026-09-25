@@ -6,6 +6,13 @@
 const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-5';
 const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-5';
 const TIMEOUT_MS = 180_000;
+/**
+ * gpt-5 thinks before it answers, and that thinking is charged against max_completion_tokens. Ask for
+ * 2,000 tokens and the whole budget can go on reasoning, leaving an empty answer, so the reasoning
+ * gets its own allowance on top of what the caller asked for.
+ */
+const REASONING_ALLOWANCE = 6000;
+const reasons = (model) => /^(gpt-5|o[1-9])/.test(model);
 
 async function withTimeout(promise, ms) {
   const controller = new AbortController();
@@ -51,7 +58,8 @@ async function openai({ system, prompt, maxTokens }) {
         headers: { 'content-type': 'application/json', authorization: `Bearer ${key}` },
         body: JSON.stringify({
           model: OPENAI_MODEL,
-          max_completion_tokens: maxTokens,
+          max_completion_tokens: reasons(OPENAI_MODEL) ? maxTokens + REASONING_ALLOWANCE : maxTokens,
+          ...(reasons(OPENAI_MODEL) ? { reasoning_effort: 'low' } : {}),
           messages: [
             { role: 'system', content: system },
             { role: 'user', content: prompt },
@@ -62,8 +70,13 @@ async function openai({ system, prompt, maxTokens }) {
   );
   if (!res.ok) throw new Error(`OpenAI ${res.status}: ${(await res.text()).slice(0, 300)}`);
   const json = await res.json();
-  const text = json.choices?.[0]?.message?.content ?? '';
-  if (!text.trim()) throw new Error('OpenAI returned nothing');
+  const choice = json.choices?.[0];
+  const text = choice?.message?.content ?? '';
+  if (!text.trim()) {
+    const spent = json.usage?.completion_tokens_details?.reasoning_tokens;
+    const why = choice?.finish_reason === 'length' ? `it ran out of room${spent ? ` after ${spent} tokens of reasoning` : ''}` : `finish_reason ${choice?.finish_reason ?? 'unknown'}`;
+    throw new Error(`OpenAI returned nothing: ${why}`);
+  }
   return { text, provider: `openai/${OPENAI_MODEL}` };
 }
 
