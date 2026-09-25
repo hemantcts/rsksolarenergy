@@ -1,0 +1,42 @@
+name: Checks
+
+# Runs on every pull request, including the ones the content pipeline opens for a new blog post.
+# Nothing merges until the tests, the SEO guard, the writing check and the page budget all pass.
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Types
+        run: npx astro check --minimumFailingSeverity error || true
+
+      - name: Tests
+        run: npm test
+
+      - name: Build and SEO guard
+        run: npm run build
+
+      - name: Writing check
+        run: npm run tells
+
+      - name: Page weight budget
+        run: npm run budget

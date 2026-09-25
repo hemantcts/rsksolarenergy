@@ -1,0 +1,96 @@
+name: Build and deploy
+
+# Every push to main builds the site, runs every check, and uploads it to the live host.
+# A check that fails stops the deploy, so main is always safe to publish.
+#
+# Secrets to add in GitHub (Settings, Secrets and variables, Actions):
+#   SSH_HOST      the host's SSH server, e.g. ssh.rsksolarenergy.com
+#   SSH_USER      the SSH user
+#   SSH_KEY       the private key, whole file including the BEGIN and END lines
+#   DEPLOY_PATH   absolute path to the web root, e.g. /home/customer/www/rsksolarenergy.com/public_html
+# Optional variables (same page, Variables tab):
+#   SSH_PORT        defaults to 22 (SiteGround uses 18765)
+#   DEPLOY_DELETE   "true" removes files on the host that are no longer in the build. Leave unset
+#                   until you have checked what else lives in the web root.
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'files/**'
+      - '**/*.md'
+  workflow_dispatch:
+
+# One deploy at a time; a newer push waits rather than racing an older one onto the host.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Tests
+        run: npm test
+
+      - name: Build
+        # Also runs the SEO guard, which fails the build on a broken rule.
+        run: npm run build
+
+      - name: Writing check
+        run: npm run tells
+
+      - name: Page weight budget
+        run: npm run budget
+
+      - name: Set up SSH
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ vars.SSH_PORT || '22' }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Upload the site
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ vars.SSH_PORT || '22' }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          DEPLOY_DELETE: ${{ vars.DEPLOY_DELETE }}
+        run: |
+          DELETE=""
+          if [ "$DEPLOY_DELETE" = "true" ]; then DELETE="--delete"; fi
+          rsync -rlvz --checksum $DELETE \
+            --exclude '.well-known/' --exclude 'cgi-bin/' --exclude '.user.ini' \
+            -e "ssh -i ~/.ssh/id_deploy -p $SSH_PORT" \
+            dist/ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH/"
+
+      - name: Check the live site
+        run: |
+          set -e
+          for path in / /solar-calculator/ /blog/ /search-index.json; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "https://rsksolarenergy.com$path")
+            echo "$path -> $code"
+            [ "$code" = "200" ] || exit 1
+          done
+          curl -s https://rsksolarenergy.com/ | grep -q 'RSK Solar Energy' || exit 1
+
+      - name: Tell the search engines
+        # IndexNow covers Bing, Yandex, Seznam and Naver. Google finds new pages through the
+        # sitemap, which is already submitted in Search Console.
+        run: npm run indexnow
