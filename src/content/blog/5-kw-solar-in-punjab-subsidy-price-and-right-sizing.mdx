@@ -1,0 +1,89 @@
+---
+title: '5 kW solar in Punjab: subsidy, price and right sizing'
+description: 'How the PM Surya Ghar subsidy applies to a 5 kW system, what that means for your invoice, and when 5 kW is the right size in Punjab.'
+published: '2026-09-25'
+category: 'Subsidy and bills'
+tags: ['5 kW', 'Punjab', 'subsidy', 'sizing']
+faq:
+  - q: What is the PM Surya Ghar subsidy on a 5 kW rooftop system?
+    a: It is ₹30,000 per kW for the first 2 kW and ₹18,000 for the third kW, capped at ₹78,000. On-grid and hybrid systems qualify; off-grid does not.
+  - q: Will the subsidy reduce my invoice amount?
+    a: No. The subsidy is paid to the bank 30 to 45 days after inspection and is never taken off the invoice.
+  - q: How many units can I plan for from 5 kW in Punjab?
+    a: Our planning figure is 1530 units per kWp a year less 20% losses. That is 1224 units per kW a year, so about 6120 units a year from 5 kW, or roughly 510 units a month on average.
+related:
+  - href: /5kw-solar-system-price-punjab/
+    label: 5 kW solar system price in Punjab
+  - href: /pm-surya-ghar-subsidy-punjab/
+    label: PM Surya Ghar subsidy in Punjab
+  - href: /blog/how-to-size-home-solar-punjab/
+    label: How to size a home solar system in Punjab
+cta:
+  heading: Thinking about 5 kW for your home?
+  label: Ask our team on WhatsApp
+  message: 'Hi RSK Solar Energy, here are my last 12 months’ units, sanctioned load and roof photos. Is 5 kW right for me?'
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
+
+export const perKwMonth = effectiveYieldPerKw(SOLAR_CONFIG) / 12;
+export const sizes = [1, 2, 3, 5, 10];
+export const rows = sizes.map((kw) => ({ label: `${kw} kW`, value: kw * perKwMonth, display: `${Math.round(kw * perKwMonth)} units`, emphasis: kw === 5 }));
+export const ticks = [0, 250, 500, 750, 1000].map((v) => ({ value: v, label: String(v) }));
+
+A 5 kW rooftop system in Punjab can qualify for PM Surya Ghar with a maximum subsidy of ₹78,000, but it is paid to the bank after inspection and is not knocked off your invoice. Whether 5 kW is the right size depends on your monthly use, roof space and sanctioned load; on our planning figure, 5 kW averages about 510 units a month in Punjab.
+
+## What a 5 kW costs after the subsidy
+
+PM Surya Ghar pays ₹30,000 per kW for the first 2 kW and ₹18,000 for the third, capped at ₹78,000. The amount is credited to the bank 30 to 45 days after inspection. It never reduces the invoice. On-grid and hybrid systems qualify. Off-grid does not.
+
+If you are comparing actual installed prices, see our current page for this size: [5 kW solar system price in Punjab](/5kw-solar-system-price-punjab/). For how the government program works step by step in Punjab, read our guide: [PM Surya Ghar subsidy in Punjab](/pm-surya-ghar-subsidy-punjab/).
+
+Two points that affect what you finally pay from your own pocket:
+- If you take a loan, the subsidy reduces your outstanding after disbursal. Your EMI comes from your loan terms with the bank.
+- If you pay from savings, the invoice is due in full. The subsidy is then credited to the empanelled lender as per the program’s flow.
+
+## What 5 kW produces in Punjab
+
+We plan using 1530 units per kWp a year less 20 percent losses. That is 1224 units per kW a year. For 5 kW, expect about 6120 units a year, or around 510 units a month on average. Month to month will vary with weather and your roof, but this figure is what we design to across the year. For background on yield per kW, see our post on [how many units 1 kW produces in Punjab](/blog/how-many-units-1kw-solar-produces-punjab/).
+
+<div class="not-prose my-8">
+<BarChart title="Units a month by system size in Punjab" rows={rows} max={1000} ticks={ticks} valueHeading="Units a month" caption="From our planning figure for Punjab." />
+</div>
+
+## Is 5 kW the right size for your home
+
+Use, roof and sanctioned load decide this. A quick check:
+
+- Average monthly use: If your average is near 450 to 600 units, 5 kW usually aligns with our 510 unit planning figure. Use your last 12 months’ bills or try our [solar calculator](/solar-calculator/) or the [new-house solar calculator](/new-house-solar-calculator/).
+- Roof area: Plan about 100 sq ft per kW of shade-free roof. A 5 kW array needs about 500 sq ft with clear sun from 9 am to 4 pm.
+- Sanctioned load cap: PSPCL allows a rooftop system up to 100 percent of sanctioned load. Check your bill. A 5 kW proposal needs at least 5 kW sanctioned load, or an increase request.
+- Metering: With net metering, exports get set off against imports. Read how PSPCL credits your export in our [net metering explainer](/blog/net-metering-punjab-pspcl-explained/).
+- Shade and structure: Tall trees, water tanks or parapets can cut output. A site visit and a few roof photos help us place panels to avoid shade.
+
+We have a step by step method in [how to size a home solar system in Punjab](/blog/how-to-size-home-solar-punjab/). If 5 kW is a stretch on roof or sanctioned load, we will show you adjacent sizes.
+
+## Punjab’s 300 free units and 5 kW
+
+Punjab gives homes 300 free units a month. Below that a home’s bill is already zero. If your billed use sits under 300 units most months, a smaller system may make more sense for you, or you may choose solar for backup with a hybrid system. If you are often above 300 units, a 5 kW system’s average of about 510 units a month can offset a good share across the year. We explain this trade in [Is solar worth it with 300 free units](/blog/solar-with-300-free-units-punjab/).
+
+## On-grid, hybrid or off-grid at 5 kW
+
+- On-grid: Lowest hardware cost and eligible for PM Surya Ghar. Works with net metering. No backup when the grid is off.
+- Hybrid: Adds batteries for backup. Also eligible for PM Surya Ghar. See our [hybrid systems](/hybrid-solar-systems/) page and the cost trade-offs in [Hybrid solar: is the battery worth it](/blog/hybrid-solar-cost-is-battery-worth-it/).
+- Off-grid: For locations without a reliable grid. Off-grid does not qualify for PM Surya Ghar. Details here: [off-grid systems](/off-grid-solar-systems/) and [on-grid vs off-grid vs hybrid](/on-grid-vs-off-grid-vs-hybrid/).
+
+Your choice depends on whether backup power is important or you only want to reduce grid draw.
+
+## How we quote and install a 5 kW system
+
+RSK Solar Energy is a UTL Solar distributor in Phase 8B, Mohali, since 2022. We install with our own team in the Tricity and around Kurali, Morinda and Ropar, and we work with UTL dealers elsewhere in Punjab. The smallest on-grid system we install is 3 kW. For 5 kW, we will check:
+
+- Last 12 months’ units and sanctioned load
+- Roof photos with rough measurements
+- Any shade issues across the day
+- Preference between on-grid and hybrid
+
+To move forward, send us your latest bill, sanctioned load and roof photos. You can start with the [5 kW price page](/5kw-solar-system-price-punjab/), read the [PM Surya Ghar guide](/pm-surya-ghar-subsidy-punjab/), and use the [solar calculator](/solar-calculator/) to cross-check size. When you are ready, share the details on WhatsApp from our [contact](/contact/) page and we will schedule a site visit.
