@@ -49,8 +49,9 @@ Figures on this site are computed live from a single configuration (PSPCL FY 202
 - [8 kW solar system price in Punjab](https://rsksolarenergy.com/8kw-solar-system-price-punjab/)
 - [10 kW solar system price in Punjab](https://rsksolarenergy.com/10kw-solar-system-price-punjab/)
 
-## Blog (23 posts)
+## Blog (26 posts)
 
+- [Building a House? Plan for Solar Before the Roof Is Poured](https://rsksolarenergy.com/blog/building-a-house-plan-for-solar/)
 - [Charging an EV From Rooftop Solar in Punjab](https://rsksolarenergy.com/blog/ev-charging-from-rooftop-solar/)
 - [Commercial Solar in Punjab: How the Calculation Differs](https://rsksolarenergy.com/blog/commercial-solar-calculation-punjab/)
 - [Housing Society Solar Subsidy: ₹18,000 per kW Explained](https://rsksolarenergy.com/blog/housing-society-solar-subsidy-explained/)
@@ -68,12 +69,14 @@ Figures on this site are computed live from a single configuration (PSPCL FY 202
 - [Off-Grid Solar vs Diesel Generator for Backup in Punjab](https://rsksolarenergy.com/blog/off-grid-solar-vs-diesel-generator-punjab/)
 - [PM-KUSUM Solar Pump Subsidy for Punjab Farmers](https://rsksolarenergy.com/blog/pm-kusum-solar-pump-subsidy-punjab-farmers/)
 - [Solar for Schools and Clinics in Punjab](https://rsksolarenergy.com/blog/solar-for-schools-clinics-punjab/)
+- [Solar in a Punjab Winter: What Fog Does to Your Output](https://rsksolarenergy.com/blog/solar-output-punjab-winter-fog/)
 - [Solar Installation Day: What Happens, Step by Step](https://rsksolarenergy.com/blog/solar-installation-day-what-to-expect/)
 - [Solar Inverter Warranty in India: What Is Covered](https://rsksolarenergy.com/blog/solar-inverter-warranty-india/)
 - [Solar Loans in India: How to Finance a Rooftop System](https://rsksolarenergy.com/blog/solar-loan-financing-india/)
 - [Solar Panel Maintenance in Punjab: Dust, Heat and Cleaning](https://rsksolarenergy.com/blog/solar-panel-maintenance-punjab/)
 - [Solar ROI in Punjab: Payback by Monthly Units](https://rsksolarenergy.com/blog/solar-roi-punjab-real-numbers/)
 - [The Cheapest Way to Get Solar for a Home in Punjab](https://rsksolarenergy.com/blog/cheapest-solar-system-for-home-punjab/)
+- [What Decides a Solar Panel’s Price in Punjab?](https://rsksolarenergy.com/blog/what-decides-solar-panel-price-punjab/)
 
 ## Products
 

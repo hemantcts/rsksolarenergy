@@ -19,6 +19,7 @@
     "image-sitemap": "node scripts/make-image-sitemap.mjs",
     "search-index": "node scripts/make-search-index.mjs",
     "seo-guard": "node scripts/seo-guard.mjs",
+    "tells": "node scripts/check-tells.mjs",
     "indexnow": "node scripts/indexnow.mjs",
     "generate": "npm run htaccess && npm run llms-txt"
   },

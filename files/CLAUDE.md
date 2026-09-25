@@ -42,6 +42,13 @@ inverter kVA (running watts plus the largest motor start), a UTL battery bank at
 and the standard-kit price. Figures in `src/config/backup-config.ts`, logic in `src/lib/backup/`.
 Every calculator shows roof area at `SOLAR_CONFIG.generation.sqFtPerKw`.
 
+### Deploying, and what runs on every push
+
+`main` deploys itself: GitHub Actions builds, runs the tests, the SEO guard, `npm run tells` (the
+AI-writing check in `scripts/check-tells.mjs`) and the page budget, uploads over SSH and pings
+IndexNow. Pull requests run the same checks without deploying, which is what gates drafts from the
+content pipeline. Setup and troubleshooting: `files/DEPLOY.md`.
+
 ### Site search
 
 `/search/` and the header box share `src/lib/search/query.ts` (typo tolerance, synonyms, "3kw" =
