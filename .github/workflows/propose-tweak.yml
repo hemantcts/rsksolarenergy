@@ -1,0 +1,94 @@
+name: Propose a tweak
+
+# Emails a major tweak for a yes or a no. Small tweaks do not come through here: they go straight to
+# main. What counts as major is in files/proposals/README.md.
+#
+# The change is already on a branch named tweak/<slug>, along with a proposal file
+# files/proposals/<slug>.md holding the token and the subject. This workflow reads that file and
+# sends it. Nothing is merged here.
+#
+# Secrets: SMTP_USER, SMTP_PASS.
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'The branch holding the change, e.g. tweak/five-kw-price'
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+env:
+  MAIL_TO: rajdeep.crest@gmail.com
+
+jobs:
+  propose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
+          fetch-depth: 0
+
+      - name: Read the proposal
+        id: proposal
+        env:
+          BRANCH: ${{ inputs.branch }}
+        run: |
+          set -e
+          case "$BRANCH" in
+            tweak/*) ;;
+            *) echo 'The branch has to be named tweak/<slug>.'; exit 1 ;;
+          esac
+          SLUG="${BRANCH#tweak/}"
+          FILE="files/proposals/$SLUG.md"
+          test -f "$FILE" || { echo "No proposal at $FILE. See files/proposals/README.md."; exit 1; }
+
+          TOKEN=$(sed -n 's/^token:[[:space:]]*//p' "$FILE" | head -1)
+          SUBJECT=$(sed -n 's/^subject:[[:space:]]*//p' "$FILE" | head -1)
+          echo "$TOKEN" | grep -Eq '^[0-9a-f]{8}$' || { echo 'token must be eight hex characters.'; exit 1; }
+          test -n "$SUBJECT" || { echo 'The proposal has no subject.'; exit 1; }
+
+          echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
+          echo "token=$TOKEN" >> "$GITHUB_OUTPUT"
+          echo "subject=$SUBJECT" >> "$GITHUB_OUTPUT"
+
+          # Everything below the frontmatter is the body of the email.
+          awk 'NR>1 && /^---$/ {found=1; next} found' "$FILE" > proposal-body.md
+
+          {
+            cat proposal-body.md
+            echo
+            echo '---'
+            echo
+            echo '## What changes in the code'
+            echo
+            echo '```'
+            git diff --stat origin/main...HEAD | tail -40
+            echo '```'
+            echo
+            echo "Branch: ${{ github.server_url }}/${{ github.repository }}/compare/main...$BRANCH"
+            echo
+            echo '**Reply yes** and this is merged and goes live within a few minutes.'
+            echo '**Reply no** and the branch is deleted and nothing happens.'
+            echo
+            echo 'Leave the subject line alone when replying: the code in it is what proves the answer'
+            echo 'came from this email.'
+          } > email-body.md
+
+      - name: Send it
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          from: RSK Solar Energy site <${{ secrets.SMTP_USER }}>
+          to: ${{ env.MAIL_TO }}
+          subject: '[RSK tweak ${{ steps.proposal.outputs.token }}] ${{ steps.proposal.outputs.subject }}'
+          html_body: file://email-body.md
+          convert_markdown: true

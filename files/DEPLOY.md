@@ -163,3 +163,94 @@ To pull a published post: delete its file from `src/content/blog/` and push. The
 from the blog list, the sitemap and every internal link. The old HTML file stays on the host until
 `DEPLOY_DELETE` is set to `true` in the repository variables, because the upload adds and replaces but
 does not remove. Set that variable if a post ever has to disappear the same day.
+
+## Tweaks: what goes straight to live, and what waits for a yes
+
+Small tweaks are made and pushed without asking (RSK Solar Energy's instruction, 26 September 2026).
+A small tweak is one that is reversible in a single commit and changes nothing the business promises:
+
+- a title or description rewritten because the weekly report shows it is shown and never clicked
+- an internal link added, or one pointed somewhere more useful
+- a heading, a paragraph or a FAQ answer made clearer
+- a figure corrected so it matches `src/config/`
+- image alt text, schema fields, sitemap entries, page weight
+
+Everything else is emailed first: a new page, a page removed, any change to a price, a subsidy figure
+or a tariff, the phone numbers or the address, anything that changes what a calculator works out, and
+any change to how deploys or the content pipeline run.
+
+### Approving a major tweak from email
+
+The change goes on a branch with a proposal file, in the format in `files/proposals/README.md`. Then
+Actions, **Propose a tweak**, Run workflow, with the branch name. An email arrives with a subject like
+`[RSK tweak 7f3a91c4] Change the 5 kW price range to match the new UTL list`. Replying **yes** merges
+it and it goes live; replying **no** deletes the branch. A confirmation comes back either way.
+
+The code in the subject line is what makes the reply trustworthy. It is made fresh for each proposal,
+and the apply workflow refuses anything whose code does not match the branch, so somebody forging the
+sender address still cannot push a change without having seen the email.
+
+**n8n is the bridge between the mailbox and GitHub.** One workflow, four nodes:
+
+1. **IMAP Email** trigger on the mailbox, `imap.gmail.com`, port 993, the same Gmail app password as
+   `SMTP_PASS`. Mark as read on success.
+2. **Filter**: keep it only when the subject matches `\[RSK tweak ([0-9a-f]{8})\]` and the sender is
+   rajdeep.crest@gmail.com.
+3. **Code** node, to pull the pieces out of the reply:
+
+   ```js
+   const subject = $json.subject || '';
+   const token = (subject.match(/\[RSK tweak ([0-9a-f]{8})\]/) || [])[1];
+   // The first non-empty line that is not quoted text from the original email.
+   const decision = (($json.textPlain || $json.text || '')
+     .split('\n')
+     .map((l) => l.trim())
+     .find((l) => l && !l.startsWith('>') && !/wrote:$/.test(l)) || '').toLowerCase();
+   return [{ json: { token, decision, quote: decision, from: $json.from } }];
+   ```
+
+4. **HTTP Request**: POST to
+   `https://api.github.com/repos/hemantcts/rsksolarenergy/dispatches`, header
+   `Authorization: Bearer <a GitHub fine-grained token with Contents: write on this repo>`, header
+   `Accept: application/vnd.github+json`, body:
+
+   ```json
+   {
+     "event_type": "tweak-decision",
+     "client_payload": {
+       "branch": "tweak/{{ $json.token }}",
+       "token": "{{ $json.token }}",
+       "decision": "{{ $json.decision }}",
+       "from": "{{ $json.from }}",
+       "quote": "{{ $json.quote }}"
+     }
+   }
+   ```
+
+   The branch name is not in the email, so n8n needs to look it up. Either keep a short lookup in an
+   n8n data table when the proposal is sent, or add a step before this one that calls
+   `GET /repos/hemantcts/rsksolarenergy/branches` and picks the `tweak/*` branch whose proposal file
+   holds that token. The apply workflow checks the token against the branch either way, so a wrong
+   guess is refused rather than applied.
+
+The GitHub token lives in n8n's credential store, never in the repo. It needs **Contents: write** and
+nothing else.
+
+### If the bridge is not set up yet
+
+Nothing is lost. The proposal email still arrives and the branch still waits. Merging it in GitHub, or
+saying yes in a chat session, does the same thing.
+
+## Every secret and variable, in one place
+
+| Name | Kind | Needed for |
+|---|---|---|
+| `SSH_HOST`, `SSH_USER`, `SSH_KEY`, `DEPLOY_PATH` | secret | the deploy |
+| `SSH_PORT` | variable | the deploy, if not 22. Hostinger uses 65002 |
+| `DEPLOY_DELETE` | variable | removing files on the host that are no longer in the build |
+| `GSC_SA_JSON` | secret | the weekly search report |
+| `GSC_SITE` | variable | the weekly report, if the property is not `sc-domain:rsksolarenergy.com` |
+| `SMTP_USER`, `SMTP_PASS` | secret | every email: the weekly report, a published post's URL, tweak proposals |
+| `MOZ_TOKEN` or `OPENPAGERANK_KEY` | secret | the authority score in the weekly report |
+| `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` | secret | writing and checking the posts. Either alone works; both is better |
+| `N8N_WEBHOOK` | variable | sending the weekly report on to n8n as well |
