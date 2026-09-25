@@ -34,11 +34,13 @@ permissions:
 
 env:
   MAIL_TO: rajdeep.crest@gmail.com
-  # Hoisted: a step's "if" cannot read secrets, only env.
-  SMTP_USER: ${{ secrets.SMTP_USER }}
 
 jobs:
   report:
+    env:
+      # Hoisted here so the mail steps can ask whether mail is set up at all: a step's "if" reads
+      # env, never secrets.
+      SMTP_USER: ${{ secrets.SMTP_USER }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
