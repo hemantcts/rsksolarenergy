@@ -1,0 +1,22 @@
+name: Check API keys
+
+# Run this after changing ANTHROPIC_API_KEY or OPENAI_API_KEY. It makes the smallest possible call
+# to each provider and says which ones answered. Keys are never printed.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Ping both providers
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: node scripts/check-ai-keys.mjs
