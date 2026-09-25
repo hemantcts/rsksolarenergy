@@ -46,17 +46,39 @@ Every calculator shows roof area at `SOLAR_CONFIG.generation.sqFtPerKw`.
 
 `main` deploys itself: GitHub Actions builds, runs the tests, the SEO guard, `npm run tells` (the
 AI-writing check in `scripts/check-tells.mjs`) and the page budget, uploads over SSH and pings
-IndexNow. Pull requests run the same checks without deploying, which is what gates drafts from the
-content pipeline. Setup and troubleshooting: `files/DEPLOY.md`.
+IndexNow. Pull requests run the same checks without deploying. Setup and troubleshooting:
+`files/DEPLOY.md`.
 
 ### Content pipeline
 
-`.github/workflows/blog-draft.yml` (Tue and Fri) drafts a post from the weekly Search Console
-figures and opens a PR; merging publishes it. `scripts/lib/ai.mjs` calls Anthropic first and falls
-back to OpenAI. `scripts/draft-post.mjs` hands the model the site's own figures, the allowed link
-list and three chart snippets, then rejects the draft on invented figures, bare "RSK", implied
-warranties, unknown links, a missing chart or a broken writing rule. The PR still has to pass the
-same checks as any other.
+`.github/workflows/blog-draft.yml` (Tue and Fri) drafts a post from `files/TOPICS.md`, or from the
+weekly Search Console figures when that list is empty, and **publishes it straight to the live site**.
+Nobody reads it first (RSK Solar Energy's instruction, 26 September 2026), so four checks stand in
+the way and any one of them failing means nothing is published:
+
+1. `scripts/check-draft.mjs` — deterministic. Every figure in the prose has to be one of ours or
+   arithmetic on one, checked by kind so a price cannot pass as a unit count
+   (`scripts/lib/facts.mjs`). It also refuses banned claims: subsidy paid anywhere but the owner's
+   bank account, loan terms, promised returns, authorisations, certifications, timescales,
+   superlatives, inflated install numbers, bare "RSK", an implied RSK warranty. Then links that do
+   not resolve, fewer than three internal links, no chart, under 500 words.
+2. `scripts/review-draft.mjs` — a model reads the post against the same facts and votes publish or
+   hold. Where both API keys work it is the provider that did *not* write the draft, so a mistake
+   has to get past two different models. Anything unparseable counts as a hold.
+3. `npm run build` — the SEO guard, the schema rules, the internal link check.
+4. `npm run tells` — the AI-writing check.
+
+Passing all four, the post is committed to `main`, the deploy is triggered by name (a push made with
+the built-in token does not start another workflow), and once the URL answers 200 the link is emailed
+to RSK Solar Energy to read on the live site. A failed run emails the reason and publishes nothing.
+
+`scripts/lib/ai.mjs` calls Anthropic first and falls back to OpenAI; `avoid` reverses that order so
+the reviewer differs from the writer. `scripts/draft-post.mjs` hands the model the site's own
+figures, the allowed link list and three chart snippets, and rejects a draft before the gates ever
+see it on an over-long title, a bad category or a duplicate slug.
+
+`scripts/check-draft.mjs` is written for generated drafts. Hand-written posts predating it may fail
+on figures from a customer's own bill; do not loosen the checker to accommodate them.
 
 ### Site search
 

@@ -12,6 +12,7 @@
 // Usage: GSC_SA_JSON='{...}' GSC_SITE='sc-domain:rsksolarenergy.com' node scripts/seo-report.mjs
 import { createSign } from 'node:crypto';
 import { writeFileSync } from 'node:fs';
+import { authoritySection } from './lib/authority.mjs';
 
 const SITE = process.env.GSC_SITE || 'sc-domain:rsksolarenergy.com';
 const DAYS = 28;
@@ -76,6 +77,7 @@ const round = (n, d = 1) => Number(n.toFixed(d));
 const pct = (n) => `${round(n * 100)}%`;
 const table = (head, rows) => (rows.length ? [`| ${head.join(' | ')} |`, `|${head.map(() => '---').join('|')}|`, ...rows.map((r) => `| ${r.join(' | ')} |`)].join('\n') : '_Nothing this week._');
 
+const authority = await authoritySection();
 const token = await accessToken();
 const period = { startDate: day(DAYS + 2), endDate: day(2) };
 const previous = { startDate: day(DAYS * 2 + 2), endDate: day(DAYS + 3) };
@@ -118,6 +120,8 @@ const fresh = queriesNow.filter((r) => !prevQ.has(r.keys[0]) && r.impressions >=
 const report = `# Search report, ${period.startDate} to ${period.endDate}
 
 Clicks **${now.clicks}** (${change(now.clicks, before.clicks)}), impressions **${now.impressions}** (${change(now.impressions, before.impressions)}), against the previous 28 days.
+
+${authority}
 
 ## Close to page one
 

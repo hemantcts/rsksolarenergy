@@ -88,9 +88,9 @@ Both of these run on GitHub's servers. Nothing at our end has to be switched on.
 
 ### Weekly search report
 
-`.github/workflows/seo-report.yml` runs every Monday morning and files a GitHub issue: what moved,
-which searches sit just off page one, which pages are shown but never clicked, and what is new.
-That list decides what we write next.
+`.github/workflows/seo-report.yml` runs every Monday morning and **emails the report** to
+rajdeep.crest@gmail.com: the domain's authority score, what moved, which searches sit just off page
+one, which pages are shown but never clicked, and what is new. That list decides what we write next.
 
 Setup:
 
@@ -99,25 +99,67 @@ Setup:
 3. Search Console, Settings, Users and permissions: add the service account's `client_email`
    as a **Full** user.
 4. GitHub secret `GSC_SA_JSON`: the whole key file.
-5. Optional variables: `GSC_SITE` if the property is not `sc-domain:rsksolarenergy.com`, and
-   `N8N_WEBHOOK` to have the report POSTed to n8n for WhatsApp or email.
+5. GitHub secrets `SMTP_USER` and `SMTP_PASS`, so the report can be sent. Use the Gmail address
+   itself and a **Google app password**, not the account password: Google Account, Security,
+   two-step verification on, then App passwords. Without these two the report is filed as a GitHub
+   issue instead, so no week is lost while they are being set up.
+6. Optional: `GSC_SITE` if the property is not `sc-domain:rsksolarenergy.com`, and `N8N_WEBHOOK` to
+   have the report POSTed to n8n as well.
 
 Run it once by hand from the Actions tab to check the key works.
 
-### Blog drafts, twice a week
+#### The authority score
 
-`.github/workflows/blog-draft.yml` runs Tuesday and Friday morning. It reads the latest Search
-Console figures, picks the search with real demand that our posts do not answer yet, writes a draft
-in the site's format, builds it, runs every check, and opens a pull request. **Merging is what
-publishes it**, and merging triggers the deploy.
+Domain Authority is Moz's own number, so the real figure needs a Moz key. Add **one** of these as a
+secret:
+
+| Secret | Where | What appears in the report |
+|---|---|---|
+| `MOZ_TOKEN` | moz.com/api, free tier | Domain Authority out of 100, Page Authority, how many domains link in, Spam Score |
+| `OPENPAGERANK_KEY` | domcop.com/openpagerank, free | a 0 to 10 score and the domain's global rank, labelled as Open PageRank rather than DA |
+
+Moz wins where both are set. Each week's reading is kept in `files/authority.json`, so the report
+says whether the score has moved rather than just what it is. Neither key set means the report still
+arrives, with a line saying which secret to add.
+
+DA moves slowly and a point either way is noise. It is worth watching over months, not weeks.
+
+### Blog posts, twice a week
+
+`.github/workflows/blog-draft.yml` runs Tuesday and Friday morning. It takes the top line of
+`files/TOPICS.md`, or, with that list empty, the search with real demand that our posts do not answer
+yet. It writes the post, puts it through four checks, and **publishes it to the live site with no
+review**. The URL is then emailed, to be read on the site.
+
+The four checks, any one of which stops publication:
+
+1. **The figures and the claims** (`scripts/check-draft.mjs`, no model involved). Every figure in the
+   prose has to be one of ours or arithmetic on one, and is checked against figures *of its own kind*,
+   so a number that happens to be near a real price cannot pass itself off as units of electricity.
+   It also refuses: the subsidy going anywhere but the owner's own bank account, loan terms, promised
+   savings or payback, claimed authorisations or certifications, a committed timescale, "best" or
+   "number one", inflated install numbers, "RSK" without "Solar Energy", and any sentence that
+   suggests a warranty of ours. Then: links that do not resolve, fewer than three internal links, no
+   chart, under 500 words.
+2. **A second model** (`scripts/review-draft.mjs`) reads the post against the same figures and votes
+   publish or hold. With both API keys set it is the provider that did *not* write the post, so an
+   error has to get past two different models. An answer it cannot read counts as a hold.
+3. **The build**, which runs the SEO guard: titles, descriptions, schema, headings, one H1,
+   canonicals, internal links.
+4. **The writing check** (`npm run tells`), which catches copy that reads as machine-written.
+
+A check failing sends an email saying so, and nothing reaches the site. Nothing needs doing: the next
+run takes a fresh topic.
 
 Secrets: `ANTHROPIC_API_KEY` first, `OPENAI_API_KEY` as the fallback. Either one alone keeps it
-running; with both, a provider outage or rate limit does not stop the week's post.
+running, but with only one key the second check is done by the same provider that wrote the post,
+which is weaker. `SMTP_USER` and `SMTP_PASS` are what send the emails.
 
-The draft is rejected before it becomes a pull request if it invents a figure, writes "RSK" without
-"Solar Energy", implies a warranty of ours, links to a page that does not exist, has no chart, or
-breaks the writing rules. What the model may use is fixed in `scripts/draft-post.mjs`: the site's
-own config figures, a list of linkable pages, and three chart snippets that read from the live
-config.
+What the model is allowed to use is fixed in `scripts/lib/facts.mjs`, which reads the site's own
+config, so a price or tariff change flows through to what a post may say. To write about something
+specific: Actions, "Write and publish a blog post", Run workflow, and type the topic.
 
-To write about something specific: Actions, "Draft a blog post", Run workflow, and type the topic.
+To pull a published post: delete its file from `src/content/blog/` and push. The next deploy drops it
+from the blog list, the sitemap and every internal link. The old HTML file stays on the host until
+`DEPLOY_DELETE` is set to `true` in the repository variables, because the upload adds and replaces but
+does not remove. Set that variable if a post ever has to disappear the same day.

@@ -68,9 +68,12 @@ async function openai({ system, prompt, maxTokens }) {
 }
 
 /** Asks Anthropic, falls back to OpenAI, and says which one answered. */
-export async function generate({ system, prompt, maxTokens = 8000 }) {
+export async function generate({ system, prompt, maxTokens = 8000, avoid = '' }) {
   const errors = [];
-  for (const provider of [anthropic, openai]) {
+  // `avoid` names the provider that wrote the draft, so a review is done by the other one where
+  // both keys work. If only one provider is available it reviews its own work, which is weaker.
+  const order = avoid.startsWith('openai') ? [anthropic, openai] : avoid.startsWith('anthropic') ? [openai, anthropic] : [anthropic, openai];
+  for (const provider of order) {
     try {
       const out = await provider({ system, prompt, maxTokens });
       if (errors.length) console.log(`First choice failed (${errors.join('; ')}), used ${out.provider}.`);

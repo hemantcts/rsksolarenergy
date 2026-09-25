@@ -1,16 +1,25 @@
 name: Weekly search report
 
-# Reads Search Console every Monday and files the result as a GitHub issue, so it arrives whether
-# or not anything of ours is switched on. Nothing here touches the site.
+# Reads Search Console every Monday and emails the result. Nothing here touches the site.
 #
 # Secrets:
-#   GSC_SA_JSON   the Google service-account key, whole JSON file. Create it in Google Cloud with
-#                 the Search Console API enabled, then add its client_email as a user on the
-#                 Search Console property.
+#   GSC_SA_JSON        the Google service-account key, whole JSON file. Create it in Google Cloud
+#                      with the Search Console API enabled, then add its client_email as a user on
+#                      the Search Console property.
+#   SMTP_USER          the Gmail address the report is sent from.
+#   SMTP_PASS          a Google app password for that address, not the account password.
+#   MOZ_TOKEN          optional. moz.com/api, free tier. Real Domain Authority, Page Authority,
+#                      linking domains and Spam Score.
+#   OPENPAGERANK_KEY   optional, and only needed without a Moz token. Free from
+#                      domcop.com/openpagerank: a 0 to 10 stand-in for DA.
+#
 # Variables (optional):
 #   GSC_SITE      the property, default "sc-domain:rsksolarenergy.com". For a URL-prefix property
 #                 use "https://rsksolarenergy.com/".
-#   N8N_WEBHOOK   if set, the report is also POSTed there, for WhatsApp or email.
+#   N8N_WEBHOOK   if set, the report is also POSTed there.
+#
+# Without SMTP_USER and SMTP_PASS the report is filed as a GitHub issue instead, so a week is never
+# lost while the email is being set up.
 
 on:
   schedule:
@@ -20,6 +29,13 @@ on:
 
 permissions:
   issues: write
+  # The authority score is kept in files/authority.json so the report can show movement.
+  contents: write
+
+env:
+  MAIL_TO: rajdeep.crest@gmail.com
+  # Hoisted: a step's "if" cannot read secrets, only env.
+  SMTP_USER: ${{ secrets.SMTP_USER }}
 
 jobs:
   report:
@@ -32,20 +48,50 @@ jobs:
         with:
           node-version: 22
 
+      - name: Today's date
+        id: today
+        run: echo "date=$(date -u +'%d %B %Y')" >> "$GITHUB_OUTPUT"
+
       - name: Pull the numbers
         env:
           GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
           GSC_SITE: ${{ vars.GSC_SITE }}
+          MOZ_TOKEN: ${{ secrets.MOZ_TOKEN }}
+          OPENPAGERANK_KEY: ${{ secrets.OPENPAGERANK_KEY }}
         run: node scripts/seo-report.mjs > /dev/null
 
-      - name: File it as an issue
+      - name: Email it
+        if: ${{ env.SMTP_USER != '' }}
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          from: RSK Solar Energy site <${{ secrets.SMTP_USER }}>
+          to: ${{ env.MAIL_TO }}
+          subject: 'Search report, week of ${{ steps.today.outputs.date }}'
+          html_body: file://seo-report.md
+          convert_markdown: true
+
+      - name: File it as an issue instead, if no email is set up
+        if: ${{ env.SMTP_USER == '' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh issue create \
-            --title "Search report, week of $(date +%d %B %Y)" \
-            --body-file seo-report.md \
-            --label "seo-report" || gh issue create --title "Search report $(date +%F)" --body-file seo-report.md
+          gh issue create --title "Search report $(date +%F)" --body-file seo-report.md --label seo-report \
+            || gh issue create --title "Search report $(date +%F)" --body-file seo-report.md
+
+      - name: Keep this week's authority score
+        run: |
+          if [ -z "$(git status --porcelain -- files/authority.json)" ]; then echo 'No new score.'; exit 0; fi
+          git config user.name 'rsk-content-bot'
+          git config user.email 'noreply@rsksolarenergy.com'
+          git add files/authority.json
+          git commit -m 'Authority score for this week'
+          git pull --rebase origin main
+          git push origin HEAD:main
 
       - name: Send it on, if a webhook is set
         if: ${{ vars.N8N_WEBHOOK != '' }}

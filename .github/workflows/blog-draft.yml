@@ -1,50 +1,62 @@
-name: Draft a blog post
+name: Write and publish a blog post
 
-# Twice a week, picks a topic from the latest Search Console figures, writes a draft in the site's
-# own format and opens a pull request. Nothing publishes on its own: you read the draft, and
-# merging it is what puts it live.
+# Tuesday and Friday: pick a topic, write the post, put it through four checks, and publish it.
+# Nobody approves it beforehand, so the checks are what stand between a draft and the live site:
 #
-# Two posts a week, from our own figures, on purpose. A daily drip of generated pages is what
-# Google's scaled content abuse policy is aimed at.
+#   1. scripts/check-draft.mjs   every figure has to be ours or arithmetic on ours; no banned
+#                                claims; links exist; brand and warranty rules; a chart; length.
+#   2. scripts/review-draft.mjs  a model that did not write the post reads it against our own
+#                                figures and votes publish or hold. Where both keys work that is
+#                                the other provider, so a mistake has to get past two models.
+#   3. npm run build             the SEO guard, the schema rules and the internal link check.
+#   4. npm run tells             the AI-writing check.
 #
-# Secrets: ANTHROPIC_API_KEY (first choice), OPENAI_API_KEY (fallback), GSC_SA_JSON (topic picking).
+# Any one of them failing means nothing is published and the run goes red. Once the post is live
+# its URL is emailed, so it can be read on the site and pulled if it reads wrong.
+#
+# Secrets used: ANTHROPIC_API_KEY and/or OPENAI_API_KEY, GSC_SA_JSON, SMTP_USER, SMTP_PASS.
 
 on:
   schedule:
-    # Tuesday and Friday, 05:00 UTC, which is 10:30 in Mohali.
+    # Tuesday and Friday at 05:00 UTC, which is 10:30 in Mohali.
     - cron: '0 5 * * 2,5'
   workflow_dispatch:
     inputs:
       topic:
-        description: 'Topic, in plain words. Leave empty to let the search report choose.'
+        description: 'Topic, in plain words. Leave empty for the top line of files/TOPICS.md, then the search report.'
         type: string
         required: false
 
 permissions:
   contents: write
-  pull-requests: write
+  # Pushing with the built-in token does not start another workflow, so the deploy is asked for
+  # by name once the post is on main.
+  actions: write
 
 concurrency:
-  group: blog-draft
+  group: blog-publish
   cancel-in-progress: false
 
+env:
+  MAIL_TO: rajdeep.crest@gmail.com
+  # Hoisted so the mail steps can ask whether mail is set up: a step's "if" cannot read secrets.
+  SMTP_USER: ${{ secrets.SMTP_USER }}
+
 jobs:
-  draft:
+  write:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          # 24 reads the site's TypeScript config directly, so the draft uses the live figures.
           node-version: 24
           cache: npm
 
       - run: npm ci
 
       - name: Latest search figures
-        # Only used to choose the topic. A failure here leaves the model to pick from the backlog.
         continue-on-error: true
         env:
           GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
@@ -59,40 +71,91 @@ jobs:
           TOPIC: ${{ inputs.topic }}
         run: node scripts/draft-post.mjs
 
-      - name: Build it
-        # The SEO guard, the schema checks and the internal link check all run here. A draft that
-        # breaks one of them never becomes a pull request.
+      - name: Check 1, the figures and the claims
+        run: node scripts/check-draft.mjs "src/content/blog/${{ steps.draft.outputs.slug }}.mdx"
+
+      - name: Check 2, read by the other model
+        id: review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          DRAFT_PROVIDER: ${{ steps.draft.outputs.provider }}
+        run: node scripts/review-draft.mjs "src/content/blog/${{ steps.draft.outputs.slug }}.mdx"
+
+      - name: Check 3, the build and the SEO guard
         run: npm run build
 
-      - name: Writing check
+      - name: Check 4, the writing check
         run: npm run tells
 
-      - name: Open a pull request
+      - name: Publish
         env:
-          GH_TOKEN: ${{ github.token }}
           SLUG: ${{ steps.draft.outputs.slug }}
           TITLE: ${{ steps.draft.outputs.title }}
-          PROVIDER: ${{ steps.draft.outputs.provider }}
         run: |
-          git config user.name "rsk-content-bot"
-          git config user.email "noreply@rsksolarenergy.com"
-          git checkout -B "draft/$SLUG"
+          git config user.name 'rsk-content-bot'
+          git config user.email 'noreply@rsksolarenergy.com'
           git add "src/content/blog/$SLUG.mdx"
-          git commit -m "Draft: $TITLE"
-          git push -f -u origin "draft/$SLUG"
-          gh pr create \
-            --title "Draft: $TITLE" \
-            --body "$(printf '%s\n' \
-              "Written by $PROVIDER from the latest Search Console figures." \
-              "" \
-              "Preview the post at \`src/content/blog/$SLUG.mdx\`. The build, the SEO guard and the writing check have already passed." \
-              "" \
-              "Before merging, check:" \
-              "" \
-              "- [ ] Every figure is one of ours, and reads correctly in context" \
-              "- [ ] It says something we would actually say to a customer" \
-              "- [ ] It does not repeat a post we already have" \
-              "- [ ] The chart is the right one for the point" \
-              "" \
-              "Merging publishes it: the deploy workflow puts it live within a couple of minutes.")" \
-            --label "blog-draft"             || gh pr view "draft/$SLUG" --json url --jq '"Updated the open pull request: \(.url)"'
+          git commit -m "$TITLE" -m 'Written and checked automatically: figures, a second model, the SEO guard, the writing check.'
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Deploy it
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main -f dry_run=false
+
+      - name: Wait until it answers on the live site
+        env:
+          SLUG: ${{ steps.draft.outputs.slug }}
+        run: |
+          url="https://rsksolarenergy.com/blog/$SLUG/"
+          for _ in $(seq 1 24); do
+            sleep 30
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$url")
+            echo "$url -> $code"
+            if [ "$code" = "200" ]; then exit 0; fi
+          done
+          echo 'Still not answering after twelve minutes. The post is on main, so check the deploy run.'
+          exit 1
+
+      - name: Email the link
+        if: ${{ success() && env.SMTP_USER != '' }}
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          from: RSK Solar Energy site <${{ secrets.SMTP_USER }}>
+          to: ${{ env.MAIL_TO }}
+          subject: 'Live now: ${{ steps.draft.outputs.title }}'
+          body: |
+            ${{ steps.draft.outputs.title }}
+
+            https://rsksolarenergy.com/blog/${{ steps.draft.outputs.slug }}/
+
+            Written by ${{ steps.draft.outputs.provider }}, checked by ${{ steps.review.outputs.reviewer }}.
+            It passed the figure check, the second model, the SEO guard and the writing check.
+
+            If anything in it reads wrong, reply to this email and say what to change or that it
+            should come down.
+
+      - name: Say why nothing was published
+        if: ${{ failure() && env.SMTP_USER != '' }}
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          from: RSK Solar Energy site <${{ secrets.SMTP_USER }}>
+          to: ${{ env.MAIL_TO }}
+          subject: 'No post today: a check stopped it'
+          body: |
+            Today's post was written but one of the checks stopped it, so nothing reached the
+            live site. Nothing needs doing; the next run tries a fresh topic.
+
+            What went wrong: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
