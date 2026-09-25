@@ -123,6 +123,7 @@ HARD RULES, a breach means the post is thrown away:
 3. RSK Solar Energy gives no warranty or guarantee of its own. Product warranties are the manufacturer's, on their terms. Never promise a bill, a saving or a payback.
 4. Link only to the paths in the ALLOWED LINKS list. No external links, no invented paths.
 5. No em dashes or en dashes in the prose.
+6. Do not explain how the subsidy, a loan, net metering or any government process works beyond the facts you are given. If a step is not in your facts, say it is covered in the linked guide instead of describing it.
 
 WRITING RULES (these are how a person writes, and how the site's automated check judges you):
 - No "not X but Y" contrasts unless the negative half corrects a belief a reader actually holds.
