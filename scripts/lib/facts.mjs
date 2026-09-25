@@ -36,7 +36,8 @@ export const FACTS_TEXT = `
 - On-grid and hybrid systems qualify for the subsidy. Off-grid does not. Panels must be DCR and on the ALMM list.
 - Generation: ${C.generation.annualYieldPerKwp} units per kWp a year, less ${Math.round((1 - C.generation.deratingFactor) * 100)}% for losses, which is ${Math.round(perKwYear)} units per kW a year, about ${Math.round(perKwMonth)} a month or ${perKwDay.toFixed(1)} a day. In December and January fog, plan on about ${Math.round(B.winterYieldFactor * 100)}% of that.
 - Roof: about ${C.generation.sqFtPerKw} sq ft of shade-free roof per kW.
-- A rooftop system can be at most ${C.netMetering.maxSystemPercentOfSanctionedLoad}% of the sanctioned load. Surplus export is given no value in our calculations.
+- A rooftop system can be at most ${C.netMetering.maxSystemPercentOfSanctionedLoad}% of the sanctioned load.
+- Net metering: the units a home uses as they are made are the ones worth most, because they replace units that would have been bought. Surplus sent to the grid is credited under net metering rules at a lower value, and our calculations give it no value at all, so no saving figure is ever built on export.
 - Smallest systems RSK Solar Energy installs: on-grid ${C.sizing.minKwByType['on-grid']} kW, hybrid and off-grid ${C.sizing.minKwByType.hybrid} kW.
 - Installed price ranges, before subsidy: ${[3, 5]
   .map((kw) => {
