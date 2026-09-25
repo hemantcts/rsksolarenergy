@@ -1,0 +1,55 @@
+name: Weekly search report
+
+# Reads Search Console every Monday and files the result as a GitHub issue, so it arrives whether
+# or not anything of ours is switched on. Nothing here touches the site.
+#
+# Secrets:
+#   GSC_SA_JSON   the Google service-account key, whole JSON file. Create it in Google Cloud with
+#                 the Search Console API enabled, then add its client_email as a user on the
+#                 Search Console property.
+# Variables (optional):
+#   GSC_SITE      the property, default "sc-domain:rsksolarenergy.com". For a URL-prefix property
+#                 use "https://rsksolarenergy.com/".
+#   N8N_WEBHOOK   if set, the report is also POSTed there, for WhatsApp or email.
+
+on:
+  schedule:
+    # 04:30 UTC Monday, which is 10:00 in Mohali.
+    - cron: '30 4 * * 1'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Pull the numbers
+        env:
+          GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
+          GSC_SITE: ${{ vars.GSC_SITE }}
+        run: node scripts/seo-report.mjs > /dev/null
+
+      - name: File it as an issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "Search report, week of $(date +%d %B %Y)" \
+            --body-file seo-report.md \
+            --label "seo-report" || gh issue create --title "Search report $(date +%F)" --body-file seo-report.md
+
+      - name: Send it on, if a webhook is set
+        if: ${{ vars.N8N_WEBHOOK != '' }}
+        run: |
+          curl -sS -X POST "${{ vars.N8N_WEBHOOK }}" \
+            -H 'content-type: application/json' \
+            --data "$(jq -Rs '{source:"seo-report", report:.}' < seo-report.md)"
