@@ -18,8 +18,11 @@ async function withTimeout(promise, ms) {
 }
 
 async function anthropic({ system, prompt, maxTokens }) {
-  const key = process.env.ANTHROPIC_API_KEY;
+  const key = process.env.ANTHROPIC_API_KEY?.trim();
   if (!key) throw new Error('no ANTHROPIC_API_KEY');
+  // Anthropic keys always start sk-ant-. Anything else is a wrong paste or a key for another
+  // service, and calling with it just returns 401.
+  if (!key.startsWith('sk-ant-')) throw new Error('ANTHROPIC_API_KEY is not an Anthropic key (it should start sk-ant-)');
   const res = await withTimeout(
     (signal) =>
       fetch('https://api.anthropic.com/v1/messages', {

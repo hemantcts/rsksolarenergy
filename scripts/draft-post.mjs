@@ -136,7 +136,16 @@ WRITING RULES (these are how a person writes, and how the site's automated check
 FORMAT: output ONLY the .mdx file, starting with the frontmatter fence. No preamble, no code fence around the whole thing, no commentary after.`;
 
 const report = existsSync('seo-report.md') ? readFileSync('seo-report.md', 'utf8').slice(0, 4000) : '';
-const topic = process.argv.slice(2).join(' ') || process.env.TOPIC || '';
+// Anything queued in files/TOPICS.md is written first, in order, before the search report is used.
+const backlogFile = 'files/TOPICS.md';
+const backlog = existsSync(backlogFile)
+  ? readFileSync(backlogFile, 'utf8')
+      .split(/\r?\n/)
+      .map((l) => l.match(/^\s*[-*]\s+(?!~~)(.+?)\s*$/)?.[1])
+      .filter(Boolean)
+  : [];
+const topic = process.argv.slice(2).join(' ') || process.env.TOPIC || backlog[0] || '';
+if (!process.argv[2] && !process.env.TOPIC && backlog[0]) console.log(`Topic from the backlog: ${backlog[0]}`);
 
 const PROMPT = `${topic ? `TOPIC (use this): ${topic}` : 'Choose the topic yourself from the search report below. Pick the search with real demand that our existing posts do not already answer, and write the post that would satisfy it.'}
 
