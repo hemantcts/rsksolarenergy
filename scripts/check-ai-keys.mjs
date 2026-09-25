@@ -57,9 +57,18 @@ for (const check of checks) {
       })();
       console.log(`${check.name}: refused, HTTP ${res.status} — ${String(message).slice(0, 160)}`);
       if (check.name === 'Anthropic' && res.status === 401) {
-        // Does the key work at all, or is it only this model? /v1/models needs no model access.
-        const probe = await fetch('https://api.anthropic.com/v1/models', { headers: { 'x-api-key': key.trim(), 'anthropic-version': '2023-06-01' } });
-        console.log(`Anthropic: listing models with the same key gives HTTP ${probe.status}${probe.ok ? ' (so the key is valid and the problem is the model)' : ' (so the key itself is not accepted)'}`);
+        // Which auth style does this key want? Anthropic's own keys use x-api-key; keys issued
+        // through a reseller are sometimes bearer tokens. /v1/models needs no model access.
+        for (const [style, headers] of [
+          ['x-api-key', { 'x-api-key': key.trim(), 'anthropic-version': '2023-06-01' }],
+          ['Authorization: Bearer', { authorization: `Bearer ${key.trim()}`, 'anthropic-version': '2023-06-01' }],
+        ]) {
+          const probe = await fetch('https://api.anthropic.com/v1/models', { headers });
+          console.log(`Anthropic: listing models with ${style} gives HTTP ${probe.status}${probe.ok ? ' — this style works' : ''}`);
+        }
+        if (!key.trim().startsWith('sk-ant-')) {
+          console.log("Anthropic: this does not look like a console.anthropic.com key, which always starts sk-ant-. A key issued through AWS may need a different endpoint entirely.");
+        }
       }
     }
   } catch (e) {
