@@ -37,6 +37,9 @@ for (const check of checks) {
     continue;
   }
   if (key !== key.trim()) console.log(`${check.name}: the secret has a space or newline around it, which is usually why a key is refused`);
+  // Shape only: the first few characters and the length. Enough to spot the wrong kind of key.
+  const shape = `${key.trim().slice(0, 8)}… ${key.trim().length} characters`;
+  console.log(`${check.name}: key looks like ${shape}`);
   try {
     const res = await check.call(key.trim(), check.model);
     if (res.ok) {
@@ -53,6 +56,11 @@ for (const check of checks) {
         }
       })();
       console.log(`${check.name}: refused, HTTP ${res.status} — ${String(message).slice(0, 160)}`);
+      if (check.name === 'Anthropic' && res.status === 401) {
+        // Does the key work at all, or is it only this model? /v1/models needs no model access.
+        const probe = await fetch('https://api.anthropic.com/v1/models', { headers: { 'x-api-key': key.trim(), 'anthropic-version': '2023-06-01' } });
+        console.log(`Anthropic: listing models with the same key gives HTTP ${probe.status}${probe.ok ? ' (so the key is valid and the problem is the model)' : ' (so the key itself is not accepted)'}`);
+      }
     }
   } catch (e) {
     console.log(`${check.name}: could not be reached — ${e.message.slice(0, 160)}`);
