@@ -48,7 +48,12 @@ Repository, Settings, Secrets and variables, Actions, **Secrets** tab:
 | `SSH_PORT` | defaults to 22. **Hostinger uses 65002**, so set this. |
 | `DEPLOY_DELETE` | set to `true` to remove host files that are no longer in the build. Leave it unset until you have checked what else lives in the web root. |
 
-### 3. First run
+### 3. Test the connection first
+
+Actions tab, "Build and deploy", **Run workflow**, tick **Dry run**. It connects over SSH, prints
+what is in the web root, and lists the files it *would* upload. Nothing is written.
+
+### 4. First real run
 
 Actions tab, "Build and deploy", Run workflow. It uploads only changed files, then checks that the
 live homepage, the calculator, the blog and the search index all return 200, and tells the
@@ -61,8 +66,21 @@ IndexNow search engines what changed.
 - **The live check failed.** The upload worked but the site did not answer. Check the host is up
   and that `DEPLOY_PATH` points at the web root, not its parent.
 
-`.htaccess` is part of the build, so it uploads with everything else. Keep host-level files such as
-`.well-known` out of the repo; the upload leaves them alone.
+`.htaccess` is part of the build, so it uploads with everything else.
+
+## What the deploy never touches
+
+The web root also holds the applications on subdomains. These are in the workflow's KEEP list and
+are skipped on every upload, and are protected even if `DEPLOY_DELETE` is turned on:
+
+```
+rates/  newoffice/  .well-known/  cgi-bin/  .user.ini  error_log  php.ini
+```
+
+Add any new folder that is not part of this site to that list in `.github/workflows/deploy.yml`
+before the next deploy. After each deploy the workflow also checks that
+`rates.rsksolarenergy.com` and `newoffice.rsksolarenergy.com` still answer, and reports it
+without failing the run.
 
 ## What else runs on a schedule
 
