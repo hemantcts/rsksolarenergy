@@ -151,7 +151,7 @@ FIGURES YOU MAY USE:${FACTS}
 CHART SNIPPETS: include exactly one chart. Copy one of these blocks as it is, changing only the title, caption and emphasis row. Put the imports directly under the frontmatter.
 ${CHARTS}
 
-ALLOWED LINKS (use 4 to 8 of them, in the flow of sentences):
+ALLOWED LINKS. Link to at least four of these from the body text, written as markdown links inside sentences, for example [the calculator](/solar-calculator/). The three `related` entries in the frontmatter are on top of that.
 ${LINKS.join('\n')}
 
 REQUIRED FRONTMATTER (exactly these fields, in this order):
@@ -201,10 +201,18 @@ if (/\bRSK\b(?! Solar Energy)/.test(body)) fail('writes "RSK" without "Solar Ene
 if (/[—–]/.test(body.replace(/\d\s*[–—]\s*\d/g, ''))) fail('uses a dash as a connector');
 if (/\b(warranty|guarantee)\b/i.test(body) && /\bwe (offer|give|provide)\b/i.test(body)) fail('implies an RSK Solar Energy warranty');
 
-const used = [...body.matchAll(/\]\((\/[^)]*)\)/g)].map((m) => m[1]);
-const bad = used.filter((u) => !LINKS.includes(u));
+// Links can be markdown, HTML or a frontmatter `related` entry. All three have to point at a
+// real page; at least three have to be in the body, where a reader will actually follow them.
+const linksIn = (text) => [
+  ...[...text.matchAll(/\]\((\/[^)\s]*)\)/g)].map((m) => m[1]),
+  ...[...text.matchAll(/href=["'](\/[^"']*)["']/g)].map((m) => m[1]),
+  ...[...text.matchAll(/^\s*-?\s*href:\s*(\/\S*)\s*$/gm)].map((m) => m[1]),
+];
+const bad = [...new Set(linksIn(body))].filter((u) => !LINKS.includes(u));
 if (bad.length) fail(`links to pages that are not allowed: ${bad.join(', ')}`);
-if (used.length < 3) fail('links to fewer than three of our pages');
+const inBody = new Set(linksIn(body.slice(body.indexOf('
+---', 3) + 4)));
+if (inBody.size < 3) fail(`links to only ${inBody.size} of our pages in the body, needs three`);
 if (!/<BarChart|<PriceRangeChart/.test(body)) fail('has no chart');
 
 const slug = (title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '').slice(0, 60).replace(/-$/, '');
