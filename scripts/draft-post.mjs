@@ -151,7 +151,7 @@ FIGURES YOU MAY USE:${FACTS}
 CHART SNIPPETS: include exactly one chart. Copy one of these blocks as it is, changing only the title, caption and emphasis row. Put the imports directly under the frontmatter.
 ${CHARTS}
 
-ALLOWED LINKS. Link to at least four of these from the body text, written as markdown links inside sentences, for example [the calculator](/solar-calculator/). The three `related` entries in the frontmatter are on top of that.
+ALLOWED LINKS. Link to at least four of these from the body text, written as markdown links inside sentences, for example [the calculator](/solar-calculator/). The three related entries in the frontmatter are on top of that.
 ${LINKS.join('\n')}
 
 REQUIRED FRONTMATTER (exactly these fields, in this order):
@@ -210,8 +210,7 @@ const linksIn = (text) => [
 ];
 const bad = [...new Set(linksIn(body))].filter((u) => !LINKS.includes(u));
 if (bad.length) fail(`links to pages that are not allowed: ${bad.join(', ')}`);
-const inBody = new Set(linksIn(body.slice(body.indexOf('
----', 3) + 4)));
+const inBody = new Set(linksIn(body.slice(body.indexOf('\n---', 3) + 4)));
 if (inBody.size < 3) fail(`links to only ${inBody.size} of our pages in the body, needs three`);
 if (!/<BarChart|<PriceRangeChart/.test(body)) fail('has no chart');
 
