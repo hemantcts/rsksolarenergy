@@ -1,22 +1,71 @@
-name: Check API keys
+name: Check the keys and the gates
 
-# Run this after changing ANTHROPIC_API_KEY or OPENAI_API_KEY. It makes the smallest possible call
-# to each provider and says which ones answered. Keys are never printed.
+# Run this after changing a key, or to prove the publication checks work without publishing anything.
+#
+#   Ping the providers   smallest possible call to each. Keys are never printed.
+#   The figure check     run over every post already on the site.
+#   The second model     asked to read one live post. It should come back "publish": a hold here
+#                        means the reviewer is too strict, and a post would be blocked for nothing.
+#   A planted error      the same post with a false claim added, to prove the checks actually bite.
 
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+          cache: npm
+      - run: npm ci
+
       - name: Ping both providers
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: node scripts/check-ai-keys.mjs
+
+      - name: The figure check, over the posts already live
+        continue-on-error: true
+        # Posts written by hand before this check existed can carry a figure from a customer's own
+        # bill, which it cannot verify. That is expected, so this step reports without failing.
+        run: |
+          for f in src/content/blog/*.mdx; do
+            node scripts/check-draft.mjs "$f" || echo "   ^ $f would not pass as a generated draft"
+          done
+
+      - name: The second model, on a post that should pass
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: node scripts/review-draft.mjs src/content/blog/5-kw-solar-in-punjab-subsidy-price-and-right-sizing.mdx
+
+      - name: A planted error, which both checks must catch
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          cp src/content/blog/5-kw-solar-in-punjab-subsidy-price-and-right-sizing.mdx /tmp/planted.mdx
+          cat >> /tmp/planted.mdx <<'EOF'
+
+          The subsidy is credited to the empanelled lender, not to you, and we guarantee savings of
+          94,500 units a year. RSK is an authorised government-approved installer and every job is
+          finished within 3 working days.
+          EOF
+          if node scripts/check-draft.mjs /tmp/planted.mdx; then
+            echo 'The figure check let a planted error through. That is a problem.'
+            exit 1
+          fi
+          echo 'The figure check caught it.'
+          if node scripts/review-draft.mjs /tmp/planted.mdx; then
+            echo 'The second model voted publish on a planted error. That is a problem.'
+            exit 1
+          fi
+          echo 'The second model held it.'
