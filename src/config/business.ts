@@ -90,8 +90,10 @@ export const BUSINESS = {
     asOf: '2026',
   },
 
-  // Towns RSK's own team installs in. Kurali, Morinda and the towns around them confirmed by RSK, 2026-09-15.
-  serviceArea: ['Mohali', 'Kharar', 'Zirakpur', 'Derabassi', 'Chandigarh', 'Panchkula', 'Kurali', 'Morinda', 'Ropar', 'Fatehgarh Sahib', 'Chamkaur Sahib', 'Khamanon'],
+  // Towns RSK Solar Energy's own team installs in. Kurali, Morinda and the towns around them
+  // confirmed 2026-09-15; New Chandigarh, Landran, Banur, Lalru and Naya Gaon added 2026-09-26, all
+  // inside Mohali district and within reach of the Phase 8B office.
+  serviceArea: ['Mohali', 'Kharar', 'Zirakpur', 'Derabassi', 'Chandigarh', 'Panchkula', 'New Chandigarh', 'Landran', 'Banur', 'Lalru', 'Naya Gaon', 'Kurali', 'Morinda', 'Ropar', 'Fatehgarh Sahib', 'Chamkaur Sahib', 'Khamanon'],
   brand: 'UTL Solar',
 
   /**

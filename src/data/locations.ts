@@ -373,6 +373,52 @@ export const CITIES: CityLocation[] = [
     profile:
       'The centre of Punjab’s kinnow belt, a large citrus and cotton market town. Cold storage, grading units and shops here run daytime loads that solar offsets well.',
   },
+
+  // Added 2026-09-26 at RSK Solar Energy's request: the towns in Mohali district close enough to the
+  // Phase 8B office that its own team already works there, which is why these are 'direct' on the
+  // same basis as Mohali, Kharar, Zirakpur, Derabassi and Kurali. Localities inside Mohali city
+  // itself (Sohana, Balongi, Phase 11) deliberately get no page of their own: they would repeat the
+  // Mohali page and compete with it.
+  {
+    slug: 'new-chandigarh',
+    name: 'New Chandigarh',
+    district: 'Sahibzada Ajit Singh Nagar (Mohali)',
+    tier: 'direct',
+    profile:
+      'GMADA’s planned township at Mullanpur, north-west of Chandigarh, laid out in sectors of plotted and group housing with a medical and education cluster alongside. Nearly every roof here is new, flat and unshaded, which is the easiest kind of site to design for.',
+  },
+  {
+    slug: 'landran',
+    name: 'Landran',
+    district: 'Sahibzada Ajit Singh Nagar (Mohali)',
+    tier: 'direct',
+    profile:
+      'An industrial focal point on the road between Kharar and Banur, with engineering and light manufacturing units and a large college campus. Workshops, hostels and warehouses here run their load in daylight, which is when a rooftop system produces.',
+  },
+  {
+    slug: 'banur',
+    name: 'Banur',
+    district: 'Sahibzada Ajit Singh Nagar (Mohali)',
+    tier: 'direct',
+    profile:
+      'A market town on the Zirakpur to Patiala road, with a grain market, roadside commercial property and new residential colonies spreading towards Landran. Independent houses and shops here suit on-grid systems.',
+  },
+  {
+    slug: 'lalru',
+    name: 'Lalru',
+    district: 'Sahibzada Ajit Singh Nagar (Mohali)',
+    tier: 'direct',
+    profile:
+      'An industrial town on the Ambala to Chandigarh highway, with a focal point of manufacturing and food-processing units. Industrial connections here pay for power from the first unit, with no free-units offset to clear first.',
+  },
+  {
+    slug: 'naya-gaon',
+    name: 'Naya Gaon',
+    district: 'Sahibzada Ajit Singh Nagar (Mohali)',
+    tier: 'direct',
+    profile:
+      'A dense low-rise town on Chandigarh’s northern edge below the Shivalik foothills, on the Punjab side of the boundary, so PSPCL rules and Punjab’s free units apply. Roofs here are close together and the hills shade some of them in winter, so the site check decides more than the bill does.',
+  },
 ];
 
 export const cityPath = (slug: string) => `/solar-company-${slug}/`;

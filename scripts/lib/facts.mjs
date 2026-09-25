@@ -37,7 +37,8 @@ export const FACTS_TEXT = `
 - Generation: ${C.generation.annualYieldPerKwp} units per kWp a year, less ${Math.round((1 - C.generation.deratingFactor) * 100)}% for losses, which is ${Math.round(perKwYear)} units per kW a year, about ${Math.round(perKwMonth)} a month or ${perKwDay.toFixed(1)} a day. In December and January fog, plan on about ${Math.round(B.winterYieldFactor * 100)}% of that.
 - Roof: about ${C.generation.sqFtPerKw} sq ft of shade-free roof per kW.
 - A rooftop system can be at most ${C.netMetering.maxSystemPercentOfSanctionedLoad}% of the sanctioned load.
-- Net metering: the units a home uses as they are made are the ones worth most, because they replace units that would have been bought. Surplus sent to the grid is credited under net metering rules at a lower value, and our calculations give it no value at all, so no saving figure is ever built on export.
+- Net metering: the units a home uses as they are made are the ones worth most, because they replace units that would have been bought. Whatever is exported is settled under PSPCL's net metering rules, and our calculations give export no value at all, so no saving figure of ours depends on it. Do not state a rate or a ratio for export.
+- Cost by type at the same size: hybrid always costs most, because of the battery and the hybrid inverter. On-grid costs less than hybrid at every size. Off-grid kits are priced on a different basis and are not comparable size for size, so do not call any type the cheapest outright.
 - Smallest systems RSK Solar Energy installs: on-grid ${C.sizing.minKwByType['on-grid']} kW, hybrid and off-grid ${C.sizing.minKwByType.hybrid} kW.
 - Installed price ranges, before subsidy: ${[3, 5]
   .map((kw) => {
@@ -46,7 +47,7 @@ export const FACTS_TEXT = `
   })
   .join(', ')}. Every price on the site is a range and is described as an estimate.
 - Batteries: lithium is planned at ${Math.round(B.battery.lithium.usable * 100)}% usable each cycle, tubular at ${Math.round(B.battery.tubular.usable * 100)}%.
-- RSK Solar Energy is a UTL Solar distributor at Phase 8B, Mohali, since 2022. Own team in Mohali, Kharar, Zirakpur, Derabassi, Chandigarh, Panchkula, Kurali, Morinda, Ropar, Fatehgarh Sahib, Chamkaur Sahib and Khamanon; UTL dealers elsewhere in Punjab. No warranty of its own: product warranties are the manufacturer's.
+- RSK Solar Energy is a UTL Solar distributor at Phase 8B, Mohali, since 2022. Own team in Mohali, Kharar, Zirakpur, Derabassi, Chandigarh, Panchkula, New Chandigarh (Mullanpur), Landran, Banur, Lalru, Naya Gaon, Kurali, Morinda, Ropar, Fatehgarh Sahib, Chamkaur Sahib and Khamanon; UTL dealers elsewhere in Punjab. No warranty of its own: product warranties are the manufacturer's.
 `;
 
 /**
