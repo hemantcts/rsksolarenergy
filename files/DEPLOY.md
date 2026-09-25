@@ -103,3 +103,21 @@ Setup:
    `N8N_WEBHOOK` to have the report POSTed to n8n for WhatsApp or email.
 
 Run it once by hand from the Actions tab to check the key works.
+
+### Blog drafts, twice a week
+
+`.github/workflows/blog-draft.yml` runs Tuesday and Friday morning. It reads the latest Search
+Console figures, picks the search with real demand that our posts do not answer yet, writes a draft
+in the site's format, builds it, runs every check, and opens a pull request. **Merging is what
+publishes it**, and merging triggers the deploy.
+
+Secrets: `ANTHROPIC_API_KEY` first, `OPENAI_API_KEY` as the fallback. Either one alone keeps it
+running; with both, a provider outage or rate limit does not stop the week's post.
+
+The draft is rejected before it becomes a pull request if it invents a figure, writes "RSK" without
+"Solar Energy", implies a warranty of ours, links to a page that does not exist, has no chart, or
+breaks the writing rules. What the model may use is fixed in `scripts/draft-post.mjs`: the site's
+own config figures, a list of linkable pages, and three chart snippets that read from the live
+config.
+
+To write about something specific: Actions, "Draft a blog post", Run workflow, and type the topic.

@@ -49,6 +49,15 @@ AI-writing check in `scripts/check-tells.mjs`) and the page budget, uploads over
 IndexNow. Pull requests run the same checks without deploying, which is what gates drafts from the
 content pipeline. Setup and troubleshooting: `files/DEPLOY.md`.
 
+### Content pipeline
+
+`.github/workflows/blog-draft.yml` (Tue and Fri) drafts a post from the weekly Search Console
+figures and opens a PR; merging publishes it. `scripts/lib/ai.mjs` calls Anthropic first and falls
+back to OpenAI. `scripts/draft-post.mjs` hands the model the site's own figures, the allowed link
+list and three chart snippets, then rejects the draft on invented figures, bare "RSK", implied
+warranties, unknown links, a missing chart or a broken writing rule. The PR still has to pass the
+same checks as any other.
+
 ### Site search
 
 `/search/` and the header box share `src/lib/search/query.ts` (typo tolerance, synonyms, "3kw" =

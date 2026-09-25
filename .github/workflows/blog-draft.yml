@@ -1,0 +1,98 @@
+name: Draft a blog post
+
+# Twice a week, picks a topic from the latest Search Console figures, writes a draft in the site's
+# own format and opens a pull request. Nothing publishes on its own: you read the draft, and
+# merging it is what puts it live.
+#
+# Two posts a week, from our own figures, on purpose. A daily drip of generated pages is what
+# Google's scaled content abuse policy is aimed at.
+#
+# Secrets: ANTHROPIC_API_KEY (first choice), OPENAI_API_KEY (fallback), GSC_SA_JSON (topic picking).
+
+on:
+  schedule:
+    # Tuesday and Friday, 05:00 UTC, which is 10:30 in Mohali.
+    - cron: '0 5 * * 2,5'
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: 'Topic, in plain words. Leave empty to let the search report choose.'
+        type: string
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: blog-draft
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # 24 reads the site's TypeScript config directly, so the draft uses the live figures.
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Latest search figures
+        # Only used to choose the topic. A failure here leaves the model to pick from the backlog.
+        continue-on-error: true
+        env:
+          GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
+          GSC_SITE: ${{ vars.GSC_SITE }}
+        run: node scripts/seo-report.mjs > /dev/null
+
+      - name: Write the draft
+        id: draft
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          TOPIC: ${{ inputs.topic }}
+        run: node scripts/draft-post.mjs
+
+      - name: Build it
+        # The SEO guard, the schema checks and the internal link check all run here. A draft that
+        # breaks one of them never becomes a pull request.
+        run: npm run build
+
+      - name: Writing check
+        run: npm run tells
+
+      - name: Open a pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SLUG: ${{ steps.draft.outputs.slug }}
+          TITLE: ${{ steps.draft.outputs.title }}
+          PROVIDER: ${{ steps.draft.outputs.provider }}
+        run: |
+          git config user.name "rsk-content-bot"
+          git config user.email "noreply@rsksolarenergy.com"
+          git checkout -b "draft/$SLUG"
+          git add "src/content/blog/$SLUG.mdx"
+          git commit -m "Draft: $TITLE"
+          git push -u origin "draft/$SLUG"
+          gh pr create \
+            --title "Draft: $TITLE" \
+            --body "$(printf '%s\n' \
+              "Written by $PROVIDER from the latest Search Console figures." \
+              "" \
+              "Preview the post at \`src/content/blog/$SLUG.mdx\`. The build, the SEO guard and the writing check have already passed." \
+              "" \
+              "Before merging, check:" \
+              "" \
+              "- [ ] Every figure is one of ours, and reads correctly in context" \
+              "- [ ] It says something we would actually say to a customer" \
+              "- [ ] It does not repeat a post we already have" \
+              "- [ ] The chart is the right one for the point" \
+              "" \
+              "Merging publishes it: the deploy workflow puts it live within a couple of minutes.")" \
+            --label "blog-draft" || gh pr create --title "Draft: $TITLE" --body "Written by $PROVIDER. Merging publishes it."
