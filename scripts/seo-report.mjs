@@ -13,6 +13,7 @@
 import { createSign } from 'node:crypto';
 import { writeFileSync } from 'node:fs';
 import { authoritySection } from './lib/authority.mjs';
+import { changesSection } from './lib/changes.mjs';
 
 const SITE = process.env.GSC_SITE || 'sc-domain:rsksolarenergy.com';
 const DAYS = 28;
@@ -78,6 +79,7 @@ const pct = (n) => `${round(n * 100)}%`;
 const table = (head, rows) => (rows.length ? [`| ${head.join(' | ')} |`, `|${head.map(() => '---').join('|')}|`, ...rows.map((r) => `| ${r.join(' | ')} |`)].join('\n') : '_Nothing this week._');
 
 const authority = await authoritySection();
+const changes = changesSection();
 const token = await accessToken();
 const period = { startDate: day(DAYS + 2), endDate: day(2) };
 const previous = { startDate: day(DAYS * 2 + 2), endDate: day(DAYS + 3) };
@@ -122,6 +124,8 @@ const report = `# Search report, ${period.startDate} to ${period.endDate}
 Clicks **${now.clicks}** (${change(now.clicks, before.clicks)}), impressions **${now.impressions}** (${change(now.impressions, before.impressions)}), against the previous 28 days.
 
 ${authority}
+
+${changes}
 
 ## Close to page one
 

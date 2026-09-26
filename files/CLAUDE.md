@@ -373,7 +373,15 @@ The previous install was compromised. Do not repeat the conditions.
 
 ## 10. Working agreement
 
-- **Ask rather than invent.** Missing business facts get a question, not a guess.
+- **Changes go straight to live, without approval** (RSK Solar Energy's instruction, 26 September
+  2026). No proposal step, no waiting. The tests, the SEO guard, the writing check, the page budget
+  and the live check all still run on every push, and any one of them failing stops the deploy. The
+  weekly report lists everything that went live that week, so nothing happens unseen.
+- **Ask rather than invent.** Missing business facts get a question, not a guess. Deploying without
+  approval does not change this: a price, a subsidy amount, a tariff, the phone numbers, the address,
+  installation or review counts, a certification or dealership claim, and which towns the own team
+  covers all have no source in the repository. Raise what looks wrong and say what it appears to
+  should be; never change one on a guess.
 - **Flag budget violations** the moment a change pushes past a performance limit.
 - **Small commits**, one concern each.
 - Keep `TODO-content.md` current — every placeholder, every unverified number, every

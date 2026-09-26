@@ -55,6 +55,9 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          # The report lists the week's changes, which needs the history rather than one commit.
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:

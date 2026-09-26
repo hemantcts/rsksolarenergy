@@ -173,51 +173,48 @@ from the blog list, the sitemap and every internal link. The old HTML file stays
 `DEPLOY_DELETE` is set to `true` in the repository variables, because the upload adds and replaces but
 does not remove. Set that variable if a post ever has to disappear the same day.
 
-## Tweaks: what goes straight to live, and what waits for a yes
+## Changes go straight to live
 
-Small tweaks are made and pushed without asking (RSK Solar Energy's instruction, 26 September 2026).
-A small tweak is one that is reversible in a single commit and changes nothing the business promises:
+Every change is made, checked and deployed without waiting for approval (RSK Solar Energy's
+instruction, 26 September 2026). There is no proposal step and nothing sits waiting to be noticed.
 
-- a title or description rewritten because the weekly report shows it is shown and never clicked
-- an internal link added, or one pointed somewhere more useful
-- a heading, a paragraph or a FAQ answer made clearer
-- a figure corrected so it matches `src/config/`
-- image alt text, schema fields, sitemap entries, page weight
+What stands in the way of a bad change is the same set of checks that has always run on every push,
+and none of it is skipped:
 
-Everything else is emailed first: a new page, a page removed, any change to a price, a subsidy figure
-or a tariff, the phone numbers or the address, anything that changes what a calculator works out, and
-any change to how deploys or the content pipeline run.
+| Check | Refuses |
+|---|---|
+| `npm test` | Broken calculator or sizing logic |
+| `npm run build` and the SEO guard | A missing or over-long title, a duplicate description, broken schema, an internal link that does not resolve, a stray noindex, a sitemap that disagrees with the pages, an RSK-side warranty, bare "RSK", an em dash in copy |
+| `npm run tells` | Copy that reads as machine-written |
+| `npm run budget` | A page over its weight limit |
+| The file count guard | A build too small to be real, which with deletions on would take the site down |
+| The live check | A deploy that uploaded but left the site not answering |
 
-### Approving a major tweak
+Any one of them failing stops the deploy, and nothing reaches the host.
 
-The change goes on a branch with a proposal file, in the format in `files/proposals/README.md`. Then
-Actions, **Propose a tweak**, Run workflow, with the branch name.
+**The record is the weekly report.** It opens with the authority score, then lists every change that
+went live in the last seven days, so nothing happens unseen even though nothing waits. Anything that
+looks wrong is undone in one commit: say which line.
 
-Two emails arrive: the proposal, saying what changes and why with a link to every line of the diff, and
-GitHub's own review request. Both lead to the same place. Open the run, press **Review deployments**,
-then Approve or Reject.
+### What still cannot be changed without RSK Solar Energy
 
-Approving merges the branch into `main`, deploys it and deletes the branch. Rejecting changes nothing
-and leaves the branch where it is. A confirmation comes back either way.
+This is not about approval. These are facts with no source in the repository, so changing one would
+mean inventing it:
 
-The gate is a GitHub **environment** called `major-tweaks`, with RSK Solar Energy as its required
-reviewer. The `apply` job will not start until an approval is recorded against it, and that approval is
-tied to the approving account, so nothing in the workflow has to work out who said yes.
+- a price, a subsidy amount or a tariff
+- the phone numbers, the address or the opening hours
+- a claim about certification, authorisation or dealership
+- installation counts, review counts and ratings
+- which towns the own team installs in, as opposed to the dealer network
 
-To change who can approve: Settings, Environments, `major-tweaks`, Required reviewers. Anyone listed
-needs write access to the repository. Up to six people can be listed and any one of them is enough.
-
-**Nothing else is needed for this: no n8n, no mailbox credentials, no inbound mail.** Approving by
-replying to the email was considered and dropped. GitHub cannot receive email, so a reply would have
-needed a service watching the mailbox and a code in the subject line to prove the reply was genuine.
-That is two more things to keep running, and a silent failure when either stops, in exchange for typing
-"yes" instead of pressing a button.
+A figure that looks wrong gets raised, with what it appears to should be and why. It does not get
+changed on a guess. The rules in `files/CLAUDE.md` section 7 stand regardless of who approves what.
 
 ## Mail
 
-Three emails go out: the weekly report, the URL of each published post, and a tweak waiting on a yes.
-All of them share two secrets and three optional variables, so changing provider is a settings change
-and nothing more.
+Two emails go out: the weekly report on a Monday, and the URL of each post as it is published. Both
+share two secrets and three optional variables, so changing provider is a settings change and nothing
+more.
 
 | | Gmail | Amazon SES, which is what is set up |
 |---|---|---|
@@ -230,8 +227,8 @@ and nothing more.
 The SES SMTP credentials are not the AWS access key: SES, Account dashboard, SMTP settings, Create SMTP
 credentials. A new SES account is also in the sandbox and can only send to verified addresses.
 
-**Nothing receives mail back**, so none of these can be replied to. Approvals are a button in GitHub,
-and anything else goes through a Claude Code session.
+**Nothing receives mail back**, so neither can be replied to. Anything to change goes through a Claude
+Code session.
 
 ### Checking it without waiting for a post
 
@@ -269,7 +266,7 @@ two.
 | `DEPLOY_DELETE` | variable | removing files on the host that are no longer in the build |
 | `GSC_SA_JSON` | secret | the weekly search report |
 | `GSC_SITE` | variable | the weekly report, if the property is not `sc-domain:rsksolarenergy.com` |
-| `SMTP_USER`, `SMTP_PASS` | secret | every email: the weekly report, a published post's URL, tweak proposals |
+| `SMTP_USER`, `SMTP_PASS` | secret | both emails: the weekly report and each published post's URL |
 | `MAIL_HOST`, `MAIL_PORT`, `MAIL_FROM` | variable | sending through something other than Gmail, such as Amazon SES |
 | `OPENPAGERANK_KEY` or `MOZ_TOKEN` | secret | the authority score in the weekly report |
 | `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` | secret | writing and checking the posts. Either alone works; both is better |
