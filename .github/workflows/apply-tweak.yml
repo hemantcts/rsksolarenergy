@@ -37,6 +37,16 @@ env:
 
 jobs:
   apply:
+    env:
+      # Where the mail goes out through. Defaults suit a Gmail address with an app password; set the
+      # MAIL_* repository variables to send through Amazon SES or any other provider instead.
+      MAIL_HOST: ${{ vars.MAIL_HOST || 'smtp.gmail.com' }}
+      MAIL_PORT: ${{ vars.MAIL_PORT || '465' }}
+      # SES usernames are not email addresses, so the visible sender is set apart from the login.
+      MAIL_FROM: ${{ vars.MAIL_FROM || secrets.SMTP_USER }}
+      # Hoisted so the mail steps can ask whether mail is set up at all: a step's "if" reads env,
+      # never secrets.
+      SMTP_USER: ${{ secrets.SMTP_USER }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -139,12 +149,14 @@ jobs:
         if: ${{ always() && steps.answer.outputs.verdict != '' }}
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          secure: true
+          server_address: ${{ env.MAIL_HOST }}
+          server_port: ${{ env.MAIL_PORT }}
+          # Port 465 wraps the whole session in TLS. Port 587 starts in the clear and upgrades with
+          # STARTTLS, which is what Amazon SES is usually set up on.
+          secure: ${{ env.MAIL_PORT != '587' }}
           username: ${{ secrets.SMTP_USER }}
           password: ${{ secrets.SMTP_PASS }}
-          from: RSK Solar Energy site <${{ secrets.SMTP_USER }}>
+          from: RSK Solar Energy site <${{ env.MAIL_FROM }}>
           to: ${{ env.MAIL_TO }}
           subject: 'Re: [RSK tweak ${{ github.event.client_payload.token }}] ${{ steps.check.outputs.subject }}'
           body: file://reply-body.txt

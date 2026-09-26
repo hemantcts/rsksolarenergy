@@ -99,9 +99,8 @@ Setup:
 3. Search Console, Settings, Users and permissions: add the service account's `client_email`
    as a **Full** user.
 4. GitHub secret `GSC_SA_JSON`: the whole key file.
-5. GitHub secrets `SMTP_USER` and `SMTP_PASS`, so the report can be sent. Use the Gmail address
-   itself and a **Google app password**, not the account password: Google Account, Security,
-   two-step verification on, then App passwords. Without these two the report is filed as a GitHub
+5. GitHub secrets `SMTP_USER` and `SMTP_PASS`, so the report can be sent. Any SMTP provider works;
+   see "Which mail server to send through" below. Without these two the report is filed as a GitHub
    issue instead, so no week is lost while they are being set up.
 6. Optional: `GSC_SITE` if the property is not `sc-domain:rsksolarenergy.com`, and `N8N_WEBHOOK` to
    have the report POSTed to n8n as well.
@@ -241,6 +240,43 @@ nothing else.
 Nothing is lost. The proposal email still arrives and the branch still waits. Merging it in GitHub, or
 saying yes in a chat session, does the same thing.
 
+## Which mail server to send through
+
+Three emails go out: the weekly report, the URL of each published post, and a tweak waiting for a yes.
+All of them use the same two secrets and the same three optional variables, so changing provider is a
+settings change and nothing more.
+
+| | Gmail | Amazon SES |
+|---|---|---|
+| `SMTP_USER` | the Gmail address | the SES **SMTP user name**, which looks like an access key but is not one |
+| `SMTP_PASS` | an **app password** (Google Account, Security, two-step verification on, then App passwords) | the SES **SMTP password**, generated with that user name |
+| `MAIL_HOST` | leave unset | `email-smtp.<region>.amazonaws.com`, e.g. `email-smtp.eu-central-1.amazonaws.com` |
+| `MAIL_PORT` | leave unset | `587` |
+| `MAIL_FROM` | leave unset, the address is the login | a verified sender, e.g. `site@rsksolarenergy.com` |
+
+**SES is the better of the two**, if it is already set up. Gmail sends from a personal mailbox with an
+app password, which works but puts the site's mail in a person's account and is throttled. SES sends
+from the domain with SPF and DKIM already aligned, which is why it lands in the inbox rather than the
+promotions tab, and a report full of tables is exactly the kind of mail Gmail is inclined to filter.
+
+Three things to know before switching to SES:
+
+1. **The SMTP credentials are not the AWS access key.** SES, Account dashboard, SMTP settings, Create
+   SMTP credentials. That gives a user name and a password that only work for SMTP. Pasting an AWS
+   access key and secret in their place fails to authenticate.
+2. **The sender has to be verified.** Verify `rsksolarenergy.com` as a domain identity, which also
+   sets up DKIM, and then anything `@rsksolarenergy.com` can be the `MAIL_FROM`. Verifying a single
+   address works too, and is quicker.
+3. **A new SES account is in the sandbox**, which only sends to verified addresses. Either verify
+   rajdeep.crest@gmail.com as an identity, which takes one click on a confirmation email, or request
+   production access. Nothing else about the setup changes.
+
+The AWS region has to be one where the sender is verified, and it goes in `MAIL_HOST`. It has nothing
+to do with the AWS-issued Anthropic key from earlier.
+
+Either way, run **Weekly search report** by hand from the Actions tab afterwards. Mail set up wrongly
+fails that step visibly rather than quietly; mail not set up at all falls back to a GitHub issue.
+
 ## Every secret and variable, in one place
 
 | Name | Kind | Needed for |
@@ -251,6 +287,7 @@ saying yes in a chat session, does the same thing.
 | `GSC_SA_JSON` | secret | the weekly search report |
 | `GSC_SITE` | variable | the weekly report, if the property is not `sc-domain:rsksolarenergy.com` |
 | `SMTP_USER`, `SMTP_PASS` | secret | every email: the weekly report, a published post's URL, tweak proposals |
+| `MAIL_HOST`, `MAIL_PORT`, `MAIL_FROM` | variable | sending through something other than Gmail, such as Amazon SES |
 | `MOZ_TOKEN` or `OPENPAGERANK_KEY` | secret | the authority score in the weekly report |
 | `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` | secret | writing and checking the posts. Either alone works; both is better |
 | `N8N_WEBHOOK` | variable | sending the weekly report on to n8n as well |
