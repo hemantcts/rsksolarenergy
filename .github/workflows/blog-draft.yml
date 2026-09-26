@@ -176,8 +176,9 @@ jobs:
             It passed the figure check, the second model, the SEO guard and the writing check.${{ steps.checks.outcome == 'failure' && '
             One check objected on the first pass, so it was corrected and both were run again.' || '' }}
 
-            If anything in it reads wrong, reply to this email and say what to change or that it
-            should come down.
+            Nothing sends mail back to this address, so replying here reaches nobody. If anything in
+            it reads wrong, say so in a Claude Code session and it is changed or taken down from
+            there.
 
       - name: Say why nothing was published
         if: ${{ failure() && env.SMTP_USER != '' }}

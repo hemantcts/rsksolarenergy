@@ -213,6 +213,53 @@ needed a service watching the mailbox and a code in the subject line to prove th
 That is two more things to keep running, and a silent failure when either stops, in exchange for typing
 "yes" instead of pressing a button.
 
+## Mail
+
+Three emails go out: the weekly report, the URL of each published post, and a tweak waiting on a yes.
+All of them share two secrets and three optional variables, so changing provider is a settings change
+and nothing more.
+
+| | Gmail | Amazon SES, which is what is set up |
+|---|---|---|
+| `SMTP_USER` | the Gmail address | the SES **SMTP user name**, which looks like an access key but is not one |
+| `SMTP_PASS` | an **app password**, not the account password | the SES **SMTP password**, generated with that user name |
+| `MAIL_HOST` | leave unset | `email-smtp.<region>.amazonaws.com` |
+| `MAIL_PORT` | leave unset | `587`, which switches to STARTTLS on its own |
+| `MAIL_FROM` | leave unset, the login is the address | a verified sender, since an SES login is not an email address |
+
+The SES SMTP credentials are not the AWS access key: SES, Account dashboard, SMTP settings, Create SMTP
+credentials. A new SES account is also in the sandbox and can only send to verified addresses.
+
+**Nothing receives mail back**, so none of these can be replied to. Approvals are a button in GitHub,
+and anything else goes through a Claude Code session.
+
+### Checking it without waiting for a post
+
+**Send a test email** in the Actions tab sends one plain message on demand and prints what it is about
+to try. Use it after any change to the mail settings.
+
+| Result | What it means |
+|---|---|
+| The step fails | The server refused it, and the log carries the SMTP reply: a wrong password, an unverified sender, or an unverified recipient on a sandboxed account |
+| It passes and the mail arrives | Everything works |
+| It passes and nothing arrives | The provider accepted it and something later dropped it. Look in Spam first, then in the `MAIL_FROM` mailbox for a bounce notice |
+
+### Why it currently lands in spam
+
+Verifying a sender in SES is not the same as the domain authorising SES to send for it. Gmail asks two
+things of the sending server: does the From domain's SPF record list it, and is there a DKIM signature
+matching that domain? For the sender in use the answer is no to both, from a domain whose own MX is
+Google Workspace, so Gmail distrusts it. The mail arrives; it just arrives in Spam. Marking one message
+"Not spam" trains Gmail for the rest.
+
+RSK Solar Energy decided on 26 September 2026 that this is fine as it stands. To move the mail to the
+inbox properly later: verify the **domain** in SES rather than the address, add the three DKIM CNAMEs it
+gives you to that domain's DNS, and add `include:amazonses.com` to its SPF record. For
+`rsksolarenergy.com`, whose DNS is at Hostinger, that means editing the single existing record from
+`v=spf1 include:_spf.mail.hostinger.com ~all` to
+`v=spf1 include:_spf.mail.hostinger.com include:amazonses.com ~all`. One SPF record per domain, never
+two.
+
 ## Every secret and variable, in one place
 
 | Name | Kind | Needed for |
