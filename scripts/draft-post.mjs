@@ -164,6 +164,7 @@ ${CHARTS}
 ALLOWED LINKS. Link to at least four of these from the body text, written as markdown links inside sentences, for example [the calculator](/solar-calculator/). The three related entries in the frontmatter are on top of that.
 ${LINKS.join('\n')}
 
+REQUIRED FRONTMATTER (exactly these fields, in this order). It is parsed as YAML and a post whose frontmatter will not parse is thrown away, so: put every title, description, question, answer, label and message in single quotes, keep each one on a single line, and never leave a colon inside an unquoted value. Write an apostrophe inside single quotes by doubling it.
 REQUIRED FRONTMATTER (exactly these fields, in this order):
 ---
 title: 'Sentence case, 70 characters or fewer, no brand name'

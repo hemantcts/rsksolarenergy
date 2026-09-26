@@ -6,6 +6,7 @@
 //
 //   node scripts/check-draft.mjs src/content/blog/some-post.mdx
 import { readFileSync, readdirSync, existsSync, appendFileSync } from 'node:fs';
+import { load as parseYaml } from 'js-yaml';
 import { allowedNumber } from './lib/facts.mjs';
 
 /** Where both checks record their objections, for revise-draft.mjs to act on. */
@@ -86,6 +87,28 @@ if (new Set(links).size < 3) flag('links to fewer than three of our pages');
 // ---- shape ----
 if (!/^title:/m.test(frontmatter)) flag('no title');
 if (!/<BarChart|<PriceRangeChart/.test(body)) flag('no chart');
+
+// The build parses this frontmatter with js-yaml and dies on it if it is malformed, which costs a
+// couple of minutes to find out. An unquoted value containing a colon is the usual cause, and an FAQ
+// answer is the usual place. Parsing it here turns that into a tenth of a second, and into something
+// the correction pass can be told to fix.
+let parsed;
+try {
+  parsed = parseYaml(frontmatter.replace(/^---\r?\n/, ''));
+} catch (err) {
+  flag(`the frontmatter is not valid YAML, so the build cannot read it: ${err.reason ?? err.message}. Quote any value containing a colon, and keep each FAQ answer on one line in single quotes`);
+}
+if (parsed && typeof parsed === 'object') {
+  for (const required of ['title', 'description', 'published', 'category']) {
+    if (!parsed[required]) flag(`the frontmatter has no ${required}`);
+  }
+  // Astro's schema caps these, and a build that fails on them has already cost a model call.
+  if (typeof parsed.title === 'string' && parsed.title.length > 70) flag(`the title is ${parsed.title.length} characters, and 70 is the limit`);
+  if (typeof parsed.description === 'string' && parsed.description.length > 170) flag(`the description is ${parsed.description.length} characters, and 170 is the limit`);
+  for (const entry of Array.isArray(parsed.faq) ? parsed.faq : []) {
+    if (!entry?.q || !entry?.a) flag('an FAQ entry is missing its question or its answer');
+  }
+}
 const words = prose.split(/\s+/).filter(Boolean).length;
 if (words < 500) flag(`only ${words} words`);
 
