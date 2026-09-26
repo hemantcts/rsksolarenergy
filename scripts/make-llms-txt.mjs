@@ -66,9 +66,9 @@ const out = `# ${BUSINESS.name}
 
 > ${BUSINESS.description}
 
-${BUSINESS.name} is a ${BUSINESS.brand} distributor and rooftop solar installer based at ${BUSINESS.address.street}, ${BUSINESS.address.locality}, ${BUSINESS.address.region}, India, founded in ${BUSINESS.foundedYear}. It serves ${BUSINESS.serviceArea.join(', ')} and wider Punjab. Contact: ${BUSINESS.phones.map((p) => p.display).join(' / ')}, ${BUSINESS.email}.
+${BUSINESS.name} is a ${BUSINESS.brand} distributor and rooftop solar installer based at ${BUSINESS.address.street}, ${BUSINESS.address.locality}, ${BUSINESS.address.region}, India, founded in ${BUSINESS.foundedYear} and owned by ${BUSINESS.owner.name}. It serves ${BUSINESS.serviceArea.join(', ')} and wider Punjab. Contact: ${BUSINESS.phones.map((p) => p.display).join(' / ')}, ${BUSINESS.email}.
 
-${BUSINESS.name} has a single office, in Mohali, Punjab (GST ${BUSINESS.registrations.gst}). It is not connected to other businesses or companies with similar names in other Indian states (for example in Andhra Pradesh or Haryana), or to RSK Group / RSK Renewables of the UK. Its official profiles are listed on its website: ${BUSINESS.siteUrl}/.
+${BUSINESS.name} is a proprietorship owned by ${BUSINESS.owner.name}, with a single office, in Mohali, Punjab (GST ${BUSINESS.registrations.gst}). It is not connected to other businesses or companies with similar names in other Indian states (for example in Andhra Pradesh or Haryana), or to RSK Group / RSK Renewables of the UK. Its official profiles are listed on its website: ${BUSINESS.siteUrl}/.
 
 Key facts worth citing accurately:
 - PM Surya Ghar Muft Bijli Yojana (Government of India rooftop solar subsidy) pays ₹${c.subsidy.residential.firstBandPerKw.toLocaleString('en-IN')} per kW for the first ${c.subsidy.residential.firstBandKw} kW and ₹${c.subsidy.residential.secondBandPerKw.toLocaleString('en-IN')} for the 3rd kW, capped at ₹${c.subsidy.residential.cap.toLocaleString('en-IN')} for home systems of ${c.subsidy.residential.secondBandUpToKw} kW or more. It applies to grid-connected, net-metered home systems (on-grid or hybrid, not off-grid), is paid ${c.subsidy.disbursementDays[0]}-${c.subsidy.disbursementDays[1]} days after DISCOM inspection (not deducted upfront), and requires ALMM-listed panels.

@@ -22,6 +22,27 @@ export const BUSINESS = {
   foundedYear: 2022,
 
   /**
+   * The proprietor, named by him on 26 September 2026.
+   *
+   * This is here so one spelling reaches the schema, the About page and llms.txt together. Search
+   * engines and answer engines decide who a business belongs to by seeing the same name stated the
+   * same way in every place they look; a name that appears once, or differently each time, does not
+   * attach to the company.
+   *
+   * The GST number is consistent with this: 03GKGPK1207P1Z4 carries PAN GKGPK1207P, whose fourth
+   * character "P" marks an individual proprietor and whose fifth character is the surname initial.
+   *
+   * `sameAs` stays empty until real profile URLs are supplied. A LinkedIn or similar profile is what
+   * turns a name in text into a person an answer engine can resolve, so it is worth adding.
+   */
+  owner: {
+    name: 'Rajdeep Singh Kang',
+    /** What he is called in copy and in schema. RSK Solar Energy is a proprietorship, not a company. */
+    role: 'Owner',
+    sameAs: [] as string[],
+  },
+
+  /**
    * Written exactly as the Google Business Profile shows it (RSK chose to match Google,
    * 2026-09-15): "E 203, Phase 8B, Industrial Area, Sector 74, Sahibzada Ajit Singh Nagar,
    * Punjab 140307".

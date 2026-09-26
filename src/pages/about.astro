@@ -15,6 +15,7 @@ import pcusAndInverters from '../assets/office/warehouse-pcus-and-inverters.jpg'
 import panelStack from '../assets/office/warehouse-panel-stack.jpg';
 
 const facts: [string, string][] = [
+  ['Owner', BUSINESS.owner.name],
   ['Founded', String(BUSINESS.foundedYear)],
   ['Based at', formatAddressLines().join(', ')],
   ['Distributor of', BUSINESS.brand],
@@ -44,7 +45,7 @@ const facts: [string, string][] = [
       <figcaption class="t-small mt-2 text-slate">E-203, Phase 8B Industrial Area, Sector 74, Mohali, opposite Nexa Tower.</figcaption>
     </figure>
     <p class="measure mt-6 text-slate">
-      {BUSINESS.name} has one office, this one in Mohali, Punjab. We are not connected to businesses with similar names in other states, or to the RSK Group of the UK.
+      {BUSINESS.name} is owned by {BUSINESS.owner.name} and has one office, this one in Mohali, Punjab. We are not connected to businesses with similar names in other states, or to the RSK Group of the UK.
     </p>
   </header>
 

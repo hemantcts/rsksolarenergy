@@ -58,6 +58,16 @@ export function localBusiness() {
     email: BUSINESS.email,
     foundingDate: String(BUSINESS.foundedYear),
     taxID: BUSINESS.registrations.gst,
+    // Named on every page, so the person and the business are stated together wherever a crawler or
+    // an answer engine lands, rather than only on the About page.
+    owner: {
+      '@type': 'Person',
+      '@id': `${BUSINESS.siteUrl}/#owner`,
+      name: BUSINESS.owner.name,
+      jobTitle: BUSINESS.owner.role,
+      worksFor: { '@id': BUSINESS_ID },
+      ...(BUSINESS.owner.sameAs.length ? { sameAs: BUSINESS.owner.sameAs } : {}),
+    },
     address: {
       '@type': 'PostalAddress',
       streetAddress: a.street,
