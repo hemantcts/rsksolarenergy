@@ -13,6 +13,15 @@ export interface NavGroup {
   label: string;
   /** Shorter wording for the desktop bar, where seven items share one row. */
   short?: string;
+  /**
+   * The page this section belongs to, shown first in the menu and linked from every page.
+   *
+   * Without one the menu is a flat list: a crawler reading it sees forty-odd pages of equal
+   * standing, and nothing saying that /products/batteries/ sits under /products/. Naming a page per
+   * section gives the site a top level, which is what Google asks for when deciding whether to show
+   * a set of links underneath the search result.
+   */
+  hub?: NavLink;
   links: NavLink[];
 }
 
@@ -21,6 +30,7 @@ export const NAV: NavGroup[] = [
   {
     label: 'Solar systems',
     short: 'Systems',
+    hub: { href: '/on-grid-vs-off-grid-vs-hybrid/', label: 'Which system type suits you', note: 'On-grid, off-grid and hybrid compared' },
     links: [
       { href: '/on-grid-vs-off-grid-vs-hybrid/', label: 'On-grid, off-grid or hybrid', note: 'Which type suits your connection' },
       { href: '/hybrid-solar-systems/', label: 'Hybrid solar systems', note: 'Battery backup for power cuts' },
@@ -33,9 +43,9 @@ export const NAV: NavGroup[] = [
   },
   {
     label: 'Products',
+    hub: { href: '/products/', label: 'All UTL products', note: 'The full catalogue, with specifications' },
     links: [
       ...CATEGORIES.map((c) => ({ href: `/products/${c.id}/`, label: c.name })),
-      { href: '/products/', label: 'All UTL products' },
       { href: '/utl-solar-vs-other-brands/', label: 'UTL vs other brands' },
       { href: '/brands/', label: 'All brands we supply' },
     ],
@@ -43,6 +53,7 @@ export const NAV: NavGroup[] = [
   {
     label: 'Prices & subsidy',
     short: 'Prices',
+    hub: { href: '/solar-calculator/', label: 'Solar calculator', note: 'Size, subsidy and payback from your bill' },
     links: [
       { href: '/solar-calculator/', label: 'Solar calculator', note: 'Size, subsidy and payback from your bill' },
       { href: '/new-house-solar-calculator/', label: 'New house solar calculator', note: 'No bill yet? Estimate from your appliances' },
@@ -55,13 +66,14 @@ export const NAV: NavGroup[] = [
   {
     label: 'Areas we serve',
     short: 'Areas',
+    hub: { href: '/solar-company-punjab/', label: 'Everywhere we work in Punjab', note: 'Every town, and who installs there' },
     links: [
       ...CITIES.filter((c) => c.tier === 'direct').map((c) => ({ href: cityPath(c.slug), label: `Solar in ${c.name}` })),
-      { href: '/solar-company-punjab/', label: 'All locations in Punjab' },
     ],
   },
   {
     label: 'Guides',
+    hub: { href: '/blog/', label: 'All solar guides', note: 'Plain answers on sizing, subsidy and cost' },
     links: [
       { href: '/blog/solar-with-300-free-units-punjab/', label: 'Is solar worth it with 300 free units?' },
       { href: '/blog/cheapest-solar-system-for-home-punjab/', label: 'The cheapest way to go solar' },
@@ -70,13 +82,12 @@ export const NAV: NavGroup[] = [
       { href: '/blog/how-many-batteries-for-3kw-solar-system/', label: 'Batteries for a 3 kW system' },
       { href: '/blog/lithium-vs-tubular-battery-for-solar/', label: 'Lithium or tubular battery?' },
       { href: '/blog/how-to-size-home-solar-punjab/', label: 'How to size a home system' },
-      { href: '/blog/', label: 'All solar guides' },
     ],
   },
   {
     label: 'About',
+    hub: { href: '/about/', label: 'About RSK Solar Energy', note: 'UTL Solar distributor in Mohali since 2022' },
     links: [
-      { href: '/about/', label: 'About RSK Solar Energy' },
       { href: '/why-choose-rsk-solar-energy/', label: 'Why choose RSK Solar Energy' },
       { href: '/installations/', label: 'Installations', note: `${BUSINESS.installs.commercial} commercial, ${BUSINESS.installs.residential} homes` },
       { href: '/reviews/', label: 'Customer reviews', note: `${BUSINESS.google.rating.toFixed(1)} from ${BUSINESS.google.reviewCount} Google reviews` },
