@@ -4,7 +4,7 @@ import { PRIMARY_PHONE } from '../config/business';
 import Icon from './Icon.astro';
 ---
 
-<a href={`tel:${PRIMARY_PHONE.tel}`} class="desktop-call-btn hidden md:inline-flex" aria-label={`Call RSK Solar Energy at ${PRIMARY_PHONE.display}`}>
+<a href={`tel:${PRIMARY_PHONE.tel}`} data-tap="Floating call button" class="desktop-call-btn hidden md:inline-flex" aria-label={`Call RSK Solar Energy at ${PRIMARY_PHONE.display}`}>
   <Icon name="phone" size={20} />
   <span>Call {PRIMARY_PHONE.display}</span>
 </a>

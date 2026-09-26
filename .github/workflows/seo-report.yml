@@ -52,7 +52,7 @@ jobs:
       # never secrets.
       SMTP_USER: ${{ secrets.SMTP_USER }}
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
@@ -62,10 +62,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+
+      # The taps section reads DB-IP's location databases, which needs the one dependency it has.
+      - run: npm ci
 
       - name: Today's date
         id: today
-        run: echo "date=$(date -u +'%d %B %Y')" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "date=$(date -u +'%d %B %Y')" >> "$GITHUB_OUTPUT"
+          echo "month=$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
 
       - name: Pull the numbers
         env:
@@ -79,6 +85,78 @@ jobs:
         run: |
           node scripts/seo-report.mjs > /dev/null
           sed -n '/^## Authority/,/^## Close/p' seo-report.md | sed '$d'
+
+      # ---- Who reached out: WhatsApp and call taps (files/DEPLOY.md, "Enquiry taps") ----
+      #
+      # Every step from here to the email handles IP addresses, and this repository is public, which
+      # makes its workflow logs public too. So nothing below prints a row, an address or a place:
+      # only counts. The data goes into the email and nowhere else, never into the issue fallback.
+      # Each step is allowed to fail, so a host that is unreachable costs this section, not the
+      # whole report.
+
+      - name: Set up SSH
+        continue-on-error: true
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ vars.SSH_PORT || '22' }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Fetch the taps, and delete anything past twelve months
+        continue-on-error: true
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ vars.SSH_PORT || '22' }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          mkdir -p taps
+          # public_html's parent: the tap log sits beside the web root, never inside it.
+          TAPS="$(dirname "$DEPLOY_PATH")/rsk-taps"
+          # The privacy policy says twelve months, so month files last written a year ago go first.
+          ssh -i ~/.ssh/id_deploy -p "$SSH_PORT" -o BatchMode=yes "$SSH_USER@$SSH_HOST" \
+            "cd '$TAPS' 2>/dev/null || exit 0; find . -maxdepth 1 -name '*.csv' -mtime +365 -delete; tar czf - *.csv 2>/dev/null || true" \
+            | tar xzf - -C taps 2>/dev/null || true
+          echo "Fetched $(ls taps/*.csv 2>/dev/null | wc -l) month file(s)."
+
+      - name: Location databases, cached for the month
+        continue-on-error: true
+        uses: actions/cache@v4
+        with:
+          path: geo
+          key: dbip-lite-${{ steps.today.outputs.month }}
+
+      - name: Download them if the cache did not have them
+        continue-on-error: true
+        run: |
+          mkdir -p geo
+          this=$(date -u +%Y-%m)
+          last=$(date -u -d "$(date -u +%Y-%m-01) -1 month" +%Y-%m)
+          for db in city asn; do
+            [ -s "geo/$db.mmdb.gz" ] && continue
+            # A new month's file appears on the 1st; until it does, last month's is still good.
+            for m in "$this" "$last"; do
+              curl -sfL -o "geo/$db.mmdb.gz" "https://download.db-ip.com/free/dbip-$db-lite-$m.mmdb.gz" && break
+            done
+            [ -s "geo/$db.mmdb.gz" ] || rm -f "geo/$db.mmdb.gz"
+          done
+          ls geo
+
+      - name: Who reached out
+        continue-on-error: true
+        run: node scripts/taps-report.mjs taps geo/city.mmdb.gz geo/asn.mmdb.gz
+
+      - name: Put the email together
+        id: assemble
+        run: |
+          # The taps section goes after the authority score, ahead of the change log and the search
+          # tables. seo-report.md is left as it was, because that is what the issue fallback posts.
+          node -e 'const fs=require("fs");const r=fs.readFileSync("seo-report.md","utf8");const t=fs.existsSync("taps.md")?fs.readFileSync("taps.md","utf8"):"";const at=r.indexOf("## What changed on the site");fs.writeFileSync("email.md",!t?r:at>=0?r.slice(0,at)+t+"\n\n"+r.slice(at):r+"\n\n"+t);'
+          if [ -s taps-all.csv ]; then echo "attach=taps-this-week.csv,taps-all.csv" >> "$GITHUB_OUTPUT"; fi
 
       - name: Email it
         if: ${{ env.SMTP_USER != '' }}
@@ -94,9 +172,12 @@ jobs:
           from: RSK Solar Energy site <${{ env.MAIL_FROM }}>
           to: ${{ env.MAIL_TO }}
           subject: 'Search report, week of ${{ steps.today.outputs.date }}'
-          html_body: file://seo-report.md
+          html_body: file://email.md
           convert_markdown: true
+          attachments: ${{ steps.assemble.outputs.attach }}
 
+      # Posts seo-report.md, which never contains the taps section: issues on a public repository
+      # are public, and that section holds visitors' IP addresses.
       - name: File it as an issue instead, if no email is set up
         if: ${{ env.SMTP_USER == '' }}
         env:

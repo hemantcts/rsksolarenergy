@@ -24,3 +24,12 @@ draft-problems.txt
 # depth, which silently swallowed src/content/ and would have stopped the Tuesday post being
 # committed at all.
 /content/
+
+# Local test output of public/api/tap.php when run with the PHP dev server. On the host this
+# directory sits outside the web root; locally it would land here, and it holds IP addresses.
+/rsk-taps/
+
+# Weekly report outputs, which contain IP addresses. Emailed, never committed.
+taps.md
+taps-*.csv
+email.md

@@ -70,7 +70,7 @@ prominence after about a week, so they are worth doing regularly rather than onc
 | Address | `BUSINESS.address`, written exactly as the profile shows it |
 | Phone | `BUSINESS.phones`, primary first |
 | Hours | `BUSINESS.hours` |
-| Website | `https://rsksolarenergy.com/` |
+| Website | `https://rsksolarenergy.com/?utm_source=gbp` — the tag lets the Monday report count taps that came from the profile, under "Google Business Profile". The page is the same homepage. |
 | Description | the block above |
 
 If the profile is edited directly, change it here too, or the next person to compare them will not

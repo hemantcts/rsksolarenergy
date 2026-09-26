@@ -80,6 +80,13 @@ see it on an over-long title, a bad category or a duplicate slug.
 `scripts/check-draft.mjs` is written for generated drafts. Hand-written posts predating it may fail
 on figures from a customer's own bill; do not loosen the checker to accommodate them.
 
+### Enquiry taps
+
+Every tap on a WhatsApp or call button is logged with the page, the button, how the visit began and
+the visitor's IP address, and the Monday report emails a "Who reached out" section with two
+spreadsheets. The log lives beside the web root, never in it. **The repository is public**: nothing
+that handles taps may print or commit a row, an address or a place. See `files/DEPLOY.md`.
+
 ### Site search
 
 `/search/` and the header box share `src/lib/search/query.ts` (typo tolerance, synonyms, "3kw" =
@@ -144,6 +151,11 @@ meets WCAG AA. Forms labelled. This is a floor, not a feature — do not announc
 ### Deliberately excluded
 jQuery, Revolution Slider, any page builder, Font Awesome, carousel libraries,
 chat-widget SaaS, cookie-consent SaaS, analytics beyond one lightweight tool.
+
+One deliberate exception, asked for by RSK Solar Energy on 26 September 2026: the enquiry-tap log
+(`src/scripts/taps.ts` and `public/api/tap.php`). It is first-party, about 1 KB, sets no cookie and
+loads nothing from anyone else. It is the only server code on the site, which is why it is written
+the way section 9 asks. Details in `files/DEPLOY.md`, "Enquiry taps".
 
 Every dependency is a performance tax and an attack surface. The previous site was
 compromised. Keep the surface small.

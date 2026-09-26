@@ -257,11 +257,57 @@ gives you to that domain's DNS, and add `include:amazonses.com` to its SPF recor
 `v=spf1 include:_spf.mail.hostinger.com include:amazonses.com ~all`. One SPF record per domain, never
 two.
 
+## Enquiry taps
+
+Every tap on a WhatsApp or call button is recorded, so the Monday report can say which page and which
+button people reach out from, where they are, and how they found the site. Added 26 September 2026 at
+RSK Solar Energy's request.
+
+**How it works.** `src/scripts/taps.ts` puts one click listener on the whole document for links to
+`tel:` and `https://wa.me/`, so every such button is counted, including ones added later, with no
+tagging needed. It posts a small JSON body to `public/api/tap.php`, the only server code on the site,
+which appends one line to a monthly CSV. The same tap also goes to Google Analytics as a
+`whatsapp_tap` or `call_tap` event.
+
+**Button names.** Shared parts of the site carry `data-tap-region` (Top bar, Site header, Sticky bar
+(mobile), Footer), and a button can name itself with `data-tap`. Anything else is named after the
+heading of the section it sits in plus its own text, for example
+"Solar company in Kharar, Punjab › Ask on WhatsApp".
+
+**Where the data is.** In `rsk-taps/` beside `public_html`, never inside it, so it cannot be
+downloaded and the deploy's `rsync --delete` never touches it. One file per month. The deploy checks
+`GET /api/tap.php` answers `ok`, which means the folder is writable.
+
+**The report.** `seo-report.yml` fetches the month files over SSH, looks each address up in DB-IP's
+free Lite databases (city and network, CC BY 4.0, cached per month), and adds a "Who reached out"
+section to the email with two spreadsheets attached: this week, and everything held. Test taps (a user
+agent containing `rsk-test`) and crawlers are counted separately and left out of the figures.
+
+**The endpoint is defensive on purpose.** Only GET and POST, only our own origin, a 2 KB body, every
+field checked against what it may contain, 30 taps an hour per address, a 25 MB cap per month file.
+Tested against control characters, spoofed `X-Forwarded-For`, shell-looking input, and a
+`=HYPERLINK()` formula, which the report neutralises before it reaches a spreadsheet.
+
+**Privacy.** IP addresses are personal data under India's DPDP Act, and the privacy policy says what is
+recorded, why, and for how long. Records are deleted after twelve months by the report job. **This
+repository is public, and so are its workflow logs and issues.** Nothing that handles taps may print a
+row, an address or a place; the report scripts print counts only, the data goes to the email and
+nowhere else, and the issue fallback deliberately posts the search report without the taps section.
+Keep it that way.
+
+**What the locations mean.** Mobile networks in India route through regional gateways, so a phone on
+Jio in Kharar often shows up as Navi Mumbai. The report marks those "(approx.)". The page someone
+tapped from is the more reliable signal of where they are.
+
+**To see taps from the Business Profile specifically,** set the profile's website link to
+`https://rsksolarenergy.com/?utm_source=gbp`. The report then lists those taps as "Google Business
+Profile" rather than folding them into Google search or direct.
+
 ## Every secret and variable, in one place
 
 | Name | Kind | Needed for |
 |---|---|---|
-| `SSH_HOST`, `SSH_USER`, `SSH_KEY`, `DEPLOY_PATH` | secret | the deploy |
+| `SSH_HOST`, `SSH_USER`, `SSH_KEY`, `DEPLOY_PATH` | secret | the deploy, and fetching the enquiry taps for the weekly report |
 | `SSH_PORT` | variable | the deploy, if not 22. Hostinger uses 65002 |
 | `DEPLOY_DELETE` | variable | removing files on the host that are no longer in the build |
 | `GSC_SA_JSON` | secret | the weekly search report |

@@ -114,5 +114,9 @@ const nodes = [localBusiness(), ...(crumbs.length ? [breadcrumbs(trail)] : []), 
     <Footer />
     <StickyBar />
     <DesktopCallButton />
+    <script>
+      // Counts WhatsApp and call taps, with the page and button they came from (files/DEPLOY.md).
+      import '../scripts/taps';
+    </script>
   </body>
 </html>

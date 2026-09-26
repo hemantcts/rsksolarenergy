@@ -130,6 +130,16 @@ jobs:
           done
           curl -s https://rsksolarenergy.com/ | grep -q 'RSK Solar Energy' || exit 1
 
+      - name: Check enquiry taps can still be stored
+        if: ${{ inputs.dry_run != true }}
+        continue-on-error: true
+        # api/tap.php answers a GET with "ok" when it can write its log, which sits outside the web
+        # root and so is not something this deploy can see. Only the first line is printed.
+        run: |
+          status=$(curl -s https://rsksolarenergy.com/api/tap.php | head -1)
+          echo "tap endpoint: $status"
+          [ "$status" = "ok" ]
+
       - name: Check the subdomain apps still answer
         if: ${{ inputs.dry_run != true }}
         continue-on-error: true
