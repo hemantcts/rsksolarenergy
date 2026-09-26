@@ -374,11 +374,10 @@ export const CITIES: CityLocation[] = [
       'The centre of Punjab’s kinnow belt, a large citrus and cotton market town. Cold storage, grading units and shops here run daytime loads that solar offsets well.',
   },
 
-  // Added 2026-09-26 at RSK Solar Energy's request: the towns in Mohali district close enough to the
-  // Phase 8B office that its own team already works there, which is why these are 'direct' on the
-  // same basis as Mohali, Kharar, Zirakpur, Derabassi and Kurali. Localities inside Mohali city
-  // itself (Sohana, Balongi, Phase 11) deliberately get no page of their own: they would repeat the
-  // Mohali page and compete with it.
+  // Added 2026-09-26 at RSK Solar Energy's request. Marked 'direct' on the same footing as Mohali,
+  // Kharar, Zirakpur, Derabassi and Kurali, and RSK Solar Energy confirmed the same day that its own
+  // team does install in all five. Localities inside Mohali city itself (Sohana, Balongi, Phase 11)
+  // deliberately get no page of their own: they would repeat the Mohali page and compete with it.
   {
     slug: 'new-chandigarh',
     name: 'New Chandigarh',

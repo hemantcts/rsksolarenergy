@@ -33,6 +33,10 @@ import rooftopBeingFitted from '../assets/installations/rooftop-solar-panels-bei
 /**
  * Clips from the same jobs, served from this site rather than a third party.
  *
+ * All of it was shot on a phone and is 9:16. The MP4 headers say 1024x576, but they carry a rotation
+ * flag and decode upright, so the tiles are portrait and the posters are generated portrait. Forcing
+ * 16:9 on them crops most of the frame away.
+ *
  * Every one is `preload="none"` behind a poster image, so a visitor downloads nothing until they
  * press play. That is what makes self-hosting eight videos reasonable on shared hosting: the page
  * costs the same to load whether they are here or not.
@@ -50,7 +54,7 @@ const clips = [
 
 // Posters are generated at build time so they are WebP and the right size, like every other image.
 const clipsWithPosters = await Promise.all(
-  clips.map(async (clip) => ({ ...clip, posterUrl: (await getImage({ src: clip.poster, width: 640, format: 'webp' })).src })),
+  clips.map(async (clip) => ({ ...clip, posterUrl: (await getImage({ src: clip.poster, width: 576, format: 'webp' })).src })),
 );
 
 const videoSchema = clipsWithPosters.map((clip) => ({
@@ -134,13 +138,13 @@ const byType = [
         Short clips from our own jobs. Nothing downloads until you press play, so the page stays
         quick whether you watch them or not.
       </p>
-      <ul class="mt-8 grid gap-x-6 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+      <ul class="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
         {
           clipsWithPosters.map((clip) => (
             <li>
               <figure>
                 <video
-                  class="aspect-video w-full border border-rule bg-ink"
+                  class="aspect-[9/16] w-full border border-rule bg-ink object-cover"
                   src={`/videos/${clip.file}.mp4`}
                   poster={clip.posterUrl}
                   preload="none"
@@ -165,7 +169,7 @@ const byType = [
         farmland, and the inverters and boards behind them. No stock photography, on this page or
         anywhere else on this site.
       </p>
-      <ul class="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3">
+      <ul class="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
         {
           photos.map((photo, i) => (
             <li>
@@ -173,10 +177,10 @@ const byType = [
                 <Image
                   src={photo.src}
                   alt={photo.alt}
-                  widths={[320, 640, 960]}
-                  sizes="(min-width: 64rem) 30vw, (min-width: 48rem) 33vw, 50vw"
-                  loading={i < 2 ? 'eager' : 'lazy'}
-                  class="aspect-[4/3] w-full border border-rule object-cover"
+                  widths={[288, 432, 576]}
+                  sizes="(min-width: 64rem) 18vw, (min-width: 40rem) 30vw, 46vw"
+                  loading={i < 3 ? 'eager' : 'lazy'}
+                  class="aspect-[9/16] w-full border border-rule object-cover"
                 />
                 <figcaption class="t-small mt-2 text-slate">{photo.caption}</figcaption>
               </figure>
