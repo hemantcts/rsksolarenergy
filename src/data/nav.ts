@@ -60,6 +60,7 @@ export const NAV: NavGroup[] = [
       { href: '/hybrid-solar-calculator/', label: 'Hybrid solar calculator', note: 'Battery backup for power cuts' },
       { href: '/off-grid-solar-calculator/', label: 'Off-grid solar calculator', note: 'Sites with no grid connection' },
       { href: '/pm-surya-ghar-subsidy-punjab/', label: 'PM Surya Ghar subsidy' },
+      { href: '/solar-loan-options/', label: 'Solar loans and finance', note: 'Five ways to spread the cost' },
       ...SOLAR_CONFIG.sizing.sizePagesKw.map((kw) => ({ href: sizePath(kw), label: `${kw} kW system price` })),
     ],
   },
