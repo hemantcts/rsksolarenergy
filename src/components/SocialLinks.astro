@@ -13,7 +13,8 @@ const links = [
   { key: 'instagram', href: BUSINESS.social.instagram, label: 'RSK Solar Energy on Instagram' },
   { key: 'youtube', href: BUSINESS.social.youtube, label: 'RSK Solar Energy on YouTube' },
   { key: 'x', href: BUSINESS.social.x, label: 'RSK Solar Energy on X (Twitter)' },
-].filter((l): l is { key: 'facebook' | 'instagram' | 'youtube' | 'x'; href: string; label: string } => Boolean(l.href));
+  { key: 'linkedin', href: BUSINESS.social.linkedin, label: 'RSK Solar Energy on LinkedIn' },
+].filter((l): l is { key: 'facebook' | 'instagram' | 'youtube' | 'x' | 'linkedin'; href: string; label: string } => Boolean(l.href));
 ---
 
 {

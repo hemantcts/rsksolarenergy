@@ -60,7 +60,15 @@ const facts: [string, string][] = [
                 <th scope="row" class="text-slate">
                   {k}
                 </th>
-                <td class="text-right font-medium">{v}</td>
+                <td class="text-right font-medium">
+                  {k === 'Owner' && BUSINESS.owner.sameAs[0] ? (
+                    <a href={BUSINESS.owner.sameAs[0]} rel="noopener me" target="_blank" class="underline">
+                      {v}
+                    </a>
+                  ) : (
+                    v
+                  )}
+                </td>
               </tr>
             ))
           }

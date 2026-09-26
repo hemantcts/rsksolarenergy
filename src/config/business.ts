@@ -39,7 +39,7 @@ export const BUSINESS = {
     name: 'Rajdeep Singh Kang',
     /** What he is called in copy and in schema. RSK Solar Energy is a proprietorship, not a company. */
     role: 'Owner',
-    sameAs: [] as string[],
+    sameAs: ['https://www.linkedin.com/in/rajdeep-singh-kang-97238185/'] as string[],
   },
 
   /**
@@ -127,6 +127,11 @@ export const BUSINESS = {
     // X and YouTube supplied by RSK, 2026-09-15.
     x: 'https://x.com/rsksolarenergy' as string | null,
     youtube: 'https://www.youtube.com/@RSKSOLARENERGY' as string | null,
+    // Supplied by RSK Solar Energy, 2026-09-26. LinkedIn carries the company and the owner as
+    // separate profiles that already reference each other, which is why both are worth listing:
+    // together they let an engine resolve the person and the business as one relationship rather
+    // than two unconnected names.
+    linkedin: 'https://www.linkedin.com/company/rsk-solar-energy/' as string | null,
   },
 
   /** Registration numbers, shown in the footer and About for credibility. Confirmed by RSK. */

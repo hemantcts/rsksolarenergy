@@ -1,7 +1,7 @@
 ---
 /** Inline icons. Decorative by default (aria-hidden); the adjacent text carries the meaning. */
 interface Props {
-  name: 'whatsapp' | 'phone' | 'calculator' | 'star' | 'pin' | 'mail' | 'facebook' | 'instagram' | 'youtube' | 'x' | 'play' | 'menu' | 'search' | 'close' | 'chevron-down' | 'clock';
+  name: 'whatsapp' | 'phone' | 'calculator' | 'star' | 'pin' | 'mail' | 'facebook' | 'instagram' | 'youtube' | 'x' | 'linkedin' | 'play' | 'menu' | 'search' | 'close' | 'chevron-down' | 'clock';
   size?: number;
   class?: string;
 }
@@ -33,6 +33,11 @@ const { name, size = 20, class: className } = Astro.props;
   {
     name === 'mail' && (
       <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z" />
+    )
+  }
+  {
+    name === 'linkedin' && (
+      <path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM3.2 8.48h3.5V21H3.2V8.48Zm5.55 0h3.35v1.71h.05a3.67 3.67 0 0 1 3.3-1.81c3.54 0 4.19 2.33 4.19 5.36V21h-3.5v-5.55c0-1.32-.02-3.02-1.84-3.02-1.84 0-2.12 1.44-2.12 2.92V21H8.75V8.48Z" />
     )
   }
   {
