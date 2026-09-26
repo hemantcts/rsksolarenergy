@@ -1,13 +1,13 @@
 ---
 title: 'UTL vs Exide Solar Batteries: Warranty Compared'
-description: 'UTL and Exide tubular batteries compared on warranty, from each brand''s published figures. Exide lists the longer warranty; here is where UTL still fits.'
+description: 'UTL and Exide batteries compared on warranty, from each brand''s published figures. Exide leads on 150 Ah-class tubulars; UTL''s 170 Ah lists the longest total.'
 h1: UTL vs Exide batteries
-lead: 'On tubular batteries, Exide lists the longer warranty. Its EL Ultra carries 72 months and its Home InvaTubular 66, against 60 months on UTL''s. UTL''s case rests on the battery being part of a whole solar system from one brand.'
+lead: 'Exide''s EL Ultra lists 72 months and its Home InvaTubular 66, against 60 on UTL''s 150 Ah tubular batteries. UTL''s larger 170 Ah USB 17100 lists the longest total of any battery here, at 100 months.'
 crumb: UTL vs Exide
 updated: '2026-09-26'
 faq:
   - q: Which has the longer battery warranty, UTL or Exide?
-    a: 'Exide, on the models compared here. The Exide EL Ultra Tubular lists 72 months, 54 of them free replacement, and the Home InvaTubular lists 66, 48 of them free replacement. UTL lists 60 months on its UIT16036 (36 + 24) and on its UST1560.'
+    a: 'It depends on the battery. Exide''s EL Ultra Tubular lists 72 months, 54 of them free replacement, and the Home InvaTubular 66, 48 of them free. UTL lists 60 months on its 150 Ah UIT16036 and UST1560, and 100 months in total on its larger 170 Ah USB 17100.'
   - q: What does free replacement plus pro-rata mean?
     a: 'In the free-replacement months a failed battery is replaced at no charge. In the pro-rata months you pay part of the price of a new one, depending on how far through the warranty you are. Compare the free-replacement months first.'
   - q: Does RSK Solar Energy sell Exide?
@@ -28,14 +28,15 @@ cta:
 import BarChart from '../../components/charts/BarChart.astro';
 
 export const months = [
+  { label: 'UTL USB 17100, 170 Ah', value: 100, display: '100 months', emphasis: true, note: 'Split not stated' },
   { label: 'Exide EL Ultra Tubular', value: 72, display: '72 months', note: '54 free + 18 pro-rata' },
   { label: 'Exide Home InvaTubular', value: 66, display: '66 months', note: '48 free + 18 pro-rata' },
   { label: 'UTL UST1560, 150 Ah', value: 60, display: '60 months', emphasis: true, note: 'Heavy duty' },
   { label: 'UTL UIT16036, 150 Ah', value: 60, display: '60 months', emphasis: true, note: '36 free + 24' },
 ];
-export const ticks = [0, 12, 24, 36, 48, 60, 72].map((v) => ({ value: v, label: `${v}` }));
+export const ticks = [0, 20, 40, 60, 80, 100].map((v) => ({ value: v, label: `${v}` }));
 
-Exide is best known for batteries, and on the tubular models compared here it lists longer warranties than UTL does. Where UTL comes back into it is the rest of the system: panels, the solar inverter or PCU, and the battery, all from one brand and one service network.
+Exide is best known for batteries, and against UTL's 150 Ah tubulars it lists the longer warranties. UTL's 170 Ah USB 17100 lists a longer total than any of them. It is a larger battery, and UTL does not state how its 100 months divide between free replacement and pro-rata, so ask for that in writing before you weigh it.
 
 ## Warranty, model by model
 
@@ -44,6 +45,7 @@ Exide is best known for batteries, and on the tubular models compared here it li
 <caption>From each brand's published figures, checked 26 September 2026</caption>
 <thead><tr><th scope="col">Battery</th><th scope="col">Warranty</th></tr></thead>
 <tbody>
+<tr><th scope="row"><a href="/products/utl-170ah-inverter-battery-usb-17100/" class="underline">UTL USB 17100</a>, 170 Ah</th><td>100 months in total; the split is not stated in UTL's specifications</td></tr>
 <tr><th scope="row">Exide EL Ultra Tubular</th><td>72 months: 54 free replacement + 18 pro-rata</td></tr>
 <tr><th scope="row">Exide Home InvaTubular</th><td>66 months: 48 free replacement + 18 pro-rata</td></tr>
 <tr><th scope="row"><a href="/products/utl-150ah-solar-inverter-battery-ust-1560/" class="underline">UTL UST1560</a>, 150 Ah heavy duty</th><td>60 months</td></tr>
@@ -52,11 +54,11 @@ Exide is best known for batteries, and on the tubular models compared here it li
 </table>
 </div>
 
-<BarChart title="Total warranty on a tubular battery" rows={months} max={72} ticks={ticks} valueHeading="Warranty, months" caption="Totals, from each brand's own pages. The free-replacement part matters most, and it is in the table above." />
+<BarChart title="Total warranty on a battery" rows={months} max={100} ticks={ticks} valueHeading="Warranty, months" caption="Totals, from each brand's own pages. The free-replacement part matters most, and it is in the table above where the brand states it." />
 
 ## Choose Exide if
 
-- The battery warranty is what matters most to you. On these models, Exide lists longer free-replacement periods.
+- The free-replacement period matters most. Exide states it outright: 54 months on the EL Ultra.
 
 ## Choose UTL if
 
@@ -69,5 +71,5 @@ RSK Solar Energy is a UTL Solar distributor in Mohali. We do not stock Exide, so
 
 ## Sources
 
-- UTL: [UIT16036](/products/uit16036-solar-battery/) and [UST1560](/products/utl-150ah-solar-inverter-battery-ust-1560/), from UTL's specifications
+- UTL: [UIT16036](/products/uit16036-solar-battery/), [UST1560](/products/utl-150ah-solar-inverter-battery-ust-1560/) and [USB 17100](/products/utl-170ah-inverter-battery-usb-17100/), from UTL's specifications
 - Exide: [EL Ultra Tubular](https://www.exidecare.com/brand/exide-el-ultra-tubular-inverter-battery) and [Home InvaTubular](https://www.exidecare.com/brand/exide-home-invatubular-inverter-battery), on Exide's own site, checked 26 September 2026
