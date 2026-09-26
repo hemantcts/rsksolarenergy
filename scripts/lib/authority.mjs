@@ -41,9 +41,14 @@ async function fromOpenPageRank(key) {
     headers: { 'API-OPR': key },
   });
   if (!res.ok) throw new Error(`Open PageRank said ${res.status}: ${(await res.text()).slice(0, 200)}`);
-  const row = (await res.json()).response?.[0];
-  if (!row || row.status_code !== 200) throw new Error('Open PageRank has no score for the domain yet.');
-  return { source: 'Open PageRank', da: Number(row.page_rank_decimal), scale: 10, rank: Number(row.rank) || null };
+  const body = await res.json();
+  const row = body.response?.[0];
+  if (!row) throw new Error(`Open PageRank sent back nothing usable: ${JSON.stringify(body).slice(0, 200)}`);
+  if (row.status_code !== 200) throw new Error(`Open PageRank has no entry for ${DOMAIN} (it answered ${row.status_code}${row.error ? `, "${row.error}"` : ''}).`);
+  // A domain in the index but with no links yet scores 0, which is a real reading, not a failure.
+  const score = Number(row.page_rank_decimal);
+  if (!Number.isFinite(score)) throw new Error(`Open PageRank gave no score for ${DOMAIN}.`);
+  return { source: 'Open PageRank', da: score, scale: 10, rank: Number(row.rank) || null };
 }
 
 function history() {

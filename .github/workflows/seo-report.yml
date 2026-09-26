@@ -70,7 +70,12 @@ jobs:
           GSC_SITE: ${{ vars.GSC_SITE }}
           MOZ_TOKEN: ${{ secrets.MOZ_TOKEN }}
           OPENPAGERANK_KEY: ${{ secrets.OPENPAGERANK_KEY }}
-        run: node scripts/seo-report.mjs > /dev/null
+        # The report itself goes to a file, not the log: it is long, and the log is public to anyone
+        # with repository access. The authority section is printed, because when a key is wrong that
+        # is where it says so.
+        run: |
+          node scripts/seo-report.mjs > /dev/null
+          sed -n '/^## Authority/,/^## Close/p' seo-report.md | sed '$d'
 
       - name: Email it
         if: ${{ env.SMTP_USER != '' }}
