@@ -11,8 +11,9 @@ name: Weekly search report
 #                      For SES, the generated SMTP password, not an AWS secret access key.
 #   MOZ_TOKEN          optional. moz.com/api, free tier. Real Domain Authority, Page Authority,
 #                      linking domains and Spam Score.
-#   OPENPAGERANK_KEY   optional, and only needed without a Moz token. Free from
-#                      domcop.com/openpagerank: a 0 to 10 stand-in for DA.
+#   OPENPAGERANK_KEY   optional, and only needed without a Moz token. Free from the Dashboard at
+#                      openpagerank.keywordseverywhere.com: a 0 to 10 score with monthly history.
+#                      Keys start opr_. An old domcop.com key does not work against it.
 #
 # Variables (optional):
 #   GSC_SITE      the property, default "sc-domain:rsksolarenergy.com". For a URL-prefix property

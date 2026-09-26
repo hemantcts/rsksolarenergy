@@ -109,17 +109,28 @@ Run it once by hand from the Actions tab to check the key works.
 
 #### The authority score
 
-Domain Authority is Moz's own number, so the real figure needs a Moz key. Add **one** of these as a
-secret:
+Add **one** of these as a repository secret:
 
 | Secret | Where | What appears in the report |
 |---|---|---|
-| `MOZ_TOKEN` | moz.com/api, free tier | Domain Authority out of 100, Page Authority, how many domains link in, Spam Score |
-| `OPENPAGERANK_KEY` | domcop.com/openpagerank, free | a 0 to 10 score and the domain's global rank, labelled as Open PageRank rather than DA |
+| `OPENPAGERANK_KEY` | the Dashboard at openpagerank.keywordseverywhere.com, free, 30,000 domains a month | a 0 to 10 score, how it has moved over the last year, how many domains link in, and the domain's global rank |
+| `MOZ_TOKEN` | moz.com/api, free tier | Moz's Domain Authority out of 100, Page Authority, linking root domains, Spam Score |
 
-Moz wins where both are set. Each week's reading is kept in `files/authority.json`, so the report
-says whether the score has moved rather than just what it is. Neither key set means the report still
-arrives, with a line saying which secret to add.
+Moz wins where both are set, because "DA" means Moz's number and nothing else. Neither key set means
+the report still arrives, with a line saying which secret to add.
+
+Open PageRank is computed from Common Crawl's open link graph, so the method is published rather than
+proprietary, and domains that manufacture links through networks are scored down. It keeps monthly
+history back to 2018, which is why the report can say the score is up 0.3 on a year ago rather than
+just printing a number.
+
+**A note on old keys.** Open PageRank used to live at domcop.com and took a key in an `API-OPR`
+header. It has moved to keywordseverywhere.com and been rebuilt as a POST with a bearer token, and
+keys now start `opr_`. A domcop key returns 401, and the report says so in as many words rather than
+leaving the section blank.
+
+Each reading is also kept in `files/authority.json`, which is what lets the Moz figure show movement,
+since Moz returns only today's number.
 
 DA moves slowly and a point either way is noise. It is worth watching over months, not weeks.
 
@@ -288,6 +299,6 @@ fails that step visibly rather than quietly; mail not set up at all falls back t
 | `GSC_SITE` | variable | the weekly report, if the property is not `sc-domain:rsksolarenergy.com` |
 | `SMTP_USER`, `SMTP_PASS` | secret | every email: the weekly report, a published post's URL, tweak proposals |
 | `MAIL_HOST`, `MAIL_PORT`, `MAIL_FROM` | variable | sending through something other than Gmail, such as Amazon SES |
-| `MOZ_TOKEN` or `OPENPAGERANK_KEY` | secret | the authority score in the weekly report |
+| `OPENPAGERANK_KEY` or `MOZ_TOKEN` | secret | the authority score in the weekly report |
 | `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` | secret | writing and checking the posts. Either alone works; both is better |
 | `N8N_WEBHOOK` | variable | sending the weekly report on to n8n as well |
