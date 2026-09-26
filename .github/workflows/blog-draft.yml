@@ -79,16 +79,34 @@ jobs:
           TOPIC: ${{ inputs.topic }}
         run: node scripts/draft-post.mjs
 
-      - name: Check 1, the figures and the claims
-        run: node scripts/check-draft.mjs "src/content/blog/${{ steps.draft.outputs.slug }}.mdx"
+      # Checks 1 and 2 get a second go. A draft is usually held for one fixable thing, a figure that
+      # cannot be verified or a phrase that drifts from our wording, and losing the slot over that
+      # would mean most weeks produce nothing. The correction is told what to remove, then both checks
+      # run again strictly: a second failure publishes nothing.
+      - name: Checks 1 and 2, the figures, the claims and a second model
+        id: checks
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          DRAFT_PROVIDER: ${{ steps.draft.outputs.provider }}
+          POST: src/content/blog/${{ steps.draft.outputs.slug }}.mdx
+        run: |
+          node scripts/check-draft.mjs "$POST"
+          node scripts/review-draft.mjs "$POST"
 
-      - name: Check 2, read by the other model
+      - name: Fix what they objected to, once, then check again strictly
+        if: ${{ steps.checks.outcome == 'failure' }}
         id: review
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           DRAFT_PROVIDER: ${{ steps.draft.outputs.provider }}
-        run: node scripts/review-draft.mjs "src/content/blog/${{ steps.draft.outputs.slug }}.mdx"
+          POST: src/content/blog/${{ steps.draft.outputs.slug }}.mdx
+        run: |
+          node scripts/revise-draft.mjs "$POST"
+          node scripts/check-draft.mjs "$POST"
+          node scripts/review-draft.mjs "$POST"
 
       - name: Check 3, the build and the SEO guard
         run: npm run build
@@ -146,8 +164,9 @@ jobs:
 
             https://rsksolarenergy.com/blog/${{ steps.draft.outputs.slug }}/
 
-            Written by ${{ steps.draft.outputs.provider }}, checked by ${{ steps.review.outputs.reviewer }}.
-            It passed the figure check, the second model, the SEO guard and the writing check.
+            Written by ${{ steps.draft.outputs.provider }}, checked by ${{ steps.review.outputs.reviewer || steps.checks.outputs.reviewer }}.
+            It passed the figure check, the second model, the SEO guard and the writing check.${{ steps.checks.outcome == 'failure' && '
+            One check objected on the first pass, so it was corrected and both were run again.' || '' }}
 
             If anything in it reads wrong, reply to this email and say what to change or that it
             should come down.

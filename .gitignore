@@ -13,3 +13,6 @@ seo-report.md
 
 # Hand-made upload bundles from before the deploy workflow existed
 *.zip
+
+# Written by a held draft so the correction pass knows what to fix. One run only.
+draft-problems.txt

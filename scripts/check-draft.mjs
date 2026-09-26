@@ -5,8 +5,11 @@
 // name and warranties. Run on its own or from the publishing pipeline:
 //
 //   node scripts/check-draft.mjs src/content/blog/some-post.mdx
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync, appendFileSync } from 'node:fs';
 import { allowedNumber } from './lib/facts.mjs';
+
+/** Where both checks record their objections, for revise-draft.mjs to act on. */
+const PROBLEMS = 'draft-problems.txt';
 
 const file = process.argv[2];
 if (!file || !existsSync(file)) {
@@ -87,7 +90,10 @@ const words = prose.split(/\s+/).filter(Boolean).length;
 if (words < 500) flag(`only ${words} words`);
 
 if (problems.length) {
-  console.error(`\n❌ ${file} is not publishable:\n${problems.map((p) => `  - ${p}`).join('\n')}`);
+  const list = problems.map((p) => `  - ${p}`).join('\n');
+  console.error(`\n❌ ${file} is not publishable:\n${list}`);
+  // revise-draft.mjs reads this, so a held draft gets one corrected pass instead of losing the slot.
+  appendFileSync(PROBLEMS, `The figure and claim check refused it:\n${list}\n`);
   process.exit(1);
 }
 console.log(`✅ ${file}: ${words} words, every figure accounted for, ${new Set(links).size} internal links.`);

@@ -10,6 +10,9 @@ import { readFileSync, existsSync, appendFileSync } from 'node:fs';
 import { generate } from './lib/ai.mjs';
 import { FACTS_TEXT } from './lib/facts.mjs';
 
+/** Where both checks record their objections, for revise-draft.mjs to act on. */
+const PROBLEMS = 'draft-problems.txt';
+
 const file = process.argv[2];
 const writtenBy = process.argv[3] ?? process.env.DRAFT_PROVIDER ?? '';
 if (!file || !existsSync(file)) {
@@ -67,5 +70,8 @@ if (process.env.GITHUB_OUTPUT) {
 
 if (verdict.verdict !== 'publish') {
   console.error('\nHeld. Nothing is published.');
+  // revise-draft.mjs reads this, so a held draft gets one corrected pass instead of losing the slot.
+  const list = problems.map((p) => `  - ${p}`).join('\n');
+  appendFileSync(PROBLEMS, `${provider} read it and held it:\n${list}\n${verdict.notes ? `  note: ${verdict.notes}\n` : ''}`);
   process.exit(1);
 }
