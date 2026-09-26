@@ -7,21 +7,19 @@ the config. Those are reversible in one commit and need nobody's morning.
 A **major** tweak waits. A new page, a page removed, a price or subsidy figure changed, a change to
 the phone numbers or the NAP, anything that alters what the business promises, anything that changes
 how a calculator works out a size or a price, or a change to how deploys run. Those go on a branch and
-are emailed to RSK Solar Energy, who replies yes or no in the email. Nothing waits in GitHub for
-someone to find it.
+are emailed to RSK Solar Energy, who approves or rejects them with one press. Nothing sits in GitHub
+waiting for somebody to find it.
 
 ## How one is made
 
-1. The change goes on a branch named `tweak/<slug>`, all of it, ready to merge. Opening a pull request
-   for it is optional but useful: the pull request runs the same checks as a deploy.
+1. The change goes on a branch named `tweak/<slug>`, all of it, ready to merge.
 2. A file `files/proposals/<slug>.md` goes on that same branch, in the format below.
-3. Actions, **Propose a tweak**, Run workflow, with the branch name. That sends the email.
+3. Actions, **Propose a tweak**, Run workflow, with the branch name.
 
 ## The format
 
 ```markdown
 ---
-token: 7f3a91c4
 subject: Change the 5 kW price range to match the new UTL list
 ---
 
@@ -38,20 +36,16 @@ What prompted it. A figure from the weekly report, a supplier price list, a cust
 How it gets undone, and how long that takes.
 ```
 
-`token` is eight hex characters, made fresh for each proposal, and it goes in the email subject. A
-reply carries the subject back, which is what tells the apply workflow that the answer came from
-somebody who was actually sent the email. Never reuse a token, and never put one in a commit message
-or a public comment.
+## Saying yes or no
 
-## Replying
+Two emails arrive: the proposal itself, and GitHub's own review request. Either one leads to the same
+place. Open the run, press **Review deployments**, then Approve or Reject.
 
-Reply **yes**, **approve** or **go ahead** and the branch is merged into `main`, which deploys it.
-Reply **no** and the branch is deleted. Either way a short confirmation comes back.
+Approving merges the branch into `main`, which deploys it, and deletes the branch. Rejecting changes
+nothing and leaves the branch where it is, so it can be picked up later. A short confirmation comes
+back either way.
 
-A reply that says something else is treated as a no, and the reason is quoted back, because a
-half-understood instruction is not an approval.
-
-## The bridge
-
-n8n reads the mailbox, checks the sender and the token, and calls GitHub. Setting it up is in
-`files/DEPLOY.md` under "Approving a major tweak from email".
+The approval is GitHub's, recorded against the approving account, which is why nothing here checks who
+said yes. An earlier version of this worked by replying to the email, which needed a code in the
+subject line to prove the reply was genuine, and a service reading the mailbox to pass it on. Pressing
+a button removes both.

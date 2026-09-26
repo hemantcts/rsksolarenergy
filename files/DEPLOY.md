@@ -102,8 +102,7 @@ Setup:
 5. GitHub secrets `SMTP_USER` and `SMTP_PASS`, so the report can be sent. Any SMTP provider works;
    see "Which mail server to send through" below. Without these two the report is filed as a GitHub
    issue instead, so no week is lost while they are being set up.
-6. Optional: `GSC_SITE` if the property is not `sc-domain:rsksolarenergy.com`, and `N8N_WEBHOOK` to
-   have the report POSTed to n8n as well.
+6. Optional: `GSC_SITE`, if the property is not `sc-domain:rsksolarenergy.com`.
 
 Run it once by hand from the Actions tab to check the key works.
 
@@ -189,104 +188,30 @@ Everything else is emailed first: a new page, a page removed, any change to a pr
 or a tariff, the phone numbers or the address, anything that changes what a calculator works out, and
 any change to how deploys or the content pipeline run.
 
-### Approving a major tweak from email
+### Approving a major tweak
 
 The change goes on a branch with a proposal file, in the format in `files/proposals/README.md`. Then
-Actions, **Propose a tweak**, Run workflow, with the branch name. An email arrives with a subject like
-`[RSK tweak 7f3a91c4] Change the 5 kW price range to match the new UTL list`. Replying **yes** merges
-it and it goes live; replying **no** deletes the branch. A confirmation comes back either way.
+Actions, **Propose a tweak**, Run workflow, with the branch name.
 
-The code in the subject line is what makes the reply trustworthy. It is made fresh for each proposal,
-and the apply workflow refuses anything whose code does not match the branch, so somebody forging the
-sender address still cannot push a change without having seen the email.
+Two emails arrive: the proposal, saying what changes and why with a link to every line of the diff, and
+GitHub's own review request. Both lead to the same place. Open the run, press **Review deployments**,
+then Approve or Reject.
 
-**n8n is the bridge between the mailbox and GitHub.** One workflow, four nodes:
+Approving merges the branch into `main`, deploys it and deletes the branch. Rejecting changes nothing
+and leaves the branch where it is. A confirmation comes back either way.
 
-1. **IMAP Email** trigger on the mailbox, `imap.gmail.com`, port 993, the same Gmail app password as
-   `SMTP_PASS`. Mark as read on success.
-2. **Filter**: keep it only when the subject matches `\[RSK tweak ([0-9a-f]{8})\]` and the sender is
-   rajdeep.crest@gmail.com.
-3. **Code** node, to pull the pieces out of the reply:
+The gate is a GitHub **environment** called `major-tweaks`, with RSK Solar Energy as its required
+reviewer. The `apply` job will not start until an approval is recorded against it, and that approval is
+tied to the approving account, so nothing in the workflow has to work out who said yes.
 
-   ```js
-   const subject = $json.subject || '';
-   const token = (subject.match(/\[RSK tweak ([0-9a-f]{8})\]/) || [])[1];
-   // The first non-empty line that is not quoted text from the original email.
-   const decision = (($json.textPlain || $json.text || '')
-     .split('\n')
-     .map((l) => l.trim())
-     .find((l) => l && !l.startsWith('>') && !/wrote:$/.test(l)) || '').toLowerCase();
-   return [{ json: { token, decision, quote: decision, from: $json.from } }];
-   ```
+To change who can approve: Settings, Environments, `major-tweaks`, Required reviewers. Anyone listed
+needs write access to the repository. Up to six people can be listed and any one of them is enough.
 
-4. **HTTP Request**: POST to
-   `https://api.github.com/repos/hemantcts/rsksolarenergy/dispatches`, header
-   `Authorization: Bearer <a GitHub fine-grained token with Contents: write on this repo>`, header
-   `Accept: application/vnd.github+json`, body:
-
-   ```json
-   {
-     "event_type": "tweak-decision",
-     "client_payload": {
-       "branch": "tweak/{{ $json.token }}",
-       "token": "{{ $json.token }}",
-       "decision": "{{ $json.decision }}",
-       "from": "{{ $json.from }}",
-       "quote": "{{ $json.quote }}"
-     }
-   }
-   ```
-
-   The branch name is not in the email, so n8n needs to look it up. Either keep a short lookup in an
-   n8n data table when the proposal is sent, or add a step before this one that calls
-   `GET /repos/hemantcts/rsksolarenergy/branches` and picks the `tweak/*` branch whose proposal file
-   holds that token. The apply workflow checks the token against the branch either way, so a wrong
-   guess is refused rather than applied.
-
-The GitHub token lives in n8n's credential store, never in the repo. It needs **Contents: write** and
-nothing else.
-
-### If the bridge is not set up yet
-
-Nothing is lost. The proposal email still arrives and the branch still waits. Merging it in GitHub, or
-saying yes in a chat session, does the same thing.
-
-## Which mail server to send through
-
-Three emails go out: the weekly report, the URL of each published post, and a tweak waiting for a yes.
-All of them use the same two secrets and the same three optional variables, so changing provider is a
-settings change and nothing more.
-
-| | Gmail | Amazon SES |
-|---|---|---|
-| `SMTP_USER` | the Gmail address | the SES **SMTP user name**, which looks like an access key but is not one |
-| `SMTP_PASS` | an **app password** (Google Account, Security, two-step verification on, then App passwords) | the SES **SMTP password**, generated with that user name |
-| `MAIL_HOST` | leave unset | `email-smtp.<region>.amazonaws.com`, e.g. `email-smtp.eu-central-1.amazonaws.com` |
-| `MAIL_PORT` | leave unset | `587` |
-| `MAIL_FROM` | leave unset, the address is the login | a verified sender, e.g. `site@rsksolarenergy.com` |
-
-**SES is the better of the two**, if it is already set up. Gmail sends from a personal mailbox with an
-app password, which works but puts the site's mail in a person's account and is throttled. SES sends
-from the domain with SPF and DKIM already aligned, which is why it lands in the inbox rather than the
-promotions tab, and a report full of tables is exactly the kind of mail Gmail is inclined to filter.
-
-Three things to know before switching to SES:
-
-1. **The SMTP credentials are not the AWS access key.** SES, Account dashboard, SMTP settings, Create
-   SMTP credentials. That gives a user name and a password that only work for SMTP. Pasting an AWS
-   access key and secret in their place fails to authenticate.
-2. **The sender has to be verified.** Verify `rsksolarenergy.com` as a domain identity, which also
-   sets up DKIM, and then anything `@rsksolarenergy.com` can be the `MAIL_FROM`. Verifying a single
-   address works too, and is quicker.
-3. **A new SES account is in the sandbox**, which only sends to verified addresses. Either verify
-   rajdeep.crest@gmail.com as an identity, which takes one click on a confirmation email, or request
-   production access. Nothing else about the setup changes.
-
-The AWS region has to be one where the sender is verified, and it goes in `MAIL_HOST`. It has nothing
-to do with the AWS-issued Anthropic key from earlier.
-
-Either way, run **Weekly search report** by hand from the Actions tab afterwards. Mail set up wrongly
-fails that step visibly rather than quietly; mail not set up at all falls back to a GitHub issue.
+**Nothing else is needed for this: no n8n, no mailbox credentials, no inbound mail.** Approving by
+replying to the email was considered and dropped. GitHub cannot receive email, so a reply would have
+needed a service watching the mailbox and a code in the subject line to prove the reply was genuine.
+That is two more things to keep running, and a silent failure when either stops, in exchange for typing
+"yes" instead of pressing a button.
 
 ## Every secret and variable, in one place
 
@@ -301,4 +226,3 @@ fails that step visibly rather than quietly; mail not set up at all falls back t
 | `MAIL_HOST`, `MAIL_PORT`, `MAIL_FROM` | variable | sending through something other than Gmail, such as Amazon SES |
 | `OPENPAGERANK_KEY` or `MOZ_TOKEN` | secret | the authority score in the weekly report |
 | `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` | secret | writing and checking the posts. Either alone works; both is better |
-| `N8N_WEBHOOK` | variable | sending the weekly report on to n8n as well |

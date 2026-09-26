@@ -21,7 +21,6 @@ name: Weekly search report
 #   MAIL_HOST     the SMTP server, default smtp.gmail.com. For SES, email-smtp.<region>.amazonaws.com.
 #   MAIL_PORT     default 465. Use 587 for SES on STARTTLS.
 #   MAIL_FROM     the visible sender, needed for SES because its login is not an email address.
-#   N8N_WEBHOOK   if set, the report is also POSTed there.
 #
 # Without SMTP_USER and SMTP_PASS the report is filed as a GitHub issue instead, so a week is never
 # lost while the email is being set up.
@@ -112,10 +111,3 @@ jobs:
           git commit -m 'Authority score for this week'
           git pull --rebase origin main
           git push origin HEAD:main
-
-      - name: Send it on, if a webhook is set
-        if: ${{ vars.N8N_WEBHOOK != '' }}
-        run: |
-          curl -sS -X POST "${{ vars.N8N_WEBHOOK }}" \
-            -H 'content-type: application/json' \
-            --data "$(jq -Rs '{source:"seo-report", report:.}' < seo-report.md)"
