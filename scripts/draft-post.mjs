@@ -263,5 +263,9 @@ console.log(`slug: ${slug}`);
 
 // Values the workflow uses for the branch and pull request.
 if (process.env.GITHUB_OUTPUT) {
-  writeFileSync(process.env.GITHUB_OUTPUT, `slug=${slug}\ntitle=${title.replace(/"/g, "'")}\nprovider=${provider}\n`, { flag: 'a' });
+  // `topic` is echoed back so the workflow can strike it off files/TOPICS.md once the post is
+  // actually published. Striking it here would lose the topic whenever a later check refuses the
+  // draft, and leaving it would make the next run write the same post and fail on the duplicate slug.
+  const fromBacklog = !process.argv[2] && !process.env.TOPIC && backlog[0] === topic ? topic : '';
+  writeFileSync(process.env.GITHUB_OUTPUT, `slug=${slug}\ntitle=${title.replace(/"/g, "'")}\nprovider=${provider}\ntopic=${fromBacklog}\n`, { flag: 'a' });
 }

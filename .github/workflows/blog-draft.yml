@@ -118,10 +118,14 @@ jobs:
         env:
           SLUG: ${{ steps.draft.outputs.slug }}
           TITLE: ${{ steps.draft.outputs.title }}
+          TOPIC: ${{ steps.draft.outputs.topic }}
         run: |
           git config user.name 'rsk-content-bot'
           git config user.email 'noreply@rsksolarenergy.com'
-          git add "src/content/blog/$SLUG.mdx"
+          # Cross the topic off the backlog now that every check has passed. Left on the list, the
+          # next run would write the same post and fail on the duplicate slug.
+          node scripts/strike-topic.mjs "$TOPIC"
+          git add "src/content/blog/$SLUG.mdx" files/TOPICS.md
           git commit -m "$TITLE" -m 'Written and checked automatically: figures, a second model, the SEO guard, the writing check.'
           # The build rewrites tracked generated files, public/llms.txt among them, and a rebase
           # refuses to run with those outstanding. They are regenerated on every build, so the post
