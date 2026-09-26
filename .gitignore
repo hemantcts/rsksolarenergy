@@ -19,4 +19,8 @@ draft-problems.txt
 
 # Source video and photos from the owner: originals live here, never committed or deployed.
 # Only the processed stills that are actually used go into src/assets/.
-content/
+#
+# The leading slash matters. Without it this pattern matches any directory called "content" at any
+# depth, which silently swallowed src/content/ and would have stopped the Tuesday post being
+# committed at all.
+/content/
