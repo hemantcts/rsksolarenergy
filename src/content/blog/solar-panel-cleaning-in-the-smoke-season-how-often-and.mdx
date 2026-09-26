@@ -1,0 +1,91 @@
+---
+title: 'Solar panel cleaning in the smoke season: how often and signs'
+description: 'During Punjab’s smoke season, check panels weekly and clean when a visible film builds up or output drops against your normal clear‑day baseline.'
+published: '2026-09-26'
+category: 'Installation and maintenance'
+tags: ['maintenance', 'cleaning', 'Punjab', 'monitoring']
+faq:
+  - q: How often should I clean panels in the smoke season?
+    a: Check weekly. Clean when you see a film of soot or ash or when clear‑day output is below your normal. Some homes need a quick rinse after a heavy smoke day.
+  - q: Is pressure washing or detergent safe for modules?
+    a: We do not recommend it. Use clean water, a soft brush or microfiber, and a squeegee. Avoid harsh chemicals and do not spray water into junction boxes or connectors.
+  - q: Will the manufacturer’s warranty cover loss from dirt or smoke?
+    a: No. Warranties cover defects on the manufacturer’s terms. Dirt or ash buildup is maintenance and is not a warranty issue.
+related:
+  - href: /blog/solar-panel-maintenance-punjab/
+    label: Dust, heat and cleaning basics in Punjab
+  - href: /blog/solar-output-punjab-winter-fog/
+    label: What winter fog does to output
+  - href: /solar-calculator/
+    label: Plan your system and expected units
+cta:
+  heading: Need a cleaning visit or a quick check?
+  label: Ask RSK Solar Energy on WhatsApp
+  message: 'Hi RSK Solar Energy, can you check my rooftop array for soot buildup and advise on cleaning? I am in [your area].'
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
+
+export const perKwMonth = effectiveYieldPerKw(SOLAR_CONFIG) / 12;
+export const sizes = [1, 2, 3, 5, 10];
+export const rows = sizes.map((kw) => ({ label: `${kw} kW`, value: kw * perKwMonth, display: `${Math.round(kw * perKwMonth)} units`, emphasis: kw === 5 }));
+export const ticks = [0, 250, 500, 750, 1000].map((v) => ({ value: v, label: String(v) }));
+
+<div class="not-prose my-8">
+<BarChart title="What a clean array makes across the year" rows={rows} max={1000} ticks={ticks} valueHeading="Units a month" caption="Built from our site planning figure: 1224 units per kW per year, about 102 a month." />
+</div>
+
+Smoke puts a dry film on glass. In this season we suggest you check your panels weekly and clean when there is a visible layer or when your clear‑day output falls below your normal. That simple routine keeps your array working as planned.
+
+We install and maintain rooftop systems across Mohali, Kharar, Zirakpur, Derabassi, Chandigarh, Panchkula, New Chandigarh and nearby towns. This note is from what we see on roofs here.
+
+## How to tell cleaning is due
+
+Look first, then confirm with your numbers.
+
+- Visual check: go to the roof in safe daylight. If you can see a grey or brown film, ash specks, or a smeared look after dew dries, plan a rinse.
+- Hand wipe test on the frame: run a finger across the aluminum frame, not the glass. If it comes away black or gritty, the glass likely has the same layer.
+- Compare to your normal clear‑day baseline: our planning figure is about 3.4 units a day per kW across the year. On your usual clear days outside of heavy fog, your own system will have a pattern around that. If a run of clear days comes in lower than your normal for similar weather, soot may be part of it.
+- Separate smoke from winter fog: in winter fog output is lower. We plan on about 75% of the annual average in deep fog. If it is a foggy spell, that is expected. If it is clear and still down against your normal clear‑day baseline, clean the glass.
+- Compare strings if your inverter shows them: if two similar strings face the same way and one is consistently behind on clear days, look for local dirt or bird droppings on that side.
+
+If you prefer, ask us to look over your inverter logs with you. Start with the planning numbers in the chart above and your site specifics from [the calculator](/solar-calculator/).
+
+## How often to clean in smoke season
+
+There is no fixed count that fits every roof. Smoke is uneven across sectors and days. What works:
+
+- Check once a week in this season. Use the signs above rather than a calendar.
+- Rinse after a heavy smoke day if you can see soot on the glass or on the frame.
+- If your roof is hard to reach, plan fewer, more thorough cleans when the film is obvious.
+
+Outside the smoke and dust periods, many homes are fine with far less frequent cleaning. Track your own pattern through the year.
+
+## Safe cleaning method we use on routine visits
+
+This is what we do on a standard dust or smoke film clean. If you are doing it yourself, only do it where access is safe.
+
+- Shut down as per your inverter manual. Turn off the DC isolator and AC supply. If you are unsure, call us.
+- Clean early morning or late evening when modules are cool.
+- Use clean tap water with light flow. A soft brush or microfiber on a telescopic pole loosens the film. Rinse and squeegee off. Do not use harsh chemicals.
+- Do not spray water into junction boxes, connectors or the inverter.
+- Do not walk on modules. Use proper roof access and anchors where needed.
+
+If there is baked‑on grime, bird droppings, or access is risky, ask our team to handle it. Product warranties are the manufacturer’s, on their terms, and they do not cover damage from poor cleaning methods.
+
+## What to expect after cleaning
+
+When ash and soot are off the glass, the array can go back to its normal pattern for the weather. Across a full year we plan on 1224 units per kW, about 102 a month or 3.4 a day. In a foggy winter month the plan is lower. This is why we treat on‑site generation, your weather, and your roof angle as the reference, not someone else’s output.
+
+If you want to cross check what your system should make by size, see our note on [how many units 1 kW produces in Punjab](/blog/how-many-units-1kw-solar-produces-punjab/) and use [the calculator](/solar-calculator/) to match your roof and sanction load. If you are planning a new build, [the new‑house calculator](/new-house-solar-calculator/) helps size the array and shows how use changes with ACs and other loads.
+
+## A few roof and system points that matter in smoke
+
+- Tilt and orientation: flatter arrays collect and hold more film. Rinsing helps. We set tilt at install time to suit your roof.
+- Trees and vents: soot sticks to sticky spots made by sap or kitchen vents. Keep those clear where you can.
+- Bird droppings: even small patches can shade a cell and cut a string. Clean those when you see them rather than waiting for a round.
+- Monitoring: many on‑grid and hybrid inverters have apps. Use them to spot patterns. For system choices and what each type allows, see [on‑grid vs off‑grid vs hybrid](/on-grid-vs-off-grid-vs-hybrid/).
+
+If you are comparing a cleaning visit with other upkeep, our wider guide on [solar panel maintenance in Punjab](/blog/solar-panel-maintenance-punjab/) covers dust, heat and routine checks. For products that match your array, browse [panels](/products/solar-panels/), [inverters](/products/inverters/) and [batteries](/products/batteries/). When you want us on site, use [contact](/contact/) and share a photo of the roof and access point so we bring the right safety gear.
