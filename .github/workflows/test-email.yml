@@ -1,0 +1,78 @@
+name: Send a test email
+
+# Sends one plain email, so the mail setup can be checked in seconds rather than by waiting for a
+# post or a Monday. Run it after changing SMTP_USER, SMTP_PASS or any of the MAIL_* variables.
+#
+# What the result means:
+#
+#   The step fails                 the server refused it. The log says why, in the SMTP reply: a wrong
+#                                  password, a sender the provider has not verified, or on a new
+#                                  Amazon SES account, a recipient that is not verified either.
+#   The step passes, mail arrives  everything works.
+#   The step passes, nothing       the provider accepted it and something afterwards dropped it. That is
+#   arrives                        almost always the sender's DNS: if the From domain does not authorise
+#                                  the sending service in its SPF record, and has no DKIM signature,
+#                                  Gmail files it as spam or discards it. Check the spam folder first,
+#                                  then the From mailbox for a bounce notice.
+
+on:
+  workflow_dispatch:
+    inputs:
+      note:
+        description: 'Anything to include in the body, to tell one test from another'
+        type: string
+        required: false
+
+permissions: {}
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      MAIL_TO: rajdeep.crest@gmail.com
+      MAIL_HOST: ${{ vars.MAIL_HOST || 'smtp.gmail.com' }}
+      MAIL_PORT: ${{ vars.MAIL_PORT || '465' }}
+      MAIL_FROM: ${{ vars.MAIL_FROM || secrets.SMTP_USER }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+    steps:
+      - name: What it is about to try
+        run: |
+          if [ -z "$SMTP_USER" ]; then
+            echo 'SMTP_USER is not set, so no mail can be sent at all. Add SMTP_USER and SMTP_PASS.'
+            exit 1
+          fi
+          echo "Server:    $MAIL_HOST port $MAIL_PORT"
+          echo "From:      $MAIL_FROM"
+          echo "To:        $MAIL_TO"
+          echo "TLS:       $([ "$MAIL_PORT" = '587' ] && echo 'STARTTLS' || echo 'wrapped')"
+          echo
+          echo "The From domain has to authorise this server in its DNS, or the mail is accepted here"
+          echo "and dropped later. For Amazon SES that means include:amazonses.com in the domain's SPF"
+          echo "record, and the DKIM records SES gives you when you verify the domain."
+
+      - name: Send it
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ env.MAIL_HOST }}
+          server_port: ${{ env.MAIL_PORT }}
+          secure: ${{ env.MAIL_PORT != '587' }}
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          from: RSK Solar Energy site <${{ env.MAIL_FROM }}>
+          to: ${{ env.MAIL_TO }}
+          subject: 'Mail test from the RSK Solar Energy site'
+          body: |
+            If you are reading this, the site can email you, and the weekly report, each published
+            post's URL and anything waiting on your approval will all arrive the same way.
+
+            Sent through ${{ env.MAIL_HOST }} as ${{ env.MAIL_FROM }}.
+            ${{ inputs.note && format('Note: {0}', inputs.note) || '' }}
+            Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      - name: What to do now
+        run: |
+          echo "The server accepted it. If it does not arrive within a minute or two:"
+          echo "  1. look in Spam and in Promotions;"
+          echo "  2. look in the $MAIL_FROM mailbox for a bounce notice from the provider;"
+          echo "  3. if it bounced or went to spam, the From domain's DNS is the thing to fix."
