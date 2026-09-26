@@ -123,6 +123,10 @@ jobs:
           git config user.email 'noreply@rsksolarenergy.com'
           git add "src/content/blog/$SLUG.mdx"
           git commit -m "$TITLE" -m 'Written and checked automatically: figures, a second model, the SEO guard, the writing check.'
+          # The build rewrites tracked generated files, public/llms.txt among them, and a rebase
+          # refuses to run with those outstanding. They are regenerated on every build, so the post
+          # is the only thing worth keeping here.
+          git checkout -- .
           git pull --rebase origin main
           git push origin HEAD:main
 

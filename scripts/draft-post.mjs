@@ -225,7 +225,15 @@ const inBody = new Set(linksIn(body.slice(body.indexOf('\n---', 3) + 4)));
 if (inBody.size < 3) fail(`links to only ${inBody.size} of our pages in the body, needs three`);
 if (!/<BarChart|<PriceRangeChart/.test(body)) fail('has no chart');
 
-const slug = (title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '').slice(0, 60).replace(/-$/, '');
+// Cut to 60 characters on a word boundary. Slicing mid-word leaves a slug ending "-how-to-te",
+// which is what a visitor sees in the address bar and what the search result shows.
+const slug = title
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-|-$/g, '')
+  .slice(0, 61)
+  .replace(/-[^-]*$/, (tail) => (tail.length > 1 && title.length > 60 ? '' : tail))
+  .replace(/-$/, '');
 if (posts.some((p) => p.slug === slug)) fail(`a post with the slug ${slug} already exists`);
 
 writeFileSync(`${BLOG}/${slug}.mdx`, `${body}\n`);
