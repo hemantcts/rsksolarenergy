@@ -1,0 +1,72 @@
+---
+title: 'UTL vs Loom Solar Panels: TOPCon Compared'
+description: 'UTL and Loom Solar TOPCon panels compared from each brand''s published figures: level on efficiency, with Loom''s product warranty the longer.'
+h1: UTL vs Loom Solar panels
+lead: 'Loom Solar''s SHARK 625 Wp TOPCon lists 23.25% efficiency against 23.32% on UTL''s 630 Wp. Level for practical purposes. Loom lists 15 years of product warranty, UTL 10.'
+crumb: UTL vs Loom Solar
+updated: '2026-09-27'
+faq:
+  - q: Which is more efficient, UTL or Loom Solar?
+    a: 'They are level for practical purposes. Loom''s SHARK 625 Wp N-type TOPCon lists 23.25%. UTL''s 630 Wp G12R TOPCon lists 23.32%.'
+  - q: What warranty do Loom Solar panels carry?
+    a: 'Loom lists a 15-year product warranty and a 30-year performance warranty on the SHARK 625 Wp. UTL lists 10 years product warranty on its 520 W DCR panel and 30 years on performance for its TOPCon modules.'
+  - q: Does RSK Solar Energy sell Loom Solar?
+    a: 'No. RSK Solar Energy is a UTL Solar distributor. We can quote UTL panels, installed, and help you compare them with a Loom Solar quote.'
+related:
+  - href: /topcon-solar-panels/
+    label: What a TOPCon panel is
+  - href: /utl-solar-vs-other-brands/
+    label: UTL compared with other brands
+  - href: /products/solar-panels/
+    label: Every solar panel we stock
+cta:
+  heading: Comparing UTL and Loom Solar?
+  label: Get the UTL quote
+  message: 'Hi RSK Solar Energy, I am comparing UTL and Loom Solar panels. My system size: '
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+
+export const efficiency = [
+  { label: 'UTL 630 Wp G12R TOPCon', value: 23.32, display: '23.32%', emphasis: true, note: 'Bifacial' },
+  { label: 'Loom SHARK 625 Wp', value: 23.25, display: '23.25%', note: 'N-type TOPCon, G12R' },
+  { label: 'UTL 545 W TOPCon', value: 22.74, display: '22.74%', emphasis: true, note: 'Bifacial' },
+];
+export const pct = [0, 5, 10, 15, 20, 25].map((v) => ({ value: v, label: `${v}%` }));
+
+Loom Solar is a Faridabad brand selling panels, batteries and inverters, including through its own website. The panels compare closely with UTL's, so the rest of the purchase decides it: who installs the system, and who takes it through the subsidy paperwork.
+
+## At a glance
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table min-w-lg">
+<caption>From each brand's published figures, checked 27 September 2026</caption>
+<thead><tr><th scope="col"></th><th scope="col">UTL</th><th scope="col">Loom Solar</th></tr></thead>
+<tbody>
+<tr><th scope="row">Module compared</th><td><a href="/products/630wp-g12r-topcon-bifacial-ndcr-solar-panel/" class="underline">630 Wp G12R TOPCon</a></td><td>SHARK 625 Wp, N-type TOPCon G12R</td></tr>
+<tr><th scope="row">Module efficiency</th><td>23.32%</td><td>23.25%</td></tr>
+<tr><th scope="row">Performance warranty</th><td>30 years (UTL TOPCon modules)</td><td>30 years</td></tr>
+<tr><th scope="row">Product warranty</th><td>10 years (UTL's 520 W DCR panel)</td><td>15 years</td></tr>
+</tbody>
+</table>
+</div>
+
+<BarChart title="Module efficiency of TOPCon panels, as published" rows={efficiency} max={25} ticks={pct} valueHeading="Efficiency" caption="The top two are a few hundredths of a point apart." />
+
+## Choose Loom Solar if
+
+- You want the longer product warranty, 15 years against UTL's 10.
+
+## Choose UTL if
+
+- You want the system quoted, installed and followed through the [PM Surya Ghar subsidy](/pm-surya-ghar-subsidy-punjab/) by a local team.
+- You need DCR panels for the subsidy. See [DCR and non-DCR panels](/dcr-vs-non-dcr-solar-panels/).
+
+## Where RSK Solar Energy fits
+
+RSK Solar Energy is a UTL Solar distributor in Mohali and installs across the Tricity. We do not stock Loom Solar. The [solar calculator](/solar-calculator/) gives the system size your bill needs, and we can quote it installed.
+
+## Sources
+
+- UTL: [630 Wp G12R TOPCon](/products/630wp-g12r-topcon-bifacial-ndcr-solar-panel/), [545 W TOPCon](/products/545-watt-topcon-bifacial-solar-panel/) and [520 W DCR panel](/products/520w-mono-dcr-bifacial-solar-panel/), from UTL's specifications
+- Loom Solar: [SHARK 625 Wp N-type TOPCon G12R](https://www.loomsolar.com/products/shark-625-wp-n-topcon-g12r-dual-glass-solar-panel-pack-of-31), on Loom Solar's own site, checked 27 September 2026

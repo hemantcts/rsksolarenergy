@@ -1,0 +1,72 @@
+---
+title: 'UTL vs Rayzon Solar Panels: TOPCon Compared'
+description: 'UTL and Rayzon TOPCon panels compared from each brand''s published figures: level on efficiency, with Rayzon''s product warranty the longer.'
+h1: UTL vs Rayzon Solar panels
+lead: 'On efficiency the two are level to within a tenth of a point: Rayzon''s L''lios TOPCon 600 Wp lists 23.25%, UTL''s 630 Wp TOPCon 23.32%. The difference is the product warranty, where Rayzon lists 15 years against 10 on UTL''s.'
+crumb: UTL vs Rayzon Solar
+updated: '2026-09-27'
+faq:
+  - q: Which is more efficient, UTL or Rayzon?
+    a: 'They are level for practical purposes. UTL''s 630 Wp G12R TOPCon module lists 23.32%, and Rayzon''s L''lios TOPCon 600 Wp lists 23.25%.'
+  - q: What warranty do Rayzon panels carry?
+    a: 'Rayzon lists 15 years on materials and 30 years on power for its L''lios TOPCon 600 Wp. UTL lists 10 years product warranty on its 520 W DCR panel and 30 years on performance for its TOPCon modules.'
+  - q: Does RSK Solar Energy sell Rayzon?
+    a: 'No. RSK Solar Energy is a UTL Solar distributor. We can quote UTL panels and help you compare them with a Rayzon quote.'
+related:
+  - href: /topcon-solar-panels/
+    label: What a TOPCon panel is
+  - href: /utl-solar-vs-other-brands/
+    label: UTL compared with other brands
+  - href: /products/solar-panels/
+    label: Every solar panel we stock
+cta:
+  heading: Comparing UTL and Rayzon panels?
+  label: Get the UTL quote
+  message: 'Hi RSK Solar Energy, I am comparing UTL and Rayzon solar panels. My system size: '
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+
+export const efficiency = [
+  { label: 'UTL 630 Wp G12R TOPCon', value: 23.32, display: '23.32%', emphasis: true, note: 'Bifacial' },
+  { label: "Rayzon L'lios TOPCon 600 Wp", value: 23.25, display: '23.25%', note: 'N-type TOPCon' },
+  { label: 'UTL 545 W TOPCon', value: 22.74, display: '22.74%', emphasis: true, note: 'Bifacial' },
+];
+export const pct = [0, 5, 10, 15, 20, 25].map((v) => ({ value: v, label: `${v}%` }));
+
+Rayzon is a Surat panel maker with a range of TOPCon modules. Against UTL the efficiency figures sit side by side, so the warranty and the rest of the system decide it.
+
+## At a glance
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table min-w-lg">
+<caption>From each brand's published figures, checked 27 September 2026</caption>
+<thead><tr><th scope="col"></th><th scope="col">UTL</th><th scope="col">Rayzon</th></tr></thead>
+<tbody>
+<tr><th scope="row">Module compared</th><td><a href="/products/630wp-g12r-topcon-bifacial-ndcr-solar-panel/" class="underline">630 Wp G12R TOPCon</a></td><td>L'lios TOPCon 600 Wp</td></tr>
+<tr><th scope="row">Module efficiency</th><td>23.32%</td><td>23.25%</td></tr>
+<tr><th scope="row">Performance warranty</th><td>30 years (UTL TOPCon modules)</td><td>30 years, 80% power</td></tr>
+<tr><th scope="row">Product warranty</th><td>10 years (UTL's 520 W DCR panel)</td><td>15 years on materials</td></tr>
+</tbody>
+</table>
+</div>
+
+<BarChart title="Module efficiency of TOPCon panels, as published" rows={efficiency} max={25} ticks={pct} valueHeading="Efficiency" caption="The top two bars are a tenth of a point apart, which changes almost nothing on a home roof." />
+
+## Choose Rayzon if
+
+- A longer product warranty is what you weigh most. Rayzon lists 15 years on materials.
+
+## Choose UTL if
+
+- You want the panels with the inverter and battery from one brand, priced as one system.
+- You need DCR panels for the [PM Surya Ghar subsidy](/pm-surya-ghar-subsidy-punjab/). UTL makes DCR TOPCon modules; see [DCR and non-DCR panels](/dcr-vs-non-dcr-solar-panels/) for why that matters.
+
+## Where RSK Solar Energy fits
+
+RSK Solar Energy is a UTL Solar distributor in Mohali. We do not stock Rayzon, so we can quote the UTL side. Work out the size your bill needs in the [solar calculator](/solar-calculator/).
+
+## Sources
+
+- UTL: [630 Wp G12R TOPCon](/products/630wp-g12r-topcon-bifacial-ndcr-solar-panel/), [545 W TOPCon](/products/545-watt-topcon-bifacial-solar-panel/) and [520 W DCR panel](/products/520w-mono-dcr-bifacial-solar-panel/), from UTL's specifications
+- Rayzon: [L'lios TOPCon 600 Wp](https://rayzonsolar.com/product/topcon-v), on Rayzon's own site, checked 27 September 2026

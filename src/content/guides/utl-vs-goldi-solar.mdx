@@ -1,0 +1,73 @@
+---
+title: 'UTL vs Goldi Solar Panels: TOPCon Compared'
+description: 'UTL and Goldi Solar TOPCon panels compared from each brand''s published figures: UTL slightly ahead on efficiency, Goldi on product warranty.'
+h1: UTL vs Goldi Solar panels
+lead: 'The two are close, with a small trade between them. UTL''s 630 Wp TOPCon lists 23.32% efficiency, Goldi''s 565 to 595 Wp TOPCon range runs from 21.87% to 23.03%, and Goldi lists 12 years of product warranty against 10 on UTL''s.'
+crumb: UTL vs Goldi Solar
+updated: '2026-09-27'
+faq:
+  - q: Which is more efficient, UTL or Goldi Solar?
+    a: 'On the models compared here, UTL, by a small margin. UTL''s 630 Wp G12R TOPCon lists 23.32%. Goldi''s 144-cell TOPCon range lists 21.87% at 565 Wp up to 23.03% at 595 Wp.'
+  - q: What warranty do Goldi Solar panels carry?
+    a: 'Goldi lists 12 years on product material and workmanship and 30 years on linear performance for its TOPCon range. UTL lists 10 years product warranty on its 520 W DCR panel and 30 years on performance for its TOPCon modules.'
+  - q: Does RSK Solar Energy sell Goldi Solar?
+    a: 'No. RSK Solar Energy is a UTL Solar distributor. We can quote UTL panels and help you compare them with a Goldi quote.'
+related:
+  - href: /topcon-solar-panels/
+    label: What a TOPCon panel is
+  - href: /utl-solar-vs-other-brands/
+    label: UTL compared with other brands
+  - href: /products/solar-panels/
+    label: Every solar panel we stock
+cta:
+  heading: Comparing UTL and Goldi panels?
+  label: Get the UTL quote
+  message: 'Hi RSK Solar Energy, I am comparing UTL and Goldi solar panels. My system size: '
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+
+export const efficiency = [
+  { label: 'UTL 630 Wp G12R TOPCon', value: 23.32, display: '23.32%', emphasis: true, note: 'Bifacial' },
+  { label: 'Goldi TOPCon, 595 Wp', value: 23.03, display: '23.03%', note: 'Top of the 565 to 595 Wp range' },
+  { label: 'UTL 545 W TOPCon', value: 22.74, display: '22.74%', emphasis: true, note: 'Bifacial' },
+  { label: 'Goldi TOPCon, 565 Wp', value: 21.87, display: '21.87%', note: 'Bottom of the range' },
+];
+export const pct = [0, 5, 10, 15, 20, 25].map((v) => ({ value: v, label: `${v}%` }));
+
+Goldi Solar is a Surat module maker selling TOPCon panels across India. Its efficiency depends on which wattage in the range you are quoted, so check the exact watt rating on the quote before comparing.
+
+## At a glance
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table min-w-lg">
+<caption>From each brand's published figures, checked 27 September 2026</caption>
+<thead><tr><th scope="col"></th><th scope="col">UTL</th><th scope="col">Goldi Solar</th></tr></thead>
+<tbody>
+<tr><th scope="row">Module compared</th><td><a href="/products/630wp-g12r-topcon-bifacial-ndcr-solar-panel/" class="underline">630 Wp G12R TOPCon</a></td><td>144-cell TOPCon, 565 to 595 Wp</td></tr>
+<tr><th scope="row">Module efficiency</th><td>23.32%</td><td>21.87% to 23.03%, rising with wattage</td></tr>
+<tr><th scope="row">Performance warranty</th><td>30 years (UTL TOPCon modules)</td><td>30 years linear performance</td></tr>
+<tr><th scope="row">Product warranty</th><td>10 years (UTL's 520 W DCR panel)</td><td>12 years, material and workmanship</td></tr>
+</tbody>
+</table>
+</div>
+
+<BarChart title="Module efficiency of TOPCon panels, as published" rows={efficiency} max={25} ticks={pct} valueHeading="Efficiency" caption="Goldi's figure depends on the wattage quoted, so both ends of its range are shown." />
+
+## Choose Goldi Solar if
+
+- You want the longer product warranty, 12 years against UTL's 10.
+
+## Choose UTL if
+
+- You want the highest efficiency of the models compared here, or the panels, inverter and battery from one brand.
+- You need DCR panels for the [PM Surya Ghar subsidy](/pm-surya-ghar-subsidy-punjab/). See [DCR and non-DCR panels](/dcr-vs-non-dcr-solar-panels/) for what the certificate means.
+
+## Where RSK Solar Energy fits
+
+RSK Solar Energy is a UTL Solar distributor in Mohali. We do not stock Goldi, so we can quote the UTL side. Start with the [solar calculator](/solar-calculator/) for the system size.
+
+## Sources
+
+- UTL: [630 Wp G12R TOPCon](/products/630wp-g12r-topcon-bifacial-ndcr-solar-panel/), [545 W TOPCon](/products/545-watt-topcon-bifacial-solar-panel/) and [520 W DCR panel](/products/520w-mono-dcr-bifacial-solar-panel/), from UTL's specifications
+- Goldi Solar: [module catalogue, 2025](https://goldisolar.com/wp-content/uploads/2025/05/Goldi%20Solar%20Module%20Catalogue.pdf), TOPCon 565 to 595 Wp, on Goldi's own site, checked 27 September 2026

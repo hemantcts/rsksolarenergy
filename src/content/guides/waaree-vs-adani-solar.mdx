@@ -1,0 +1,76 @@
+---
+title: 'Waaree vs Adani Solar Panels: TOPCon Compared'
+description: 'Waaree and Adani TOPCon panels compared on efficiency, warranty and DCR from each brand''s own figures. Almost level; DCR decides it for the subsidy.'
+h1: Waaree vs Adani Solar panels
+lead: 'Two of India''s largest panel makers, almost level on paper. Waaree''s 700 Wp TOPCon lists 22.32% efficiency and Adani''s Shine TOPCon 22.3%, and both carry 30 years on power. For a home claiming the subsidy, DCR decides it.'
+crumb: Waaree vs Adani Solar
+updated: '2026-09-27'
+faq:
+  - q: Which is better, Waaree or Adani solar panels?
+    a: 'On published figures they are almost level. Waaree''s 700 Wp TOPCon lists 22.32% efficiency and Adani''s Shine TOPCon 22.3%. Both list 30 years on power. Waaree lists a 12-year product warranty on that model; the Adani page we checked did not state one.'
+  - q: Which is better for the PM Surya Ghar subsidy, Waaree or Adani?
+    a: 'The subsidy needs DCR panels. Adani offers its Shine TOPCon in DCR and non-DCR versions. The Waaree 700 Wp model compared here is non-DCR, so for the subsidy you would need a different Waaree model. Ask for the DCR certificate whichever you buy.'
+  - q: Does RSK Solar Energy sell Waaree or Adani?
+    a: 'No. RSK Solar Energy is a UTL Solar distributor. We compare UTL with each of them, and can quote UTL panels, including DCR ones for the subsidy.'
+related:
+  - href: /dcr-vs-non-dcr-solar-panels/
+    label: DCR and non-DCR panels explained
+  - href: /utl-vs-waaree/
+    label: UTL vs Waaree
+  - href: /utl-vs-adani-solar/
+    label: UTL vs Adani Solar
+cta:
+  heading: Want a third option to compare?
+  label: Get a UTL quote
+  message: 'Hi RSK Solar Energy, I am comparing Waaree and Adani panels and would like a UTL quote too. My system size: '
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+
+export const efficiency = [
+  { label: 'Waaree 700 Wp TOPCon', value: 22.32, display: '22.32%', note: 'Bifacial, non-DCR' },
+  { label: 'Adani Shine TOPCon', value: 22.3, display: '22.3%', note: '610 to 640 Wp' },
+];
+export const pct = [0, 5, 10, 15, 20, 25].map((v) => ({ value: v, label: `${v}%` }));
+
+On the figures each publishes they are close to identical, so the useful questions are the ones the headline numbers skip: DCR or not, and what the product warranty is on the exact model.
+
+## At a glance
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table min-w-lg">
+<caption>From each brand's published figures, checked 27 September 2026</caption>
+<thead><tr><th scope="col"></th><th scope="col">Waaree</th><th scope="col">Adani Solar</th></tr></thead>
+<tbody>
+<tr><th scope="row">Module compared</th><td>700 Wp TOPCon bifacial</td><td>Shine TOPCon, 610 to 640 Wp</td></tr>
+<tr><th scope="row">Module efficiency</th><td>22.32%</td><td>22.3%</td></tr>
+<tr><th scope="row">Power warranty</th><td>30 years power output</td><td>30 years on power, 0.40% degradation a year</td></tr>
+<tr><th scope="row">Product warranty</th><td>12 years</td><td>Not stated on the page we checked</td></tr>
+<tr><th scope="row">DCR</th><td>This model is non-DCR</td><td>DCR and non-DCR versions offered</td></tr>
+</tbody>
+</table>
+</div>
+
+<BarChart title="Module efficiency, as published" rows={efficiency} max={25} ticks={pct} valueHeading="Efficiency" caption="A few hundredths of a point apart: level for any practical purpose." />
+
+## Choose Waaree if
+
+- You want the product warranty in writing on the exact model, which Waaree states at 12 years here.
+- You do not need the subsidy, or you are quoted a different Waaree model that is DCR.
+
+## Choose Adani if
+
+- You want the PM Surya Ghar subsidy and the convenience of a DCR version of the same series.
+
+## What neither headline tells you
+
+DCR panels use Indian-made cells, and only DCR panels qualify for the [PM Surya Ghar subsidy](/pm-surya-ghar-subsidy-punjab/). They cost noticeably more than non-DCR panels, so a cheap quote on a non-DCR model can cost you the subsidy. Read [DCR and non-DCR panels](/dcr-vs-non-dcr-solar-panels/) before comparing prices.
+
+## Where RSK Solar Energy fits
+
+RSK Solar Energy is a UTL Solar distributor in Mohali and sells neither brand. If you want a third quote, we compare UTL with each: [UTL vs Waaree](/utl-vs-waaree/) and [UTL vs Adani Solar](/utl-vs-adani-solar/).
+
+## Sources
+
+- Waaree: [700 Wp TOPCon bifacial module](https://shop.waaree.com/waaree-700wp-topcon-n-type-bifacial-solar-panel-m12-g2g-132-cells-dual-glass-high-efficiency-solar-module-for-rooftop-commercial-use/), on Waaree's own shop, checked 27 September 2026
+- Adani Solar: [TOPCon Shine series](https://www.adanisolar.com/product-topcon-shine-series), on Adani Solar's own site, checked 27 September 2026

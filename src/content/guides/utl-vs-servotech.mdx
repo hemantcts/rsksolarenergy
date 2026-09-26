@@ -1,0 +1,75 @@
+---
+title: 'UTL vs Servotech Solar Panels: TOPCon Compared'
+description: 'UTL and Servotech TOPCon panels compared from each brand''s published figures: level on efficiency, with UTL''s performance warranty the longer.'
+h1: UTL vs Servotech solar panels
+lead: 'Servotech''s TOPCon bifacial 580 to 600 W lists 23.20% efficiency, level with UTL''s 23.32%. The clearer difference is the performance warranty: 30 years on UTL''s TOPCon modules, 25 on Servotech''s.'
+crumb: UTL vs Servotech
+updated: '2026-09-27'
+faq:
+  - q: Which is more efficient, UTL or Servotech?
+    a: 'They are level for practical purposes. Servotech''s TOPCon bifacial 580 to 600 W lists 23.20%. UTL''s 630 Wp G12R TOPCon lists 23.32%.'
+  - q: What warranty do Servotech panels carry?
+    a: 'Servotech lists 10 years on material and workmanship and 25 years on linear power output for its TOPCon bifacial range. UTL lists 10 years product warranty on its 520 W DCR panel and 30 years on performance for its TOPCon modules.'
+  - q: Does RSK Solar Energy sell Servotech?
+    a: 'No. RSK Solar Energy is a UTL Solar distributor. We can quote UTL panels and help you compare them with a Servotech quote.'
+related:
+  - href: /topcon-solar-panels/
+    label: What a TOPCon panel is
+  - href: /utl-solar-vs-other-brands/
+    label: UTL compared with other brands
+  - href: /products/solar-panels/
+    label: Every solar panel we stock
+cta:
+  heading: Comparing UTL and Servotech?
+  label: Get the UTL quote
+  message: 'Hi RSK Solar Energy, I am comparing UTL and Servotech solar panels. My system size: '
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+
+export const warranty = [
+  { label: 'UTL TOPCon, performance', value: 30, display: '30 yrs', emphasis: true, note: 'Performance warranty' },
+  { label: 'Servotech TOPCon, performance', value: 25, display: '25 yrs', note: 'Linear power output' },
+  { label: 'UTL 520 W DCR, product', value: 10, display: '10 yrs', emphasis: true, note: 'Product warranty' },
+  { label: 'Servotech TOPCon, product', value: 10, display: '10 yrs', note: 'Material and workmanship' },
+];
+export const years = [0, 5, 10, 15, 20, 25, 30].map((v) => ({ value: v, label: `${v}` }));
+
+Servotech is a Delhi company that makes EV chargers and inverters as well as TOPCon panels. On the panels, the efficiency is level with UTL's and the product warranty matches; the performance warranty is where they part.
+
+## At a glance
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table min-w-lg">
+<caption>From each brand's published figures, checked 27 September 2026</caption>
+<thead><tr><th scope="col"></th><th scope="col">UTL</th><th scope="col">Servotech</th></tr></thead>
+<tbody>
+<tr><th scope="row">Module compared</th><td><a href="/products/630wp-g12r-topcon-bifacial-ndcr-solar-panel/" class="underline">630 Wp G12R TOPCon</a></td><td>TOPCon bifacial, N-type 144 half-cut, 580 to 600 W</td></tr>
+<tr><th scope="row">Module efficiency</th><td>23.32%</td><td>23.20% maximum</td></tr>
+<tr><th scope="row">Performance warranty</th><td>30 years (UTL TOPCon modules)</td><td>25 years linear power output</td></tr>
+<tr><th scope="row">Product warranty</th><td>10 years (UTL's 520 W DCR panel)</td><td>10 years, material and workmanship</td></tr>
+</tbody>
+</table>
+</div>
+
+<BarChart title="Panel warranties, as published" rows={warranty} max={30} ticks={years} valueHeading="Warranty, years" caption="The performance warranty covers how much power a panel still makes as it ages; the product warranty covers defects." />
+
+A performance warranty covers output as the panel ages. Five extra years on it means five more years in which a panel making less than its promised share can be claimed.
+
+## Choose Servotech if
+
+- You already use Servotech equipment and want to stay with one supplier.
+
+## Choose UTL if
+
+- You want the longer performance warranty, 30 years against 25.
+- You need DCR panels for the [PM Surya Ghar subsidy](/pm-surya-ghar-subsidy-punjab/). See [DCR and non-DCR panels](/dcr-vs-non-dcr-solar-panels/).
+
+## Where RSK Solar Energy fits
+
+RSK Solar Energy is a UTL Solar distributor in Mohali. We do not stock Servotech, so we can quote the UTL side. The [solar calculator](/solar-calculator/) gives the system size your bill needs.
+
+## Sources
+
+- UTL: [630 Wp G12R TOPCon](/products/630wp-g12r-topcon-bifacial-ndcr-solar-panel/), [545 W TOPCon](/products/545-watt-topcon-bifacial-solar-panel/) and [520 W DCR panel](/products/520w-mono-dcr-bifacial-solar-panel/), from UTL's specifications
+- Servotech: [TOPCon modules, bifacial solar panels](https://www.servotech.in/blog/wp-content/uploads/2026/06/TOPCon-Modules-Bifacial-Solar-Panels.pdf), on Servotech's own site, checked 27 September 2026

@@ -1,0 +1,72 @@
+---
+title: 'UTL vs Saatvik Solar Panels: TOPCon Compared'
+description: 'UTL and Saatvik TOPCon panels compared from each brand''s published figures. Saatvik lists the higher efficiency and the longer product warranty.'
+h1: UTL vs Saatvik Solar panels
+lead: 'On the published figures, Saatvik comes out ahead on both counts: up to 23.69% efficiency on its N-TOPCon G12R against 23.32% on UTL''s 630 Wp, and 12 years of product warranty against 10. UTL''s case is the complete system.'
+crumb: UTL vs Saatvik Solar
+updated: '2026-09-27'
+faq:
+  - q: Which is more efficient, UTL or Saatvik?
+    a: 'Saatvik, on the models compared here. Its N-TOPCon G12R bifacial module lists up to 23.69%. UTL''s 630 Wp G12R TOPCon lists 23.32%. The gap is under half a point, which moves the roof area a home needs only slightly.'
+  - q: What warranty do Saatvik panels carry?
+    a: 'Saatvik lists a 12-year product warranty and a 30-year linear performance warranty on its N-TOPCon G12R. UTL lists 10 years product warranty on its 520 W DCR panel and 30 years on performance for its TOPCon modules.'
+  - q: Does RSK Solar Energy sell Saatvik?
+    a: 'No. RSK Solar Energy is a UTL Solar distributor. We can quote UTL panels and help you compare them with a Saatvik quote.'
+related:
+  - href: /topcon-solar-panels/
+    label: What a TOPCon panel is
+  - href: /utl-solar-vs-other-brands/
+    label: UTL compared with other brands
+  - href: /products/solar-panels/
+    label: Every solar panel we stock
+cta:
+  heading: Comparing UTL and Saatvik panels?
+  label: Get the UTL quote
+  message: 'Hi RSK Solar Energy, I am comparing UTL and Saatvik solar panels. My system size: '
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+
+export const efficiency = [
+  { label: 'Saatvik N-TOPCon G12R', value: 23.69, display: '23.69%', note: 'Up to, bifacial' },
+  { label: 'UTL 630 Wp G12R TOPCon', value: 23.32, display: '23.32%', emphasis: true, note: 'Bifacial' },
+  { label: 'UTL 545 W TOPCon', value: 22.74, display: '22.74%', emphasis: true, note: 'Bifacial' },
+];
+export const pct = [0, 5, 10, 15, 20, 25].map((v) => ({ value: v, label: `${v}%` }));
+
+Saatvik Green Energy is a Haryana module maker, and on the two figures both brands publish, it leads.
+
+## At a glance
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table min-w-lg">
+<caption>From each brand's published figures, checked 27 September 2026</caption>
+<thead><tr><th scope="col"></th><th scope="col">UTL</th><th scope="col">Saatvik</th></tr></thead>
+<tbody>
+<tr><th scope="row">Module compared</th><td><a href="/products/630wp-g12r-topcon-bifacial-ndcr-solar-panel/" class="underline">630 Wp G12R TOPCon</a></td><td>N-TOPCon G12R, bifacial</td></tr>
+<tr><th scope="row">Module efficiency</th><td>23.32%</td><td>Up to 23.69%</td></tr>
+<tr><th scope="row">Performance warranty</th><td>30 years (UTL TOPCon modules)</td><td>30 years linear performance</td></tr>
+<tr><th scope="row">Product warranty</th><td>10 years (UTL's 520 W DCR panel)</td><td>12 years</td></tr>
+</tbody>
+</table>
+</div>
+
+<BarChart title="Module efficiency of TOPCon panels, as published" rows={efficiency} max={25} ticks={pct} valueHeading="Efficiency" caption="Saatvik's figure is its top rating, so check the wattage you are quoted." />
+
+## Choose Saatvik if
+
+- You want the highest efficiency and the longer product warranty of the two, on the panels alone.
+
+## Choose UTL if
+
+- You want the panels, inverter and battery from one brand with one service network.
+- You need DCR panels for the [PM Surya Ghar subsidy](/pm-surya-ghar-subsidy-punjab/). Read [DCR and non-DCR panels](/dcr-vs-non-dcr-solar-panels/) before you compare prices, since the two are priced very differently.
+
+## Where RSK Solar Energy fits
+
+RSK Solar Energy is a UTL Solar distributor in Mohali. We do not stock Saatvik, so we can quote the UTL side. The [solar calculator](/solar-calculator/) gives the size your bill needs.
+
+## Sources
+
+- UTL: [630 Wp G12R TOPCon](/products/630wp-g12r-topcon-bifacial-ndcr-solar-panel/), [545 W TOPCon](/products/545-watt-topcon-bifacial-solar-panel/) and [520 W DCR panel](/products/520w-mono-dcr-bifacial-solar-panel/), from UTL's specifications
+- Saatvik: [N-Type TOPCon Bifacial G12R module](https://saatvikgroup.com/modules/n-topcon/bifacial-g12r/), on Saatvik's own site, checked 27 September 2026

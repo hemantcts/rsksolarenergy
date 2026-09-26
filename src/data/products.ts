@@ -79,6 +79,11 @@ export const CATEGORIES: { id: ProductCategory; name: string; blurb: string; tit
       { href: '/utl-vs-waaree/', brand: 'Waaree' },
       { href: '/utl-vs-adani-solar/', brand: 'Adani Solar' },
       { href: '/utl-vs-vikram-solar/', brand: 'Vikram Solar' },
+      { href: '/utl-vs-saatvik-solar/', brand: 'Saatvik' },
+      { href: '/utl-vs-rayzon-solar/', brand: 'Rayzon' },
+      { href: '/utl-vs-loom-solar/', brand: 'Loom Solar' },
+      { href: '/utl-vs-goldi-solar/', brand: 'Goldi Solar' },
+      { href: '/utl-vs-servotech/', brand: 'Servotech' },
     ],
     blurb: 'Mono PERC, N-Type TOPCon and bifacial modules from 40 W to 735 W, including DCR and non-DCR panels.' },
   {
@@ -91,6 +96,7 @@ export const CATEGORIES: { id: ProductCategory; name: string; blurb: string; tit
       { href: '/utl-vs-polycab/', brand: 'Polycab' },
       { href: '/utl-vs-havells/', brand: 'Havells' },
       { href: '/utl-vs-growatt/', brand: 'Growatt' },
+      { href: '/utl-vs-v-guard/', brand: 'V-Guard' },
     ],
     blurb: 'Home inverters, hybrid solar PCUs and on-grid string inverters from 675 VA to 125 kW: Heliac, Shamsi, Gamma+, Alfa+, Sigma+, Zeta, Sun-lion and more.',
   },
@@ -103,6 +109,7 @@ export const CATEGORIES: { id: ProductCategory; name: string; blurb: string; tit
       { href: '/utl-vs-exide/', brand: 'Exide' },
       { href: '/utl-vs-livguard/', brand: 'Livguard' },
       { href: '/utl-vs-luminous/', brand: 'Luminous' },
+      { href: '/utl-vs-v-guard/', brand: 'V-Guard' },
     ],
     blurb: 'Tubular, SMF and lithium-ion (LiFePO4) batteries for inverters, solar systems and e-rickshaws.' },
   {
