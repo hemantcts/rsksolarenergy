@@ -1,0 +1,75 @@
+---
+title: 'UTL vs Polycab Solar Inverters: Warranty and Range'
+description: 'UTL and Polycab on-grid solar inverters compared on warranty and published efficiency, from each brand''s own figures. RSK Solar Energy stocks both.'
+h1: UTL vs Polycab
+lead: 'Both sell on-grid inverters for home rooftops in Punjab. In writing, the clearest difference is the warranty: UTL lists 10 years as standard, and Polycab lists 8 years with an option to extend to 10.'
+crumb: UTL vs Polycab
+updated: '2026-09-26'
+faq:
+  - q: Is UTL better than Polycab for an on-grid inverter?
+    a: 'On warranty, UTL lists 10 years as standard on its 3.3 kW on-grid inverter. Polycab lists 8 years standard on its 3.6 kW single-phase inverter, with an extension to 10 years. Compare the exact models you are quoted.'
+  - q: Which has the higher efficiency, UTL or Polycab?
+    a: 'They publish different measures. Polycab lists up to 97.1% maximum efficiency. UTL lists up to 99% MPPT efficiency, which is how well the inverter tracks the panels. The two numbers cannot be set against each other.'
+  - q: Does RSK Solar Energy sell Polycab?
+    a: 'Yes. RSK Solar Energy is a UTL Solar distributor and also stocks Polycab, so we can quote both for the same roof.'
+related:
+  - href: /utl-solar-vs-other-brands/
+    label: UTL compared with other brands
+  - href: /blog/how-to-choose-solar-inverter-for-home/
+    label: How to choose a solar inverter
+  - href: /products/inverters/
+    label: UTL inverters and PCUs we stock
+cta:
+  heading: Deciding between UTL and Polycab?
+  label: Ask for both quotes
+  message: 'Hi RSK Solar Energy, I am deciding between a UTL and a Polycab on-grid inverter. My system size: '
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+
+export const warranty = [
+  { label: 'UTL 3.3 kW on-grid', value: 10, display: '10 yrs', emphasis: true, note: 'Standard' },
+  { label: 'Polycab 3.6 kW single phase', value: 8, display: '8 yrs', note: 'Standard' },
+  { label: 'Polycab, extended', value: 10, display: '10 yrs', note: 'With the extension' },
+];
+export const years = [0, 2, 4, 6, 8, 10].map((v) => ({ value: v, label: `${v}` }));
+
+Both brands cover a home on-grid system, so the choice comes down to the model in front of you. On the figures each brand publishes, UTL gives the longer standard warranty and Polycab gives the fuller efficiency figure.
+
+## At a glance
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table min-w-lg">
+<caption>From each brand's published figures, checked 26 September 2026</caption>
+<thead><tr><th scope="col"></th><th scope="col">UTL</th><th scope="col">Polycab</th></tr></thead>
+<tbody>
+<tr><th scope="row">On-grid inverter warranty</th><td>10 years (3.3 kW, model GT-3P3-GX-S1)</td><td>8 years standard, extendable to 10 (3.6 kW, single phase, single MPPT)</td></tr>
+<tr><th scope="row">Efficiency, as published</th><td>Up to 99% MPPT efficiency</td><td>Up to 97.1% maximum efficiency</td></tr>
+<tr><th scope="row">Service</th><td>Through UTL's own service network</td><td>Through Polycab</td></tr>
+</tbody>
+</table>
+</div>
+
+<BarChart title="Warranty on a home on-grid inverter" rows={warranty} max={10} ticks={years} valueHeading="Warranty, years" caption="From each brand's own product page. Polycab reaches 10 years only with its extension." />
+
+The two efficiency figures measure different things. MPPT efficiency is how closely the inverter follows the panels' best operating point; maximum efficiency is how much of the power it converts at its best load. A higher number on one does not beat a lower number on the other, so neither tells you on its own which inverter produces more. Our [solar calculator](/solar-calculator/) works from generation, which is what the bill sees.
+
+## Choose UTL if
+
+- You want 10 years of warranty without paying for an extension.
+- You want the panels, the inverter and later a battery from one brand. UTL makes all three, and our [UTL inverter range](/products/inverters/) runs from home sizes to commercial ones.
+- You are sizing a [3 kW](/3kw-solar-system-price-punjab/) or [5 kW](/5kw-solar-system-price-punjab/) home system and want it priced as one kit.
+
+## Choose Polycab if
+
+- You were going to pay for an extended warranty anyway, at which point both reach 10 years.
+- You want the maximum efficiency figure stated outright, which UTL's page does not give in the same terms.
+
+## Where RSK Solar Energy fits
+
+RSK Solar Energy is a UTL Solar distributor in Mohali and also stocks Polycab. Tell us the size of the system and we will price both on the same roof.
+
+## Sources
+
+- UTL: [3.3 kW on-grid solar inverter, GT-3P3-GX-S1](https://www.upsinverter.com/utl/product/3-3-kw-utl-on-grid-solar-inverter/), on UTL Solar's own site, and our [3 kW UTL on-grid inverter](/products/3-kw-utl-on-grid-solar-inverter/)
+- Polycab: [3.6 kW single-phase, single-MPPT grid-tie inverter](https://polycab.com/36-kw-single-phase-single-mppt-grid-tie-inverter/c-63946/p-63964), checked 26 September 2026

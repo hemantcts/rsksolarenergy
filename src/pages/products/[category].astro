@@ -44,6 +44,22 @@ const description = clampWords(`${products.length} ${lowerName} from UTL Solar, 
         <h1 class="t-h1">{c.heading ?? c.name}</h1>
         <p class="t-lead mt-5">{c.blurb}</p>
         <p class="mt-3 text-slate">{products.length} products in this category. We do not sell online: ask on WhatsApp and we reply with today's price and stock.</p>
+        {
+          c.compare?.length ? (
+            <p class="t-small mt-3 text-slate">
+              Weighing UTL against another brand? Compared from each brand's own figures:{' '}
+              {c.compare.map((cmp, i) => (
+                <>
+                  {i > 0 && ', '}
+                  <a href={cmp.href} class="underline">
+                    UTL vs {cmp.brand}
+                  </a>
+                </>
+              ))}
+              .
+            </p>
+          ) : null
+        }
       </div>
       <div class="lg:col-span-4 lg:col-start-9">
         <WhatsAppButton label="Ask for a price on WhatsApp" message={`Hi RSK Solar Energy, I would like prices and stock for ${c.name.toLowerCase()}. Items and quantities: `} />

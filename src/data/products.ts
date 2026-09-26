@@ -53,21 +53,58 @@ export const PRODUCTS = raw as Product[];
  * six catalogue pages repeating it added nothing and left the state-wide product searches, "solar
  * inverter dealer in Punjab" and the like, with no page of their own.
  */
-export const CATEGORIES: { id: ProductCategory; name: string; blurb: string; title: string; heading?: string }[] = [
+/** A brand comparison page, shown on the category it is about. */
+export interface CategoryComparison {
+  href: string;
+  brand: string;
+}
+
+export const CATEGORIES: { id: ProductCategory; name: string; blurb: string; title: string; heading?: string; compare?: CategoryComparison[] }[] = [
   {
     id: 'solar-systems',
     name: 'Complete solar systems',
     title: 'Complete Solar Systems for Home and Business in Punjab',
+    compare: [
+      { href: '/utl-vs-tata-power-solar/', brand: 'Tata Power Solar' },
+      { href: '/utl-vs-fujiyama-solar/', brand: 'Fujiyama Solar' },
+    ],
     blurb: 'UTL hybrid and off-grid kits from 1 kW to 5 kW: panels, inverter and batteries matched.',
   },
-  { id: 'solar-panels', name: 'Solar panels', title: 'Solar Panel Dealer and Distributor in Punjab', heading: 'Every solar panel we stock', blurb: 'Mono PERC, N-Type TOPCon and bifacial modules from 40 W to 735 W, including DCR and non-DCR panels.' },
+  {
+    id: 'solar-panels',
+    name: 'Solar panels',
+    title: 'Solar Panel Dealer and Distributor in Punjab',
+    heading: 'Every solar panel we stock',
+    compare: [
+      { href: '/utl-vs-waaree/', brand: 'Waaree' },
+      { href: '/utl-vs-adani-solar/', brand: 'Adani Solar' },
+      { href: '/utl-vs-vikram-solar/', brand: 'Vikram Solar' },
+    ],
+    blurb: 'Mono PERC, N-Type TOPCon and bifacial modules from 40 W to 735 W, including DCR and non-DCR panels.' },
   {
     id: 'inverters',
     name: 'Solar inverters and PCUs',
     title: 'Solar Inverter and PCU Dealer in Punjab',
+    compare: [
+      { href: '/utl-vs-luminous/', brand: 'Luminous' },
+      { href: '/utl-vs-microtek/', brand: 'Microtek' },
+      { href: '/utl-vs-polycab/', brand: 'Polycab' },
+      { href: '/utl-vs-havells/', brand: 'Havells' },
+      { href: '/utl-vs-growatt/', brand: 'Growatt' },
+    ],
     blurb: 'Home inverters, hybrid solar PCUs and on-grid string inverters from 675 VA to 125 kW: Heliac, Shamsi, Gamma+, Alfa+, Sigma+, Zeta, Sun-lion and more.',
   },
-  { id: 'batteries', name: 'Batteries', title: 'Solar and Inverter Battery Dealer in Punjab', heading: 'Solar and inverter batteries', blurb: 'Tubular, SMF and lithium-ion (LiFePO4) batteries for inverters, solar systems and e-rickshaws.' },
+  {
+    id: 'batteries',
+    name: 'Batteries',
+    title: 'Solar and Inverter Battery Dealer in Punjab',
+    heading: 'Solar and inverter batteries',
+    compare: [
+      { href: '/utl-vs-exide/', brand: 'Exide' },
+      { href: '/utl-vs-livguard/', brand: 'Livguard' },
+      { href: '/utl-vs-luminous/', brand: 'Luminous' },
+    ],
+    blurb: 'Tubular, SMF and lithium-ion (LiFePO4) batteries for inverters, solar systems and e-rickshaws.' },
   {
     id: 'charge-controllers',
     name: 'Charge controllers',

@@ -1,0 +1,73 @@
+---
+title: 'UTL vs Exide Solar Batteries: Warranty Compared'
+description: 'UTL and Exide tubular batteries compared on warranty, from each brand''s published figures. Exide lists the longer warranty; here is where UTL still fits.'
+h1: UTL vs Exide batteries
+lead: 'On tubular batteries, Exide lists the longer warranty. Its EL Ultra carries 72 months and its Home InvaTubular 66, against 60 months on UTL''s. UTL''s case rests on the battery being part of a whole solar system from one brand.'
+crumb: UTL vs Exide
+updated: '2026-09-26'
+faq:
+  - q: Which has the longer battery warranty, UTL or Exide?
+    a: 'Exide, on the models compared here. The Exide EL Ultra Tubular lists 72 months, 54 of them free replacement, and the Home InvaTubular lists 66, 48 of them free replacement. UTL lists 60 months on its UIT16036 (36 + 24) and on its UST1560.'
+  - q: What does free replacement plus pro-rata mean?
+    a: 'In the free-replacement months a failed battery is replaced at no charge. In the pro-rata months you pay part of the price of a new one, depending on how far through the warranty you are. Compare the free-replacement months first.'
+  - q: Does RSK Solar Energy sell Exide?
+    a: 'No. RSK Solar Energy is a UTL Solar distributor. We can quote the UTL side and help you compare it with an Exide quote from an Exide dealer.'
+related:
+  - href: /utl-solar-vs-other-brands/
+    label: UTL compared with other brands
+  - href: /blog/lithium-vs-tubular-battery-for-solar/
+    label: Lithium or tubular battery for solar
+  - href: /products/batteries/
+    label: UTL batteries we stock
+cta:
+  heading: Comparing a UTL battery with an Exide one?
+  label: Get the UTL quote
+  message: 'Hi RSK Solar Energy, I am comparing a UTL battery with Exide. What I need to back up: '
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+
+export const months = [
+  { label: 'Exide EL Ultra Tubular', value: 72, display: '72 months', note: '54 free + 18 pro-rata' },
+  { label: 'Exide Home InvaTubular', value: 66, display: '66 months', note: '48 free + 18 pro-rata' },
+  { label: 'UTL UST1560, 150 Ah', value: 60, display: '60 months', emphasis: true, note: 'Heavy duty' },
+  { label: 'UTL UIT16036, 150 Ah', value: 60, display: '60 months', emphasis: true, note: '36 free + 24' },
+];
+export const ticks = [0, 12, 24, 36, 48, 60, 72].map((v) => ({ value: v, label: `${v}` }));
+
+Exide is best known for batteries, and on the tubular models compared here it lists longer warranties than UTL does. Where UTL comes back into it is the rest of the system: panels, the solar inverter or PCU, and the battery, all from one brand and one service network.
+
+## Warranty, model by model
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table min-w-lg">
+<caption>From each brand's published figures, checked 26 September 2026</caption>
+<thead><tr><th scope="col">Battery</th><th scope="col">Warranty</th></tr></thead>
+<tbody>
+<tr><th scope="row">Exide EL Ultra Tubular</th><td>72 months: 54 free replacement + 18 pro-rata</td></tr>
+<tr><th scope="row">Exide Home InvaTubular</th><td>66 months: 48 free replacement + 18 pro-rata</td></tr>
+<tr><th scope="row"><a href="/products/utl-150ah-solar-inverter-battery-ust-1560/" class="underline">UTL UST1560</a>, 150 Ah heavy duty</th><td>60 months</td></tr>
+<tr><th scope="row"><a href="/products/uit16036-solar-battery/" class="underline">UTL UIT16036</a>, 150 Ah</th><td>36 + 24 months</td></tr>
+</tbody>
+</table>
+</div>
+
+<BarChart title="Total warranty on a tubular battery" rows={months} max={72} ticks={ticks} valueHeading="Warranty, months" caption="Totals, from each brand's own pages. The free-replacement part matters most, and it is in the table above." />
+
+## Choose Exide if
+
+- The battery warranty is what matters most to you. On these models, Exide lists longer free-replacement periods.
+
+## Choose UTL if
+
+- You want the battery, the inverter or PCU, and the panels from one brand, so one service network answers for the whole system. A [hybrid solar system](/hybrid-solar-systems/) is where that counts most.
+- You are sizing the battery bank with the rest of the system. Our [hybrid calculator](/hybrid-solar-calculator/) works out the inverter, the batteries and the panels together.
+
+## Where RSK Solar Energy fits
+
+RSK Solar Energy is a UTL Solar distributor in Mohali. We do not stock Exide, so we can quote the UTL side. If you have an Exide quote, send it with ours and we will go through the two model by model. For how many batteries a system needs, see [batteries for a 3 kW system](/blog/how-many-batteries-for-3kw-solar-system/).
+
+## Sources
+
+- UTL: [UIT16036](/products/uit16036-solar-battery/) and [UST1560](/products/utl-150ah-solar-inverter-battery-ust-1560/), from UTL's specifications
+- Exide: [EL Ultra Tubular](https://www.exidecare.com/brand/exide-el-ultra-tubular-inverter-battery) and [Home InvaTubular](https://www.exidecare.com/brand/exide-home-invatubular-inverter-battery), on Exide's own site, checked 26 September 2026

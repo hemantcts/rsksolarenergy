@@ -46,8 +46,8 @@ export const BRAND_CATEGORIES: BrandCategory[] = [
     brands: [
       { name: 'UTL Solar', logo: utlLogo, relationship: 'distributor', link: { href: '/utl-solar-distributor-punjab/', label: 'UTL Solar range and dealer supply' } },
       { name: 'Luminous', logo: luminousLogo, relationship: 'stocked', link: { href: '/utl-vs-luminous/', label: 'UTL and Luminous compared' } },
-      { name: 'Polycab', logo: polycabLogo, relationship: 'stocked' },
-      { name: 'Fujiyama Solar', logo: fujiyamaLogo, relationship: 'stocked' },
+      { name: 'Polycab', logo: polycabLogo, relationship: 'stocked', link: { href: '/utl-vs-polycab/', label: 'UTL and Polycab compared' } },
+      { name: 'Fujiyama Solar', logo: fujiyamaLogo, relationship: 'stocked', link: { href: '/utl-vs-fujiyama-solar/', label: 'Same maker as UTL' } },
     ],
   },
   {

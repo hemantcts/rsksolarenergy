@@ -1,0 +1,73 @@
+---
+title: 'UTL vs Livguard Batteries: 150 Ah Warranty Compared'
+description: 'UTL and Livguard 150 Ah tubular batteries compared on warranty, from each brand''s published figures. Two models match; Livguard''s top model runs longer.'
+h1: UTL vs Livguard batteries
+lead: 'On a 150 Ah tubular battery the two brands meet in the middle and part at the top. UTL''s UIT16036 and Livguard''s IT1560STT both list 36 + 24 months. Livguard''s IT1584TT goes further, at 60 + 24.'
+crumb: UTL vs Livguard
+updated: '2026-09-26'
+faq:
+  - q: Which has the longer battery warranty, UTL or Livguard?
+    a: 'It depends on the model. UTL''s UIT16036 and Livguard''s IT1560STT both list 36 + 24 months on a 150 Ah battery. Livguard''s IT1584TT lists 60 + 24 months, longer than the 60 months on UTL''s UST1560.'
+  - q: Is a 150 Ah battery enough for solar?
+    a: 'It depends on what you want to keep running and for how long. Our hybrid solar calculator works out the battery bank from the loads you choose, alongside the inverter and panels.'
+  - q: Does RSK Solar Energy sell Livguard?
+    a: 'No. RSK Solar Energy is a UTL Solar distributor. We can quote the UTL side and help you compare it with a Livguard quote from a Livguard dealer.'
+related:
+  - href: /utl-solar-vs-other-brands/
+    label: UTL compared with other brands
+  - href: /blog/how-many-batteries-for-3kw-solar-system/
+    label: How many batteries a 3 kW system needs
+  - href: /products/batteries/
+    label: UTL batteries we stock
+cta:
+  heading: Comparing a UTL battery with a Livguard one?
+  label: Get the UTL quote
+  message: 'Hi RSK Solar Energy, I am comparing a UTL battery with Livguard. What I need to back up: '
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+
+export const months = [
+  { label: 'Livguard IT1584TT', value: 84, display: '84 months', note: '60 + 24' },
+  { label: 'UTL UST1560', value: 60, display: '60 months', emphasis: true, note: 'Heavy duty' },
+  { label: 'UTL UIT16036', value: 60, display: '60 months', emphasis: true, note: '36 + 24' },
+  { label: 'Livguard IT1560STT', value: 60, display: '60 months', note: '36 + 24' },
+];
+export const ticks = [0, 12, 24, 36, 48, 60, 72, 84].map((v) => ({ value: v, label: `${v}` }));
+
+Look at the model before the brand. At the most common level the two warranties are identical, and the gap only opens on Livguard's longest-warranty battery.
+
+## Warranty on a 150 Ah tubular battery
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table min-w-lg">
+<caption>From each brand's published figures, checked 26 September 2026</caption>
+<thead><tr><th scope="col">Battery, 150 Ah</th><th scope="col">Warranty</th></tr></thead>
+<tbody>
+<tr><th scope="row">Livguard IT1584TT</th><td>60 + 24 months</td></tr>
+<tr><th scope="row"><a href="/products/utl-150ah-solar-inverter-battery-ust-1560/" class="underline">UTL UST1560</a>, heavy duty</th><td>60 months</td></tr>
+<tr><th scope="row"><a href="/products/uit16036-solar-battery/" class="underline">UTL UIT16036</a></th><td>36 + 24 months</td></tr>
+<tr><th scope="row">Livguard IT1560STT</th><td>36 + 24 months</td></tr>
+</tbody>
+</table>
+</div>
+
+<BarChart title="Total warranty on a 150 Ah tubular battery" rows={months} max={84} ticks={ticks} valueHeading="Warranty, months" caption="Totals from each brand's own pages. The first figure in each pair is the full-replacement period, which matters most." />
+
+## Choose Livguard if
+
+- You want the longest battery warranty on a 150 Ah model. The IT1584TT lists 60 + 24 months.
+
+## Choose UTL if
+
+- You are comparing like with like at 36 + 24 months, where the two match, and want the battery to come from the same brand as your inverter and panels.
+- You want one service network for the whole system. That matters most on a [hybrid system](/hybrid-solar-systems/), where the battery and the inverter work together.
+
+## Where RSK Solar Energy fits
+
+RSK Solar Energy is a UTL Solar distributor in Mohali. We do not stock Livguard, so we can quote the UTL side. Our [hybrid solar calculator](/hybrid-solar-calculator/) sizes the battery bank for the loads you want to keep running, and our guide to [lithium or tubular batteries](/blog/lithium-vs-tubular-battery-for-solar/) covers the other choice you will face.
+
+## Sources
+
+- UTL: [UIT16036](/products/uit16036-solar-battery/) and [UST1560](/products/utl-150ah-solar-inverter-battery-ust-1560/), from UTL's specifications
+- Livguard: [IT1560STT](https://www.livguard.com/product/it1560stt) and [IT1584TT](https://www.livguard.com/product/it1584tt), on Livguard's own site, checked 26 September 2026
