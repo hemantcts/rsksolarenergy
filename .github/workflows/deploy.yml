@@ -13,8 +13,10 @@ name: Build and deploy
 #   DEPLOY_PATH   the web root, e.g. /home/<user>/domains/rsksolarenergy.com/public_html
 # Optional variables (same page, Variables tab):
 #   SSH_PORT        defaults to 22. Hostinger uses 65002.
-#   DEPLOY_DELETE   "true" removes files on the host that are not in the build. The KEEP list
-#                   below is still protected. Leave it unset unless you want that tidy-up.
+#
+# The upload removes files on the host that are no longer in the build, so the live site matches what
+# was built and nothing accumulates. The KEEP list below is never touched, and the upload is refused
+# outright if the build looks too small to be real.
 
 on:
   push:
@@ -35,7 +37,7 @@ concurrency:
 
 env:
   # Other things living in the web root that this site must never touch: the applications on
-  # subdomains, and the host's own files. Protected whether or not DEPLOY_DELETE is on.
+  # subdomains, and the host's own files. Never uploaded over, and never deleted.
   KEEP: >-
     --exclude rates/
     --exclude newoffice/
@@ -100,11 +102,18 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_PORT: ${{ vars.SSH_PORT || '22' }}
           DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
-          DEPLOY_DELETE: ${{ vars.DEPLOY_DELETE }}
           DRY_RUN: ${{ inputs.dry_run }}
         run: |
-          FLAGS="-rlvz --checksum"
-          if [ "$DEPLOY_DELETE" = "true" ]; then FLAGS="$FLAGS --delete"; fi
+          # A build that came out far too small means something went wrong earlier, and uploading it
+          # with --delete would take the live site with it. The real build is around 1,200 files.
+          files=$(find dist -type f | wc -l)
+          echo "The build has $files files."
+          if [ "$files" -lt 300 ]; then
+            echo 'That is too few to be a real build. Refusing to upload, so the live site is left alone.'
+            exit 1
+          fi
+
+          FLAGS="-rlvz --checksum --delete"
           if [ "$DRY_RUN" = "true" ]; then FLAGS="$FLAGS --dry-run --itemize-changes"; echo "DRY RUN: nothing will be written."; fi
           rsync $FLAGS $KEEP \
             -e "ssh -i ~/.ssh/id_deploy -p $SSH_PORT" \
