@@ -44,26 +44,38 @@ export interface Product {
 
 export const PRODUCTS = raw as Product[];
 
-export const CATEGORIES: { id: ProductCategory; name: string; blurb: string }[] = [
+/**
+ * `name` is what the category is called around the site. `title` is what it goes after in search,
+ * and `heading` is its H1 where the plain name would collide with another page.
+ *
+ * The titles name Punjab rather than Mohali on purpose. Mohali is carried by the homepage, the
+ * Mohali page, forty-five town pages, the panels guide and the business schema on every page, so
+ * six catalogue pages repeating it added nothing and left the state-wide product searches, "solar
+ * inverter dealer in Punjab" and the like, with no page of their own.
+ */
+export const CATEGORIES: { id: ProductCategory; name: string; blurb: string; title: string; heading?: string }[] = [
   {
     id: 'solar-systems',
     name: 'Complete solar systems',
+    title: 'Complete Solar Systems for Home and Business in Punjab',
     blurb: 'UTL hybrid and off-grid kits from 1 kW to 5 kW: panels, inverter and batteries matched.',
   },
-  { id: 'solar-panels', name: 'Solar panels', blurb: 'Mono PERC, N-Type TOPCon and bifacial modules from 40 W to 735 W, including DCR and non-DCR panels.' },
+  { id: 'solar-panels', name: 'Solar panels', title: 'Solar Panel Dealer and Distributor in Punjab', heading: 'Every solar panel we stock', blurb: 'Mono PERC, N-Type TOPCon and bifacial modules from 40 W to 735 W, including DCR and non-DCR panels.' },
   {
     id: 'inverters',
     name: 'Solar inverters and PCUs',
+    title: 'Solar Inverter and PCU Dealer in Punjab',
     blurb: 'Home inverters, hybrid solar PCUs and on-grid string inverters from 675 VA to 125 kW: Heliac, Shamsi, Gamma+, Alfa+, Sigma+, Zeta, Sun-lion and more.',
   },
-  { id: 'batteries', name: 'Batteries', blurb: 'Tubular, SMF and lithium-ion (LiFePO4) batteries for inverters, solar systems and e-rickshaws.' },
+  { id: 'batteries', name: 'Batteries', title: 'Solar and Inverter Battery Dealer in Punjab', heading: 'Solar and inverter batteries', blurb: 'Tubular, SMF and lithium-ion (LiFePO4) batteries for inverters, solar systems and e-rickshaws.' },
   {
     id: 'charge-controllers',
     name: 'Charge controllers',
+    title: 'Solar Charge Controller Dealer in Punjab',
     blurb: 'PWM and rMPPT controllers and solar management units that convert a normal inverter to solar.',
   },
-  { id: 'ev-chargers', name: 'EV battery chargers', blurb: 'Lead-acid, SMF and lithium-ion chargers for e-rickshaws and e-bikes, 48V to 72V.' },
-  { id: 'lighting-and-appliances', name: 'Lighting and appliances', blurb: 'Solar lighting kits, lanterns, torches and a solar air conditioner.' },
+  { id: 'ev-chargers', name: 'EV battery chargers', title: 'EV Battery Charger Dealer in Punjab', blurb: 'Lead-acid, SMF and lithium-ion chargers for e-rickshaws and e-bikes, 48V to 72V.' },
+  { id: 'lighting-and-appliances', name: 'Lighting and appliances', title: 'Solar Lighting and Appliances in Punjab', blurb: 'Solar lighting kits, lanterns, torches and a solar air conditioner.' },
 ];
 
 export function productsIn(category: ProductCategory): Product[] {
