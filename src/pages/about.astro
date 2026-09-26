@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaBlock from '../components/content/CtaBlock.astro';
+import { PRESS, PRESS_OUTLET } from '../data/press';
 import { BUSINESS, formatAddressLines } from '../config/business';
 import { F } from '../lib/facts';
 import SolarPumpArt from '../components/art/SolarPumpArt.astro';
@@ -144,6 +145,32 @@ const facts: [string, string][] = [
         <li><a href="/off-grid-solar-systems/" class="font-semibold underline">Off-grid systems</a><span class="mt-1 block text-slate">Farmhouses and sites without reliable supply.</span></li>
         <li><a href="/solar-pumps/" class="font-semibold underline">Solar water pumps</a><span class="mt-1 block text-slate">Tubewells and irrigation for farmers, 100+ installed.</span></li>
         <li><a href="/solar-dealership-punjab/" class="font-semibold underline">Dealer supply (B2B)</a><span class="mt-1 block text-slate">Wholesale UTL products for electricians, installers and shops across Punjab.</span></li>
+      </ul>
+    </div>
+  </section>
+  <section class="sec-tight bg-white" aria-labelledby="press-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="press-h" class="t-h2">In the media</h2>
+        <p class="mt-5 text-slate">
+          {PRESS_OUTLET.name}, a Punjabi media page, has interviewed us about the products we supply.
+          These links open their posts on Facebook.
+        </p>
+        <p class="t-small mt-4 text-slate">
+          Their interviews, their words. We have not edited or reproduced them here.
+        </p>
+      </div>
+      <ul class="ruled lg:col-span-7 lg:col-start-6">
+        {
+          PRESS.map((item) => (
+            <li>
+              <a href={item.href} rel="noopener nofollow" target="_blank" class="flex items-baseline justify-between gap-4 font-semibold underline">
+                <span>{item.label}</span>
+                <span class="t-small shrink-0 font-normal text-slate">Facebook</span>
+              </a>
+            </li>
+          ))
+        }
       </ul>
     </div>
   </section>
