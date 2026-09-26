@@ -1,10 +1,11 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaBlock from '../components/content/CtaBlock.astro';
 import { BUSINESS } from '../config/business';
 import { REVIEWS, reviewMonth } from '../data/reviews';
+import { abs } from '../lib/seo';
 import rooftopHouse from '../assets/installations/rooftop-solar-panels-on-house-punjab.jpg';
 import rooftopInProgress from '../assets/installations/rooftop-solar-installation-in-progress-punjab.jpg';
 import pumpHouseInverter from '../assets/installations/utl-solar-inverter-wall-mounted-pump-house.jpg';
@@ -20,6 +21,7 @@ import arrayCloseUp from '../assets/installations/solar-panel-array-close-up-pun
 import rooftopHome from '../assets/installations/rooftop-solar-array-home-punjab.jpg';
 import inverterAndPanel from '../assets/installations/solar-inverter-and-electrical-panel-installed.jpg';
 import mountingStructure from '../assets/installations/rooftop-solar-mounting-structure-punjab.jpg';
+import rooftopBeingFitted from '../assets/installations/rooftop-solar-panels-being-fitted-punjab.jpg';
 
 /**
  * Stills from RSK Solar Energy's own job videos, confirmed as its own work on 26 September 2026.
@@ -28,6 +30,40 @@ import mountingStructure from '../assets/installations/rooftop-solar-mounting-st
  * roof it sits on are not in the footage, so they are not claimed here. Anything more specific has
  * to come from RSK Solar Energy.
  */
+/**
+ * Clips from the same jobs, served from this site rather than a third party.
+ *
+ * Every one is `preload="none"` behind a poster image, so a visitor downloads nothing until they
+ * press play. That is what makes self-hosting eight videos reasonable on shared hosting: the page
+ * costs the same to load whether they are here or not.
+ */
+const clips = [
+  { file: '09-solar-pump-water-into-field-channel', poster: pumpChannel, name: 'Solar pump running into a field channel', description: 'Water from a solar-powered tubewell running out into the concrete field channel.' },
+  { file: '07-pole-mounted-solar-array-farmland', poster: groundArrayFarm, name: 'Pole-mounted solar array on farmland', description: 'A pole-mounted array standing in a field, feeding a pump.' },
+  { file: '11-solar-tubewell-water-discharge', poster: tubewellDischarge, name: 'Solar tubewell discharging onto a field', description: 'Discharge from a solar tubewell pump onto ploughed ground.' },
+  { file: '04-rooftop-solar-panels-on-homes', poster: rooftopHouse, name: 'Rooftop solar panels on a house', description: 'A finished residential rooftop array on a raised frame.' },
+  { file: '06-pump-house-inverter-and-solar-array', poster: pumpHouseInverter, name: 'UTL inverter in a pump house', description: 'The UTL inverter and controls inside a pump house, with the array outside.' },
+  { file: '10-solar-array-over-farm-shed', poster: arrayOverShed, name: 'Solar array over a farm shed', description: 'Panels mounted over a shed so the ground underneath stays usable.' },
+  { file: '03-rooftop-solar-panel-installation', poster: rooftopBeingFitted, name: 'Rooftop panels going on', description: 'Modules being fitted to the mounting structure on a roof.' },
+  { file: '27-rooftop-solar-mounting-structure', poster: mountingStructure, name: 'Rooftop mounting structure', description: 'The galvanised structure on a rooftop before the modules go on.' },
+];
+
+// Posters are generated at build time so they are WebP and the right size, like every other image.
+const clipsWithPosters = await Promise.all(
+  clips.map(async (clip) => ({ ...clip, posterUrl: (await getImage({ src: clip.poster, width: 640, format: 'webp' })).src })),
+);
+
+const videoSchema = clipsWithPosters.map((clip) => ({
+  '@type': 'VideoObject',
+  name: clip.name,
+  description: clip.description,
+  thumbnailUrl: abs(clip.posterUrl),
+  contentUrl: abs(`/videos/${clip.file}.mp4`),
+  uploadDate: '2026-09-26',
+  isFamilyFriendly: true,
+  publisher: { '@id': `${BUSINESS.url}#business` },
+}));
+
 const photos = [
   { src: rooftopHouse, alt: 'Rooftop solar array on a house in Punjab, the panels raised on a steel frame above the roof slab', caption: 'A home array on a raised frame, which leaves the roof usable underneath.' },
   { src: pumpChannel, alt: 'Water flowing from a solar pump into a concrete field channel in Punjab', caption: 'A solar pump running into the field channel.' },
@@ -61,6 +97,7 @@ const byType = [
   title="Solar Installations in Mohali and Punjab"
   description={`${BUSINESS.installs.commercial} commercial installations, ${BUSINESS.installs.residential} residential, ${BUSINESS.installs.solarPumps} solar pumps: RSK Solar Energy's installation record in Mohali and Punjab.`}
   crumbs={[{ name: 'Installations', path }]}
+  schema={videoSchema}
 >
   <header class="wrap pt-8 pb-10 lg:pt-12">
     <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Installations', path }]} />
@@ -83,6 +120,36 @@ const byType = [
                   <span class="mt-1 block text-slate">{t.blurb}</span>
                 </span>
               </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec-open bg-white" aria-labelledby="clips-h">
+    <div class="wrap">
+      <h2 id="clips-h" class="t-h2">Watch the work</h2>
+      <p class="measure mt-4 text-slate">
+        Short clips from our own jobs. Nothing downloads until you press play, so the page stays
+        quick whether you watch them or not.
+      </p>
+      <ul class="mt-8 grid gap-x-6 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+        {
+          clipsWithPosters.map((clip) => (
+            <li>
+              <figure>
+                <video
+                  class="aspect-video w-full border border-rule bg-ink"
+                  src={`/videos/${clip.file}.mp4`}
+                  poster={clip.posterUrl}
+                  preload="none"
+                  controls
+                  playsinline
+                  aria-label={clip.name}
+                />
+                <figcaption class="t-small mt-2 text-slate">{clip.description}</figcaption>
+              </figure>
             </li>
           ))
         }
