@@ -64,8 +64,10 @@ async function fromOpenPageRank(key) {
   const body = await res.json();
   const row = body.results?.[0];
   if (!row) throw new Error(`Open PageRank sent nothing usable back: ${JSON.stringify(body).slice(0, 200)}`);
+  // Not an error and not a broken key: the domain is simply not in the link graph yet, which is
+  // itself the finding worth reporting.
   if (row.found === false || row.open_page_rank === null) {
-    throw new Error(`Open PageRank has not scored ${DOMAIN} yet. That happens to a domain with almost no links pointing at it, and it fixes itself as links appear.`);
+    return { source: 'Open PageRank', scale: 10, unscored: true, asOf: body.as_of ?? null };
   }
 
   return {
@@ -156,6 +158,20 @@ export async function authoritySection() {
 No authority score this week. Add **OPENPAGERANK_KEY** (free, 30,000 domains a month, from the
 Dashboard at openpagerank.keywordseverywhere.com) or **MOZ_TOKEN** (moz.com/api, free tier, Moz's own
 Domain Authority) as a repository secret, and the score appears here from the next report on.${why}`;
+  }
+
+  if (reading.unscored) {
+    return `## Authority
+
+**No score yet.** ${reading.source} has ${DOMAIN} in neither its index nor its link graph${reading.asOf ? `, as of its ${reading.asOf} release` : ''}, which is what happens to a domain almost nothing links to.
+
+That is a finding, not a fault. Search Console rankings can climb on relevance alone, and ours are, but
+authority is what decides the searches where an established competitor outranks a better page. What
+moves it is other sites linking here: the Google Business Profile, the trade and local directories that
+list real installers, the UTL dealer listing, suppliers, and any local press or association page that
+will carry a link. A score appears here on its own once a handful of those exist.
+
+_The score is computed from Common Crawl's open link graph, which is rebuilt every month, so a new link takes a few weeks to show._`;
   }
 
   const past = pastReadings();

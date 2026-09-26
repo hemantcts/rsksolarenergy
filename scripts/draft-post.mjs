@@ -1,5 +1,11 @@
-// Drafts a blog post and writes it to src/content/blog/. The workflow then builds the site, runs
-// every check and opens a pull request, so nothing reaches the live site without a human merging.
+// Drafts a blog post and writes it to src/content/blog/. The workflow then puts it through
+// check-draft.mjs and review-draft.mjs and publishes it, with nobody reading it first, so the checks
+// are what stand between this draft and the live site.
+//
+// The figures come from lib/facts.mjs, the same list the checker and the reviewer use. Keeping one
+// list matters more than it looks: when the writer had its own copy, worded differently, the first
+// real run was held for saying the subsidy is "paid to the bank" because that is what its own brief
+// said, while the checker's wording was "into the applicant's own bank account".
 //
 // The topic comes from the weekly Search Console report (seo-report.md) when one is present, or
 // from the TOPIC env var. The model is handed the site's own figures, the list of pages it may
@@ -8,6 +14,7 @@
 // Usage: node scripts/draft-post.mjs ["a topic in plain words"]
 import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { generate } from './lib/ai.mjs';
+import { FACTS_TEXT } from './lib/facts.mjs';
 import { SOLAR_CONFIG as C } from '../src/config/solar-config.ts';
 
 const BLOG = 'src/content/blog';
@@ -106,14 +113,6 @@ export const ticks = [0, 200, 400, 600].map((v) => ({ value: v, label: String(v)
 </div>
 `;
 
-const FACTS = `
-- Punjab gives homes ${C.freeUnits.perMonth} free units a month (${C.freeUnits.perBillingCycle} per two-month bill). Below that a home's bill is already zero.
-- PM Surya Ghar: ₹${C.subsidy.residential.firstBandPerKw.toLocaleString('en-IN')}/kW for the first ${C.subsidy.residential.firstBandKw} kW, ₹${C.subsidy.residential.secondBandPerKw.toLocaleString('en-IN')} for the third, capped at ₹${C.subsidy.residential.cap.toLocaleString('en-IN')}. Paid to the bank ${C.subsidy.disbursementDays[0]} to ${C.subsidy.disbursementDays[1]} days after inspection, never off the invoice. On-grid and hybrid qualify, off-grid does not.
-- Generation planning figure: ${C.generation.annualYieldPerKwp} units per kWp a year less ${Math.round((1 - C.generation.deratingFactor) * 100)}% losses, and ${C.generation.sqFtPerKw} sq ft of shade-free roof per kW.
-- Smallest systems RSK Solar Energy installs: on-grid ${C.sizing.minKwByType['on-grid']} kW, hybrid and off-grid ${C.sizing.minKwByType.hybrid} kW.
-- A rooftop system can be at most ${C.netMetering.maxSystemPercentOfSanctionedLoad}% of the sanctioned load.
-- RSK Solar Energy is a UTL Solar distributor in Phase 8B, Mohali, since ${2022}. Own team in the Tricity and around Kurali, Morinda and Ropar; UTL dealers elsewhere in Punjab.
-`;
 
 const SYSTEM = `You write for RSK Solar Energy, a UTL Solar distributor and rooftop solar installer in Mohali, Punjab. You are writing one blog post for their website, as a working installer would: plainly, concretely, and only about things you can support.
 
@@ -156,7 +155,7 @@ ${posts.map((p) => `- /blog/${p.slug}/ — ${p.title}`).join('\n')}
 GUIDES THAT ALREADY EXIST:
 ${guides.map((g) => `- /${g.slug}/ — ${g.title}`).join('\n')}
 
-FIGURES YOU MAY USE:${FACTS}
+FIGURES YOU MAY USE. These are the only ones, and the checks that follow use this same list, so wording that drifts from it is treated as invention:${FACTS_TEXT}
 
 CHART SNIPPETS: include exactly one chart. Copy one of these blocks as it is, changing only the title, caption and emphasis row. Put the imports directly under the frontmatter.
 ${CHARTS}

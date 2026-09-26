@@ -30,6 +30,8 @@ const prose = body
 // ---- claims we will not publish without a page of our own to point at ----
 const FORBIDDEN = [
   [/credited to the (empanelled )?lender|paid to the (bank|lender) on your behalf|subsidy (is )?(deducted|adjusted) (from|against) the (invoice|price)/i, 'says the subsidy goes somewhere other than the owner’s bank account'],
+  // "paid to the bank" reads as though a lender is paid. It has to be the owner's own account.
+  [/\b(paid|credited|transferred|released) to the bank\b/i, 'says the subsidy goes "to the bank" rather than into the owner’s own account'],
   [/\b(interest rate|rate of interest|EMI of|processing fee)\b/i, 'quotes loan terms, which we do not publish'],
   [/\b(guaranteed?|assured) (savings|returns|payback|generation)\b/i, 'promises a return'],
   [/\bwe (are|is) (an? )?(authoris|authoriz|certifi|approved)/i, 'claims an authorisation we do not publish'],
