@@ -10,7 +10,7 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/brand/logo.png';
 import { BUSINESS, PRIMARY_PHONE, formatHours } from '../config/business';
-import { CONTACT_LINK, NAV, type NavLink } from '../data/nav';
+import { CONTACT_LINK, NAV, type NavGroup } from '../data/nav';
 import { billMessage } from '../lib/whatsapp';
 import RatingBadge from './RatingBadge.astro';
 import SearchBox from './SearchBox.astro';
@@ -20,7 +20,7 @@ import Icon from './Icon.astro';
 const hours = formatHours();
 const hoursText = hours ? [...hours.lines, ...(hours.closed ? [hours.closed] : [])].join(' · ') : null;
 const here = Astro.url.pathname;
-const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
+const inGroup = (g: NavGroup) => g.hub?.href === here || g.links.some((l) => l.href === here);
 ---
 
 <div class="on-ink hidden bg-ink text-white md:block">
@@ -58,7 +58,7 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
           {
             NAV.map((g, i) => (
               <li class="nav-item" data-nav-item>
-                <button type="button" class:list={['nav-trigger', { 'is-current': inGroup(g.links) }]} aria-expanded="false" aria-controls={`nav-panel-${i}`} data-nav-trigger>
+                <button type="button" class:list={['nav-trigger', { 'is-current': inGroup(g) }]} aria-expanded="false" aria-controls={`nav-panel-${i}`} data-nav-trigger>
                   <span>{g.short ?? g.label}</span>
                   <span class="nav-chevron">
                     <Icon name="chevron-down" size={18} />
@@ -66,6 +66,14 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
                 </button>
                 <div class="nav-panel" id={`nav-panel-${i}`}>
                   <ul>
+                    {g.hub && (
+                      <li>
+                        <a href={g.hub.href} class="nav-panel-link nav-panel-hub" aria-current={g.hub.href === here ? 'page' : undefined}>
+                          <span class="block font-medium">{g.hub.label}</span>
+                          {g.hub.note && <span class="t-small block text-slate">{g.hub.note}</span>}
+                        </a>
+                      </li>
+                    )}
                     {g.links.map((l) => (
                       <li>
                         <a href={l.href} class="nav-panel-link" aria-current={l.href === here ? 'page' : undefined}>
@@ -107,7 +115,7 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
         {
           NAV.map((g) => (
             <li>
-              <details name="mobile-nav" open={inGroup(g.links)}>
+              <details name="mobile-nav" open={inGroup(g)}>
                 <summary>
                   <span>{g.label}</span>
                   <span class="nav-chevron">
@@ -115,6 +123,13 @@ const inGroup = (links: NavLink[]) => links.some((l) => l.href === here);
                   </span>
                 </summary>
                 <ul class="mobile-links">
+                  {g.hub && (
+                    <li>
+                      <a href={g.hub.href} class="mobile-link font-medium" aria-current={g.hub.href === here ? 'page' : undefined}>
+                        {g.hub.label}
+                      </a>
+                    </li>
+                  )}
                   {g.links.map((l) => (
                     <li>
                       <a href={l.href} class="mobile-link" aria-current={l.href === here ? 'page' : undefined}>
