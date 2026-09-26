@@ -53,7 +53,7 @@ export function localBusiness() {
     url: `${BUSINESS.siteUrl}/`,
     description: BUSINESS.description,
     logo: abs('/icon-512.png'),
-    image: [abs('/images/rsk-solar-energy-office-mohali.jpg'), abs('/og-default.png')],
+    image: [abs('/images/rsk-solar-energy-office-mohali.jpg'), abs('/og-rsk-logo.png')],
     telephone: BUSINESS.phones.map((p) => p.tel),
     email: BUSINESS.email,
     foundingDate: String(BUSINESS.foundedYear),
@@ -172,7 +172,7 @@ export function article(opts: { title: string; description: string; path: string
     dateModified: opts.updated ?? opts.published,
     author: { '@id': BUSINESS_ID },
     publisher: { '@id': BUSINESS_ID },
-    image: abs('/og-default.png'),
+    image: abs('/og-rsk-logo.png'),
     inLanguage: 'en-IN',
   };
 }

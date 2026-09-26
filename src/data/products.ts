@@ -59,7 +59,7 @@ export interface CategoryComparison {
   brand: string;
 }
 
-export const CATEGORIES: { id: ProductCategory; name: string; blurb: string; title: string; heading?: string; compare?: CategoryComparison[] }[] = [
+export const CATEGORIES: { id: ProductCategory; name: string; blurb: string; title: string; heading?: string; compare?: CategoryComparison[]; guides?: { href: string; label: string }[] }[] = [
   {
     id: 'solar-systems',
     name: 'Complete solar systems',
@@ -72,6 +72,11 @@ export const CATEGORIES: { id: ProductCategory; name: string; blurb: string; tit
   },
   {
     id: 'solar-panels',
+    guides: [
+      { href: '/best-solar-panel-technology/', label: 'Which panel technology is best' },
+      { href: '/dcr-vs-non-dcr-solar-panels/', label: 'DCR and non-DCR panels' },
+      { href: '/topcon-solar-panels/', label: 'TOPCon panels' },
+    ],
     name: 'Solar panels',
     title: 'Solar Panel Dealer and Distributor in Punjab',
     heading: 'Every solar panel we stock',
@@ -88,6 +93,11 @@ export const CATEGORIES: { id: ProductCategory; name: string; blurb: string; tit
     blurb: 'Mono PERC, N-Type TOPCon and bifacial modules from 40 W to 735 W, including DCR and non-DCR panels.' },
   {
     id: 'inverters',
+    guides: [
+      { href: '/transformer-vs-transformerless-inverter/', label: 'Transformer or transformerless' },
+      { href: '/5kw-hybrid-inverter-two-ac/', label: 'Two ACs on a 5 kW hybrid' },
+      { href: '/off-grid-solar-for-villages/', label: 'Off-grid inverters for villages' },
+    ],
     name: 'Solar inverters and PCUs',
     title: 'Solar Inverter and PCU Dealer in Punjab',
     compare: [
@@ -102,6 +112,10 @@ export const CATEGORIES: { id: ProductCategory; name: string; blurb: string; tit
   },
   {
     id: 'batteries',
+    guides: [
+      { href: '/tubular-battery-care/', label: 'Tubular battery care' },
+      { href: '/lithium-battery-care/', label: 'Lithium battery care' },
+    ],
     name: 'Batteries',
     title: 'Solar and Inverter Battery Dealer in Punjab',
     heading: 'Solar and inverter batteries',
@@ -114,6 +128,10 @@ export const CATEGORIES: { id: ProductCategory; name: string; blurb: string; tit
     blurb: 'Tubular, SMF and lithium-ion (LiFePO4) batteries for inverters, solar systems and e-rickshaws.' },
   {
     id: 'charge-controllers',
+    guides: [
+      { href: '/solar-charge-controller/', label: 'What a charge controller does, and UTL sizes' },
+      { href: '/mppt-vs-pwm-charge-controller/', label: 'MPPT and PWM compared' },
+    ],
     name: 'Charge controllers',
     title: 'Solar Charge Controller Dealer in Punjab',
     blurb: 'PWM and rMPPT controllers and solar management units that convert a normal inverter to solar.',

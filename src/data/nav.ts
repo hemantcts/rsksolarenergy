@@ -48,6 +48,7 @@ export const NAV: NavGroup[] = [
       ...CATEGORIES.map((c) => ({ href: `/products/${c.id}/`, label: c.name })),
       { href: '/utl-solar-vs-other-brands/', label: 'UTL vs other brands' },
       { href: '/brands/', label: 'All brands we supply' },
+      { href: '/how-to-order-solar-products/', label: 'How to order', note: 'Delivered anywhere in India' },
     ],
   },
   {
@@ -83,6 +84,8 @@ export const NAV: NavGroup[] = [
       { href: '/blog/how-many-batteries-for-3kw-solar-system/', label: 'Batteries for a 3 kW system' },
       { href: '/blog/lithium-vs-tubular-battery-for-solar/', label: 'Lithium or tubular battery?' },
       { href: '/blog/how-to-size-home-solar-punjab/', label: 'How to size a home system' },
+      { href: '/what-is-solar-energy/', label: 'What solar energy is', note: 'And how net metering lowers the bill' },
+      { href: '/read-solar-meter-and-electricity-bill/', label: 'Reading your meter and bill' },
     ],
   },
   {

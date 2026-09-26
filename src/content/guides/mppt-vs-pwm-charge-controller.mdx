@@ -1,0 +1,79 @@
+---
+title: 'MPPT vs PWM Solar Charge Controller: Which Do You Need?'
+description: 'How MPPT and PWM solar charge controllers differ, why panel voltage decides between them, and where the cheaper PWM controller is still the right choice.'
+h1: MPPT and PWM charge controllers compared
+lead: 'Both kinds charge a battery from solar panels. A PWM controller connects the panels almost directly to the battery. An MPPT controller converts the panels'' higher voltage into extra charging current. Which one you need depends mostly on how well the panel voltage matches the battery.'
+crumb: MPPT vs PWM
+updated: '2026-09-27'
+faq:
+  - q: Is MPPT better than PWM?
+    a: 'It harvests more from panels whose voltage is well above the battery''s, which is true of most modern large panels. When the panels are made for the battery voltage, such as a 36-cell panel on a 12 V battery, a PWM controller loses little and costs less.'
+  - q: Can I use a 540 W panel with a PWM controller on a 12 V battery?
+    a: 'It will charge, but badly. A large modern panel is built to work at around three times a 12 V battery''s voltage, and a PWM controller pulls it down to battery voltage, so most of its power is never used. Use an MPPT controller, or a higher-voltage battery bank.'
+  - q: What is rMPPT?
+    a: 'UTL''s name for the maximum power point tracking in its controllers, solar management units and PCUs. It works on the same principle: find the panel voltage that gives the most power and convert it to suit the battery.'
+related:
+  - href: /solar-charge-controller/
+    label: Solar charge controllers and UTL sizes
+  - href: /products/charge-controllers/
+    label: UTL charge controllers we stock
+  - href: /blog/solar-panel-datasheet-what-matters/
+    label: What matters on a panel datasheet
+cta:
+  heading: Want the controller matched to your panels?
+  label: Ask us on WhatsApp
+  message: 'Hi RSK Solar Energy, should I use MPPT or PWM? My panels and battery voltage: '
+---
+
+## Panel voltage and battery voltage rarely match
+
+A solar panel gives its most power at one particular voltage, which the datasheet lists as Vmp. A battery charges at its own voltage, a little above its nominal 12, 24 or 48 V. The two are almost never the same, and the controller has to deal with the gap. PWM and MPPT deal with it in different ways.
+
+## How PWM works
+
+PWM stands for pulse width modulation. The controller connects the panels to the battery through a fast switch and pulses it to hold the battery at the right charging voltage. While connected, the panels work at the battery's voltage, whatever their own best voltage is.
+
+The panel's current barely changes with voltage, so power (voltage times current) falls when the panel is held below its Vmp. Any voltage the panel could have given above the battery's is simply unused.
+
+## How MPPT works
+
+MPPT stands for maximum power point tracking. The controller keeps searching for the voltage at which the panels give the most power, runs them there, and converts that power down to the battery's voltage. What comes out is a lower voltage at a higher current, so the extra voltage becomes extra charging current instead of being wasted.
+
+The tracking keeps adjusting through the day, because the best voltage moves with sunlight and panel temperature.
+
+## Side by side
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table min-w-lg">
+<caption>General differences between the two types</caption>
+<thead><tr><th scope="col"></th><th scope="col">PWM</th><th scope="col">MPPT</th></tr></thead>
+<tbody>
+<tr><th scope="row">How it charges</th><td>Connects panels to the battery and pulses the switch</td><td>Converts panel power to the battery's voltage</td></tr>
+<tr><th scope="row">Panel voltage used</th><td>Pulled down to battery voltage</td><td>Held at the panel's best voltage</td></tr>
+<tr><th scope="row">Panels it suits</th><td>Panels made for the battery voltage, such as 36-cell on 12 V</td><td>Higher-voltage panels, and panels wired in series</td></tr>
+<tr><th scope="row">Price</th><td>Lower</td><td>Higher</td></tr>
+<tr><th scope="row">Where it makes sense</th><td>Small systems, lights and fans</td><td>Most systems built with today's large panels</td></tr>
+</tbody>
+</table>
+</div>
+
+## A worked example
+
+Take a modern large panel of the kind now fitted on rooftops. It is built to give its rated power at somewhere around 40 V. On a 12 V battery charging at about 14 V, a PWM controller holds that panel at about 14 V, roughly a third of its best voltage, so it delivers roughly a third of its power. An MPPT controller runs the same panel near 40 V and turns the difference into charging current.
+
+Now take a small 36-cell panel, made to work at around 17 to 18 V, on the same battery. Here the gap is small, and a PWM controller loses far less. UTL's own PWM solar management unit sheet pairs its 12 V models with 150 W and 165 W panels.
+
+UTL describes its rMPPT controllers as 30% more efficient than normal controllers. Treat that as the maker's own figure. The real gain depends on how far apart the panel and battery voltages are, and on the weather.
+
+## Which to choose
+
+- A small DC system with 36-cell panels matched to a 12 V or 24 V battery: PWM is fine and costs less.
+- Large modern panels, or panels wired in series for a higher voltage: MPPT.
+- A long cable run from the roof: MPPT, because a higher panel voltage means less current and less loss in the cable.
+- Winter mornings in Punjab are cold, and panel voltage rises in the cold. With either type, check that the panels' open-circuit voltage stays inside the controller's input limit.
+
+## What UTL offers
+
+UTL makes both. Its [PWM solar management units](/products/pwm-solar-management-unit-12v-24v-40a/) and [24V 10A controller](/products/utl-solar-charge-controller-24v-10-amp/) use PWM. Its [rMPPT solar management unit](/products/r-mppt-solar-management-unit-12v-24v-40a/) uses tracking, and its MSCC controllers list both MPPT and PWM. The full range, with voltages and currents, is on [solar charge controllers and UTL sizes](/solar-charge-controller/).
+
+If you are buying a solar PCU or a [hybrid inverter](/hybrid-solar-systems/), the controller is already inside it, and the question becomes which inverter to choose; see [how to choose a solar inverter](/blog/how-to-choose-solar-inverter-for-home/).

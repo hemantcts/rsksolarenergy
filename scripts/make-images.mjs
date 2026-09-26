@@ -5,13 +5,6 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 
 const root = new URL('../', import.meta.url);
 const p = (rel) => new URL(rel, root).pathname.replace(/^\/([A-Za-z]:)/, '$1');
-const INK = '#0D1B2A';
-const RULE = '#C9D3D8';
-const FONTS = {
-  condensed: p('assets-src/fonts-ttf/IBMPlexSansCondensed-SemiBold.ttf'),
-  sans: p('assets-src/fonts-ttf/IBMPlexSans-Regular.ttf'),
-  sansMedium: p('assets-src/fonts-ttf/IBMPlexSans-Medium.ttf'),
-};
 
 mkdirSync(p('src/assets/brand'), { recursive: true });
 mkdirSync(p('public'), { recursive: true });
@@ -54,46 +47,16 @@ ico.writeUInt8(32, 6); ico.writeUInt8(32, 7); ico.writeUInt8(0, 8); ico.writeUIn
 ico.writeUInt16LE(1, 10); ico.writeUInt16LE(32, 12); ico.writeUInt32LE(fav32.length, 14); ico.writeUInt32LE(22, 18);
 writeFileSync(p('public/favicon.ico'), Buffer.concat([ico, fav32]));
 
-// 4. Open Graph image, 1200×630: ink ground, the panel-cell grid, Plex type.
+// 4. Open Graph image, 1200×630: the round logo supplied by the owner, centred on its own white ground.
 const W = 1200;
 const H = 630;
-const cell = 75;
-let lines = '';
-for (let x = cell * 8; x <= W; x += cell) lines += `<line x1="${x}" y1="0" x2="${x}" y2="${H}"/>`;
-for (let y = 0; y <= H; y += cell) lines += `<line x1="${cell * 8}" y1="${y}" x2="${W}" y2="${y}"/>`;
-const grid = Buffer.from(
-  `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><g stroke="${RULE}" stroke-opacity="0.22" stroke-width="1">${lines}</g><line x1="72" y1="468" x2="${cell * 8 - 40}" y2="468" stroke="${RULE}" stroke-opacity="0.5"/></svg>`,
-);
-const text = (markup, font, fontfile, width, dpi) =>
-  sharp({ text: { text: markup, font, fontfile, width, rgba: true, dpi, wrap: 'word' } }).png().toBuffer();
-
-const headline = await text(
-  `<span foreground="#FFFFFF" letter_spacing="-800">Rooftop solar in Mohali and Punjab, priced after subsidy</span>`,
-  'IBM Plex Sans Condensed SemiBold',
-  FONTS.condensed,
-  520,
-  300,
-);
-const sub = await text(
-  `<span foreground="${RULE}">UTL Solar distributor, Phase 8-B Mohali. Free subsidy and savings calculator.</span>`,
-  'IBM Plex Sans',
-  FONTS.sans,
-  500,
-  110,
-);
-const url = await text(`<span foreground="#FFFFFF">rsksolarenergy.com</span>`, 'IBM Plex Sans Medium', FONTS.sansMedium, 500, 110);
-const ogLogo = await sharp(logoLight).resize({ height: 44 }).toBuffer();
-
-const og = await sharp({ create: { width: W, height: H, channels: 4, background: INK } })
-  .composite([
-    { input: grid, top: 0, left: 0 },
-    { input: ogLogo, top: 64, left: 72 },
-    { input: headline, top: 150, left: 72 },
-    { input: sub, top: 492, left: 72 },
-    { input: url, top: 552, left: 72 },
-  ])
+const BG = { r: 254, g: 254, b: 254, alpha: 1 };
+const circle = await sharp(p('assets-src/og-logo-circle.webp')).trim({ threshold: 10 }).resize({ height: 570 }).png().toBuffer();
+const og = await sharp({ create: { width: W, height: H, channels: 4, background: BG } })
+  .composite([{ input: circle, gravity: 'center' }])
+  .flatten({ background: BG })
   .png({ compressionLevel: 9, palette: true })
   .toBuffer();
-writeFileSync(p('public/og-default.png'), og);
+writeFileSync(p('public/og-rsk-logo.png'), og);
 
 console.log('logo', meta.width, 'x', meta.height, '| og', (og.length / 1024).toFixed(0), 'KB');

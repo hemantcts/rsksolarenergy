@@ -1,0 +1,82 @@
+---
+title: 'Solar Charge Controllers: What They Do and UTL Sizes'
+description: 'What a solar charge controller does, when a system needs a separate one, and the UTL controllers and solar management units, from 12V 10A to 240V.'
+h1: Solar charge controllers, and the sizes UTL makes
+lead: 'A charge controller sits between the panels and the battery and decides how much charge the battery gets. Without one, panels would overcharge the battery on a sunny day and drain it back at night. UTL makes them from small 12 V units up to 240 V controllers for large battery banks.'
+crumb: Solar charge controllers
+updated: '2026-09-27'
+faq:
+  - q: Do I need a separate charge controller?
+    a: 'Only if nothing else in the system already does the job. Solar PCUs and hybrid inverters have one built in, and an on-grid system has no battery to charge. A separate controller is for a battery system built from separate parts, such as a DC lighting setup, or for adding panels to an ordinary home inverter.'
+  - q: What size of charge controller do I need?
+    a: 'Match two things. The battery voltage must match the controller (12 V, 24 V, 48 V and so on), and the controller''s current rating must be above the current your panels can deliver at that voltage. The panel''s own voltage must also stay inside the controller''s input range.'
+  - q: Can I add solar to my existing home inverter?
+    a: 'Yes, with a solar management unit. UTL''s SMUs connect panels to an ordinary 12 V or 24 V inverter and its tubular or SMF battery, and use solar first to cut what you draw from the grid.'
+related:
+  - href: /mppt-vs-pwm-charge-controller/
+    label: MPPT and PWM controllers compared
+  - href: /products/charge-controllers/
+    label: UTL charge controllers we stock
+  - href: /off-grid-solar-systems/
+    label: Off-grid solar systems
+cta:
+  heading: Not sure which controller fits your battery?
+  label: Ask us on WhatsApp
+  message: 'Hi RSK Solar Energy, I need a solar charge controller. My battery voltage and panel details: '
+---
+
+## What a charge controller does
+
+Panels put out whatever the sun gives them, and a battery can only take charge at a controlled rate. The controller manages the difference. It does four jobs:
+
+- It charges the battery in stages: a strong bulk charge while the battery is low, then an absorption stage at a held voltage, then a gentle float charge once the battery is full.
+- It stops charging when the battery is full, so the battery is not overcharged and, in a tubular battery, does not lose water too fast.
+- It stops current flowing back from the battery into the panels at night.
+- On many models, it cuts the load off when the battery runs low, so the battery is not drained flat.
+
+UTL's controllers also run an equalise charge every 28 days for lead-acid batteries, which keeps the cells in step with each other.
+
+## When you need a separate one
+
+Many solar systems have a controller you never see. A solar PCU or a [hybrid inverter](/hybrid-solar-systems/) has one built in, and an [on-grid system](/on-grid-vs-off-grid-vs-hybrid/) has no battery, so it needs none.
+
+You buy a controller on its own in three cases:
+
+1. A DC system built from separate parts: panels, a controller and a battery running DC lights and fans.
+2. A home that already has an ordinary inverter and battery, and wants to charge them from the sun. UTL's solar management units (SMUs) do this.
+3. A large battery bank, such as a 96 V to 240 V bank, where the controller is chosen separately from the inverter.
+
+## UTL's charge controllers
+
+These are the ranges UTL lists in its catalogue, with the figures it publishes.
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table min-w-lg">
+<caption>UTL charge controllers and solar management units, from UTL's catalogue</caption>
+<thead><tr><th scope="col">Range</th><th scope="col">Battery voltage</th><th scope="col">Current</th><th scope="col">What it is for</th></tr></thead>
+<tbody>
+<tr><th scope="row"><a href="/products/utl-solar-charge-controller-24v-10-amp/">24V 10A controller</a></th><td>24 V</td><td>10 A</td><td>Small PWM controller with LED indication</td></tr>
+<tr><th scope="row"><a href="/products/solar-charge-controller-normal-rating/">Normal rating (MSCC 12, 24)</a></th><td>12 V, 24 V</td><td>10 A or 20 A at 12 V, 10 A at 24 V</td><td>Small systems; dusk-to-dawn lighting control, low-battery load cut-off</td></tr>
+<tr><th scope="row"><a href="/products/solar-charge-controller-medium-rating/">Medium rating (MSCC 48 to 180)</a></th><td>12 V to 48 V</td><td>10 A to 40 A, by model</td><td>Mid-sized battery banks</td></tr>
+<tr><th scope="row"><a href="/products/solar-charge-controller-high-rating/">High rating (MSCC 48 to 240)</a></th><td>48 V to 240 V</td><td>30, 40, 50 or 60 A</td><td>Large banks; IGBT switching, panel input up to 450 V</td></tr>
+<tr><th scope="row"><a href="/products/pwm-solar-management-unit-12v-24v-40a/">PWM SMU 40A</a> and <a href="/products/pwm-solar-management-unit-12v-24v-50a/">50A</a></th><td>12 V, 24 V</td><td>40 A, 50 A</td><td>Adds solar to an ordinary inverter; tubular or SMF battery up to 200 Ah</td></tr>
+<tr><th scope="row"><a href="/products/r-mppt-solar-management-unit-12v-24v-40a/">rMPPT SMU 40A</a></th><td>12 V, 24 V</td><td>20 A to 40 A</td><td>Adds solar to an ordinary inverter; battery 100 to 180 Ah</td></tr>
+</tbody>
+</table>
+</div>
+
+UTL gives the high-rating controllers and the rMPPT SMU an efficiency above 95%, and the normal-rating controllers a peak of 92%. All of them list protection against overcharging, reversed panel wiring, reverse current and lightning surges.
+
+## Choosing the right size
+
+Three checks, in this order:
+
+1. The battery voltage must match the controller exactly. A 24 V battery bank needs a 24 V controller.
+2. The panels' open-circuit voltage must stay inside the controller's input range, including on a cold winter morning, when panel voltage is at its highest. UTL's smaller controllers are made for 36-cell panels; the high-rating range takes long strings of 60 and 72-cell panels.
+3. The controller's rating must be above the current the panels can push into the battery. UTL's PWM SMU sheet lists how many panels of each wattage each model takes, which saves the arithmetic.
+
+Whether you want PWM or MPPT depends mostly on the panels. [MPPT and PWM controllers compared](/mppt-vs-pwm-charge-controller/) explains the difference.
+
+## Looking after it
+
+A controller needs little care. Mount it indoors, out of the sun and rain, on a wall with air around it, and keep its cables short and tight. UTL rates most of these units IP-20 or IP-21, which means indoor use. The battery needs more attention than the controller does; see [how to look after a tubular battery](/tubular-battery-care/).

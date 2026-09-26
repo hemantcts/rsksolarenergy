@@ -4,6 +4,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 
 const posts = (await getCollection('blog')).sort((a, b) => b.data.published.localeCompare(a.data.published));
+const isComparison = (id: string) => /^(utl-vs-|waaree-vs-)/.test(id);
+const explainers = (await getCollection('guides'))
+  .filter((g) => g.data.kind === 'article' && !isComparison(g.id) && g.id !== 'utl-solar-vs-other-brands')
+  .sort((a, b) => a.data.h1.localeCompare(b.data.h1));
+const comparisons = (await getCollection('guides')).filter((g) => isComparison(g.id)).length;
 const fmt = (d: string) => new Date(`${d}T00:00:00Z`).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 ---
 
@@ -41,6 +46,21 @@ const fmt = (d: string) => new Date(`${d}T00:00:00Z`).toLocaleDateString('en-IN'
         ))
       }
     </ul>
-    <p class="mt-10">More: <a href="/pm-surya-ghar-subsidy-punjab/" class="underline">PM Surya Ghar subsidy guide</a>, <a href="/on-grid-vs-off-grid-vs-hybrid/" class="underline">on-grid vs off-grid vs hybrid</a>.</p>
+    <h2 class="t-h2 mt-16">Explainers</h2>
+    <p class="mt-3 text-slate">Panel and battery technology, inverters, meters, loans and schemes, each on its own page.</p>
+    <ul class="mt-6 grid gap-x-8 gap-y-3 md:grid-cols-2">
+      {
+        explainers.map((g) => (
+          <li>
+            <a href={`/${g.id}/`} class="underline">
+              {g.data.h1}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-10">
+      Also: <a href="/utl-solar-vs-other-brands/" class="underline">UTL compared with {comparisons} other brands</a>, the <a href="/pm-surya-ghar-subsidy-punjab/" class="underline">PM Surya Ghar subsidy guide</a>, and <a href="/on-grid-vs-off-grid-vs-hybrid/" class="underline">on-grid vs off-grid vs hybrid</a>.
+    </p>
   </section>
 </BaseLayout>

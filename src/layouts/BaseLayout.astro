@@ -25,7 +25,7 @@ interface Props {
   noindex?: boolean;
 }
 
-const { title, description, crumbs = [], schema = [], ogType = 'website', ogImage = '/og-default.png', noindex = false } = Astro.props;
+const { title, description, crumbs = [], schema = [], ogType = 'website', ogImage = '/og-rsk-logo.png', noindex = false } = Astro.props;
 const canonical = abs(Astro.url.pathname);
 const trail: Crumb[] = [{ name: 'Home', path: '/' }, ...crumbs];
 const nodes = [localBusiness(), ...(crumbs.length ? [breadcrumbs(trail)] : []), ...schema];
@@ -54,7 +54,7 @@ const nodes = [localBusiness(), ...(crumbs.length ? [breadcrumbs(trail)] : []), 
     <meta property="og:image" content={abs(ogImage)} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="RSK Solar Energy: rooftop solar in Mohali and Punjab, priced after subsidy" />
+    <meta property="og:image:alt" content="RSK Solar Energy logo" />
     <meta name="twitter:card" content="summary_large_image" />
     {BUSINESS.social.x && <meta name="twitter:site" content={`@${new URL(BUSINESS.social.x).pathname.split('/')[1]}`} />}
     <meta name="twitter:title" content={title} />
