@@ -1,9 +1,50 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CtaBlock from '../components/content/CtaBlock.astro';
 import { BUSINESS } from '../config/business';
 import { REVIEWS, reviewMonth } from '../data/reviews';
+import rooftopHouse from '../assets/installations/rooftop-solar-panels-on-house-punjab.jpg';
+import rooftopInProgress from '../assets/installations/rooftop-solar-installation-in-progress-punjab.jpg';
+import pumpHouseInverter from '../assets/installations/utl-solar-inverter-wall-mounted-pump-house.jpg';
+import groundArrayFarm from '../assets/installations/ground-mounted-solar-array-farm-punjab.jpg';
+import pumpChannel from '../assets/installations/solar-pump-water-flowing-into-field-channel.jpg';
+import arrayOverShed from '../assets/installations/solar-array-over-farm-shed-punjab.jpg';
+import tubewellDischarge from '../assets/installations/solar-tubewell-pump-water-discharge-punjab.jpg';
+import onGridInverter from '../assets/installations/utl-solar-on-grid-inverter-installed.jpg';
+import rooftopTown from '../assets/installations/rooftop-solar-panels-town-punjab.jpg';
+import canopyCommercial from '../assets/installations/solar-panel-canopy-commercial-punjab.jpg';
+import groundRows from '../assets/installations/ground-mounted-solar-panel-rows-punjab.jpg';
+import arrayCloseUp from '../assets/installations/solar-panel-array-close-up-punjab.jpg';
+import rooftopHome from '../assets/installations/rooftop-solar-array-home-punjab.jpg';
+import inverterAndPanel from '../assets/installations/solar-inverter-and-electrical-panel-installed.jpg';
+import mountingStructure from '../assets/installations/rooftop-solar-mounting-structure-punjab.jpg';
+
+/**
+ * Stills from RSK Solar Energy's own job videos, confirmed as its own work on 26 September 2026.
+ *
+ * The captions say what is in the frame and nothing else. Where a job is, how big it is and whose
+ * roof it sits on are not in the footage, so they are not claimed here. Anything more specific has
+ * to come from RSK Solar Energy.
+ */
+const photos = [
+  { src: rooftopHouse, alt: 'Rooftop solar array on a house in Punjab, the panels raised on a steel frame above the roof slab', caption: 'A home array on a raised frame, which leaves the roof usable underneath.' },
+  { src: pumpChannel, alt: 'Water flowing from a solar pump into a concrete field channel in Punjab', caption: 'A solar pump running into the field channel.' },
+  { src: pumpHouseInverter, alt: 'UTL Solar inverter mounted on the wall of a pump house, with conduit running out to the array', caption: 'A UTL inverter in a pump house, the DC run coming in from the array.' },
+  { src: groundArrayFarm, alt: 'Pole-mounted solar array standing in a field in Punjab', caption: 'A pole-mounted array on farmland.' },
+  { src: arrayOverShed, alt: 'Solar panels mounted over a farm shed in Punjab with a tractor trailer parked underneath', caption: 'Panels over a shed, so the ground underneath stays in use.' },
+  { src: tubewellDischarge, alt: 'Water discharging from a solar tubewell pump onto a ploughed field in Punjab', caption: 'Discharge from a solar tubewell.' },
+  { src: rooftopInProgress, alt: 'Solar panels being fitted on a house roof in Punjab, a ladder against the wall', caption: 'Mid-installation. The structure goes up first, then the modules.' },
+  { src: canopyCommercial, alt: 'Large solar panel canopy covering an open area', caption: 'A canopy array: shade below, generation above.' },
+  { src: groundRows, alt: 'Rows of ground-mounted solar panels on farmland in Punjab', caption: 'Ground-mounted rows.' },
+  { src: onGridInverter, alt: 'UTL Solar on-grid inverter installed on an interior wall', caption: 'An on-grid inverter, mounted indoors.' },
+  { src: rooftopTown, alt: 'Rooftop solar panels on a building with a town behind them', caption: 'A rooftop array above the rooftops.' },
+  { src: inverterAndPanel, alt: 'Solar inverter installed beside an electrical distribution box', caption: 'Inverter and distribution board.' },
+  { src: rooftopHome, alt: 'Solar array across a house rooftop in Punjab', caption: 'A home rooftop, filled.' },
+  { src: arrayCloseUp, alt: 'Close view along a row of solar panels showing the mounting rails underneath', caption: 'Along the rails.' },
+  { src: mountingStructure, alt: 'Galvanised mounting structure on a rooftop, ready for solar panels', caption: 'The structure, before the modules go on.' },
+];
 
 const path = '/installations/';
 const withInstall = REVIEWS.filter((r) => r.install);
@@ -25,7 +66,7 @@ const byType = [
     <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Installations', path }]} />
     <h1 class="t-h1 mt-6">Solar installations in Mohali and Punjab</h1>
     <p class="t-lead measure mt-5">
-      What RSK Solar Energy has installed, by the numbers, as of {BUSINESS.installs.asOf}. Project photography for this page is on its way. Every figure here is a confirmed count.
+      What RSK Solar Energy has installed, by the numbers, as of {BUSINESS.installs.asOf}, and photographs from the jobs themselves. Every figure here is a confirmed count.
     </p>
   </header>
 
@@ -42,6 +83,36 @@ const byType = [
                   <span class="mt-1 block text-slate">{t.blurb}</span>
                 </span>
               </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec-open" aria-labelledby="photos-h">
+    <div class="wrap">
+      <h2 id="photos-h" class="t-h2">On the job</h2>
+      <p class="measure mt-4 text-slate">
+        Photographs from our own installations: rooftops around the Tricity, tubewell pumps out on
+        farmland, and the inverters and boards behind them. No stock photography, on this page or
+        anywhere else on this site.
+      </p>
+      <ul class="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3">
+        {
+          photos.map((photo, i) => (
+            <li>
+              <figure>
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  widths={[320, 640, 960]}
+                  sizes="(min-width: 64rem) 30vw, (min-width: 48rem) 33vw, 50vw"
+                  loading={i < 2 ? 'eager' : 'lazy'}
+                  class="aspect-[4/3] w-full border border-rule object-cover"
+                />
+                <figcaption class="t-small mt-2 text-slate">{photo.caption}</figcaption>
+              </figure>
             </li>
           ))
         }
