@@ -190,8 +190,26 @@ BODY: 700 to 1000 words. Open with the answer in the first two sentences. Use "#
 
 const { text, provider } = await generate({ system: SYSTEM, prompt: PROMPT, maxTokens: 8000 });
 
+// ---- tidied before the checks, because neither is worth a whole correction pass ----
+/**
+ * Models reach for a non-breaking hyphen in "clear-day" and for American spelling. Neither breaks a
+ * rule, so nothing would reject the post, and both read as foreign next to the rest of the site.
+ * Fixed here rather than argued about with the model.
+ */
+const tidy = (draft) =>
+  [
+    [/[‐‑‒]/g, '-'],
+    [/\baluminum\b/g, 'aluminium'],
+    [/\bmicrofiber\b/g, 'microfibre'],
+    [/\bfiberglass\b/g, 'fibreglass'],
+    [/\bcolor(s|ed|ing)?\b/g, (m) => m.replace('color', 'colour')],
+    [/\bcenter(s|ed|ing)?\b/g, (m) => m.replace('center', 'centre')],
+    [/\bliter(s)?\b/g, (m) => m.replace('liter', 'litre')],
+    [/\b(analy|organi|recogni|prioriti|summari)z(e|es|ed|ing|ation)\b/g, (m) => m.replace('z', 's')],
+  ].reduce((out, [pattern, to]) => out.replace(pattern, to), draft);
+
 // ---- checks before the file is written ----
-const body = text.trim().replace(/^```(?:mdx|markdown)?\n?/, '').replace(/\n?```$/, '');
+const body = tidy(text.trim().replace(/^```(?:mdx|markdown)?\n?/, '').replace(/\n?```$/, ''));
 const fail = (msg) => {
   console.error(`Draft rejected: ${msg}`);
   process.exit(1);
@@ -233,7 +251,9 @@ const slug = title
   .replace(/^-|-$/g, '')
   .slice(0, 61)
   .replace(/-[^-]*$/, (tail) => (tail.length > 1 && title.length > 60 ? '' : tail))
-  .replace(/-$/, '');
+  .replace(/-$/, '')
+  // A slug ending "-how-often-and" reads as though it was cut off, because it was.
+  .replace(/-(and|or|the|a|an|to|in|of|for|with|on|at|is|it|how|what|why)$/, '');
 if (posts.some((p) => p.slug === slug)) fail(`a post with the slug ${slug} already exists`);
 
 writeFileSync(`${BLOG}/${slug}.mdx`, `${body}\n`);
