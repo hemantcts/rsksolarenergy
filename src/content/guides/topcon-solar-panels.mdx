@@ -1,0 +1,89 @@
+---
+title: 'TOPCon Solar Panels: What They Are and How They Compare'
+description: 'What a TOPCon solar panel is, how it differs from mono PERC, and the efficiency nine brands publish for their TOPCon modules, checked on each brand''s own site.'
+h1: TOPCon solar panels
+lead: 'TOPCon is the panel technology most new rooftop quotes in Punjab now use. It turns more of the sunlight into power than the mono PERC panels it is replacing, and it loses less output as the panel heats up in May and June.'
+crumb: TOPCon solar panels
+updated: '2026-09-27'
+faq:
+  - q: What does TOPCon stand for?
+    a: 'Tunnel Oxide Passivated Contact. It describes a very thin oxide layer on the back of an N-type silicon cell that cuts the energy lost where the cell meets its metal contacts. The result is a more efficient cell.'
+  - q: Is TOPCon better than mono PERC?
+    a: 'For a new rooftop system, yes on the published figures. UTL''s TOPCon panels list 21.3% to 23.3% efficiency against 19.5% to 20.2% on its mono PERC panels, and TOPCon loses less output in heat. PERC panels still work well and can cost less per watt.'
+  - q: Are TOPCon panels allowed for the PM Surya Ghar subsidy?
+    a: 'Yes, if they are DCR panels on the ALMM list. TOPCon describes the cell design; DCR describes where the cells were made. A subsidised home system needs DCR, whatever the technology.'
+related:
+  - href: /best-solar-panel-technology/
+    label: Which panel technology is best now
+  - href: /mono-perc-half-cut-solar-panels/
+    label: Mono PERC and half-cut panels
+  - href: /dcr-vs-non-dcr-solar-panels/
+    label: DCR and non-DCR panels
+cta:
+  heading: Want TOPCon panels on your roof?
+  label: Ask for a TOPCon quote
+  message: 'Hi RSK Solar Energy, I would like a quote for TOPCon solar panels. My monthly units or bill: '
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+
+export const brands = [
+  { label: 'Saatvik N-TOPCon G12R', value: 23.69, display: '23.69%', note: 'Up to' },
+  { label: 'Vikram Hypersol 580 to 605 W', value: 23.42, display: '23.42%' },
+  { label: 'UTL 630 Wp G12R TOPCon', value: 23.32, display: '23.32%', emphasis: true },
+  { label: "Rayzon L'lios 600 Wp", value: 23.25, display: '23.25%' },
+  { label: 'Loom Solar SHARK 625 Wp', value: 23.25, display: '23.25%' },
+  { label: 'Servotech 580 to 600 W', value: 23.2, display: '23.20%' },
+  { label: 'Goldi 595 Wp', value: 23.03, display: '23.03%' },
+  { label: 'Waaree 700 Wp', value: 22.32, display: '22.32%' },
+  { label: 'Adani Shine', value: 22.3, display: '22.3%' },
+];
+export const pct = [0, 5, 10, 15, 20, 25].map((v) => ({ value: v, label: `${v}%` }));
+
+## What TOPCon means
+
+A solar cell loses some of its energy where the silicon meets the metal lines that carry the current away. A TOPCon cell puts an extremely thin layer of oxide at that point, on the back of an N-type silicon cell, and cuts that loss. The name spells it out: Tunnel Oxide Passivated Contact.
+
+Two things follow for a rooftop. The panel makes more watts from the same area, and it holds its output better in heat. Saatvik, for example, publishes a temperature coefficient of minus 0.30% per degree for its N-type TOPCon against minus 0.36% for P-type panels. On a Punjab roof in June, where panels run far above the air temperature, that difference adds up.
+
+## TOPCon against mono PERC, on UTL's own panels
+
+The cleanest comparison is within one brand. From UTL's catalogue:
+
+<div class="table-scroll not-prose my-8">
+<table class="spec-table min-w-lg">
+<caption>From UTL's specifications, in our catalogue</caption>
+<thead><tr><th scope="col">Panel</th><th scope="col">Technology</th><th scope="col">Efficiency</th></tr></thead>
+<tbody>
+<tr><th scope="row"><a href="/products/630wp-g12r-topcon-bifacial-ndcr-solar-panel/" class="underline">630 Wp G12R</a></th><td>N-type TOPCon, bifacial</td><td>23.32%</td></tr>
+<tr><th scope="row"><a href="/products/545-watt-topcon-bifacial-solar-panel/" class="underline">545 W</a></th><td>TOPCon, bifacial</td><td>22.74%</td></tr>
+<tr><th scope="row"><a href="/products/510-watt-topcon-bifacial-solar-panel/" class="underline">510 W</a></th><td>TOPCon, bifacial</td><td>21.28%</td></tr>
+<tr><th scope="row"><a href="/products/mono-solar-panel-240-watt-pack-of-2/" class="underline">240 W</a></th><td>Mono PERC</td><td>20.10%</td></tr>
+<tr><th scope="row"><a href="/products/mono-solar-panel-390-watt/" class="underline">390 W</a></th><td>Mono PERC</td><td>19.52%</td></tr>
+</tbody>
+</table>
+</div>
+
+Two to four points of efficiency mean fewer panels for the same system, or a bigger system on the same roof. We plan on about 100 square feet of shade-free roof per kW; on a small or crowded roof, TOPCon is often what makes the size you need fit.
+
+## What nine brands publish for their TOPCon panels
+
+We checked each brand's own website for its TOPCon efficiency. The spread is narrow.
+
+<BarChart title="TOPCon module efficiency, as each brand publishes it" rows={brands} max={25} ticks={pct} valueHeading="Efficiency" caption="Each figure from the brand's own site, checked 26 and 27 September 2026. Where a brand gives a range, the top figure is shown." />
+
+Between the best and the ninth there is less than one and a half points. That is why, once you have chosen TOPCon, the brand matters less than three other things: whether the panels are DCR, the warranty on the exact model, and who installs them. Our brand-by-brand pages go through each one, starting from [UTL compared with other brands](/utl-solar-vs-other-brands/).
+
+## When mono PERC still makes sense
+
+PERC panels are a mature technology and generate well. For a small off-grid job, a pump, or a budget where the roof has room to spare, a PERC panel can cost less per watt and do the job. See [mono PERC and half-cut panels](/mono-perc-half-cut-solar-panels/).
+
+## TOPCon and the subsidy
+
+TOPCon describes how the cell is built. DCR describes where it was made. For the [PM Surya Ghar subsidy](/pm-surya-ghar-subsidy-punjab/) the panels must be DCR and on the ALMM list, TOPCon or otherwise. Read [DCR and non-DCR panels](/dcr-vs-non-dcr-solar-panels/) before comparing quotes.
+
+## Sources
+
+- UTL: the panel pages linked above, from UTL's specifications
+- Brand figures: each linked from its comparison page, for example [UTL vs Saatvik](/utl-vs-saatvik-solar/), [UTL vs Vikram Solar](/utl-vs-vikram-solar/) and [Waaree vs Adani](/waaree-vs-adani-solar/)
+- Saatvik temperature coefficient: [N-Type TOPCon G12R](https://saatvikgroup.com/modules/n-topcon/bifacial-g12r/), checked 27 September 2026
