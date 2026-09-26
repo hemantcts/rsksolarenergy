@@ -144,6 +144,22 @@ function sourceName(raw) {
   return raw;
 }
 
+/**
+ * The connection a tap came from, for counting repeats. An IPv4 address is itself. An IPv6 address
+ * is cut to its /64: phones on Jio and Airtel mostly use IPv6, and they change the second half of
+ * the address every few hours for privacy, so counting whole IPv6 addresses would make one person
+ * tapping twice in a day look like two strangers. The first half stays with the connection.
+ */
+function connection(ip) {
+  if (!ip.includes(':')) return ip;
+  if (ip.includes('.')) return ip.slice(ip.lastIndexOf(':') + 1); // ::ffff:1.2.3.4, IPv4 in IPv6 form
+  const [head, tail = ''] = ip.toLowerCase().split('::');
+  const h = head ? head.split(':') : [];
+  const t = tail ? tail.split(':') : [];
+  const groups = [...h, ...Array(Math.max(0, 8 - h.length - t.length)).fill('0'), ...t];
+  return `${groups.slice(0, 4).map((g) => g.replace(/^0+(?=.)/, '')).join(':')}::/64`;
+}
+
 const kind = (t) => (t.type === 'call' ? 'Call' : 'WhatsApp');
 const ist = (ms) =>
   new Date(ms).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false });
@@ -211,21 +227,22 @@ fills in as people use the buttons.${tests.length ? `\n\n_${tests.length} test t
     const e = places.get(g.place) ?? { place: g.place, all: 0, week: 0, ips: new Set(), networks: new Map(), approx: 0 };
     e.all++;
     if (t.time > NOW - 7 * DAY) e.week++;
-    e.ips.add(t.ip);
+    e.ips.add(connection(t.ip));
     if (g.network) e.networks.set(g.network, (e.networks.get(g.network) ?? 0) + 1);
     if (approximate(t)) e.approx++;
     places.set(g.place, e);
   }
   const byPlace = [...places.values()].sort((a, b) => b.all - a.all).slice(0, 20);
 
-  // The same address more than once.
+  // The same connection more than once: an IPv4 address, or an IPv6 /64 (see connection()).
   const addresses = new Map();
   for (const t of taps) {
-    const e = addresses.get(t.ip) ?? { ip: t.ip, taps: 0, first: t.time, last: t.time };
+    const key = connection(t.ip);
+    const e = addresses.get(key) ?? { ip: key, sample: t.ip, taps: 0, first: t.time, last: t.time };
     e.taps++;
     e.first = Math.min(e.first, t.time);
     e.last = Math.max(e.last, t.time);
-    addresses.set(t.ip, e);
+    addresses.set(key, e);
   }
   const repeats = [...addresses.values()].filter((e) => e.taps > 1).sort((a, b) => b.taps - a.taps).slice(0, 20);
 
@@ -261,12 +278,12 @@ ${table(
   }),
 )}
 
-### The same address more than once
+### The same connection more than once
 
 ${table(
-  ['Address', 'Place', 'Network', 'Taps', 'First', 'Last'],
+  ['Address or IPv6 network', 'Place', 'Network', 'Taps', 'First', 'Last'],
   repeats.map((e) => {
-    const g = whereIs(e.ip);
+    const g = whereIs(e.sample);
     return [e.ip, g.place, g.network, e.taps, ist(e.first), ist(e.last)];
   }),
 )}
@@ -280,8 +297,9 @@ ${table(
 
 _"(approx.)" marks places where most taps came from a phone on Jio, Airtel, Vi or BSNL. Those
 networks route through regional gateways, so the place is often the gateway city rather than where
-the person is; the page they tapped from is the steadier guide. Several phones on one mobile network
-can also share an address, so a repeat address is not always one person. Every tap is in the two
+the person is; the page they tapped from is the steadier guide. Phones on IPv6 change their address
+every few hours, so repeats are counted by the first half of the address (the "/64"), which stays with
+the connection; on IPv4, several phones can share one address, so a repeat is not always one person. Every tap is in the two
 attached spreadsheets. Records are kept for 12 months. IP locations by DB-IP (db-ip.com), CC BY 4.0.${
     tests.length || bots.length
       ? ` Left out: ${[tests.length ? `${tests.length} test tap${tests.length === 1 ? '' : 's'}` : '', bots.length ? `${bots.length} automated tap${bots.length === 1 ? '' : 's'}` : ''].filter(Boolean).join(' and ')}.`
