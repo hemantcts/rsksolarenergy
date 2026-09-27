@@ -1,0 +1,78 @@
+name: Google rating
+
+# Every morning, reads the Google rating and review count and, when either has changed, commits the
+# new figures and deploys the site, so every page shows the current rating.
+#
+# Needs one secret (Settings, Secrets and variables, Actions): GOOGLE_PLACES_API_KEY, a Google Cloud
+# API key with the Places API (New) enabled. Until it is added, each run skips quietly.
+#
+# If Google's figures jump (the count falls by more than 5, or the rating moves by more than 0.3),
+# the run fails without changing anything. Check the Google profile, then run this workflow by hand
+# with "Accept a large change" ticked.
+
+on:
+  schedule:
+    # 01:30 UTC is 07:00 in India.
+    - cron: '30 1 * * *'
+  workflow_dispatch:
+    inputs:
+      accept_large_change:
+        description: 'Accept a large change (after checking the Google profile)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  # Pushing with the built-in token does not start another workflow, so the deploy is asked for
+  # by name.
+  actions: write
+
+concurrency:
+  group: google-rating
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      # Hoisted so a step's "if" can ask whether the key exists: "if" reads env, never secrets.
+      GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+    steps:
+      - name: Skip until the API key is added
+        if: env.GOOGLE_PLACES_API_KEY == ''
+        run: echo "::notice::GOOGLE_PLACES_API_KEY is not set, so the rating was not checked."
+
+      - uses: actions/checkout@v4
+        if: env.GOOGLE_PLACES_API_KEY != ''
+
+      - uses: actions/setup-node@v4
+        if: env.GOOGLE_PLACES_API_KEY != ''
+        with:
+          node-version: 24
+
+      - name: Read the rating from Google
+        id: rating
+        if: env.GOOGLE_PLACES_API_KEY != ''
+        env:
+          ACCEPT_LARGE_CHANGE: ${{ inputs.accept_large_change && '1' || '' }}
+        run: node scripts/update-google-rating.mjs
+
+      - name: Commit the new rating
+        if: steps.rating.outputs.changed == 'true'
+        env:
+          SUMMARY: ${{ steps.rating.outputs.summary }}
+        run: |
+          git config user.name 'rsk-content-bot'
+          git config user.email 'noreply@rsksolarenergy.com'
+          git add src/data/google-rating.json
+          git commit -m "Google rating: $SUMMARY"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          echo "::notice::$SUMMARY"
+
+      - name: Deploy it
+        if: steps.rating.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main -f dry_run=false

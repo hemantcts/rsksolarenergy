@@ -3,6 +3,9 @@
  * NAP must match the Google Business Profile exactly (CLAUDE.md §6).
  * Anything marked TODO is listed in files/TODO-content.md.
  */
+// Updated every morning from Google by .github/workflows/google-rating.yml.
+import googleRating from '../data/google-rating.json' with { type: 'json' };
+
 export type Weekday = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
 
 /** One opening-hours block. Times are 24-hour "HH:MM", the format schema.org expects. */
@@ -86,10 +89,10 @@ export const BUSINESS = {
   ] as null | OpeningHours[],
 
   google: {
-    rating: 4.9,
-    reviewCount: 42,
-    // Read off the Google map pack, 2026-09-26 (41 on 2026-09-19, 38 on 2026-09-12).
-    ratingCheckedOn: '2026-09-26',
+    // From the Google Places API, refreshed daily by scripts/update-google-rating.mjs.
+    rating: googleRating.rating,
+    reviewCount: googleRating.reviewCount,
+    ratingCheckedOn: googleRating.checkedOn,
     mapsUrl: 'https://maps.google.com/?cid=3900928441643699717',
     reviewUrl: 'https://search.google.com/local/writereview?placeid=ChIJK-ncoCnvDzkRBQ5k6r_hIjY',
   },

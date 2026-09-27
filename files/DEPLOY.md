@@ -84,7 +84,28 @@ without failing the run.
 
 ## What else runs on a schedule
 
-Both of these run on GitHub's servers. Nothing at our end has to be switched on.
+These run on GitHub's servers. Nothing at our end has to be switched on.
+
+### Daily Google rating
+
+`.github/workflows/google-rating.yml` runs every morning at 07:00 India time. It reads the Google
+rating and review count from the Places API and, when either has changed, writes them to
+`src/data/google-rating.json` and deploys. Every page takes its rating from that file, through
+`BUSINESS.google`. On a day with no new review it changes nothing and does not deploy.
+
+A sudden large change (the count falling by more than 5, or the rating moving by more than 0.3) is
+refused and the run fails. Look at the Google profile; if the figures are real, run the workflow
+by hand from the Actions tab with "Accept a large change" ticked.
+
+Setup:
+
+1. Google Cloud, the same project as the search report is fine: enable **Places API (New)**. It
+   needs a billing account on the project. One call a day is well inside Google's free monthly
+   allowance for this kind of request.
+2. APIs and Services, Credentials: create an API key, and restrict it to Places API (New).
+3. GitHub secret `GOOGLE_PLACES_API_KEY`: the key.
+
+Until the secret is added, each run skips without failing. Run it once by hand to check the key.
 
 ### Weekly search report
 
@@ -315,4 +336,5 @@ Profile" rather than folding them into Google search or direct.
 | `SMTP_USER`, `SMTP_PASS` | secret | both emails: the weekly report and each published post's URL |
 | `MAIL_HOST`, `MAIL_PORT`, `MAIL_FROM` | variable | sending through something other than Gmail, such as Amazon SES |
 | `OPENPAGERANK_KEY` or `MOZ_TOKEN` | secret | the authority score in the weekly report |
+| `GOOGLE_PLACES_API_KEY` | secret | the daily Google rating update |
 | `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` | secret | writing and checking the posts. Either alone works; both is better |
