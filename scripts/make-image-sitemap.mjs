@@ -59,4 +59,10 @@ ${entries
 `;
 
 writeFileSync(new URL('image-sitemap.xml', distDir), xml);
+
+// List it in the sitemap index too, so submitting the index in Search Console covers pages and images.
+const indexFile = new URL('sitemap-index.xml', distDir);
+const index = readFileSync(indexFile, 'utf8');
+const imageEntry = `<sitemap><loc>${site}/image-sitemap.xml</loc></sitemap>`;
+if (!index.includes('image-sitemap.xml')) writeFileSync(indexFile, index.replace('</sitemapindex>', `${imageEntry}</sitemapindex>`));
 console.log(`image-sitemap.xml written: ${entries.length} product images${skipped ? `, ${skipped} skipped (no image)` : ''}`);
