@@ -7,7 +7,7 @@ Leave the list empty and the draft picks its own topic from the weekly search re
 usually the better choice: it follows what people are actually searching for.
 
 - ~~Solar panel cleaning in the smoke season: how often, and how to tell it is needed~~
-- What PSPCL checks at a net-metering inspection, and why applications get held up
+- ~~What PSPCL checks at a net-metering inspection, and why applications get held up~~
 - Sanctioned load: why it caps the system you are allowed to install
 - Choosing between 3 kW and 5 kW when the bill sits near the free-units line
 - DCR and ALMM: what the two lists mean when you are buying panels

@@ -1,0 +1,90 @@
+---
+title: 'What PSPCL checks at net metering, and common holdups'
+description: 'Installer’s view of what PSPCL verifies at inspection, what slows files, and the simple checks to clear your application the first time.'
+published: '2026-09-29'
+category: 'Subsidy and bills'
+tags: ['net metering', 'pspcl', 'subsidy', 'punjab']
+faq:
+  - q: Does PSPCL check panel make and model during inspection?
+    a: If you have applied for the PM Surya Ghar subsidy, the panels must be DCR and on the ALMM list.
+  - q: Can I apply for net metering with a system bigger than my sanctioned load?
+    a: No. A rooftop system can be at most 100% of the sanctioned load.
+  - q: When will the subsidy hit my bank after inspection?
+    a: The subsidy is paid into the applicant’s own bank account 30 to 45 days after the DISCOM inspection.
+related:
+  - href: /blog/net-metering-punjab-pspcl-explained/
+    label: Net metering in Punjab explained
+  - href: /pm-surya-ghar-subsidy-punjab/
+    label: PM Surya Ghar subsidy in Punjab
+  - href: /blog/how-to-size-home-solar-punjab/
+    label: How to size a home system in Punjab
+  - href: /solar-calculator/
+    label: Estimate your system size and units
+cta:
+  heading: Want us to sanity-check your application before inspection?
+  label: Ask RSK Solar Energy on WhatsApp
+  message: 'Hi RSK Solar Energy, I''m applying for net metering. Can you check my sanctioned load, system type, panel model and documents so PSPCL clears it the first time?'
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
+
+export const perKwMonth = effectiveYieldPerKw(SOLAR_CONFIG) / 12;
+export const sizes = [1, 2, 3, 5, 10];
+export const rows = sizes.map((kw) => ({ label: `${kw} kW`, value: kw * perKwMonth, display: `${Math.round(kw * perKwMonth)} units`, emphasis: kw === 3 }));
+export const ticks = [0, 250, 500, 750, 1000].map((v) => ({ value: v, label: String(v) }));
+
+## What PSPCL looks for at inspection
+
+For a smooth inspection, we make sure the application and the site line up on a few basics:
+
+- Size cap: a rooftop system can be at most 100% of the sanctioned load.
+- System type for subsidy: on-grid and hybrid qualify. Off-grid does not.
+- Panels for subsidy: panels must be DCR and on the ALMM list when you claim PM Surya Ghar.
+
+If you want to understand how credits work once the meter is live, see our post on [net metering in Punjab](/blog/net-metering-punjab-pspcl-explained/). The settlement details are covered in that guide.
+
+## Why applications get held up
+
+These are avoidable issues we see:
+
+- Oversizing beyond sanctioned load. The cap is hard. Stay within 100% of sanctioned load.
+- Non DCR or non ALMM panels on a subsidy file. PM Surya Ghar needs DCR and ALMM. If you have already bought modules, ask us to check the exact model before you submit.
+- Applying for subsidy with an off-grid kit. Off-grid does not qualify. Only on-grid and hybrid qualify.
+- Mismatch between what was applied and what was installed. Keep the make, model and size consistent across the form and the site.
+
+The subsidy is paid into the applicant’s own bank account 30 to 45 days after the DISCOM inspection. It never comes off the invoice, and it never goes to a lender or an installer.
+
+## Sizing right helps the application and your bill
+
+Right sizing keeps you under the sanctioned load cap and helps self consumption. Our planning figure for generation is 1530 units per kWp a year, less 20% for losses, which is 1224 units per kW a year. That is about 102 units a month on average, or about 3.4 units a day. In December and January fog, plan on about 75% of that.
+
+<div class="not-prose my-8">
+<BarChart title="Monthly generation to plan with in Punjab" rows={rows} max={1000} ticks={ticks} valueHeading="Units a month" caption="Planning figures from our standard generation config for Punjab." />
+</div>
+
+Use our [solar calculator](/solar-calculator/) or the [new-house calculator](/new-house-solar-calculator/) to estimate your use and pick a size that sits under your sanctioned load. As a thumb rule for space, plan on about 100 sq ft of shade free roof per kW. The smallest systems we install are 3 kW on-grid and 1 kW hybrid or off-grid.
+
+For homes that are already at or below Punjab’s 300 free units a month, there may be nothing to save on the bill. In those cases we size for reliability and backup needs instead of chasing exports. If backup is your main goal, see our guide to [hybrid systems](/hybrid-solar-systems/) and check the [hybrid calculator](/hybrid-solar-calculator/).
+
+## Documents and details to line up before you book inspection
+
+We keep these items consistent across the form and the site. It avoids last minute edits and repeat visits.
+
+- Sanctioned load from your PSPCL bill. We size the inverter and array to stay within 100%.
+- System type on the application and on the roof. On-grid or hybrid for subsidy.
+- Exact panel make and model if subsidy is claimed. We verify DCR and ALMM status before we submit.
+- Address on the bill and the installation address as photographed on site.
+
+If you are building or renovating, plan panel layout, inverter wall space and cable routes early. Our guide on [planning a house for solar](/blog/building-a-house-plan-for-solar/) shows where to leave space so we do not have to change the design during the application.
+
+## Prices, areas we serve, and how we help
+
+Every price we publish is an estimate. Installed on-grid ranges before subsidy are:
+- 3 kW on-grid ₹1,78,000 to ₹1,95,800
+- 5 kW on-grid ₹2,50,000 to ₹2,75,000
+
+We install with our own team in Mohali, Kharar, Zirakpur, Derabassi, Chandigarh, Panchkula, New Chandigarh (Mullanpur), Landran, Banur, Lalru, Naya Gaon, Kurali, Morinda, Ropar, Fatehgarh Sahib, Chamkaur Sahib and Khamanon. We are a UTL Solar distributor at Phase 8B, Mohali, since 2022, and can supply UTL equipment through our dealer network elsewhere in Punjab. See our [UTL distributor page](/utl-solar-distributor-punjab/), our [products](/products/) and model lines for [panels](/products/solar-panels/), [inverters](/products/inverters/) and [batteries](/products/batteries/).
+
+To get a file ready for inspection, we match the form to the site, check ALMM and DCR status where needed, and size under your sanctioned load. Start with our [how to size guide](/blog/how-to-size-home-solar-punjab/) and, if you want a quote range, pick your size page such as [3 kW](/3kw-solar-system-price-punjab/) or [5 kW](/5kw-solar-system-price-punjab/). Then message us with your sanctioned load and panel preference, and we will set up the visit date. RSK Solar Energy does not give any warranty or guarantee of its own. Product warranties are the manufacturer’s, on their terms.
