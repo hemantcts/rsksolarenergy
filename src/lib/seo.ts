@@ -148,18 +148,25 @@ export function service(opts: { name: string; description: string; path: string;
   };
 }
 
+/**
+ * A product page, marked up as a web page about the product rather than as a schema.org Product.
+ *
+ * Google treats any Product node as a shopping result and rejects it unless it carries an offer
+ * (a price), a review or an aggregateRating (Search Console: "Either 'offers', 'review' or
+ * 'aggregateRating' should be specified"). We publish none of those: no prices (CLAUDE.md §7),
+ * and no review markup (see localBusiness above). So the page is described as what it is, a
+ * catalogue page about a branded item, with no Product node anywhere in it.
+ */
 export function product(p: { title: string; summary: string; slug: string; model: string | null; brand: string; category: string; image?: string }) {
   return {
-    '@type': 'Product',
+    '@type': 'WebPage',
     name: p.title,
     description: p.summary || `${p.title} from ${p.brand}, supplied by ${BUSINESS.name}, Mohali.`,
     url: abs(`/products/${p.slug}/`),
-    brand: { '@type': 'Brand', name: p.brand },
-    ...(p.model ? { model: p.model, mpn: p.model } : {}),
-    category: p.category,
-    // No `offers`/price: RSK doesn't publish prices (CLAUDE.md §7), and an offer without a real
-    // price would be either fabricated or misleadingly absent.
-    ...(p.image ? { image: p.image } : {}),
+    about: { '@type': 'Brand', name: p.brand },
+    ...(p.model ? { keywords: [p.model, p.category].join(', ') } : { keywords: p.category }),
+    ...(p.image ? { primaryImageOfPage: { '@type': 'ImageObject', url: p.image } } : {}),
+    publisher: { '@id': BUSINESS_ID },
   };
 }
 

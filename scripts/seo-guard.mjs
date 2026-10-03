@@ -22,14 +22,7 @@ const BRAND_IN_TITLE = new Set([
   '/terms-and-conditions/',
   '/refund-and-cancellation-policy/',
   '/awards-and-recognition/',
-  // The Hindi and Punjabi home and about pages, the same pages in another language.
-  '/hi/',
-  '/pa/',
-  '/hi/about/',
-  '/pa/about/',
 ]);
-/** Home pages, which have no breadcrumb trail: English, Hindi and Punjabi. */
-const HOME_PAGES = new Set(['/', '/hi/', '/pa/']);
 /** The only pages allowed to be noindex. Keep in sync with the sitemap filter in astro.config.mjs. */
 const NOINDEX_ALLOWED = new Set(['/404.html', '/awards-and-recognition/', '/search/']);
 const TITLE_MAX = 65;
@@ -107,7 +100,8 @@ for (const file of sorted) {
   const desc = meta(h, 'name', 'description');
   if (!is404) {
     if (!title) err(page, 'missing <title>');
-    const isProduct = /^\/products\/[^/]+\/$/.test(page) && /"@type":"Product"/.test(h);
+    // A single product page, not a category page (those carry an ItemList).
+    const isProduct = /^\/products\/[^/]+\/$/.test(page) && !/"@type":"ItemList"/.test(h);
     if (title.length > (isProduct ? PRODUCT_TITLE_MAX : TITLE_MAX)) err(page, `title is ${title.length} characters (max ${isProduct ? PRODUCT_TITLE_MAX : TITLE_MAX}): "${title}"`);
     else if (isProduct && title.length > TITLE_MAX) warn(page, `product title is ${title.length} characters`);
     if (/\bRSK\b/i.test(title) && !BRAND_IN_TITLE.has(page)) err(page, `brand in title (keep it to branded/contact/legal pages): "${title}"`);
@@ -158,14 +152,16 @@ for (const file of sorted) {
     if (!business) err(page, 'missing LocalBusiness schema');
     else if (page === '/') homeBusiness = JSON.stringify(business);
     else if (homeBusiness && JSON.stringify(business) !== homeBusiness) err(page, 'LocalBusiness schema differs from the homepage (NAP must be identical everywhere)');
-    if (!HOME_PAGES.has(page) && !has('BreadcrumbList')) err(page, 'missing BreadcrumbList schema');
+    if (page !== '/' && !has('BreadcrumbList')) err(page, 'missing BreadcrumbList schema');
   }
   for (const banned of ['AggregateRating', 'Review']) if (has(banned)) err(page, `has ${banned} schema (not allowed: ratings come from Google Maps)`);
 
   if (/^\/\d+kw-solar-system-price-punjab\/$/.test(page) && !(has('Service') && has('FAQPage'))) err(page, 'size page needs Service and FAQPage schema');
   if (/^\/solar-company-[a-z-]+\/$/.test(page) && page !== '/solar-company-punjab/' && !(has('Service') && has('FAQPage'))) err(page, 'city page needs Service and FAQPage schema');
   if (/^\/blog\/[^/]+\/$/.test(page) && !has('Article')) err(page, 'blog post needs Article schema');
-  if (/^\/products\/[^/]+\/$/.test(page) && !has('Product') && !has('ItemList')) err(page, 'product page needs Product schema');
+  if (/^\/products\/[^/]+\/$/.test(page) && !has('WebPage') && !has('ItemList')) err(page, 'product page needs WebPage schema');
+  // Google rejects a Product without offers, review or aggregateRating, and we publish none (src/lib/seo.ts).
+  if (has('Product')) err(page, 'has Product schema, which Search Console rejects without offers, review or aggregateRating');
 
   // FAQPage must match the questions visitors can see.
   const faq = nodes.find((n) => typesOf(n).includes('FAQPage'));

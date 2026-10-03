@@ -59,6 +59,10 @@ Redirect 301 /the-solar-revolution-why-its-time-to-make-the-switch/ /blog/
 Redirect 301 /beyond-the-grid-is-your-solar-energy-is-ready-for-the-future-india/ /blog/
 Redirect 301 /hybrid-solar-systems-with-battery-backup-innovative-and-sustainable-solution-rsk-solar-energy/ /hybrid-solar-systems/
 
+# Hand-translated Hindi and Punjabi pages, live for a few hours on 4 October 2026 and replaced by
+# the Google Translate menu. Each had an English page at the same path without the prefix.
+RedirectMatch 301 ^/(?:hi|pa)/(.*)$ /$1
+
 # Everything else on the old install (wp-admin, wp-content, wp-json, feeds, category/tag
 # archives, pagination) is deliberately NOT redirected — it 404s cleanly. The old install was
 # compromised (CLAUDE.md §5); there is no reason to keep acknowledging WordPress paths.
