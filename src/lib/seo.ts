@@ -56,7 +56,8 @@ export function localBusiness() {
     image: [abs('/images/rsk-solar-energy-office-mohali.jpg'), abs('/og-rsk-logo.png')],
     telephone: BUSINESS.phones.map((p) => p.tel),
     email: BUSINESS.email,
-    foundingDate: String(BUSINESS.foundedYear),
+    foundingDate: BUSINESS.foundingDate,
+    founder: { '@id': `${BUSINESS.siteUrl}/#owner` },
     taxID: BUSINESS.registrations.gst,
     // Named on every page, so the person and the business are stated together wherever a crawler or
     // an answer engine lands, rather than only on the About page.

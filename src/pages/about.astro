@@ -14,9 +14,11 @@ import panelsAndBatteries from '../assets/office/warehouse-panels-and-batteries.
 import pcusAndInverters from '../assets/office/warehouse-pcus-and-inverters.jpg';
 import panelStack from '../assets/office/warehouse-panel-stack.jpg';
 
+const foundedOn = new Date(`${BUSINESS.foundingDate}T00:00:00Z`).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+
 const facts: [string, string][] = [
   ['Owner', BUSINESS.owner.name],
-  ['Founded', String(BUSINESS.foundedYear)],
+  ['Founded', `${foundedOn}, by ${BUSINESS.owner.name}`],
   ['Based at', formatAddressLines().join(', ')],
   ['Distributor of', BUSINESS.brand],
   ['Commercial and industrial installations', `${BUSINESS.installs.commercial} (as of ${BUSINESS.installs.asOf})`],
@@ -38,14 +40,14 @@ const facts: [string, string][] = [
     <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'About', path: '/about/' }]} />
     <h1 class="t-h1 mt-6 max-w-4xl">RSK Solar Energy, Phase 8B Mohali</h1>
     <p class="t-lead measure mt-5">
-      A {BUSINESS.brand} distributor and rooftop solar installer, founded in {BUSINESS.foundedYear}. We supply UTL products across Punjab, and design and install on-grid, hybrid and off-grid systems for homes, businesses and housing societies.
+      A {BUSINESS.brand} distributor and rooftop solar installer, founded by {BUSINESS.owner.name} in December {BUSINESS.foundedYear}. We supply UTL products across Punjab, and design and install on-grid, hybrid and off-grid systems for homes, businesses and housing societies.
     </p>
     <figure class="mt-10">
       <Image src={officePhoto} alt="RSK Solar Energy office at E-203, Phase 8B Industrial Area, Mohali, with the UTL Solar distributor sign" widths={[640, 1024, 1600, 2000]} sizes="(min-width: 80rem) 76rem, 100vw" loading="eager" fetchpriority="high" class="h-auto w-full border border-rule" />
       <figcaption class="t-small mt-2 text-slate">E-203, Phase 8B Industrial Area, Sector 74, Mohali, opposite Nexa Tower.</figcaption>
     </figure>
     <p class="measure mt-6 text-slate">
-      {BUSINESS.name} is owned by {BUSINESS.owner.name} and has one office, this one in Mohali, Punjab. We are not connected to businesses with similar names in other states, or to the RSK Group of the UK.
+      {BUSINESS.owner.name} founded {BUSINESS.name} on {foundedOn} and owns it. It has one office, this one in Mohali, Punjab. We are not connected to businesses with similar names in other states, or to the RSK Group of the UK.
     </p>
   </header>
 

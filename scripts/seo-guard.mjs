@@ -22,7 +22,14 @@ const BRAND_IN_TITLE = new Set([
   '/terms-and-conditions/',
   '/refund-and-cancellation-policy/',
   '/awards-and-recognition/',
+  // The Hindi and Punjabi home and about pages, the same pages in another language.
+  '/hi/',
+  '/pa/',
+  '/hi/about/',
+  '/pa/about/',
 ]);
+/** Home pages, which have no breadcrumb trail: English, Hindi and Punjabi. */
+const HOME_PAGES = new Set(['/', '/hi/', '/pa/']);
 /** The only pages allowed to be noindex. Keep in sync with the sitemap filter in astro.config.mjs. */
 const NOINDEX_ALLOWED = new Set(['/404.html', '/awards-and-recognition/', '/search/']);
 const TITLE_MAX = 65;
@@ -151,7 +158,7 @@ for (const file of sorted) {
     if (!business) err(page, 'missing LocalBusiness schema');
     else if (page === '/') homeBusiness = JSON.stringify(business);
     else if (homeBusiness && JSON.stringify(business) !== homeBusiness) err(page, 'LocalBusiness schema differs from the homepage (NAP must be identical everywhere)');
-    if (page !== '/' && !has('BreadcrumbList')) err(page, 'missing BreadcrumbList schema');
+    if (!HOME_PAGES.has(page) && !has('BreadcrumbList')) err(page, 'missing BreadcrumbList schema');
   }
   for (const banned of ['AggregateRating', 'Review']) if (has(banned)) err(page, `has ${banned} schema (not allowed: ratings come from Google Maps)`);
 

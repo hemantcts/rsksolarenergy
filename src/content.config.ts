@@ -48,4 +48,27 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { guides, blog };
+/**
+ * Hindi and Punjabi pages, at /hi/ and /pa/. Each one names the English page it translates, which
+ * is how the hreflang links and the language switcher find their partners. The id is
+ * "<lang>/<slug>", and "index" is the language's home page.
+ */
+const translations = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/translations' }),
+  schema: z.object({
+    lang: z.enum(['hi', 'pa']),
+    /** The English page this translates, as a path: '/', '/about/', '/pm-surya-ghar-subsidy-punjab/'. */
+    en: z.string(),
+    title: z.string().max(70),
+    description: z.string().max(170),
+    h1: z.string(),
+    lead: z.string(),
+    crumb: z.string(),
+    updated: z.string(),
+    faq: z.array(qa).default([]),
+    related: z.array(link).default([]),
+    cta: z.object({ heading: z.string(), body: z.string(), label: z.string(), message: z.string() }),
+  }),
+});
+
+export const collections = { guides, blog, translations };

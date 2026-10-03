@@ -23,6 +23,8 @@ export const BUSINESS = {
   description:
     'UTL Solar distributor and rooftop solar installer at Phase 8B, Mohali. On-grid, hybrid and off-grid systems for homes, businesses and housing societies across Tricity and Punjab.',
   foundedYear: 2022,
+  /** Supplied by the owner, 2026-10-04. */
+  foundingDate: '2022-12-22',
 
   /**
    * The proprietor, named by him on 26 September 2026.

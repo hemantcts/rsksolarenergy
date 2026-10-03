@@ -8,6 +8,9 @@ import DesktopCallButton from '../components/DesktopCallButton.astro';
 import { BUSINESS } from '../config/business';
 import { abs, breadcrumbs, graph, localBusiness, type Crumb } from '../lib/seo';
 import { assertLaunchReady } from '../lib/launch-guard';
+import { UI, type Lang } from '../i18n/ui';
+import { alternatesFor } from '../i18n/alternates';
+import LangSwitch from '../components/LangSwitch.astro';
 
 assertLaunchReady();
 
@@ -23,22 +26,29 @@ interface Props {
   ogType?: 'website' | 'article';
   ogImage?: string;
   noindex?: boolean;
+  /** Page language. Hindi and Punjabi pages come from src/content/translations/. */
+  lang?: Lang;
 }
 
-const { title, description, crumbs = [], schema = [], ogType = 'website', ogImage = '/og-rsk-logo.png', noindex = false } = Astro.props;
+const { title, description, crumbs = [], schema = [], ogType = 'website', ogImage = '/og-rsk-logo.png', noindex = false, lang = 'en' } = Astro.props;
+const ui = UI[lang];
+const alternates = await alternatesFor(Astro.url.pathname);
+const englishAlternate = alternates.find((a) => a.lang === 'en');
 const canonical = abs(Astro.url.pathname);
-const trail: Crumb[] = [{ name: 'Home', path: '/' }, ...crumbs];
+const trail: Crumb[] = [{ name: ui.homeCrumb, path: ui.home }, ...crumbs];
 const nodes = [localBusiness(), ...(crumbs.length ? [breadcrumbs(trail)] : []), ...schema];
 ---
 
 <!doctype html>
-<html lang="en-IN">
+<html lang={ui.htmlLang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {alternates.map((a) => <link rel="alternate" hreflang={UI[a.lang].htmlLang} href={abs(a.path)} />)}
+    {englishAlternate && <link rel="alternate" hreflang="x-default" href={abs(englishAlternate.path)} />}
     <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
 
     <Font cssVariable="--font-plex-condensed" preload />
@@ -47,7 +57,7 @@ const nodes = [localBusiness(), ...(crumbs.length ? [breadcrumbs(trail)] : []), 
 
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={BUSINESS.name} />
-    <meta property="og:locale" content="en_IN" />
+    <meta property="og:locale" content={ui.ogLocale} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -106,13 +116,14 @@ const nodes = [localBusiness(), ...(crumbs.length ? [breadcrumbs(trail)] : []), 
     }
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">{ui.skip}</a>
     <Header />
+    {alternates.length > 0 && <LangSwitch alternates={alternates} current={lang} />}
     <main id="main">
       <slot />
     </main>
     <Footer />
-    <StickyBar />
+    <StickyBar lang={lang} />
     <DesktopCallButton />
     <script>
       // Counts WhatsApp and call taps, with the page and button they came from (files/DEPLOY.md).

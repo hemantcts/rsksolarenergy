@@ -3,6 +3,12 @@
 import { PRIMARY_PHONE } from '../config/business';
 import { whatsappUrl, withSource, billMessage } from '../lib/whatsapp';
 import Icon from './Icon.astro';
+import { UI, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+const ui = UI[Astro.props.lang ?? 'en'];
 ---
 
 <nav class="sticky-bar on-ink md:hidden" aria-label="Contact RSK Solar Energy" data-tap-region="Sticky bar (mobile)">
@@ -12,11 +18,11 @@ import Icon from './Icon.astro';
   </a>
   <a href={`tel:${PRIMARY_PHONE.tel}`}>
     <Icon name="phone" size={20} />
-    <span>Call</span>
+    <span>{ui.call}</span>
   </a>
   <a href="/solar-calculator/">
     <Icon name="calculator" size={20} />
-    <span>Calculate</span>
+    <span>{ui.calculate}</span>
   </a>
 </nav>
 
