@@ -1,0 +1,130 @@
+---
+/**
+ * One page per tool under /tools/: the tool and its result, the free assessment beside it, then how
+ * it works it out, the sources, related tools and pages, and the questions people ask.
+ */
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Faq from '../components/Faq.astro';
+import CtaBlock from '../components/content/CtaBlock.astro';
+import { toolsById } from '../data/tools';
+import { faqPage, type QA } from '../lib/seo';
+import '../styles/tools.css';
+
+interface Props {
+  title: string;
+  description: string;
+  h1: string;
+  lead: string;
+  crumb: string;
+  path: string;
+  faq: QA[];
+  /** Ids from src/data/tools.ts. */
+  relatedTools: string[];
+  /** Service, product and guide pages this tool leads on to. */
+  relatedPages: { href: string; label: string }[];
+  sources?: { label: string; href: string; note?: string }[];
+  cta: { message: string; body?: string };
+}
+const { title, description, h1, lead, crumb, path, faq, relatedTools, relatedPages, sources = [], cta } = Astro.props;
+const tools = toolsById(relatedTools);
+const crumbs = [
+  { name: 'Solar tools', path: '/tools/' },
+  { name: crumb, path },
+];
+---
+
+<BaseLayout title={title} description={description} crumbs={crumbs} schema={faq.length ? [faqPage(faq)] : []}>
+  <section class="wrap grid-12 pt-8 pb-16 lg:pt-12 lg:pb-24">
+    <div class="lg:col-span-7">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, ...crumbs]} />
+      <h1 class="t-h1 mt-6">{h1}</h1>
+      <p class="t-lead measure mt-5">{lead}</p>
+      <div class="settle mt-8 mb-8 border-t border-ink"></div>
+      <slot />
+    </div>
+    <aside class="lg:col-span-4 lg:col-start-9" aria-label="Free solar assessment">
+      <div class="lg:sticky lg:top-28">
+        <CtaBlock
+          heading="Get a free solar assessment"
+          body={cta.body ?? 'Send us your figures and a recent bill, or book a visit. We check the roof, the connection and the numbers before we quote.'}
+          label="Ask for a free assessment"
+          message={cta.message}
+        />
+        <slot name="aside" />
+      </div>
+    </aside>
+  </section>
+
+  <section class="sec bg-white" aria-labelledby="method-h">
+    <div class="wrap grid-12">
+      <div class="lg:col-span-4">
+        <h2 id="method-h" class="t-h2">How it works it out</h2>
+      </div>
+      <div class="prose lg:col-span-7 lg:col-start-6">
+        <slot name="method" />
+        {
+          sources.length > 0 && (
+            <>
+              <h3>Sources</h3>
+              <ul>
+                {sources.map((s) => (
+                  <li>
+                    <a href={s.href} rel="noopener" target="_blank">
+                      {s.label}
+                    </a>
+                    {s.note ? `, ${s.note}` : ''}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <slot name="after" />
+
+  <nav class="sec-tight border-t border-rule" aria-labelledby="next-h">
+    <div class="wrap grid-12">
+      <h2 id="next-h" class="t-h3 lg:col-span-3">Related tools and guides</h2>
+      <div class="lg:col-span-8 lg:col-start-5">
+        <ul class="tool-links">
+          {
+            tools.map((t) => (
+              <li>
+                <a href={t.href} class="font-medium underline">
+                  {t.name}
+                </a>
+                <span class="t-small block text-slate">{t.blurb}</span>
+              </li>
+            ))
+          }
+          {
+            relatedPages.map((p) => (
+              <li>
+                <a href={p.href} class="font-medium underline">
+                  {p.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="t-small mt-6"><a href="/tools/" class="underline">All solar tools</a> · <a href="/solar-guides/" class="underline">Solar guides and PDFs</a></p>
+      </div>
+    </div>
+  </nav>
+
+  {
+    faq.length > 0 && (
+      <section class="sec border-t border-rule bg-white">
+        <div class="wrap grid-12">
+          <div class="lg:col-span-8">
+            <Faq items={faq} />
+          </div>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

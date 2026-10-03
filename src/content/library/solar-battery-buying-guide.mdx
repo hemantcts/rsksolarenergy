@@ -1,0 +1,79 @@
+---
+title: 'Solar Battery Buying Guide: Lithium or Tubular (PDF)'
+description: 'How to choose a solar battery in Punjab: lithium or tubular, capacity in kWh, usable share, voltage, cycles, upkeep and warranty, and how to size the bank.'
+h1: Solar battery buying guide
+lead: 'A battery is what turns solar into backup. It is also the costliest part to replace. This guide covers choosing the chemistry, sizing the bank, matching it to the inverter, and keeping it healthy.'
+crumb: Battery buying guide
+audience: homes, farms and businesses
+order: 8
+updated: '2026-10-04'
+tools: ['backup', 'off-grid', 'selector']
+related:
+  - href: /blog/lithium-vs-tubular-battery-for-solar/
+    label: Tubular or lithium for solar
+  - href: /blog/how-many-batteries-for-3kw-solar-system/
+    label: How many batteries a 3 kW system needs
+  - href: /products/batteries/
+    label: UTL batteries in the catalogue
+faq:
+  - q: Is lithium or tubular better for solar?
+    a: 'Lithium lasts far more cycles, weighs much less and needs no water, so it pays when the battery is used every day. Tubular costs less to buy and suits a battery that only covers occasional cuts.'
+  - q: How do I work out a battery's capacity in kWh?
+    a: 'Multiply the amp-hours by the voltage and divide by 1,000. A 12 V, 150 Ah battery holds 1.8 kWh; a 51.2 V, 100 Ah lithium pack holds about 5.1 kWh. Only part of that is used each cycle.'
+  - q: Can I mix old and new batteries, or lithium and tubular?
+    a: 'No. Keep one chemistry and one age per bank. A mixed bank charges unevenly and the weakest battery drags the rest down.'
+cta:
+  heading: Need the battery sized?
+  label: Ask about batteries
+  message: 'Hi RSK Solar Energy, I need advice on a solar battery. What must run during a cut, and for how long: '
+---
+
+import { BACKUP_CONFIG } from '../../config/backup-config';
+
+export const li = Math.round(BACKUP_CONFIG.battery.lithium.usable * 100);
+export const tub = Math.round(BACKUP_CONFIG.battery.tubular.usable * 100);
+
+## 1. Do you need a battery at all?
+
+An on-grid system needs none: the grid covers the night. A battery is for backup in power cuts (a hybrid system) or for a site with no connection (off-grid). The [system selector](/tools/solar-system-selector/) helps decide.
+
+## 2. Lithium or tubular
+
+| | Tubular | Lithium (LiFePO4) |
+|---|---|---|
+| Rated cycles, UTL figures | 1,500 at 80% depth of discharge | 3,000 to 3,500 at 80% |
+| Share planned for each cycle | {tub}% | {li}% |
+| Upkeep | Distilled water top-ups, ventilated spot | None; a built-in battery management system |
+| Weight | Heavy: a 48 V bank of four is over 200 kg | About a sixth of that |
+| Inverter | Works with lead-acid inverters | Inverter must support lithium charging |
+| Price to buy | Lower | Higher |
+
+Choose tubular for occasional cuts on a budget, when the battery sits full most of the week. Choose lithium when it is cycled every day, as in most hybrid and off-grid systems. [Tubular or lithium for solar](/blog/lithium-vs-tubular-battery-for-solar/) has the full comparison.
+
+Sealed maintenance-free (SMF) batteries suit shallow, occasional use like a UPS, not daily solar cycling.
+
+## 3. Work out the capacity
+
+1. List what must run on the battery and for how many hours, and add up the units (kWh).
+2. Divide by the share you plan to use each cycle: {li}% for lithium, {tub}% for tubular. That is the bank size.
+3. Convert to batteries: amp-hours times voltage, divided by 1,000, gives kWh per battery.
+
+Running ACs or heaters on batteries takes a very large bank; most homes back up lights, fans, the fridge and Wi-Fi and leave heavy loads on the grid. The [battery backup calculator](/hybrid-solar-calculator/) does these steps for the appliances you pick, and the [off-grid calculator](/off-grid-solar-calculator/) for a site with no grid.
+
+## 4. Match the voltage and the inverter
+
+The bank's voltage must match the inverter: 12 V, 24 V, 48 V or 96 V. A 25.6 V lithium pack goes with a 24 V system, and a 48 V or 51.2 V pack with a 48 V system. For lithium, the inverter must support lithium charging. Keep one chemistry and one age in each bank.
+
+## 5. Check the warranty
+
+Get the manufacturer's warranty in writing, in months or years, and for lithium the rated cycles. Ask what counts as a fault, and who handles a claim near you. Keep the invoice and warranty card together.
+
+## 6. Keep it healthy
+
+- Tubular: distilled water only, clean terminals, a cool ventilated spot, and do not run it flat every day. See [tubular battery care](/tubular-battery-care/).
+- Lithium: keep it out of the heat, let it recharge fully when it can, and leave it part-charged if it will stand unused. See [lithium battery care](/lithium-battery-care/).
+- Check the inverter's charge settings match the battery type whenever a battery is replaced.
+
+## UTL batteries
+
+We supply UTL's tubular, SMF and lithium batteries for inverters and solar systems. The [UTL battery catalogue](/products/batteries/) lists each model, and the comparisons with [Exide](/utl-vs-exide/) and [Livguard](/utl-vs-livguard/) set them against those brands' published figures.

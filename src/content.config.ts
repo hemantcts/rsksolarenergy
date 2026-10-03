@@ -48,4 +48,30 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { guides, blog };
+/**
+ * The solar guides library at /solar-guides/: longer guides and checklists, each also published as a
+ * PDF (scripts/make-guide-pdfs.mjs prints the page after the build). They summarise and link the
+ * in-depth pages rather than repeating them.
+ */
+const library = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/library' }),
+  schema: z.object({
+    title: z.string().max(70),
+    description: z.string().max(170),
+    h1: z.string(),
+    lead: z.string(),
+    crumb: z.string(),
+    /** Who it is for, shown on the library index: "Homes", "Farmers", "Businesses". */
+    audience: z.string(),
+    order: z.number(),
+    updated: z.string(),
+    /** Ids from src/data/tools.ts. */
+    tools: z.array(z.string()).default([]),
+    related: z.array(link).default([]),
+    sources: z.array(z.object({ label: z.string(), href: z.string(), checked: z.string().optional() })).default([]),
+    faq: z.array(qa).default([]),
+    cta: z.object({ heading: z.string(), label: z.string(), message: z.string() }),
+  }),
+});
+
+export const collections = { guides, blog, library };

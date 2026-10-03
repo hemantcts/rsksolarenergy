@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBlock from '../../components/content/CtaBlock.astro';
+
+const guides = (await getCollection('library')).sort((a, b) => a.data.order - b.data.order);
+const date = (d: string) => new Date(`${d}T00:00:00Z`).toLocaleDateString('en-IN', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+---
+
+<BaseLayout
+  title="Solar Guides and Free PDFs for Punjab"
+  description="Free solar guides and checklists for Punjab, each one a web page and a PDF: buying guides, the PM Surya Ghar subsidy, solar pumps, quotes and maintenance."
+  crumbs={[{ name: 'Solar guides', path: '/solar-guides/' }]}
+>
+  <section class="wrap grid-12 pt-8 pb-16 lg:pt-12 lg:pb-24">
+    <div class="lg:col-span-7">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Solar guides', path: '/solar-guides/' }]} />
+      <h1 class="t-h1 mt-6">Solar guides and PDFs</h1>
+      <p class="t-lead measure mt-5">
+        Guides and checklists to read before you buy, and to keep after. Each one is a page here and a PDF you can download, print or send on WhatsApp. Free, with no sign-up.
+      </p>
+      <ol class="ruled mt-12">
+        {
+          guides.map((g) => (
+            <li>
+              <p class="t-small text-slate">
+                For {g.data.audience} · Updated {date(g.data.updated)}
+              </p>
+              <h2 class="t-h3 mt-1">
+                <a href={`/solar-guides/${g.id}/`} class="underline">
+                  {g.data.h1}
+                </a>
+              </h2>
+              <p class="mt-2 text-slate">{g.data.description}</p>
+              <p class="t-small mt-2">
+                <a href={`/solar-guides/${g.id}.pdf`} class="underline" download>
+                  Download the PDF
+                </a>
+              </p>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="mt-10">
+        More: <a href="/tools/" class="underline">solar tools and calculators</a>, and the <a href="/blog/" class="underline">articles and explainers</a>.
+      </p>
+    </div>
+    <aside class="lg:col-span-4 lg:col-start-9" aria-label="Free solar assessment">
+      <div class="lg:sticky lg:top-28">
+        <CtaBlock
+          heading="Get a free solar assessment"
+          body="Rather talk it through? Send a recent bill and a few roof photos, or book a visit."
+          label="Ask for a free assessment"
+          message="Hi RSK Solar Energy, I read your solar guides and would like a free assessment. My area and last bill: "
+        />
+      </div>
+    </aside>
+  </section>
+</BaseLayout>

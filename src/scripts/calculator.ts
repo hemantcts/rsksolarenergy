@@ -205,6 +205,14 @@ function init(form: HTMLFormElement) {
     if (fromUrl) {
       writeForm(form, fromUrl);
       show(form, output, fromUrl, { animate: false, scroll: false });
+    } else {
+      // A link from /tools/ can preselect the connection type (?category=commercial) with no figures yet.
+      const category = new URLSearchParams(location.search).get('category');
+      const select = form.querySelector<HTMLSelectElement>('[name="category"]');
+      if (category && select && [...select.options].some((o) => o.value === category)) {
+        select.value = category;
+        syncForm(form);
+      }
     }
   }
 }

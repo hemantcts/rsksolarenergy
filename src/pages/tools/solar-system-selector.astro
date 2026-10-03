@@ -1,0 +1,90 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { selectSystem } from '../../lib/tools/selector';
+import { renderSelection } from '../../lib/tools/render';
+import { F } from '../../lib/facts';
+import type { QA } from '../../lib/seo';
+
+const path = '/tools/solar-system-selector/';
+const example = renderSelection(selectSystem({ use: 'home', grid: 'yes', cuts: 'rare', units: 'over', want: 'bill' }), path);
+
+const QUESTIONS = [
+  { name: 'use', legend: 'What is it for?', options: [['home', 'A home'], ['business', 'A shop, office or factory'], ['pump', 'A tubewell or farm pump']] },
+  { name: 'grid', legend: 'Is there a PSPCL connection?', options: [['yes', 'Yes'], ['no', 'No, or it is unreliable']] },
+  { name: 'cuts', legend: 'How often does the power go?', options: [['rare', 'Rarely'], ['sometimes', 'Sometimes'], ['often', 'Most days']] },
+  { name: 'units', legend: `Monthly use, from your bill`, options: [['under', `${F.free} units or less`], ['over', `More than ${F.free}`], ['unknown', 'Not sure']] },
+  { name: 'want', legend: 'What matters most?', options: [['bill', 'A lower bill'], ['backup', 'Power in cuts'], ['both', 'Both']] },
+] as const;
+
+const faq: QA[] = [
+  {
+    q: 'What is the difference between on-grid, hybrid and off-grid?',
+    a: 'On-grid is connected to PSPCL with no battery and cuts the bill. Hybrid is connected too, with a battery that keeps chosen circuits running in a power cut. Off-grid has no connection at all and runs everything from panels and batteries.',
+  },
+  {
+    q: 'Which systems get the PM Surya Ghar subsidy?',
+    a: 'On-grid and hybrid systems on a home, because both are connected and net-metered. Off-grid systems and business systems do not qualify.',
+  },
+  {
+    q: 'Why might the answer be that I do not need solar?',
+    a: `A Punjab home using ${F.free} units a month or less already has a zero bill, so solar has nothing to save. It only makes sense then if you want backup in power cuts, or your use is about to rise.`,
+  },
+];
+---
+
+<ToolLayout
+  title="Solar System Selector: On-Grid, Hybrid or Off-Grid?"
+  description="Answer five questions about your connection, power cuts and bill, and see whether on-grid, hybrid, off-grid or a solar pump suits you, and why."
+  h1="Which solar system do you need?"
+  lead="Five questions about the place, the connection, power cuts and your bill. You get a recommendation with the reasons, the subsidy position, and where to size it."
+  crumb="System selector"
+  path={path}
+  faq={faq}
+  relatedTools={['bill', 'backup', 'pump', 'quotes']}
+  relatedPages={[
+    { href: '/on-grid-vs-off-grid-vs-hybrid/', label: 'On-grid, off-grid and hybrid compared' },
+    { href: '/hybrid-solar-systems/', label: 'Hybrid solar systems' },
+    { href: '/off-grid-solar-systems/', label: 'Off-grid solar systems' },
+    { href: '/solar-guides/home-solar-buying-guide-punjab/', label: 'Home solar buying guide (PDF)' },
+  ]}
+  cta={{ message: 'Hi RSK Solar Energy, I would like a free solar assessment to choose the right system. My place and bill: ' }}
+>
+  <form class="tool-form" data-tool="selector" novalidate aria-label="Solar system selector">
+    {
+      QUESTIONS.map((q) => (
+        <fieldset class="selector-q">
+          <legend class="field-label">{q.legend}</legend>
+          <div class="segmented">
+            {q.options.map(([value, label], i) => (
+              <label>
+                <input type="radio" name={q.name} value={value} checked={q.name === 'units' ? value === 'over' : i === 0} />
+                {label}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      ))
+    }
+    <button type="submit" class="btn btn-primary tool-submit">Show my system</button>
+  </form>
+
+  <div class="tool-result" data-tool-result="selector" tabindex="-1" aria-live="polite">
+    <Fragment set:html={example} />
+    <p class="tool-example">Example: a home with a PSPCL connection, rare power cuts, more than {F.free} units a month, wanting a lower bill. Answer for your own place above.</p>
+  </div>
+
+  <Fragment slot="method">
+    <p>The selector applies the same rules as our guide to <a href="/on-grid-vs-off-grid-vs-hybrid/">on-grid, off-grid and hybrid</a>, in this order:</p>
+    <ol>
+      <li>A tubewell or farm pump: a standalone solar pump.</li>
+      <li>No reliable PSPCL connection: off-grid.</li>
+      <li>A home under {F.free} units a month that does not need backup: no solar needed yet, since the bill is already zero.</li>
+      <li>Frequent cuts, or backup wanted: hybrid.</li>
+      <li>Otherwise: on-grid, the cheapest way to cut a bill.</li>
+    </ol>
+    <p>It suggests a type, not a size. The calculator it links to sizes the system from your bill or your appliances.</p>
+  </Fragment>
+  <script>
+    import '../../scripts/tools/selector';
+  </script>
+</ToolLayout>

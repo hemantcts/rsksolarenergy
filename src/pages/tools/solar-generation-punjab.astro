@@ -1,0 +1,134 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { CITIES, cityPath } from '../../data/locations';
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { generationFor, MONTHS, PUNJAB_AVERAGE, SUNSHINE_META, TOWNS } from '../../lib/tools/generation';
+import { renderGeneration } from '../../lib/tools/render';
+import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
+import { digits } from '../../lib/calculator/format';
+import type { QA } from '../../lib/seo';
+
+const path = '/tools/solar-generation-punjab/';
+// Our own installers' towns first, Mohali at the top, then the rest of Punjab: CITIES is in that order.
+const ordered = CITIES.map((c) => ({ city: c, town: TOWNS.find((t) => t.slug === c.slug) })).filter((x) => x.town);
+const direct = ordered.filter((x) => x.city.tier === 'direct');
+const rest = ordered.filter((x) => x.city.tier !== 'direct');
+const example = renderGeneration(generationFor('mohali', 3)!, path);
+const planning = Math.round(effectiveYieldPerKw(SOLAR_CONFIG));
+const perKw = (slug: string) => generationFor(slug, 1)!;
+const sunniest = [...TOWNS].sort((a, b) => b.annual - a.annual)[0]!;
+const dullest = [...TOWNS].sort((a, b) => a.annual - b.annual)[0]!;
+const retrieved = new Date(`${SUNSHINE_META.retrieved}T00:00:00Z`).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const mohali = perKw('mohali');
+
+const faq: QA[] = [
+  {
+    q: 'How many units does 1 kW of solar make in Mohali?',
+    a: `About ${digits(mohali.year)} units a year, or ${digits(mohali.year / 12)} a month on average, after losses. Summer months make more and December and January less.`,
+  },
+  {
+    q: 'Which part of Punjab gets the most sun?',
+    a: `In this data, ${sunniest.name} and the towns around it, at ${sunniest.annual.toFixed(2)} kWh per square metre a day, and the least ${dullest.name}, at ${dullest.annual.toFixed(2)}. The difference across the state is small, within about ${Math.round(((sunniest.annual - dullest.annual) / dullest.annual) * 100)}%.`,
+  },
+  {
+    q: 'Why do nearby towns show the same figure?',
+    a: 'The satellite sunshine data is on a grid of about 100 km, so towns close together, such as Mohali, Chandigarh and Panchkula, share a value. Your own roof, its direction and its shade matter more than the town.',
+  },
+  {
+    q: 'Why are these figures lower than some installers quote?',
+    a: `We plan on ${digits(planning)} units per kW a year across Punjab, after allowing for heat, dust, wiring and inverter losses. Figures for a clear day, or before losses, look higher but are not what a year averages.`,
+  },
+];
+---
+
+<ToolLayout
+  title="Solar Generation by Location in Punjab: Units per kW"
+  description="Units a solar system makes in your town, month by month, for Mohali, the Tricity and 40 Punjab towns. From NASA satellite sunshine data."
+  h1="Solar generation by location in Punjab"
+  lead="How many units a solar system makes in your town over a year and in each month. Choose the town and the system size."
+  crumb="Generation by location"
+  path={path}
+  faq={faq}
+  relatedTools={['bill', 'roof', 'selector']}
+  relatedPages={[
+    { href: '/blog/how-many-units-1kw-solar-produces-punjab/', label: 'How many units 1 kW makes in Punjab' },
+    { href: '/blog/solar-output-punjab-winter-fog/', label: 'Solar output in winter fog' },
+    { href: '/solar-company-mohali/', label: 'Rooftop solar in Mohali' },
+    { href: '/solar-company-punjab/', label: 'Where we work in Punjab' },
+  ]}
+  sources={[
+    { label: 'NASA POWER climatology', href: SUNSHINE_META.sourceUrl, note: `${SUNSHINE_META.period}, retrieved ${retrieved}` },
+    { label: 'Town coordinates: OpenStreetMap Nominatim', href: 'https://nominatim.openstreetmap.org/' },
+  ]}
+  cta={{ message: 'Hi RSK Solar Energy, I would like a free solar assessment. My town and roof: ' }}
+>
+  <form class="tool-form" data-tool="generation" novalidate aria-label="Solar generation by location">
+    <div class="tool-fields is-two">
+      <div>
+        <label class="field-label" for="g-town">Town</label>
+        <select class="select" id="g-town" name="town">
+          <optgroup label="Mohali and the Tricity: our own team">
+            {direct.map((x) => <option value={x.city.slug} selected={x.city.slug === 'mohali'}>{x.city.name}</option>)}
+          </optgroup>
+          <optgroup label="Rest of Punjab">
+            {rest.map((x) => <option value={x.city.slug}>{x.city.name}</option>)}
+          </optgroup>
+        </select>
+      </div>
+      <div>
+        <label class="field-label" for="g-kw">System size</label>
+        <div class="input-suffix"><input class="input" id="g-kw" name="kw" inputmode="decimal" value="3" /><span>kW</span></div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary tool-submit">Show generation</button>
+  </form>
+
+  <div class="tool-result" data-tool-result="generation" tabindex="-1" aria-live="polite">
+    <Fragment set:html={example} />
+    <p class="tool-example">Example: a 3 kW system in Mohali. Choose your own town above.</p>
+  </div>
+
+  <Fragment slot="method">
+    <ol>
+      <li>Sunshine for each town comes from NASA POWER: the average daily solar energy reaching flat ground, measured by satellite, {SUNSHINE_META.period.replace(/^.*\((.*)\).*$/, '$1')}.</li>
+      <li>Across Punjab we plan on {digits(planning)} units per kW a year after losses, the figure every calculator on this site uses. Each town gets that figure scaled by how its sunshine compares with the average of all {TOWNS.length} towns.</li>
+      <li>The year is then split into months in proportion to each month's sunshine.</li>
+    </ol>
+    <p>These are averages for planning. A given year can be sunnier or duller, and your roof's direction, tilt and shade change the result more than the town does.</p>
+  </Fragment>
+  <section slot="after" class="sec" aria-labelledby="towns-h">
+    <div class="wrap">
+      <h2 id="towns-h" class="t-h2">Units per kW in every town</h2>
+      <p class="measure mt-4 text-slate">Average sunshine and the units 1 kW of panels makes in a year, after losses. Each town links to its own page.</p>
+      <div class="table-scroll mt-8">
+        <table class="spec-table min-w-lg">
+          <caption>Mohali and the Tricity first, then the rest of Punjab. Punjab average: {PUNJAB_AVERAGE.toFixed(2)} kWh/m² a day.</caption>
+          <thead>
+            <tr><th scope="col">Town</th><th scope="col" class="num">Sunshine, kWh/m² a day</th><th scope="col" class="num">Units per kW a year</th><th scope="col" class="num">Best and weakest month</th></tr>
+          </thead>
+          <tbody>
+            {
+              ordered.map(({ city, town }) => {
+                const g = perKw(city.slug);
+                const best = g.months.indexOf(Math.max(...g.months));
+                const worst = g.months.indexOf(Math.min(...g.months));
+                return (
+                  <tr>
+                    <th scope="row"><a href={cityPath(city.slug)} class="underline">{city.name}</a></th>
+                    <td class="num">{town!.annual.toFixed(2)}</td>
+                    <td class="num">{digits(g.year)}</td>
+                    <td class="num">{MONTHS[best]} / {MONTHS[worst]}</td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <script>
+    import '../../scripts/tools/generation';
+  </script>
+</ToolLayout>
+

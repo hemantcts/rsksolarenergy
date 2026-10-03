@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBlock from '../../components/content/CtaBlock.astro';
+import { TOOLS, TOOL_GROUPS, type Tool } from '../../data/tools';
+
+const groups = (Object.keys(TOOL_GROUPS) as Tool['group'][]).map((g) => ({ id: g, title: TOOL_GROUPS[g], tools: TOOLS.filter((t) => t.group === g) }));
+---
+
+<BaseLayout
+  title="Solar Tools and Calculators for Punjab"
+  description="Free solar calculators and tools for Punjab: size from your bill or roof, battery backup, solar pumps, generation by town, system selector and quote comparison."
+  crumbs={[{ name: 'Solar tools', path: '/tools/' }]}
+>
+  <section class="wrap grid-12 pt-8 pb-16 lg:pt-12 lg:pb-24">
+    <div class="lg:col-span-7">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, { name: 'Solar tools', path: '/tools/' }]} />
+      <h1 class="t-h1 mt-6">Solar tools and calculators</h1>
+      <p class="t-lead measure mt-5">
+        Every tool shows its full result straight away, with no phone number asked for, and explains how it worked the figures out. They use the same Punjab tariff, subsidy and generation figures throughout.
+      </p>
+      {
+        groups.map((g) => (
+          <section class="mt-12" aria-labelledby={`g-${g.id}`}>
+            <h2 id={`g-${g.id}`} class="t-h2">{g.title}</h2>
+            <ul class="ruled mt-6">
+              {g.tools.map((t) => (
+                <li>
+                  <a href={t.href} class="t-h3 underline">
+                    {t.name}
+                  </a>
+                  <p class="mt-1 text-slate">{t.blurb}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+      <section class="mt-12" aria-labelledby="g-guides">
+        <h2 id="g-guides" class="t-h2">Guides to read alongside</h2>
+        <p class="mt-4">
+          The <a href="/solar-guides/" class="underline">solar guides and PDF library</a> has buying guides, the subsidy steps and checklists for quotes, installation and maintenance, each one free to download.
+        </p>
+      </section>
+    </div>
+    <aside class="lg:col-span-4 lg:col-start-9" aria-label="Free solar assessment">
+      <div class="lg:sticky lg:top-28">
+        <CtaBlock
+          heading="Get a free solar assessment"
+          body="Rather we worked it out? Send a recent bill and a few roof photos, or book a visit, and we come back with the size, the price and the subsidy."
+          label="Ask for a free assessment"
+          message="Hi RSK Solar Energy, I would like a free solar assessment. My area and last bill: "
+        />
+      </div>
+    </aside>
+  </section>
+</BaseLayout>

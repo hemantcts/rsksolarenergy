@@ -1,0 +1,132 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { roofEstimate } from '../../lib/tools/roof';
+import { renderRoof } from '../../lib/tools/render';
+import { F } from '../../lib/facts';
+import type { QA } from '../../lib/seo';
+
+const path = '/tools/solar-roof-capacity-calculator/';
+const cfg = SOLAR_CONFIG;
+const sqFt = cfg.generation.sqFtPerKw;
+// UTL's DCR modules from the catalogue, for counting panels.
+const PANELS = [
+  { w: 500, label: '500 W, UTL500-132BM DCR' },
+  { w: 530, label: '530 W, UTL530-144M DCR' },
+  { w: 555, label: '555 W, UTL555-144GM DCR' },
+  { w: 580, label: '580 W, UTL580-144GT TOPCon DCR' },
+  { w: 625, label: '625 W, UTL625-132GT TOPCon DCR' },
+];
+const example = renderRoof(roofEstimate({ areaSqFt: 800, usableShare: 0.8, loadKw: 5, panelW: 555, home: true }), path);
+
+const faq: QA[] = [
+  {
+    q: 'How much roof does a 1 kW solar system need?',
+    a: `About ${sqFt} sq ft of shade-free roof per kW. That includes the gaps between rows that keep one row from shading the next and leave room to walk and clean. A 3 kW system needs about ${3 * sqFt} sq ft.`,
+  },
+  {
+    q: 'Should I fill my whole roof with panels?',
+    a: `Not always. In Punjab a home's bill is already zero once its net use is under ${F.free} units a month, so a system bigger than the bill needs adds little. The roof sets the most you can fit; your bill sets what is worth fitting. The solar calculator works out the second.`,
+  },
+  {
+    q: 'Can the system be bigger than my sanctioned load?',
+    a: `No. A net-metered rooftop system in Punjab can be at most ${cfg.netMetering.maxSystemPercentOfSanctionedLoad}% of the sanctioned load printed on your bill. To fit more, apply to PSPCL for a load increase before the solar application.`,
+  },
+  {
+    q: 'What counts as usable roof?',
+    a: 'Roof that gets sun for most of the day and has room for the structure. Take out water tanks, stair rooms, parapet edges and anything that throws a shadow in the middle of the day, such as a taller building next door.',
+  },
+];
+---
+
+<ToolLayout
+  title="Solar Roof Capacity Calculator: How Many kW Fit"
+  description="Enter your roof size and get the kW of solar it can take, the panel count, the units it makes, the price and the PM Surya Ghar subsidy."
+  h1="Solar roof capacity calculator"
+  lead="How much solar your roof can take, in kW and panels, and what that system would make and cost. Enter the roof's area or its length and width."
+  crumb="Roof capacity"
+  path={path}
+  faq={faq}
+  relatedTools={['bill', 'generation', 'selector', 'quotes']}
+  relatedPages={[
+    { href: '/solar-panels/', label: 'Solar panels we install' },
+    { href: '/products/solar-panels/', label: 'UTL solar panels in the catalogue' },
+    { href: '/blog/how-to-size-home-solar-punjab/', label: 'How to size a home solar system' },
+    { href: '/solar-company-mohali/', label: 'Rooftop solar in Mohali' },
+  ]}
+  cta={{ message: 'Hi RSK Solar Energy, I would like a free assessment of my roof for solar. My area and roof size: ' }}
+>
+  <form class="tool-form" data-tool="roof" novalidate aria-label="Roof capacity calculator">
+    <div class="tool-fields">
+      <div>
+        <label class="field-label" for="r-area">Roof area</label>
+        <div class="input-suffix"><input class="input" id="r-area" name="area" inputmode="decimal" placeholder="800" /><span>sq ft</span></div>
+      </div>
+      <p class="tool-or">or length and width</p>
+      <div class="tool-fields is-two">
+        <div>
+          <label class="field-label" for="r-length">Length</label>
+          <div class="input-suffix"><input class="input" id="r-length" name="length" inputmode="decimal" /><span>ft</span></div>
+        </div>
+        <div>
+          <label class="field-label" for="r-width">Width</label>
+          <div class="input-suffix"><input class="input" id="r-width" name="width" inputmode="decimal" /><span>ft</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tool-fields is-two">
+      <div>
+        <label class="field-label" for="r-usable">How clear is the roof?</label>
+        <select class="select" id="r-usable" name="usable">
+          <option value="80" selected>Mostly clear: about 80% usable</option>
+          <option value="60">Tank, stairs or some shade: about 60%</option>
+          <option value="40">Crowded or shaded: about 40%</option>
+          <option value="100">All of it is usable</option>
+        </select>
+        <span class="field-hint">Your own estimate. A site visit measures it.</span>
+      </div>
+      <div>
+        <label class="field-label" for="r-load">Sanctioned load (optional)</label>
+        <div class="input-suffix"><input class="input" id="r-load" name="load" inputmode="decimal" /><span>kW</span></div>
+        <span class="field-hint">Printed on your PSPCL bill.</span>
+      </div>
+    </div>
+    <div class="tool-fields is-two">
+      <div>
+        <label class="field-label" for="r-panel">Panel size, to count panels</label>
+        <select class="select" id="r-panel" name="panel">
+          <option value="">Skip</option>
+          {PANELS.map((p) => <option value={p.w}>{p.label}</option>)}
+        </select>
+      </div>
+      <fieldset>
+        <legend class="field-label">The building is</legend>
+        <div class="segmented">
+          <label><input type="radio" name="for" value="home" checked />A home</label>
+          <label><input type="radio" name="for" value="business" />A business</label>
+        </div>
+      </fieldset>
+    </div>
+    <button type="submit" class="btn btn-primary tool-submit">Work it out</button>
+  </form>
+
+  <div class="tool-result" data-tool-result="roof" tabindex="-1" aria-live="polite">
+    <Fragment set:html={example} />
+    <p class="tool-example">Example: an 800 sq ft roof, mostly clear, 5 kW sanctioned load, 555 W panels. Enter your own figures above.</p>
+  </div>
+
+  <Fragment slot="method">
+    <ol>
+      <li>Usable area is the roof area times the share you say is clear.</li>
+      <li>Capacity is the usable area divided by {sqFt} sq ft per kW, the planning figure every calculator on this site uses. It allows for the gaps between rows.</li>
+      <li>The system is the largest of our standard on-grid sizes that fits both the roof and, if you enter it, your sanctioned load. On-grid sizes start at {cfg.sizing.minKwByType['on-grid']} kW.</li>
+      <li>Units a month use {F.perKwMonth} units per kW, averaged over the year after losses. See <a href="/blog/how-many-units-1kw-solar-produces-punjab/">how many units 1 kW makes</a>.</li>
+      <li>The price is our published on-grid range for that size, and the subsidy is the PM Surya Ghar amount for a home: {F.sub1} per kW for the first 2 kW, {F.subThird} for the third, up to {F.cap}.</li>
+    </ol>
+    <p>Prices are estimates for a first conversation, not a quotation. The roof's direction, shade and structure decide the final layout.</p>
+  </Fragment>
+  <script>
+    import '../../scripts/tools/roof';
+  </script>
+</ToolLayout>
+

@@ -1,0 +1,146 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { compareQuotes, perKwSpread, QUOTE_ITEMS, type QuoteInput } from '../../lib/tools/quotes';
+import { renderQuotes } from '../../lib/tools/render';
+import { F } from '../../lib/facts';
+import type { QA } from '../../lib/seo';
+
+const path = '/tools/solar-quote-comparison/';
+const all = QUOTE_ITEMS.map((i) => i.id);
+const exampleQuotes: QuoteInput[] = [
+  { name: 'Installer A', kw: 3, price: 190000, type: 'on-grid', dcr: 'yes', panelWarranty: 12, inverterWarranty: 10, includes: all },
+  { name: 'Installer B', kw: 3, price: 150000, type: 'on-grid', dcr: 'unknown', includes: ['netmeter', 'structure'] },
+];
+const exampleRows = compareQuotes(exampleQuotes, true);
+const example = renderQuotes(exampleRows, perKwSpread(exampleRows), path);
+
+const faq: QA[] = [
+  {
+    q: 'How do I compare solar quotes fairly?',
+    a: 'Compare the price per kW, then check that each quote names the same things: the panel make and model, whether the panels are DCR, the inverter make and model, the structure, the protection, the paperwork and the after-sales service. A cheaper quote that leaves out any of these is not the same system.',
+  },
+  {
+    q: 'Why does DCR matter for the subsidy?',
+    a: `The PM Surya Ghar subsidy, up to ${F.cap} for a home, needs DCR panels from the ALMM list. A quote with non-DCR panels can look cheaper, but the subsidy is lost, and it cannot be fixed after installation.`,
+  },
+  {
+    q: 'Is the subsidy taken off the quoted price?',
+    a: `No. You pay the installer the full price, and the subsidy is paid into your own bank account ${F.days} days after the DISCOM inspection. The tool shows your cost after the subsidy so the quotes compare on the same footing.`,
+  },
+  {
+    q: 'Are my quotes stored anywhere?',
+    a: 'No. The comparison runs in your browser and nothing is sent to us unless you choose to send it on WhatsApp. The figures sit in the page address, so you can bookmark or share the result.',
+  },
+];
+---
+
+<ToolLayout
+  title="Solar Quote Comparison Tool: Compare Up to 3 Quotes"
+  description="Enter up to three rooftop solar quotes and see the price per kW, the subsidy, your cost after subsidy and what each quote leaves out."
+  h1="Compare solar quotes side by side"
+  lead="Enter up to three quotes. You get the price per kW, the subsidy each one qualifies for, your cost after subsidy, and a list of what each quote does not mention."
+  crumb="Quote comparison"
+  path={path}
+  faq={faq}
+  relatedTools={['bill', 'roof', 'selector']}
+  relatedPages={[
+    { href: '/solar-guides/solar-quote-checklist/', label: '50-point solar quote checklist (PDF)' },
+    { href: '/dcr-vs-non-dcr-solar-panels/', label: 'DCR and non-DCR panels' },
+    { href: '/blog/what-decides-solar-panel-price-punjab/', label: 'What decides a solar system price' },
+    { href: '/utl-solar-vs-other-brands/', label: 'UTL compared with other brands' },
+  ]}
+  cta={{ message: 'Hi RSK Solar Energy, I have solar quotes and would like a free assessment and your quote for the same system. My size and area: ' }}
+>
+  <form class="tool-form" data-tool="quotes" novalidate aria-label="Solar quote comparison">
+    <fieldset>
+      <legend class="field-label">The system is for</legend>
+      <div class="segmented">
+        <label><input type="radio" name="for" value="home" checked />A home</label>
+        <label><input type="radio" name="for" value="business" />A business</label>
+      </div>
+    </fieldset>
+    <div class="quote-cards">
+      {
+        [1, 2, 3].map((i) => (
+          <fieldset class="quote-card">
+            <legend>Quote {i}{i === 3 ? ' (optional)' : ''}</legend>
+            <div class="tool-fields">
+              <div>
+                <label class="field-label" for={`q${i}-name`}>Installer</label>
+                <input class="input" id={`q${i}-name`} name={`q${i}-name`} autocomplete="off" />
+              </div>
+              <div class="tool-fields is-two">
+                <div>
+                  <label class="field-label" for={`q${i}-kw`}>Size</label>
+                  <div class="input-suffix"><input class="input" id={`q${i}-kw`} name={`q${i}-kw`} inputmode="decimal" /><span>kW</span></div>
+                </div>
+                <div>
+                  <label class="field-label" for={`q${i}-price`}>Price</label>
+                  <div class="input-prefix"><span>₹</span><input class="input" id={`q${i}-price`} name={`q${i}-price`} inputmode="numeric" /></div>
+                </div>
+              </div>
+              <div class="tool-fields is-two">
+                <div>
+                  <label class="field-label" for={`q${i}-type`}>Type</label>
+                  <select class="select" id={`q${i}-type`} name={`q${i}-type`}>
+                    <option value="on-grid">On-grid</option>
+                    <option value="hybrid">Hybrid</option>
+                    <option value="off-grid">Off-grid</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="field-label" for={`q${i}-dcr`}>DCR panels?</label>
+                  <select class="select" id={`q${i}-dcr`} name={`q${i}-dcr`}>
+                    <option value="unknown">Not stated</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                  </select>
+                </div>
+              </div>
+              <div class="tool-fields is-two">
+                <div>
+                  <label class="field-label" for={`q${i}-pw`}>Panel warranty</label>
+                  <div class="input-suffix"><input class="input" id={`q${i}-pw`} name={`q${i}-pw`} inputmode="numeric" /><span>years</span></div>
+                </div>
+                <div>
+                  <label class="field-label" for={`q${i}-iw`}>Inverter warranty</label>
+                  <div class="input-suffix"><input class="input" id={`q${i}-iw`} name={`q${i}-iw`} inputmode="numeric" /><span>years</span></div>
+                </div>
+              </div>
+              <fieldset>
+                <legend class="field-label">The quote mentions</legend>
+                <div class="quote-checks">
+                  {QUOTE_ITEMS.map((item) => (
+                    <label>
+                      <input type="checkbox" name={`q${i}-has`} value={item.id} />
+                      <span>{item.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            </div>
+          </fieldset>
+        ))
+      }
+    </div>
+    <button type="submit" class="btn btn-primary tool-submit">Compare</button>
+  </form>
+
+  <div class="tool-result" data-tool-result="quotes" tabindex="-1" aria-live="polite">
+    <Fragment set:html={example} />
+    <p class="tool-example">Example with two made-up quotes for a 3 kW home system. Enter your own above.</p>
+  </div>
+
+  <Fragment slot="method">
+    <ol>
+      <li>Price per kW is the quoted price divided by the size, the fairest single figure for comparing.</li>
+      <li>The subsidy is the PM Surya Ghar amount for a home system of that size, {F.sub1} per kW for the first 2 kW and {F.subThird} for the third, up to {F.cap}. It counts only if the panels are DCR and the system is on-grid or hybrid.</li>
+      <li>Our estimate is RSK Solar Energy's published price range for that size and type, shown for reference.</li>
+      <li>The checklist is what a complete quote should spell out. Anything unticked is listed as a question to ask.</li>
+    </ol>
+    <p>For the full list of what to check, including the panel and inverter datasheets, see the <a href="/solar-guides/solar-quote-checklist/">50-point solar quote checklist</a>.</p>
+  </Fragment>
+  <script>
+    import '../../scripts/tools/quotes';
+  </script>
+</ToolLayout>

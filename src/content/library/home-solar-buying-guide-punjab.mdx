@@ -1,0 +1,137 @@
+---
+title: 'Home Solar Buying Guide Punjab 2026 (Free PDF)'
+description: 'The complete guide to buying rooftop solar for a Punjab home in 2026: the 300 free units, sizing, panels, inverters, price, subsidy, loans and installation.'
+h1: 'Complete home solar buying guide: Punjab 2026'
+lead: 'Everything a Punjab household needs to decide on rooftop solar, in the order the decisions come: whether it pays, which type, what size, which equipment, what it costs, and what happens after you sign.'
+crumb: Home solar buying guide
+audience: homes
+order: 1
+updated: '2026-10-04'
+tools: ['bill', 'roof', 'selector', 'quotes']
+related:
+  - href: /pm-surya-ghar-subsidy-punjab/
+    label: The PM Surya Ghar subsidy in Punjab, in full
+  - href: /blog/how-to-size-home-solar-punjab/
+    label: How to size a home solar system
+  - href: /solar-company-mohali/
+    label: Rooftop solar in Mohali
+sources:
+  - label: PM Surya Ghar national portal
+    href: https://pmsuryaghar.gov.in/
+    checked: '2026-10-04'
+  - label: 'Press Information Bureau, PM Surya Ghar loan, 11 March 2025'
+    href: https://pib.gov.in/PressReleseDetailm.aspx?PRID=2110283
+    checked: '2026-09-27'
+faq:
+  - q: Is rooftop solar worth it for a home in Punjab?
+    a: 'If your home uses more than 300 units a month, usually yes. A general-category home over that line pays for every unit, and solar can bring the net units back under it. At 300 units or less, the bill is already zero and solar has nothing to save.'
+  - q: What size of solar system does a Punjab home need?
+    a: 'Enough to bring your net use under 300 units a month, not enough to cover every unit. For most homes using up to about 600 units a month, that is 3 kW. The solar calculator works it out from your bill.'
+  - q: How much subsidy does a home get?
+    a: '₹30,000 per kW for the first 2 kW and ₹18,000 for the third, up to ₹78,000 for 3 kW or more. It is paid into your own bank account 30 to 45 days after the DISCOM inspection, and needs DCR panels.'
+cta:
+  heading: Want the numbers for your home?
+  label: Send my bill on WhatsApp
+  message: 'Hi RSK Solar Energy, I read your home solar buying guide. My last bill is attached. Please tell me the right size and cost after subsidy.'
+---
+
+import { F } from '../../lib/facts';
+import { SOLAR_CONFIG } from '../../config/solar-config';
+
+export const cfg = SOLAR_CONFIG;
+
+## 1. Check whether solar pays for your home
+
+Punjab gives homes {F.free} free units a month ({F.freeCycle} on a two-month bill). That one rule decides most solar decisions here.
+
+- If you use {F.free} units a month or less, your bill is already zero. Solar has nothing to save, with or without a subsidy.
+- If you use more, a general-category home pays for every unit it used, from the first. Bringing the net units back under {F.free} takes the bill to zero, which is where solar pays best.
+- SC, BC, non-SC BPL and Freedom Fighter households pay only for units above {F.free}, so their saving is the cost of those extra units.
+
+Look at your bills for a full year, not one. A home that is under the line in winter and over it in summer still pays in summer. [Is solar worth it with 300 free units](/blog/solar-with-300-free-units-punjab/) has the figures.
+
+## 2. Choose the type
+
+| | On-grid | Hybrid | Off-grid |
+|---|---|---|---|
+| Connected to PSPCL | Yes | Yes | No |
+| Battery | No | Yes | Yes |
+| Works in a power cut | No | Yes, for chosen circuits | Yes |
+| PM Surya Ghar subsidy | Yes | Yes | No |
+| Relative cost | Lowest | Highest | Depends on storage |
+
+For most homes with a PSPCL connection and few cuts, on-grid is the cheapest way to cut the bill. Choose hybrid if cuts cost you something. Off-grid is for places with no reliable connection. The [system selector](/tools/solar-system-selector/) asks five questions and suggests one.
+
+## 3. Work out the size
+
+1. Find your monthly units on your bills, ideally across a year.
+2. Decide the target. For a home, it is usually net units just under {F.free} a month, not zero.
+3. Divide the units you want solar to cover by {F.perKwMonth}, the units a month we plan on from each kW in Punjab after losses.
+4. Check two limits: the system cannot be larger than your **sanctioned load**, printed on your bill, and it needs about {F.sqFtPerKw} sq ft of shade-free roof per kW.
+
+Our smallest on-grid system is {F.onGridMinKw} kW, which takes the bill to zero for most homes using up to about 600 units a month. The [solar calculator](/solar-calculator/) does all four steps from your bill, and the [roof capacity calculator](/tools/solar-roof-capacity-calculator/) shows what your roof can take.
+
+If the size you need is above your sanctioned load, apply to PSPCL for a load increase before the solar application. See [sanctioned load and solar size](/blog/sanctioned-load-and-rooftop-solar-size/).
+
+## 4. Choose the panels
+
+- For the subsidy, the panels must be **DCR** (made with Indian cells) and on the government's **ALMM** list. A non-DCR panel loses the subsidy, and it cannot be fixed after installation. See [DCR and non-DCR panels](/dcr-vs-non-dcr-solar-panels/).
+- Mono PERC half-cut panels are the established choice. TOPCon panels are newer and more efficient, so the same roof takes a little more capacity. See [which panel technology is best](/best-solar-panel-technology/).
+- Read the datasheet for the rated power, efficiency and the manufacturer's warranties: one for the product and one for power output over the years.
+
+The [solar panel buying guide](/solar-guides/solar-panel-buying-guide/) covers this in more depth.
+
+## 5. Choose the inverter, and a battery if you need one
+
+An on-grid home needs an on-grid inverter matched to the panels. A hybrid system needs a hybrid inverter and a battery bank. Check the warranty, the monitoring (an app or display that shows units made), and whether your connection is single or three phase. The [inverter buying guide](/solar-guides/solar-inverter-buying-guide/) and the [battery buying guide](/solar-guides/solar-battery-buying-guide/) go through each.
+
+## 6. Know the price and the subsidy
+
+Every price on our site is a range, because the roof, structure and cable runs differ. The [size price pages](/3kw-solar-system-price-punjab/) show our ranges before and after subsidy.
+
+The PM Surya Ghar subsidy for a home:
+
+| System | Subsidy |
+|---|---|
+| 1 kW | {F.sub1} |
+| 2 kW | {F.sub2} |
+| 3 kW or more | {F.cap} |
+
+You pay the full price first. The subsidy is paid into your own bank account {F.days} days after the DISCOM inspection, and never comes off the invoice. The [PM Surya Ghar subsidy guide](/solar-guides/pm-surya-ghar-subsidy-guide/) lists the steps, documents and the reasons applications are held up.
+
+## 7. Pay for it
+
+You do not have to pay from savings. The government's March 2025 release gave the PM Surya Ghar bank loan at a subsidised 6.75%, collateral-free up to ₹2 lakh, through public-sector banks. A home loan top-up, a personal loan or an NBFC are the other routes. [Five ways to finance solar](/solar-loan-options/) compares them. The subsidy is paid to you, not to the lender.
+
+## 8. Compare quotes properly
+
+Compare the price per kW, then check that every quote names the same things: panel make, model and DCR status; inverter make and model; the structure; earthing and protection; the paperwork; and who handles service. The [quote comparison tool](/tools/solar-quote-comparison/) puts up to three quotes side by side, and the [50-point quote checklist](/solar-guides/solar-quote-checklist/) lists what a complete quote should say.
+
+## 9. Installation, net meter and subsidy
+
+1. Register on the national portal and apply. PSPCL checks technical feasibility; nothing should be installed before approval.
+2. A registered vendor installs the system with DCR, ALMM-listed panels.
+3. The plant details go on the portal and the net meter is applied for.
+4. PSPCL fits the net meter and inspects the system, and the portal issues the commissioning certificate.
+5. You submit your bank details and the subsidy is paid.
+
+The [installation and handover checklist](/solar-guides/solar-installation-handover-checklist/) lists what to check on the day and what papers to keep.
+
+## 10. After installation
+
+- Note the inverter's total and the net meter's import and export on the same date each month. [How to read your solar meter and bill](/read-solar-meter-and-electricity-bill/) explains the sum.
+- Clean the panels when dust builds up, more often in the dry months and the smoke season.
+- Keep the invoice and the manufacturer's warranty cards together.
+
+The [maintenance and troubleshooting guide](/solar-guides/solar-maintenance-troubleshooting-guide/) covers what to do when generation drops.
+
+## The whole decision on one page
+
+1. Over {F.free} units a month for much of the year? If not, solar has little to save.
+2. Choose on-grid, or hybrid if cuts matter.
+3. Size it to bring net units under {F.free}, within your sanctioned load and roof.
+4. DCR, ALMM-listed panels for the subsidy.
+5. Inverter matched to the system; battery only for hybrid.
+6. Budget the full price; the subsidy follows {F.days} days after inspection.
+7. Compare quotes item by item, not only on price.
+8. Keep the papers, log the readings, keep the panels clean.

@@ -130,6 +130,11 @@ RedirectMatch 301 ^/(?:hi|pa)/(.*)$ /$1
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
   Header always set Content-Security-Policy "frame-ancestors 'none'"
+  # The guide PDFs repeat their /solar-guides/ pages, which are the ones to rank, so the PDFs stay
+  # out of the index. Visitors still download them from the page.
+  <FilesMatch "\.pdf$">
+    Header set X-Robots-Tag "noindex"
+  </FilesMatch>
 </IfModule>
 
 # HTTPS + www→apex (adjust if RSK prefers www), then trailing-slash canonicalisation.

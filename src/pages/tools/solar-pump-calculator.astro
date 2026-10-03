@@ -1,0 +1,146 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { LITRES_PER_WP, MIN_ARRAY_WP, PUMP_HP, PUMP_SPEC_SOURCE } from '../../data/pump-spec';
+import { pumpEstimate, type PumpInput } from '../../lib/tools/pump';
+import { renderPump } from '../../lib/tools/render';
+import { digits } from '../../lib/calculator/format';
+import type { QA } from '../../lib/seo';
+
+const path = '/tools/solar-pump-calculator/';
+const exampleInput: PumpInput = { kind: 'submersible', motor: 'ac', head: 30, hp: 5 };
+const example = renderPump(pumpEstimate(exampleInput), exampleInput, path, null);
+const sqFt = SOLAR_CONFIG.generation.sqFtPerKw;
+
+const faq: QA[] = [
+  {
+    q: 'How many solar panels does a 5 HP pump need?',
+    a: `The national specification sets at least ${digits(MIN_ARRAY_WP.submersible['5']!)} W of panels for a 5 HP pump, surface or submersible. With 550 W panels that is about nine panels. More panels than the minimum are allowed and give more water on dull days.`,
+  },
+  {
+    q: 'What is total dynamic head?',
+    a: 'The height the pump has to lift the water, in metres. Add the depth to the water level while the pump is running, the height you lift it above the ground, and an allowance for the pipe. The deeper the water, the less a given set of panels can deliver.',
+  },
+  {
+    q: 'Surface or submersible: which do I need?',
+    a: 'A surface pump sits at the top and draws water up by suction, which only works while the water level is shallow. A submersible pump goes down the bore and pushes the water up, so it is the usual choice for tubewells in Punjab, where water levels are deep.',
+  },
+  {
+    q: 'Will a solar pump give the same water every day?',
+    a: `No. The water figure here is the specification's minimum on a clear day with ${PUMP_SPEC_SOURCE.radiation} kWh/m² of sunshine and panels turned three times a day. A fixed structure, cloud, haze and short winter days all give less.`,
+  },
+  {
+    q: 'Is there a subsidy for solar pumps in Punjab?',
+    a: 'PM-KUSUM Component B supports standalone solar pumps, run in Punjab through PEDA. The subsidy share and whether applications are open change from one round to the next, so check the current terms before you budget.',
+  },
+];
+---
+
+<ToolLayout
+  title="Solar Pump Calculator: Panels and Water for a Tubewell"
+  description="Size a solar pump for your tubewell: the panels a 1 to 10 HP pump needs and the water it should give at your depth, from the MNRE specification."
+  h1="Solar pump and tubewell calculator"
+  lead="Choose a pump size, or say how much water you need, and enter the depth. You get the panels the national specification requires and the minimum water the pump should give."
+  crumb="Solar pump calculator"
+  path={path}
+  faq={faq}
+  relatedTools={['selector', 'off-grid', 'generation']}
+  relatedPages={[
+    { href: '/solar-pumps/', label: 'Solar water pumps and tubewells' },
+    { href: '/blog/pm-kusum-solar-pump-subsidy-punjab-farmers/', label: 'PM-KUSUM solar pump subsidy for Punjab farmers' },
+    { href: '/solar-farm-earning-opportunity/', label: 'Earning from solar on your land' },
+    { href: '/solar-guides/solar-tubewell-pump-guide/', label: 'Solar tubewell and pump guide (PDF)' },
+  ]}
+  sources={[{ label: PUMP_SPEC_SOURCE.title, href: PUMP_SPEC_SOURCE.url, note: `checked ${new Date(`${PUMP_SPEC_SOURCE.checked}T00:00:00Z`).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}` }]}
+  cta={{ message: 'Hi RSK Solar Energy, I would like a free assessment for a solar pump. Bore depth, water level, pipe size and current pump: ' }}
+>
+  <form class="tool-form" data-tool="pump" novalidate aria-label="Solar pump calculator">
+    <div class="tool-fields is-two">
+      <fieldset>
+        <legend class="field-label">Pump type</legend>
+        <div class="segmented">
+          <label><input type="radio" name="kind" value="submersible" checked />Submersible</label>
+          <label><input type="radio" name="kind" value="surface" />Surface</label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend class="field-label">Motor</legend>
+        <div class="segmented">
+          <label><input type="radio" name="motor" value="ac" checked />AC</label>
+          <label><input type="radio" name="motor" value="dc" />DC</label>
+        </div>
+      </fieldset>
+    </div>
+    <div class="tool-fields is-two">
+      <div>
+        <label class="field-label" for="p-head">Total head</label>
+        <input class="input" id="p-head" name="head" inputmode="decimal" placeholder="30" />
+        <span class="field-hint">Water level depth when pumping, plus the lift above ground, plus the pipe.</span>
+      </div>
+      <fieldset>
+        <legend class="field-label">Head in</legend>
+        <div class="segmented">
+          <label><input type="radio" name="head-unit" value="m" checked />Metres</label>
+          <label><input type="radio" name="head-unit" value="ft" />Feet</label>
+        </div>
+      </fieldset>
+    </div>
+    <div class="tool-fields">
+      <div>
+        <label class="field-label" for="p-hp">Pump size</label>
+        <select class="select" id="p-hp" name="hp">
+          <option value="">I don't know: size it from the water I need</option>
+          {PUMP_HP.map((h) => <option value={h} selected={h === 5}>{h} HP</option>)}
+        </select>
+      </div>
+      <div>
+        <label class="field-label" for="p-litres">Or water needed a day</label>
+        <div class="input-suffix"><input class="input" id="p-litres" name="litres" inputmode="numeric" /><span>litres</span></div>
+        <span class="field-hint">Used when the pump size is left blank.</span>
+      </div>
+    </div>
+    <details class="nh-more">
+      <summary>Compare with your diesel spend (optional)</summary>
+      <div class="tool-fields is-two mt-4">
+        <div>
+          <label class="field-label" for="p-lph">Diesel a pumping hour</label>
+          <div class="input-suffix"><input class="input" id="p-lph" name="d-lph" inputmode="decimal" /><span>litres</span></div>
+        </div>
+        <div>
+          <label class="field-label" for="p-hours">Pumping hours a day</label>
+          <input class="input" id="p-hours" name="d-hours" inputmode="decimal" />
+        </div>
+        <div>
+          <label class="field-label" for="p-days">Pumping days a year</label>
+          <input class="input" id="p-days" name="d-days" inputmode="numeric" />
+        </div>
+        <div>
+          <label class="field-label" for="p-price">Diesel price a litre</label>
+          <div class="input-prefix"><span>₹</span><input class="input" id="p-price" name="d-price" inputmode="decimal" /></div>
+        </div>
+      </div>
+    </details>
+    <button type="submit" class="btn btn-primary tool-submit">Work it out</button>
+  </form>
+
+  <div class="tool-result" data-tool-result="pump" tabindex="-1" aria-live="polite">
+    <Fragment set:html={example} />
+    <p class="tool-example">Example: a 5 HP AC submersible pump at a 30 metre head. Enter your own figures above.</p>
+  </div>
+
+  <Fragment slot="method">
+    <p>Every water and panel figure comes from MNRE's specification for solar water pumping systems, the standard pumps under government schemes are built and tested to.</p>
+    <ol>
+      <li>The panels: the minimum capacity the specification sets for your pump size and type. Submersible pumps from 1 to 10 HP need {PUMP_HP.map((h) => `${digits(MIN_ARRAY_WP.submersible[String(h)]!)} W`).join(', ')}; surface pumps need {PUMP_HP.map((h) => `${digits(MIN_ARRAY_WP.surface[String(h)]!)} W`).join(', ')}.</li>
+      <li>The water: panel watts times the litres per watt the specification requires at your head. Between the heads it lists, the tool uses the next deeper one, so it never overstates. A DC pump at 30 metres must give {LITRES_PER_WP.dc.find((r) => r.head === 30)!.litres} litres per watt; an AC pump {LITRES_PER_WP.ac.find((r) => r.head === 30)!.litres}.</li>
+      <li>From water needed: the smallest pump in the table whose minimum output meets it at your head.</li>
+      <li>The area: {sqFt} sq ft per kW of panels, the planning figure the rest of the site uses.</li>
+      <li>Diesel: only the figures you enter. Nothing is assumed about your engine or the price.</li>
+    </ol>
+    <p>The specification's water figures are minimums on its test day: clear sky, {PUMP_SPEC_SOURCE.radiation} kWh/m² of sunshine on the panels, and panels turned three times a day. Real output varies with the season, the weather and the structure.</p>
+  </Fragment>
+  <script>
+    import '../../scripts/tools/pump';
+  </script>
+</ToolLayout>
+

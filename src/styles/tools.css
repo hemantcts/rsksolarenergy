@@ -1,0 +1,152 @@
+/* The /tools/ pages: forms, results and the month-by-month bars. Built on the global form and
+   result styles (.field-label, .input, .select, .segmented, .calc-*, .spec-table). */
+
+.tool-form {
+  display: grid;
+  gap: 1.5rem;
+}
+.tool-fields {
+  display: grid;
+  gap: 1.25rem;
+}
+@media (min-width: 40rem) {
+  .tool-fields.is-two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .tool-fields.is-three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.tool-form fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.tool-or {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-slate);
+  font-size: 0.875rem;
+}
+.tool-or::before,
+.tool-or::after {
+  content: '';
+  flex: 1;
+  border-top: 1px solid var(--color-rule);
+}
+.tool-submit {
+  justify-self: start;
+}
+.tool-result {
+  margin-top: 2.5rem;
+  scroll-margin-top: 7rem;
+}
+.tool-result:focus {
+  outline: none;
+}
+.tool-result[hidden] {
+  display: none;
+}
+.tool-example {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--color-slate);
+}
+
+/* Month-by-month bars: a list, so the figures stay readable without the bars. */
+.tool-bars {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.375rem;
+}
+.tool-bars li {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) 4.5rem;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+}
+.tool-bar {
+  height: 0.875rem;
+  background: var(--color-rule);
+  border-radius: 0 4px 4px 0;
+}
+.tool-bar > span {
+  display: block;
+  height: 100%;
+  background: var(--color-signal);
+  border-radius: 0 4px 4px 0;
+}
+.tool-bars .num {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Quote comparison: one block per quote, stacked; the result compares them in a table. */
+.quote-cards {
+  display: grid;
+  gap: 1.5rem;
+}
+.quote-card {
+  border: 1px solid var(--color-slate);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  padding: 1rem;
+}
+.quote-card legend {
+  font-weight: 600;
+  padding: 0 0.25rem;
+}
+.quote-card .tool-fields {
+  gap: 0.875rem;
+}
+.quote-checks {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+}
+.quote-checks label {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+.quote-checks input {
+  margin-top: 0.25rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  flex: none;
+}
+
+/* Selector: one choice per question. */
+.selector-q + .selector-q {
+  margin-top: 1.5rem;
+}
+.selector-q .segmented {
+  grid-auto-flow: row;
+}
+@media (min-width: 40rem) {
+  .selector-q .segmented {
+    grid-auto-flow: column;
+  }
+}
+
+.tool-links {
+  display: grid;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media print {
+  .tool-form,
+  .calc-actions {
+    display: none;
+  }
+}

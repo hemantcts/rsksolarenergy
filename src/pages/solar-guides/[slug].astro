@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from 'astro:content';
+import LibraryLayout from '../../layouts/LibraryLayout.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('library');
+  return guides.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const d = entry.data;
+---
+
+<LibraryLayout
+  slug={entry.id}
+  title={d.title}
+  description={d.description}
+  h1={d.h1}
+  lead={d.lead}
+  crumb={d.crumb}
+  updated={d.updated}
+  headings={headings}
+  faq={d.faq}
+  tools={d.tools}
+  related={d.related}
+  sources={d.sources}
+  cta={d.cta}
+>
+  <Content />
+</LibraryLayout>

@@ -22,6 +22,28 @@ Figures on this site are computed live from a single configuration (PSPCL FY 202
 - [Hybrid solar calculator](https://rsksolarenergy.com/hybrid-solar-calculator/): choose the appliances that must run during power cuts and how long cuts last; returns inverter kVA, a UTL battery bank (lithium or tubular), panel kW, roof area in sq ft, the hybrid kit price and the PM Surya Ghar subsidy. Indicative only.
 - [Off-grid solar calculator](https://rsksolarenergy.com/off-grid-solar-calculator/): for sites with no grid connection; from appliances and daily hours, returns panels sized for winter, a battery for the night plus optional cloudy-day reserve, inverter kVA, roof area in sq ft and the off-grid system price. Indicative only.
 
+## More tools
+
+- [All solar tools](https://rsksolarenergy.com/tools/): every calculator and tool on one page.
+- [Roof capacity calculator](https://rsksolarenergy.com/tools/solar-roof-capacity-calculator/): kW, panels, units and price from roof area.
+- [Solar pump calculator](https://rsksolarenergy.com/tools/solar-pump-calculator/): panels and minimum daily water for a 1 to 10 HP pump at a given head, from the MNRE specification.
+- [Solar generation by location](https://rsksolarenergy.com/tools/solar-generation-punjab/): units per kW by month for Mohali, the Tricity and 40 Punjab towns, from NASA POWER sunshine data.
+- [Solar system selector](https://rsksolarenergy.com/tools/solar-system-selector/): five questions to on-grid, hybrid, off-grid or a solar pump.
+- [Solar quote comparison](https://rsksolarenergy.com/tools/solar-quote-comparison/): up to three quotes side by side, with the subsidy and missing items.
+
+## Solar guides and PDFs
+
+- [50-Point Solar Quote Checklist (Free PDF)](https://rsksolarenergy.com/solar-guides/solar-quote-checklist/) (PDF: https://rsksolarenergy.com/solar-guides/solar-quote-checklist.pdf)
+- [Commercial and Industrial Solar Guide: Punjab (PDF)](https://rsksolarenergy.com/solar-guides/commercial-solar-guide-punjab/) (PDF: https://rsksolarenergy.com/solar-guides/commercial-solar-guide-punjab.pdf)
+- [Home Solar Buying Guide Punjab 2026 (Free PDF)](https://rsksolarenergy.com/solar-guides/home-solar-buying-guide-punjab/) (PDF: https://rsksolarenergy.com/solar-guides/home-solar-buying-guide-punjab.pdf)
+- [PM Surya Ghar Subsidy Guide 2026 for Punjab (Free PDF)](https://rsksolarenergy.com/solar-guides/pm-surya-ghar-subsidy-guide/) (PDF: https://rsksolarenergy.com/solar-guides/pm-surya-ghar-subsidy-guide.pdf)
+- [Solar Battery Buying Guide: Lithium or Tubular (PDF)](https://rsksolarenergy.com/solar-guides/solar-battery-buying-guide/) (PDF: https://rsksolarenergy.com/solar-guides/solar-battery-buying-guide.pdf)
+- [Solar Installation and Handover Checklist (Free PDF)](https://rsksolarenergy.com/solar-guides/solar-installation-handover-checklist/) (PDF: https://rsksolarenergy.com/solar-guides/solar-installation-handover-checklist.pdf)
+- [Solar Inverter Buying Guide for Punjab (Free PDF)](https://rsksolarenergy.com/solar-guides/solar-inverter-buying-guide/) (PDF: https://rsksolarenergy.com/solar-guides/solar-inverter-buying-guide.pdf)
+- [Solar Maintenance and Troubleshooting Guide (PDF)](https://rsksolarenergy.com/solar-guides/solar-maintenance-troubleshooting-guide/) (PDF: https://rsksolarenergy.com/solar-guides/solar-maintenance-troubleshooting-guide.pdf)
+- [Solar Panel Buying Guide for Punjab (Free PDF)](https://rsksolarenergy.com/solar-guides/solar-panel-buying-guide/) (PDF: https://rsksolarenergy.com/solar-guides/solar-panel-buying-guide.pdf)
+- [Solar Tubewell and Pump Guide for Punjab (Free PDF)](https://rsksolarenergy.com/solar-guides/solar-tubewell-pump-guide/) (PDF: https://rsksolarenergy.com/solar-guides/solar-tubewell-pump-guide.pdf)
+
 ## Guides
 
 - [Become a UTL Solar Dealer in Punjab: Wholesale Supply](https://rsksolarenergy.com/solar-dealership-punjab/): Partner with RSK Solar Energy, a UTL Solar distributor in Mohali. Wholesale UTL panels, inverters, batteries and kits for dealers and installers across Punjab.

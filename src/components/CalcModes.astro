@@ -24,8 +24,13 @@ const { current } = Astro.props;
     <small>Off-grid: panels and batteries only</small>
   </a>
 </nav>
+<p class="calc-more t-small">More: <a href="/tools/" class="underline">solar tools</a> for roof capacity, solar pumps, generation by town and comparing quotes.</p>
 
 <style>
+.calc-more {
+  margin-top: 0.75rem;
+  color: var(--color-slate);
+}
 .calc-modes {
   display: grid;
   grid-template-columns: 1fr;

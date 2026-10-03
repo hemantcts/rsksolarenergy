@@ -324,6 +324,21 @@ tapped from is the more reliable signal of where they are.
 `https://rsksolarenergy.com/?utm_source=gbp`. The report then lists those taps as "Google Business
 Profile" rather than folding them into Google search or direct.
 
+## Guide PDFs
+
+The ten guides at /solar-guides/ are also PDFs. `npm run build` prints them after the site is built
+(`scripts/make-guide-pdfs.mjs`): it serves dist/ itself and drives headless Chrome, so nothing extra
+is installed. GitHub's Ubuntu runners have Chrome; on another machine set `CHROME_PATH` if it is not
+in the usual place. A guide is added by dropping an .mdx file into `src/content/library/`; its PDF
+follows on the next build. The PDFs are served with `X-Robots-Tag: noindex` so the web pages rank.
+
+## Tool data
+
+- `src/data/sunshine.json`: NASA POWER sunshine for each town, for /tools/solar-generation-punjab/.
+  Refresh with `npm run sunshine` when towns are added to `src/data/locations.ts`.
+- `src/data/pump-spec.ts`: the MNRE solar pump specification figures for the pump calculator,
+  copied by hand from the source named in the file.
+
 ## Every secret and variable, in one place
 
 | Name | Kind | Needed for |

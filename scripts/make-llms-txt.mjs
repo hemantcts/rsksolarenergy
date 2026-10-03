@@ -47,6 +47,7 @@ function listContentDir(dir) {
 
 const guides = listContentDir('../src/content/guides/');
 const blogPosts = listContentDir('../src/content/blog/');
+const library = listContentDir('../src/content/library/');
 
 // Standalone routes that aren't content-collection driven — update this list when one is added
 // or removed (there's no directory to enumerate for these, unlike guides/blog above).
@@ -85,6 +86,19 @@ Figures on this site are computed live from a single configuration (PSPCL ${c.ps
 - [New house solar calculator](${site}/new-house-solar-calculator/): for homes with no electricity bill yet. Choose appliances (ACs by tonnage and type, geysers, fridge, lights, fans, pumps, EV) and usage; returns estimated daily, monthly and yearly units, connected load, and three solar capacity ranges (essential, recommended, higher) with panel count, roof area and generation range. Indicative only; final sizing needs a site survey.
 - [Hybrid solar calculator](${site}/hybrid-solar-calculator/): choose the appliances that must run during power cuts and how long cuts last; returns inverter kVA, a UTL battery bank (lithium or tubular), panel kW, roof area in sq ft, the hybrid kit price and the PM Surya Ghar subsidy. Indicative only.
 - [Off-grid solar calculator](${site}/off-grid-solar-calculator/): for sites with no grid connection; from appliances and daily hours, returns panels sized for winter, a battery for the night plus optional cloudy-day reserve, inverter kVA, roof area in sq ft and the off-grid system price. Indicative only.
+
+## More tools
+
+- [All solar tools](${site}/tools/): every calculator and tool on one page.
+- [Roof capacity calculator](${site}/tools/solar-roof-capacity-calculator/): kW, panels, units and price from roof area.
+- [Solar pump calculator](${site}/tools/solar-pump-calculator/): panels and minimum daily water for a 1 to 10 HP pump at a given head, from the MNRE specification.
+- [Solar generation by location](${site}/tools/solar-generation-punjab/): units per kW by month for Mohali, the Tricity and 40 Punjab towns, from NASA POWER sunshine data.
+- [Solar system selector](${site}/tools/solar-system-selector/): five questions to on-grid, hybrid, off-grid or a solar pump.
+- [Solar quote comparison](${site}/tools/solar-quote-comparison/): up to three quotes side by side, with the subsidy and missing items.
+
+## Solar guides and PDFs
+
+${library.map((g) => `- [${g.title}](${site}/solar-guides/${g.slug}/) (PDF: ${site}/solar-guides/${g.slug}.pdf)`).join('\n')}
 
 ## Guides
 

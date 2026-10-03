@@ -62,6 +62,7 @@ export const NAV: NavGroup[] = [
       { href: '/off-grid-solar-calculator/', label: 'Off-grid solar calculator', note: 'Sites with no grid connection' },
       { href: '/pm-surya-ghar-subsidy-punjab/', label: 'PM Surya Ghar subsidy' },
       { href: '/solar-loan-options/', label: 'Solar loans and finance', note: 'Five ways to spread the cost' },
+      { href: '/tools/', label: 'All solar tools', note: 'Roof, pump, location, quotes and more' },
       ...SOLAR_CONFIG.sizing.sizePagesKw.map((kw) => ({ href: sizePath(kw), label: `${kw} kW system price` })),
     ],
   },
@@ -77,6 +78,7 @@ export const NAV: NavGroup[] = [
     label: 'Guides',
     hub: { href: '/blog/', label: 'All solar guides', note: 'Plain answers on sizing, subsidy and cost' },
     links: [
+      { href: '/solar-guides/', label: 'Solar guides and PDFs', note: 'Buying guides and checklists to download' },
       { href: '/blog/solar-with-300-free-units-punjab/', label: 'Is solar worth it with 300 free units?' },
       { href: '/blog/cheapest-solar-system-for-home-punjab/', label: 'The cheapest way to go solar' },
       { href: '/blog/how-many-units-1kw-solar-produces-punjab/', label: 'Units a 1 kW system makes a day' },

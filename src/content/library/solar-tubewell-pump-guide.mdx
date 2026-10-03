@@ -1,0 +1,123 @@
+---
+title: 'Solar Tubewell and Pump Guide for Punjab (Free PDF)'
+description: 'A farmer''s guide to solar pumps in Punjab: surface or submersible, the panels each pump size needs, the water it gives at your depth, PM-KUSUM and upkeep.'
+h1: Solar tubewell and pump guide for Punjab
+lead: 'How a solar pump works, how to choose between surface and submersible, how many panels each pump size needs and how much water it should give, using the national specification that pumps under government schemes are built to.'
+crumb: Solar pump guide
+audience: farmers
+order: 4
+updated: '2026-10-04'
+tools: ['pump', 'selector', 'off-grid']
+related:
+  - href: /solar-pumps/
+    label: Solar water pumps and tubewells
+  - href: /blog/pm-kusum-solar-pump-subsidy-punjab-farmers/
+    label: PM-KUSUM solar pump subsidy for Punjab farmers
+  - href: /solar-farm-earning-opportunity/
+    label: Earning from solar on your land
+sources:
+  - label: 'Specification for Solar Photovoltaic Water Pumping Systems (MNRE), Annexure-A to SECI RfS'
+    href: https://www.seci.co.in/Upload/Tender/SECI000093-1494342-Annexure-ATechnicalSpecifications(R2).pdf
+    checked: '2026-10-04'
+  - label: 'PM-KUSUM, Ministry of New and Renewable Energy'
+    href: https://mnre.gov.in/en/pradhan-mantri-kisan-urja-suraksha-evam-utthaan-mahabhiyaan-pm-kusum/
+    checked: '2026-09-27'
+faq:
+  - q: How many solar panels does a 5 HP submersible pump need?
+    a: 'At least 4,800 watts of panels under the national specification. With 550 W panels that is about nine panels.'
+  - q: How much water does a solar pump give a day?
+    a: 'It depends on the panels and the depth. Under the specification, a 5 HP DC submersible pump with 4,800 W of panels must give at least 1,10,400 litres a day from a 50 metre head, on a clear test day. Real days vary with the season and weather.'
+  - q: Does a solar pump need batteries?
+    a: 'No. A standard solar pump runs straight from the panels while the sun is up, which is when most irrigation happens anyway. That keeps it simple and cheap to run.'
+cta:
+  heading: Thinking of solar for your tubewell?
+  label: Ask about a solar pump
+  message: 'Hi RSK Solar Energy, I want a solar pump for my tubewell. Bore depth, water level, pipe size and current pump: '
+---
+
+import { LITRES_PER_WP, MIN_ARRAY_WP, PUMP_HP } from '../../data/pump-spec';
+import { digits } from '../../lib/calculator/format';
+
+export const lpw = (motor, head) => LITRES_PER_WP[motor].find((r) => r.head === head).litres;
+
+## How a solar pump works
+
+A solar pump set has three parts: the panels, a pump controller that turns the panels' DC power into what the pump needs, and the pump itself. The panels drive the pump directly while the sun is up, with no battery. There is no diesel to buy or carry to the field, and no waiting for the agricultural feeder's hours.
+
+## Surface or submersible
+
+A surface pump sits at the top and draws water up by suction. It suits an open well, a tank or a canal where the water is close to the surface.
+
+A submersible pump goes down the bore and pushes water up. It is the usual choice for tubewells in Punjab, where the water level is deep and falls in summer.
+
+Motors can be AC or DC. The specification sets slightly higher water output per watt for DC pump sets.
+
+## Total head: the figure that decides everything
+
+Total dynamic head is the height the pump has to lift water, in metres. Add together:
+
+1. the depth to the water level while the pump is running, in the hottest month;
+2. the height you lift the water above the ground;
+3. an allowance for friction in the pipe, which depends on its length and size.
+
+The deeper the head, the fewer litres each watt of panels can lift. One metre is about 3.3 feet.
+
+## Panels for each pump size
+
+The national specification sets the minimum panel capacity for each pump size:
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr><th scope="col">Pump</th><th scope="col">Surface pump</th><th scope="col">Submersible pump</th></tr>
+    </thead>
+    <tbody>
+      {PUMP_HP.map((h) => (
+        <tr><th scope="row">{h} HP</th><td>{digits(MIN_ARRAY_WP.surface[String(h)])} W</td><td>{digits(MIN_ARRAY_WP.submersible[String(h)])} W</td></tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+More panels than the minimum are allowed, and they give more water on dull days.
+
+## Water each watt should give
+
+Under the specification, a pump set must give at least this many litres a day for every watt of panels, at each head:
+
+| Total head | DC pump | AC pump |
+|---|---|---|
+| 10 m | {lpw('dc', 10)} litres | {lpw('ac', 10)} litres |
+| 20 m | {lpw('dc', 20)} litres | {lpw('ac', 20)} litres |
+| 30 m | {lpw('dc', 30)} litres | {lpw('ac', 30)} litres |
+| 50 m | {lpw('dc', 50)} litres | {lpw('ac', 50)} litres |
+| 70 m | {lpw('dc', 70)} litres | {lpw('ac', 70)} litres |
+| 100 m | {lpw('dc', 100)} litres | {lpw('ac', 100)} litres |
+
+So a submersible pump with {digits(MIN_ARRAY_WP.submersible['5'])} W of panels on a DC motor should give at least {digits(MIN_ARRAY_WP.submersible['5'] * lpw('dc', 50))} litres a day from a 50 metre head.
+
+These are minimums on the specification's test day: a clear day with 7.15 kWh/m² of sunshine on the panels, and the panels turned three times a day to follow the sun. A fixed structure, haze, cloud and short winter days all give less. The [solar pump calculator](/tools/solar-pump-calculator/) works these figures out for your pump and depth.
+
+## What the specification also asks for
+
+- A pump controller with maximum power point tracking and protection against dry running, short circuits, under-voltage, reverse polarity and surges.
+- Remote monitoring of the pump's running and water output.
+- A hot-dip galvanised structure built for strong winds, with seasonal tilt adjustment and manual tracking three times a day.
+- Earthing and a lightning arrester.
+- A 60-month guarantee from the manufacturer against defects in material and workmanship, for pumps supplied under government schemes.
+
+Use these as a checklist when you compare offers, even outside a scheme.
+
+## The subsidy
+
+Standalone solar pumps come under PM-KUSUM Component B, run in Punjab through PEDA. The subsidy share, and whether applications are open, change from one round to the next, so check the current terms with PEDA before you budget. PM Surya Ghar is a different scheme, for rooftop solar on homes. [The PM-KUSUM pump subsidy for Punjab farmers](/blog/pm-kusum-solar-pump-subsidy-punjab-farmers/) explains the difference.
+
+If your tubewell already runs on a free agricultural connection, a solar pump saves diesel or gives you a supply on your own hours. It does not reduce a bill, because there is none.
+
+## Looking after a solar pump
+
+- Clean the panels when dust settles, more often in the harvest and burning seasons.
+- Turn the panels to follow the sun if the structure allows, and adjust the tilt for the season.
+- Keep the area around the panels free of crops or trees that grow tall enough to shade them.
+- Check that the cables and the earthing are intact after storms.
+- Watch the controller's display for warnings, and call the installer about anything you do not recognise.

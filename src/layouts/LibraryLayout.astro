@@ -1,0 +1,191 @@
+---
+/**
+ * A guide in the /solar-guides/ library. The same page is the web page and, printed by
+ * scripts/make-guide-pdfs.mjs, the PDF: the cover and the plain FAQ only show in print, and the
+ * site's header, footer and buttons only on screen (src/styles/library.css).
+ */
+import { Image } from 'astro:assets';
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Faq from '../components/Faq.astro';
+import CtaBlock from '../components/content/CtaBlock.astro';
+import logo from '../assets/brand/logo.png';
+import { BUSINESS, PRIMARY_PHONE } from '../config/business';
+import { toolsById } from '../data/tools';
+import { article, faqPage, type QA } from '../lib/seo';
+import '../styles/library.css';
+
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  h1: string;
+  lead: string;
+  crumb: string;
+  updated: string;
+  headings: { depth: number; slug: string; text: string }[];
+  faq: QA[];
+  tools: string[];
+  related: { href: string; label: string }[];
+  sources: { label: string; href: string; checked?: string }[];
+  cta: { heading: string; label: string; message: string };
+}
+const { slug, title, description, h1, lead, crumb, updated, headings, faq, tools, related, sources, cta } = Astro.props;
+const path = `/solar-guides/${slug}/`;
+const pdf = `/solar-guides/${slug}.pdf`;
+const date = (d: string) => new Date(`${d}T00:00:00Z`).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const toc = headings.filter((h) => h.depth === 2);
+const toolList = toolsById(tools);
+const crumbs = [
+  { name: 'Solar guides', path: '/solar-guides/' },
+  { name: crumb, path },
+];
+const schema = [article({ title: h1, description, path, published: updated, updated }), ...(faq.length ? [faqPage(faq)] : [])];
+---
+
+<BaseLayout title={title} description={description} crumbs={crumbs} schema={schema} ogType="article">
+  <article class="library">
+    <div class="print-only print-cover">
+      <Image src={logo} alt="RSK Solar Energy" width={220} densities={[2]} format="png" class="print-logo" />
+      <p class="print-kicker">Solar guide · Punjab</p>
+      <p class="print-title">{h1}</p>
+      <p class="print-lead">{lead}</p>
+      <p class="print-meta">Updated {date(updated)}<br />{BUSINESS.siteUrl.replace('https://', '')}{path}</p>
+      <p class="print-contact">
+        {BUSINESS.name}, {BUSINESS.brand} distributor<br />
+        E-203, Phase 8B Industrial Area, Sector 74, Mohali<br />
+        {PRIMARY_PHONE.display} · WhatsApp · {BUSINESS.email}
+      </p>
+    </div>
+
+    <header class="wrap pt-8 pb-10 lg:pt-12 lg:pb-14 no-print">
+      <Breadcrumbs items={[{ name: 'Home', path: '/' }, ...crumbs]} />
+      <h1 class="t-h1 mt-6 max-w-4xl">{h1}</h1>
+      <p class="t-lead measure mt-5">{lead}</p>
+      <div class="library-meta mt-6">
+        <a class="btn btn-primary" href={pdf} download data-tap="Download PDF">Download the PDF</a>
+        <span class="t-small text-slate">Updated {date(updated)}. Free, no sign-up.</span>
+      </div>
+      <div class="settle mt-10 border-t border-ink"></div>
+    </header>
+
+    <div class="wrap grid-12 pb-16 lg:pb-24">
+      <div class="lg:col-span-7">
+        {
+          toc.length > 2 && (
+            <nav class="library-toc" aria-labelledby="toc-h">
+              <h2 id="toc-h" class="t-h3">In this guide</h2>
+              <ol>
+                {toc.map((h) => (
+                  <li>
+                    <a href={`#${h.slug}`}>{h.text}</a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          )
+        }
+        <div class="prose library-body">
+          <slot />
+        </div>
+
+        {
+          faq.length > 0 && (
+            <section class="print-only print-faq" aria-label="Questions">
+              <h2>Questions we are asked</h2>
+              {faq.map((f) => (
+                <>
+                  <h3>{f.q}</h3>
+                  <p>{f.a}</p>
+                </>
+              ))}
+            </section>
+          )
+        }
+
+        {
+          toolList.length > 0 && (
+            <section class="library-section" aria-labelledby="tools-h">
+              <h2 id="tools-h" class="t-h2">Work out your own figures</h2>
+              <ul class="ruled mt-6">
+                {toolList.map((t) => (
+                  <li>
+                    <a href={t.href} class="font-medium underline">
+                      {t.name}
+                    </a>
+                    <span class="t-small block text-slate">{t.blurb}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {
+          sources.length > 0 && (
+            <section class="library-section" aria-labelledby="src-h">
+              <h2 id="src-h" class="t-h3">Sources</h2>
+              <ul class="library-sources">
+                {sources.map((s) => (
+                  <li>
+                    <a href={s.href} rel="noopener" target="_blank">
+                      {s.label}
+                    </a>
+                    {s.checked ? `, checked ${date(s.checked)}` : ''}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        <p class="library-disclaimer">
+          Figures on subsidies, tariffs and schemes are as published by the government at the dates shown and can change. Prices and generation figures are estimates for planning, not a quotation or a guarantee.
+        </p>
+      </div>
+
+      <aside class="lg:col-span-4 lg:col-start-9 no-print" aria-label="Free solar assessment">
+        <div class="lg:sticky lg:top-28">
+          <CtaBlock heading={cta.heading} label={cta.label} message={cta.message} body="Send a recent bill and a few roof photos, or book a visit. We check the site and the numbers before we quote." />
+          <a class="btn btn-secondary mt-4 w-full" href={pdf} download>Download the PDF</a>
+        </div>
+      </aside>
+    </div>
+
+    {
+      faq.length > 0 && (
+        <div class="sec border-t border-rule bg-white no-print">
+          <div class="wrap grid-12">
+            <div class="lg:col-span-8">
+              <Faq items={faq} />
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    {
+      related.length > 0 && (
+        <nav class="sec-tight border-t border-rule no-print" aria-labelledby="related-h">
+          <div class="wrap grid-12">
+            <h2 id="related-h" class="t-h3 lg:col-span-3">Read next</h2>
+            <ul class="ruled lg:col-span-8 lg:col-start-5">
+              {related.map((r) => (
+                <li>
+                  <a href={r.href} class="font-medium underline">
+                    {r.label}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href="/solar-guides/" class="font-medium underline">
+                  All solar guides and PDFs
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      )
+    }
+  </article>
+</BaseLayout>
