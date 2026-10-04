@@ -64,7 +64,7 @@ const inGroup = (g: NavGroup) => g.hub?.href === here || [...g.links, ...(g.row?
                     <Icon name="chevron-down" size={18} />
                   </span>
                 </button>
-                <div class="nav-panel" id={`nav-panel-${i}`}>
+                <div class:list={['nav-panel', { 'is-wide': g.wide }]} id={`nav-panel-${i}`}>
                   <ul>
                     {g.hub && (
                       <li>
@@ -238,6 +238,23 @@ const inGroup = (g: NavGroup) => g.hub?.href === here || [...g.links, ...(g.row?
     max-height: calc(100dvh - 7rem);
     overflow-y: auto;
     overscroll-behavior: contain;
+  }
+  /* Long groups: two columns of links, the top link across both, no notes under the links. */
+  .nav-panel.is-wide {
+    width: 36rem;
+  }
+  .nav-panel.is-wide > ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 0.25rem;
+  }
+  .nav-panel.is-wide > ul > li:first-child {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid var(--color-rule);
+    margin-bottom: 0.25rem;
+  }
+  .nav-panel.is-wide .nav-panel-link:not(.nav-panel-hub) .t-small {
+    display: none;
   }
   /* Wider when it holds a row of short links, so the row wraps onto fewer lines. */
   .nav-panel:has(.nav-row) {

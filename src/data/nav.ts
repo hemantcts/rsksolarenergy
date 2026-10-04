@@ -25,6 +25,8 @@ export interface NavGroup {
   links: NavLink[];
   /** Short sibling links shown on one line under the list, e.g. the price pages by size. */
   row?: { label: string; links: NavLink[] };
+  /** Long groups: the desktop dropdown lays the links out in two columns, without their notes. */
+  wide?: boolean;
 }
 
 /** Main menu, shared by the desktop dropdowns and the mobile menu in Header.astro. */
@@ -44,6 +46,7 @@ export const NAV: NavGroup[] = [
   },
   {
     label: 'Products',
+    wide: true,
     hub: { href: '/products/', label: 'All UTL products', note: 'The full catalogue, with specifications' },
     links: [
       ...CATEGORIES.map((c) => ({ href: `/products/${c.id}/`, label: c.name })),
@@ -82,6 +85,7 @@ export const NAV: NavGroup[] = [
   },
   {
     label: 'Guides',
+    wide: true,
     hub: { href: '/blog/', label: 'All solar guides', note: 'Plain answers on sizing, subsidy and cost' },
     links: [
       { href: '/solar-guides/', label: 'Solar guides and PDFs', note: 'Buying guides and checklists to download' },

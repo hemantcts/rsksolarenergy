@@ -135,6 +135,11 @@ RedirectMatch 301 ^/(?:hi|pa)/(.*)$ /$1
   <FilesMatch "\.pdf$">
     Header set X-Robots-Tag "noindex"
   </FilesMatch>
+  # Sitemaps, robots.txt and llms.txt change with every deploy: browsers and crawlers check for a new
+  # copy each time instead of showing a stale one.
+  <FilesMatch "\.(xml|txt)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
 </IfModule>
 
 # HTTPS + www→apex (adjust if RSK prefers www), then trailing-slash canonicalisation.
