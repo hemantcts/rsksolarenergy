@@ -2,7 +2,8 @@
 // per Google's image sitemap extension (https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps).
 // Run after `astro build` (not before, like htaccess/llms-txt): it reads the already-built page
 // HTML for the image URL, rather than re-deriving Astro's content-hashed asset path itself —
-// the page's own Product JSON-LD (see src/lib/seo.ts `product()`) is the single source of truth
+// the page's own JSON-LD (see src/lib/seo.ts `product()`, a WebPage whose primaryImageOfPage is
+// the product photo) is the single source of truth
 // for that URL, so this can't drift from what's actually rendered.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import PRODUCTS from '../src/data/products.json' with { type: 'json' };
@@ -30,8 +31,8 @@ for (const p of PRODUCTS) {
   let image = null;
   try {
     const data = JSON.parse(ldJsonMatch[1]);
-    const product = (data['@graph'] ?? []).find((n) => n['@type'] === 'Product');
-    image = product?.image ?? null;
+    const page = (data['@graph'] ?? []).find((n) => n['@type'] === 'WebPage' && n.url === `${site}/products/${p.slug}/`);
+    image = page?.primaryImageOfPage?.url ?? null;
   } catch {
     // malformed JSON-LD would already fail launch-check elsewhere; just skip this one image entry
   }
@@ -58,6 +59,11 @@ ${entries
 </urlset>
 `;
 
+// Most products have a photo. An empty sitemap means the page markup changed under this script.
+if (entries.length < PRODUCTS.length / 2) {
+  console.error(`Only ${entries.length} of ${PRODUCTS.length} product pages had an image in their JSON-LD. Check src/lib/seo.ts product().`);
+  process.exit(1);
+}
 writeFileSync(new URL('image-sitemap.xml', distDir), xml);
 
 // List it in the sitemap index too, so submitting the index in Search Console covers pages and images.
