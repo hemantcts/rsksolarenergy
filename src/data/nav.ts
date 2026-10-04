@@ -23,6 +23,8 @@ export interface NavGroup {
    */
   hub?: NavLink;
   links: NavLink[];
+  /** Short sibling links shown on one line under the list, e.g. the price pages by size. */
+  row?: { label: string; links: NavLink[] };
 }
 
 /** Main menu, shared by the desktop dropdowns and the mobile menu in Header.astro. */
@@ -32,7 +34,6 @@ export const NAV: NavGroup[] = [
     short: 'Systems',
     hub: { href: '/on-grid-vs-off-grid-vs-hybrid/', label: 'Which system type suits you', note: 'On-grid, off-grid and hybrid compared' },
     links: [
-      { href: '/on-grid-vs-off-grid-vs-hybrid/', label: 'On-grid, off-grid or hybrid', note: 'Which type suits your connection' },
       { href: '/hybrid-solar-systems/', label: 'Hybrid solar systems', note: 'Battery backup for power cuts' },
       { href: '/off-grid-solar-systems/', label: 'Off-grid solar systems', note: 'Farmhouses and sites without supply' },
       { href: '/solar-panels/', label: 'Solar panels', note: '40 W to 735 W' },
@@ -56,23 +57,28 @@ export const NAV: NavGroup[] = [
     short: 'Prices',
     hub: { href: '/solar-calculator/', label: 'Solar calculator', note: 'Size, subsidy and payback from your bill' },
     links: [
-      { href: '/solar-calculator/', label: 'Solar calculator', note: 'Size, subsidy and payback from your bill' },
       { href: '/new-house-solar-calculator/', label: 'New house solar calculator', note: 'No bill yet? Estimate from your appliances' },
       { href: '/hybrid-solar-calculator/', label: 'Hybrid solar calculator', note: 'Battery backup for power cuts' },
       { href: '/off-grid-solar-calculator/', label: 'Off-grid solar calculator', note: 'Sites with no grid connection' },
       { href: '/pm-surya-ghar-subsidy-punjab/', label: 'PM Surya Ghar subsidy' },
       { href: '/solar-loan-options/', label: 'Solar loans and finance', note: 'Five ways to spread the cost' },
       { href: '/tools/', label: 'All solar tools', note: 'Roof, pump, location, quotes and more' },
-      ...SOLAR_CONFIG.sizing.sizePagesKw.map((kw) => ({ href: sizePath(kw), label: `${kw} kW system price` })),
     ],
+    row: {
+      label: 'System price by size',
+      links: SOLAR_CONFIG.sizing.sizePagesKw.map((kw) => ({ href: sizePath(kw), label: `${kw} kW` })),
+    },
   },
   {
     label: 'Areas we serve',
     short: 'Areas',
     hub: { href: '/solar-company-punjab/', label: 'Everywhere we work in Punjab', note: 'Every town, and who installs there' },
-    links: [
-      ...CITIES.filter((c) => c.tier === 'direct').map((c) => ({ href: cityPath(c.slug), label: `Solar in ${c.name}` })),
-    ],
+    // Mohali first, as its own line; the other towns our own team covers on one compact row.
+    links: CITIES.filter((c) => c.slug === 'mohali').map((c) => ({ href: cityPath(c.slug), label: `Solar in ${c.name}`, note: 'Our base, Phase 8B' })),
+    row: {
+      label: 'Our own team also installs in',
+      links: CITIES.filter((c) => c.tier === 'direct' && c.slug !== 'mohali').map((c) => ({ href: cityPath(c.slug), label: c.name })),
+    },
   },
   {
     label: 'Guides',
