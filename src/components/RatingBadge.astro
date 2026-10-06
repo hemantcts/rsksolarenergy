@@ -17,9 +17,8 @@ const { rating, reviewCount, mapsUrl } = BUSINESS.google;
   rel="noopener"
   target="_blank"
   class:list={['t-small items-center gap-1.5 leading-none no-underline hover:underline', className]}
-  aria-label={`Rated ${rating.toFixed(1)} out of 5 from ${reviewCount} Google reviews`}
->
+  >
   <Icon name="star" size={15} />
-  <span class="t-value">{rating.toFixed(1)}</span>
-  <span class="rating-count">{compact ? `(${reviewCount})` : `from ${reviewCount} Google reviews`}</span>
+  <span class="t-value">{rating.toFixed(1)}</span><span class="sr-only"> out of 5</span>
+  <span class="rating-count">{compact ? `(${reviewCount})` : `from ${reviewCount} Google reviews`}</span>{compact && <span class="sr-only"> Google reviews</span>}
 </a>

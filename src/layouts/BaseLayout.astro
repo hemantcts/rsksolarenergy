@@ -75,8 +75,8 @@ const nodes = [localBusiness(), ...(crumbs.length ? [breadcrumbs(trail)] : []), 
     {
       BUSINESS.gaMeasurementId && (
         // Google tag (gtag.js) — see BUSINESS.gaMeasurementId to change or remove.
-        // Loaded lazily, after the browser is idle (or the page has loaded, as a fallback for
-        // browsers without requestIdleCallback), rather than as a blocking <head> script.
+        // Loaded lazily (on first interaction, see the end of this script), never as a blocking
+        // <head> script.
         // gtag.js itself forces a synchronous layout reflow the moment it runs and is a heavy
         // script mostly unused on a simple pageview — measured directly in PageSpeed Insights,
         // both cost real LCP/TBT time when loaded in the critical path. Deferring it removes it
@@ -96,11 +96,17 @@ const nodes = [localBusiness(), ...(crumbs.length ? [breadcrumbs(trail)] : []), 
             gtag('js', new Date());
             gtag('config', id);
           }
-          if ('requestIdleCallback' in window) {
-            requestIdleCallback(loadGA, { timeout: 4000 });
-          } else {
-            window.addEventListener('load', () => setTimeout(loadGA, 1000));
-          }
+          // Waiting for the idle callback still left gtag.js blocking the main thread for about
+          // 870 ms on a mid-range phone (Lighthouse, October 2026). It now loads on the visitor's
+          // first scroll, tap, click or key press, or after 10 seconds if there is none. Events
+          // sent before it loads (the WhatsApp and call taps) wait in dataLayer and go with it.
+          const events = ['scroll', 'pointerdown', 'keydown', 'touchstart'];
+          const start = () => {
+            events.forEach((e) => window.removeEventListener(e, start));
+            loadGA();
+          };
+          events.forEach((e) => window.addEventListener(e, start, { once: true, passive: true }));
+          window.addEventListener('load', () => setTimeout(start, 10000));
         </script>
       )
     }
