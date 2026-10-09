@@ -14,6 +14,7 @@
 // Usage: node scripts/draft-post.mjs ["a topic in plain words"]
 import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { generate } from './lib/ai.mjs';
+import { failingTells } from './lib/tells.mjs';
 import { FACTS_TEXT } from './lib/facts.mjs';
 import { SOLAR_CONFIG as C } from '../src/config/solar-config.ts';
 
@@ -188,8 +189,6 @@ cta:
 
 BODY: 700 to 1000 words. Open with the answer in the first two sentences. Use "## " headings in sentence case. Include the chart with a caption that says where the figures come from. Use a short bullet list where it helps. End on something concrete, not a summary.`;
 
-const { text, provider } = await generate({ system: SYSTEM, prompt: PROMPT, maxTokens: 8000 });
-
 // ---- tidied before the checks, because neither is worth a whole correction pass ----
 /**
  * Models reach for a non-breaking hyphen in "clear-day" and for American spelling. Neither breaks a
@@ -208,27 +207,21 @@ const tidy = (draft) =>
     [/\b(analy|organi|recogni|prioriti|summari)z(e|es|ed|ing|ation)\b/g, (m) => m.replace('z', 's')],
   ].reduce((out, [pattern, to]) => out.replace(pattern, to), draft);
 
-// ---- checks before the file is written ----
-const body = tidy(text.trim().replace(/^```(?:mdx|markdown)?\n?/, '').replace(/\n?```$/, ''));
-const fail = (msg) => {
-  console.error(`Draft rejected: ${msg}`);
-  process.exit(1);
-};
+const frontmatter = (draft) => draft.slice(3, draft.indexOf('\n---', 3));
+const field = (draft, name) => (frontmatter(draft).match(new RegExp(`^${name}:\\s*'?"?(.*?)'?"?\\s*$`, 'm')) || [])[1] ?? '';
 
-if (!body.startsWith('---')) fail('no frontmatter');
-const fm = body.slice(3, body.indexOf('\n---', 3));
-const field = (name) => (fm.match(new RegExp(`^${name}:\\s*'?"?(.*?)'?"?\\s*$`, 'm')) || [])[1] ?? '';
-
-const title = field('title');
-const description = field('description');
-const category = field('category');
-if (!title || title.length > 70) fail(`title is ${title.length} characters`);
-if (!description || description.length > 160) fail(`description is ${description.length} characters`);
-if (!CATEGORIES.includes(category)) fail(`category "${category}" is not one of ours`);
-if (field('published') !== TODAY) fail('published date is not today');
-if (/\bRSK\b(?! Solar Energy)/.test(body)) fail('writes "RSK" without "Solar Energy"');
-if (/[—–]/.test(body.replace(/\d\s*[–—]\s*\d/g, ''))) fail('uses a dash as a connector');
-if (/\b(warranty|guarantee)\b/i.test(body) && /\bwe (offer|give|provide)\b/i.test(body)) fail('implies an RSK Solar Energy warranty');
+// Cut to 60 characters on a word boundary. Slicing mid-word leaves a slug ending "-how-to-te",
+// which is what a visitor sees in the address bar and what the search result shows.
+const slugFor = (title) =>
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 61)
+    .replace(/-[^-]*$/, (tail) => (tail.length > 1 && title.length > 60 ? '' : tail))
+    .replace(/-$/, '')
+    // A slug ending "-how-often-and" reads as though it was cut off, because it was.
+    .replace(/-(and|or|the|a|an|to|in|of|for|with|on|at|is|it|how|what|why)$/, '');
 
 // Links can be markdown, HTML or a frontmatter `related` entry. All three have to point at a
 // real page; at least three have to be in the body, where a reader will actually follow them.
@@ -237,24 +230,77 @@ const linksIn = (text) => [
   ...[...text.matchAll(/href=["'](\/[^"']*)["']/g)].map((m) => m[1]),
   ...[...text.matchAll(/^\s*-?\s*href:\s*(\/\S*)\s*$/gm)].map((m) => m[1]),
 ];
-const bad = [...new Set(linksIn(body))].filter((u) => !LINKS.includes(u));
-if (bad.length) fail(`links to pages that are not allowed: ${bad.join(', ')}`);
-const inBody = new Set(linksIn(body.slice(body.indexOf('\n---', 3) + 4)));
-if (inBody.size < 3) fail(`links to only ${inBody.size} of our pages in the body, needs three`);
-if (!/<BarChart|<PriceRangeChart/.test(body)) fail('has no chart');
 
-// Cut to 60 characters on a word boundary. Slicing mid-word leaves a slug ending "-how-to-te",
-// which is what a visitor sees in the address bar and what the search result shows.
-const slug = title
-  .toLowerCase()
-  .replace(/[^a-z0-9]+/g, '-')
-  .replace(/^-|-$/g, '')
-  .slice(0, 61)
-  .replace(/-[^-]*$/, (tail) => (tail.length > 1 && title.length > 60 ? '' : tail))
-  .replace(/-$/, '')
-  // A slug ending "-how-often-and" reads as though it was cut off, because it was.
-  .replace(/-(and|or|the|a|an|to|in|of|for|with|on|at|is|it|how|what|why)$/, '');
-if (posts.some((p) => p.slug === slug)) fail(`a post with the slug ${slug} already exists`);
+/** The draft's readable prose, for the writing check: no frontmatter, imports, JSX or link targets. */
+const prose = (draft) =>
+  draft
+    .slice(draft.indexOf('\n---', 3) + 4)
+    .replace(/^(import|export) .*$/gm, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\]\([^)]*\)/g, ']')
+    .replace(/[#*_`[\]]/g, ' ');
+
+/**
+ * The first rule a draft breaks, or null. The model is told the reason and writes the post again,
+ * so a fixable slip (a stray phrase, one sentence that sounds like our own warranty) costs a retry
+ * instead of the whole post. A draft that still breaks a rule after the last attempt is thrown away.
+ */
+function problem(draft) {
+  if (!draft.startsWith('---')) return 'had no frontmatter';
+  const title = field(draft, 'title');
+  const description = field(draft, 'description');
+  const category = field(draft, 'category');
+  if (!title || title.length > 70) return `had a title of ${title.length} characters (70 at most)`;
+  if (!description || description.length > 160) return `had a description of ${description.length} characters (160 at most)`;
+  if (!CATEGORIES.includes(category)) return `used the category "${category}", which is not one of ours`;
+  if (field(draft, 'published') !== TODAY) return `did not have today's date, ${TODAY}, as published`;
+  if (/\bRSK\b(?! Solar Energy)/.test(draft)) return 'wrote "RSK" without "Solar Energy"';
+  if (/[—–]/.test(draft.replace(/\d\s*[–—]\s*\d/g, ''))) return 'used a dash as a connector';
+  // Sentence by sentence, so "UTL gives a 10-year warranty" in one place and "we provide the
+  // structure" in another is fine, while "we provide a warranty" or "our guarantee" is not.
+  const promise = draft
+    .replace(/\s+/g, ' ')
+    .split(/(?<=[.?!'])\s+/)
+    .find(
+      (s) =>
+        /\bwe guarantee\b|\bguaranteed by us\b/i.test(s) ||
+        /\bwe (offer|give|provide|include|extend)\s+(\S+\s+){0,4}(warrant(y|ies)|guarantees?)\b/i.test(s) ||
+        /\bour (own\s+)?(\S+\s+)?(warranty|warranties|guarantee)\b/i.test(s) ||
+        /\bRSK Solar Energy['’]s (\S+\s+)?(warranty|guarantee)\b/i.test(s),
+    );
+  if (promise) return `implied that RSK Solar Energy gives a warranty or guarantee, in this sentence: "${promise.trim().slice(0, 160)}". Only manufacturers' warranties exist; say whose they are`;
+  const bad = [...new Set(linksIn(draft))].filter((u) => !LINKS.includes(u));
+  if (bad.length) return `linked to pages that are not in the allowed list: ${bad.join(', ')}`;
+  const inBody = new Set(linksIn(draft.slice(draft.indexOf('\n---', 3) + 4)));
+  if (inBody.size < 3) return `linked to only ${inBody.size} of our pages in the body (three at least)`;
+  if (!/<BarChart|<PriceRangeChart/.test(draft)) return 'had no chart';
+  const tells = failingTells(prose(draft));
+  if (tells.length) return `failed the writing check (${tells[0].name}) in this sentence: "${tells[0].sentence}"`;
+  if (posts.some((p) => p.slug === slugFor(title))) return `has the same title as an existing post; choose a different title`;
+  return null;
+}
+
+const ATTEMPTS = 3;
+let body = '';
+let provider = '';
+let why = null;
+let prompt = PROMPT;
+for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
+  const out = await generate({ system: SYSTEM, prompt, maxTokens: 8000 });
+  provider = out.provider;
+  body = tidy(out.text.trim().replace(/^```(?:mdx|markdown)?\n?/, '').replace(/\n?```$/, ''));
+  why = problem(body);
+  if (!why) break;
+  console.log(`Attempt ${attempt} of ${ATTEMPTS} rejected: it ${why}.`);
+  prompt = `${PROMPT}\n\nYOUR PREVIOUS DRAFT WAS REJECTED because it ${why}. Write the whole post again, following every rule above, and fix that. Your previous draft, for reference:\n\n${body}`;
+}
+if (why) {
+  console.error(`Draft rejected after ${ATTEMPTS} attempts: it ${why}.`);
+  process.exit(1);
+}
+
+const title = field(body, 'title');
+const slug = slugFor(title);
 
 writeFileSync(`${BLOG}/${slug}.mdx`, `${body}\n`);
 console.log(`Wrote ${BLOG}/${slug}.mdx (${provider})`);

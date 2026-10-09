@@ -3,6 +3,10 @@ name: Write and publish a blog post
 # Tuesday and Friday: pick a topic, write the post, put it through four checks, and publish it.
 # Nobody approves it beforehand, so the checks are what stand between a draft and the live site:
 #
+# Before any of that, scripts/draft-post.mjs checks its own draft (brand, warranty wording, links,
+# chart, the writing patterns) and, if it breaks a rule, writes it again with the reason, up to three
+# attempts in all.
+#
 #   1. scripts/check-draft.mjs   every figure has to be ours or arithmetic on ours; no banned
 #                                claims; links exist; brand and warranty rules; a chart; length.
 #   2. scripts/review-draft.mjs  a model that did not write the post reads it against our own
@@ -41,7 +45,28 @@ env:
   MAIL_TO: rajdeep.crest@gmail.com
 
 jobs:
+  # GitHub often starts scheduled runs hours late. If a post was already published today (by hand,
+  # or by a run started from the Actions tab), a late scheduled run stands down instead of adding a
+  # second post. Starting the workflow by hand always runs.
+  today:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.check.outputs.skip }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: check
+        run: |
+          d=$(date -u +%F)
+          if [ "${{ github.event_name }}" = "schedule" ] && grep -lq "^published: '$d'" src/content/blog/*.mdx; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::A post was already published today ($d), so this scheduled run stands down."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
   write:
+    needs: today
+    if: needs.today.outputs.skip != 'true'
     env:
       # Where the mail goes out through. Defaults suit a Gmail address with an app password; set the
       # MAIL_* repository variables to send through Amazon SES or any other provider instead.
