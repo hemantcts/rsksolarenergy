@@ -157,6 +157,10 @@ One deliberate exception, asked for by RSK Solar Energy on 26 September 2026: th
 loads nothing from anyone else. It is the only server code on the site, which is why it is written
 the way section 9 asks. Details in `files/DEPLOY.md`, "Enquiry taps".
 
+A second exception, asked for on 9 October 2026: Metricool's website tracker, so site visits show
+in the Metricool account the team manages social media from. Under 1 KB from tracker.metricool.com,
+one image request, no cookies, loaded after the page load. Switched by `BUSINESS.metricoolHash`.
+
 Every dependency is a performance tax and an attack surface. The previous site was
 compromised. Keep the surface small.
 

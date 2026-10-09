@@ -152,6 +152,12 @@ export const BUSINESS = {
    * without touching the layout. See the developer guide's "Google Analytics" section.
    */
   gaMeasurementId: 'G-VJHJ211TLW' as string | null,
+  /**
+   * Metricool website stats, added by RSK Solar Energy on 9 October 2026 so site visits show beside
+   * the social accounts in Metricool. One small script and one image request to
+   * tracker.metricool.com, no cookies. Set to null to remove it.
+   */
+  metricoolHash: '314029896e2eccb648f93f8f1f360ab9' as string | null,
 } as const;
 
 export const PRIMARY_PHONE = BUSINESS.phones[0];

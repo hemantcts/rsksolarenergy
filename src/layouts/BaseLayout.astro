@@ -68,9 +68,26 @@ const nodes = [localBusiness(), ...(crumbs.length ? [breadcrumbs(trail)] : []), 
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${BUSINESS.name} blog`} href="/rss.xml" />
 
     <script type="application/ld+json" is:inline set:html={graph(nodes)} />
     <slot name="head" />
+
+    {
+      BUSINESS.metricoolHash && (
+        // Metricool website stats (BUSINESS.metricoolHash). Its tracker is under 1 KB and sends one
+        // image request; loaded after the page has finished loading so it never slows the page.
+        <script is:inline define:vars={{ hash: BUSINESS.metricoolHash }}>
+          window.addEventListener('load', () => {
+            const s = document.createElement('script');
+            s.src = 'https://tracker.metricool.com/resources/be.js';
+            s.async = true;
+            s.onload = () => window.beTracker && window.beTracker.t({ hash });
+            document.head.appendChild(s);
+          });
+        </script>
+      )
+    }
 
     {
       BUSINESS.gaMeasurementId && (

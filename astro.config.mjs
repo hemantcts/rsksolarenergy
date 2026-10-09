@@ -32,7 +32,7 @@ export default defineConfig({
     csp: {
       directives: [
         "default-src 'self'",
-        "img-src 'self' data: https://i.ytimg.com https://www.googletagmanager.com",
+        "img-src 'self' data: https://i.ytimg.com https://www.googletagmanager.com https://tracker.metricool.com",
         "font-src 'self'",
         "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com",
         "base-uri 'self'",
@@ -40,7 +40,7 @@ export default defineConfig({
         "object-src 'none'",
       ],
       scriptDirective: {
-        resources: ["'self'", 'https://www.googletagmanager.com'],
+        resources: ["'self'", 'https://www.googletagmanager.com', 'https://tracker.metricool.com'],
       },
     },
   },
