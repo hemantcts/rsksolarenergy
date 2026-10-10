@@ -72,7 +72,7 @@ wording that makes clear it's an estimate (never presented as confirmed).
 
 | Assumption | Value | Status |
 |---|---|---|
-| Annual yield per kWp, Punjab | 1,530 units | ⚠️ published average — replace with RSK data |
+| Generation per kW, Punjab | 135 units a month (about 4.5 a day); TOPCon up to about 180 in the sunniest months | ✅ RSK Solar Energy's own figure, 10 October 2026 |
 | System derating factor | 0.80 | ⚠️ industry default |
 | Tariff escalation | 3.0 %/yr | ⚠️ assumption — displayed to user |
 | Panel degradation | 0.5 %/yr | ⚠️ assumption — displayed to user |

@@ -6,6 +6,7 @@ import { PRIMARY_PHONE, BUSINESS } from '../../config/business';
 import { SOLAR_CONFIG } from '../../config/solar-config';
 import { digits, inr, inrRange, kw } from '../calculator/format';
 import { whatsappUrl, withSource } from '../whatsapp';
+import { ESTIMATE_LINE, topconLine } from '../generation-note';
 import { PUMP_SPEC_SOURCE } from '../../data/pump-spec';
 import type { RoofOutcome } from './roof';
 import type { PumpInput, PumpOutcome } from './pump';
@@ -61,7 +62,7 @@ export function renderRoof(r: RoofOutcome, page: string): string {
   ${table(rows)}
   ${notes(n)}
   ${actions(msg, page, 'Check it on your roof', 'Send us a few photos of the roof and your last bill. We confirm the layout, the size your bill needs and the price.')}
-  <p class="calc-fineprint">An estimate from the area you entered. The final layout depends on the roof's direction, shade through the day and where the structure can be fixed.</p>
+  <p class="calc-fineprint">An estimate from the area you entered. The final layout depends on the roof's direction, shade through the day and where the structure can be fixed. ${esc(topconLine())} ${esc(ESTIMATE_LINE)}</p>
 </div>`;
 }
 
@@ -103,12 +104,12 @@ export function renderGeneration(g: Generation, page: string): string {
   const worst = g.months.indexOf(Math.min(...g.months));
   const pct = Math.round((g.relative - 1) * 100);
   const vs = pct === 0 ? 'about the Punjab average' : `${Math.abs(pct)}% ${pct > 0 ? 'more' : 'less'} than the Punjab average`;
-  const msg = `Hi RSK Solar Energy, I looked at solar generation for ${g.town.name}: a ${kw(g.kw)} system makes about ${digits(g.year)} units a year. Please assess my site.`;
+  const msg = `Hi RSK Solar Energy, I looked at solar generation for ${g.town.name}: a ${kw(g.kw)} system makes about ${digits(g.year / 12)} units in an average month. Please assess my site.`;
   return `<div class="nh-result">
   <h2 class="t-h2">${esc(kw(g.kw))} in ${esc(g.town.name)}</h2>
-  <p class="calc-kicker mt-4">Units a year, after losses</p>
-  <p class="calc-system"><span class="t-value">${digits(g.year)}</span> units</p>
-  <p class="calc-cover">About ${digits(g.year / 12)} a month on average. ${esc(g.town.name)} gets ${esc(vs)} sunshine over the year.</p>
+  <p class="calc-kicker mt-4">Units in an average month</p>
+  <p class="calc-system"><span class="t-value">${digits(g.year / 12)}</span> units</p>
+  <p class="calc-cover">${esc(g.town.name)} gets ${esc(vs)} sunshine over the year. ${esc(topconLine())} ${esc(ESTIMATE_LINE)}</p>
   <h3 class="t-h3 mt-8">Month by month</h3>
   <ul class="tool-bars" aria-label="Units each month">${bars}</ul>
   ${notes([

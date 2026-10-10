@@ -26,6 +26,7 @@ cta:
   message: 'Hi RSK Solar Energy, I''m applying for net metering. Can you check my sanctioned load, system type, panel model and documents so PSPCL clears it the first time?'
 ---
 
+import { F } from '../../lib/facts';
 import BarChart from '../../components/charts/BarChart.astro';
 import { SOLAR_CONFIG } from '../../config/solar-config';
 import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
@@ -33,7 +34,7 @@ import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
 export const perKwMonth = effectiveYieldPerKw(SOLAR_CONFIG) / 12;
 export const sizes = [1, 2, 3, 5, 10];
 export const rows = sizes.map((kw) => ({ label: `${kw} kW`, value: kw * perKwMonth, display: `${Math.round(kw * perKwMonth)} units`, emphasis: kw === 3 }));
-export const ticks = [0, 250, 500, 750, 1000].map((v) => ({ value: v, label: String(v) }));
+export const ticks = [0, 500, 1000, 1500].map((v) => ({ value: v, label: String(v) }));
 
 ## What PSPCL looks for at inspection
 
@@ -58,10 +59,10 @@ The subsidy is paid into the applicant’s own bank account 30 to 45 days after 
 
 ## Sizing right helps the application and your bill
 
-Right sizing keeps you under the sanctioned load cap and helps self consumption. Our planning figure for generation is 1530 units per kWp a year, less 20% for losses, which is 1224 units per kW a year. That is about 102 units a month on average, or about 3.4 units a day. In December and January fog, plan on about 75% of that.
+Right sizing keeps you under the sanctioned load cap and helps self consumption. {F.planningLine} In December and January fog, plan on about 75% of that. {F.topconLine} {F.estimateLine}
 
 <div class="not-prose my-8">
-<BarChart title="Monthly generation to plan with in Punjab" rows={rows} max={1000} ticks={ticks} valueHeading="Units a month" caption="Planning figures from our standard generation config for Punjab." />
+<BarChart title="Monthly generation to plan with in Punjab" rows={rows} max={1500} ticks={ticks} valueHeading="Units a month" caption="Planning figures from our standard generation config for Punjab." />
 </div>
 
 Use our [solar calculator](/solar-calculator/) or the [new-house calculator](/new-house-solar-calculator/) to estimate your use and pick a size that sits under your sanctioned load. As a thumb rule for space, plan on about 100 sq ft of shade free roof per kW. The smallest systems we install are 3 kW on-grid and 1 kW hybrid or off-grid.

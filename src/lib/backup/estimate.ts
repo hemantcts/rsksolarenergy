@@ -6,7 +6,7 @@
 import { BACKUP_CONFIG, type BackupConfig } from '../../config/backup-config';
 import { SOLAR_CONFIG, type SolarConfig } from '../../config/solar-config';
 import { grossCost } from '../calculator/calculate';
-import { effectiveYieldPerKw, sizeAtLeast, sizesForType } from '../calculator/sizing';
+import { dailyGenerationPerKw, sizeAtLeast, sizesForType } from '../calculator/sizing';
 import { residentialSubsidy } from '../calculator/subsidy';
 import type { Range } from '../calculator/types';
 
@@ -177,7 +177,7 @@ export function estimateBackup(input: BackupInput, notes: BackupNote[] = [], cfg
   }
 
   // Panels: refill the battery after a cut (hybrid), or make a whole winter day's units (off-grid).
-  const perKwDay = effectiveYieldPerKw(solar) / 365;
+  const perKwDay = dailyGenerationPerKw(solar);
   const panelKwNeeded = hybrid ? energyKwh / eff / perKwDay : energyKwh / eff / (perKwDay * cfg.winterYieldFactor);
   const type = hybrid ? 'hybrid' : 'off-grid';
   const kitKw = sizeAtLeast(Math.max(roundUp(panelKwNeeded, cfg.kwStep), inv.kva, 1), solar, sizesForType(type, solar));

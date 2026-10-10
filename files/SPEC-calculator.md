@@ -119,7 +119,7 @@ recommended_kwp    = round to nearest available size [1, 2, 3, 5, 10]
 ```
 
 `ANNUAL_YIELD_PER_KWP` — Punjab typically sees roughly 4.0–4.5 kWh per kWp per day,
-giving about 1,450–1,650 units per kWp per year. Config default 1,530. **RSK should
+giving about 1,450–1,650 units per kWp per year. Superseded on 10 October 2026: RSK Solar Energy's own figure is 135 units per kW a month (config.generation.unitsPerKwMonth). **RSK should
 confirm against their own commissioned-system data** — they have real generation figures
 from 80+ commercial and 50+ residential installs, which is better evidence than any
 published average and worth using.

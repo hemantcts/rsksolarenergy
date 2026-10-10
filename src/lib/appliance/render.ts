@@ -175,6 +175,6 @@ ${notes.length ? `<ul class="calc-notes" role="note">${notes.map((n) => `<li>${e
   ${share}
 </div>
 
-<p class="calc-fineprint">Treat this as a starting point for a conversation with us. Real use depends on your family’s habits and the season, and AC use swings the most. Solar output depends on shade, roof direction and tilt, the panels and inverter chosen, and the weather. It assumes ${digits(Math.round(solar.generation.annualYieldPerKwp * solar.generation.deratingFactor))} units per kW a year, give or take ${Math.round((cfg.generationRange[1] - 1) * 100)}%. We fix the size after a site survey, and we don’t promise a particular bill, saving or payback.</p>
+<p class="calc-fineprint">Treat this as a starting point for a conversation with us. Real use depends on your family’s habits and the season, and AC use swings the most. Solar output depends on shade, roof direction and tilt, the panels and inverter chosen, and the weather. It assumes about ${solar.generation.unitsPerKwMonth} units per kW a month, averaged over the year, give or take ${Math.round((cfg.generationRange[1] - 1) * 100)}%, and these are estimates. We fix the size after a site survey, and we don’t promise a particular bill, saving or payback.</p>
 </div>`;
 }

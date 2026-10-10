@@ -25,11 +25,13 @@ cta:
   message: 'Hi RSK Solar Energy, I want to run two ACs on a hybrid system. My ACs (inverter or not) and hours of use: '
 ---
 
+import { F } from '../../lib/facts';
+
 ## The setup
 
 - An inverter: UTL's [5 kVA transformerless hybrid, HYB-5-GXLS2](/products/5kva-solar-hybrid-inverter-transformerless-single-phase/). UTL lists it at 5,000 W rated output, up to 6,500 W of panels, and support for lithium and lead-acid batteries, with a 5-year warranty.
 - A 5 kWh lithium battery, such as UTL's [51.2 V, 100 Ah](/products/51-2v-100ah-lithium-battery-ulibes-51-2v100ah-lp100-pm/) battery, which holds about 5.1 kWh. We match the battery to the inverter's battery voltage before quoting.
-- Panels sized close to the inverter's 6,500 W input limit.
+- About 5 kW of panels, and up to the inverter's 6,500 W input limit for more margin.
 - Two 1.5 ton inverter ACs.
 
 ## Is 5 kW enough for two ACs?
@@ -40,7 +42,7 @@ A 5 kW inverter carries that and leaves about 2 kW or more for the fridge, fans,
 
 ## The panels do the daytime work
 
-Over an eight-hour day, two ACs at about 1.2 units an hour each use about 19 units. We plan on about 3.4 units a day from each kW of panels, averaged over the year, and summer gives more than the average. Panels close to the inverter's 6.5 kW limit make that kind of daily total in the season when the ACs run.
+Over a month of eight-hour days, two ACs at about 1.2 units an hour each use roughly 580 units. {F.planningLine} So about 4.3 kW of panels covers the ACs on average, and summer gives more than the average; about 5 kW leaves room for the rest of the house. {F.estimateLine}
 
 At any moment, though, hot panels make less than their rating, and output dips when a cloud passes. That is the battery's job.
 

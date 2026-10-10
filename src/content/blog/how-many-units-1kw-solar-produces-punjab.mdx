@@ -1,12 +1,12 @@
 ---
 title: 'How Many Units Does a 1 kW Solar System Produce a Day in Punjab?'
-description: 'Roughly 3.3 to 4 units a day on average, more from March to June and less in December and January fog. The figures we plan with, and what lowers them on a roof.'
+description: 'About 4.5 units a day, or around 135 units a month per kW, averaged over the year in Punjab. More from March to June, less in winter fog. Estimates.'
 published: '2026-09-15'
 category: Sizing and systems
 tags: ['generation', 'units per day', '1 kW', 'winter', 'fog']
 faq:
-  - q: Why do some websites say 4 to 5 units per kW per day?
-    a: 'Many of them quote clear-day or before-loss figures, and a clear spring day can come close to that. Averaged over a year, with heat, dust and winter haze, a Punjab rooftop usually lands lower, so we plan with a more cautious figure.'
+  - q: Do TOPCon panels make more units per kW?
+    a: 'Yes, mainly in heat. With TOPCon panels, output can reach up to about 180 units per kW in the sunniest months. Across the whole year the gain over mono PERC panels is smaller, so we still size systems on about 135 units per kW a month.'
   - q: Do solar panels work on cloudy and foggy days?
     a: 'Yes, but output drops a lot. Thick morning fog can hold generation close to zero until it lifts, and a heavily overcast day produces a small fraction of a sunny one.'
   - q: How much roof space does 1 kW need?
@@ -29,19 +29,20 @@ import { SOLAR_CONFIG } from '../../config/solar-config';
 import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
 import { digits } from '../../lib/calculator/format';
 
-export const perKwYear = effectiveYieldPerKw(SOLAR_CONFIG);
-export const perKwDay = perKwYear / 365;
+export const perKwMonth = effectiveYieldPerKw(SOLAR_CONFIG) / 12;
 export const sizes = [1, 2, 3, 5, 10];
 
-About {perKwDay.toFixed(1)} to 4 units a day, averaged over the year. Our calculator plans with {perKwDay.toFixed(1)} units per kW per day, after allowing for heat, dust and wiring losses. UTL's kit sheets quote 4 units a day per kW, which is what a clear, sunny day gives. A 3 kW system therefore makes roughly {Math.round(3 * perKwDay)} to 12 units on an average day.
+About 4.5 units a day, which is around {F.perKwMonth} units a month from each kW of panels, averaged over the year. That is the figure our calculators plan with, from our own installations in Punjab. A 3 kW system makes about {digits(3 * perKwMonth)} units in an average month.
+
+{F.topconLine} {F.estimateLine}
 
 <div class="table-scroll not-prose my-8">
 <table class="spec-table">
-<caption>Estimated generation in Punjab, after losses</caption>
-<thead><tr><th scope="col">System</th><th scope="col" class="num">Units a day</th><th scope="col" class="num">Units a month</th><th scope="col" class="num">Units a year</th></tr></thead>
+<caption>Estimated units a month in Punjab, averaged over the year</caption>
+<thead><tr><th scope="col">System</th><th scope="col" class="num">Standard panels</th><th scope="col" class="num">TOPCon, sunniest months</th></tr></thead>
 <tbody>
 {sizes.map((kw) => (
-<tr><th scope="row">{kw} kW</th><td class="num">{(kw * perKwDay).toFixed(1)}</td><td class="num">{digits((kw * perKwYear) / 12)}</td><td class="num">{digits(kw * perKwYear)}</td></tr>
+<tr><th scope="row">{kw} kW</th><td class="num">{digits(kw * perKwMonth)}</td><td class="num">up to {digits(kw * SOLAR_CONFIG.generation.topconPeakUnitsPerKwMonth)}</td></tr>
 ))}
 </tbody>
 </table>
@@ -49,7 +50,7 @@ About {perKwDay.toFixed(1)} to 4 units a day, averaged over the year. Our calcul
 
 ## Where the figure comes from
 
-We start from a yield of about {F.yieldRaw} units a year per kW of panels in Punjab, before losses. Taking a fifth off for real-world losses gives {F.perKwYear} units a year, or {F.perKwMonth} a month. We keep it cautious on purpose, so that a customer's bill comes in at or below our estimate.
+It comes from what our own systems make on Punjab roofs: about 4.5 units per kW a day across the year, or {F.perKwMonth} a month. It is an average, so a sunny May makes more and a foggy January less, and a given roof can land above or below it.
 
 Several things lower output on a real roof:
 

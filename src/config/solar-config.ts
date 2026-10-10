@@ -114,14 +114,20 @@ export const SOLAR_CONFIG = {
   },
 
   generation: {
-    status: 'assumption' as ConfigStatus,
-    /** units per kWp per year. TODO: replace with RSK's own commissioned-system data. */
-    annualYieldPerKwp: 1530,
+    status: 'verified' as ConfigStatus,
     /**
-     * Real-world losses. NOTE: if 1,530 is already a measured AC yield, applying 0.80 on top
-     * double-counts losses and makes every estimate ~20% conservative. RSK's real data resolves this.
+     * Units a month from 1 kW of standard (mono PERC) panels in Punjab, averaged over the year:
+     * about 4.5 units a day. RSK Solar Energy's own figure from its installations, supplied on
+     * 10 October 2026 (it replaced 1,530 units a year less 20% for losses, 102 a month).
+     * Every calculator, table and page that quotes generation reads it from here.
      */
-    deratingFactor: 0.8,
+    unitsPerKwMonth: 135,
+    /**
+     * TOPCon panels in the sunniest months, per kW, also RSK Solar Energy's figure. Shown only as
+     * an "up to" note for the peak months, never used for sizing: per kW installed, TOPCon's
+     * year-round gain over mono PERC is a few percent, not a third.
+     */
+    topconPeakUnitsPerKwMonth: 180,
     sqFtPerKw: 100,
   },
 

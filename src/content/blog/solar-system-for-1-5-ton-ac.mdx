@@ -28,9 +28,9 @@ cta:
 
 import { F } from '../../lib/facts';
 import { SOLAR_CONFIG } from '../../config/solar-config';
-import { effectiveYieldPerKw, sizeAtLeast } from '../../lib/calculator/sizing';
+import { dailyGenerationPerKw, sizeAtLeast } from '../../lib/calculator/sizing';
 
-export const perKwDay = effectiveYieldPerKw(SOLAR_CONFIG) / 365;
+export const perKwDay = dailyGenerationPerKw(SOLAR_CONFIG);
 export const unitsPerHour = 1.2;
 export const rows = [6, 8, 10].map((hours) => {
   const daily = hours * unitsPerHour;
@@ -45,7 +45,7 @@ About 3 kW of panels, for a 1.5 ton AC used around 8 hours a day. That matches t
 
 A 1.5 ton inverter AC typically uses around 1 to 1.4 units an hour on a hot Punjab afternoon, and less once the room has cooled. The table uses {unitsPerHour} units an hour as a working figure. Your AC's BEE star label is a better starting point: it shows the rated yearly consumption in units, based on 1,600 hours of use, so dividing that by 1,600 gives a rough units-per-hour figure for your model.
 
-Our estimates assume {F.perKwMonth} units a month from each kW of panels, which is about {perKwDay.toFixed(1)} a day averaged over the year.
+{F.planningLine} {F.topconLine} {F.estimateLine}
 
 <div class="table-scroll not-prose my-8">
 <table class="spec-table">

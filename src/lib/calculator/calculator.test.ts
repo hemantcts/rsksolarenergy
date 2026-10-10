@@ -27,7 +27,7 @@ const T: SolarConfig = {
     electricityDutyPercent: 10,
     fuelAdjustmentPerUnit: 0,
   },
-  generation: { ...SOLAR_CONFIG.generation, annualYieldPerKwp: 1500, deratingFactor: 0.8 }, // 100 units/kW/month
+  generation: { ...SOLAR_CONFIG.generation, unitsPerKwMonth: 100 }, // fixture: 100 units/kW/month
   pricing: {
     ...SOLAR_CONFIG.pricing,
     // Fixture-only prices, deliberately distinct from RSK's real numbers. A flat per-kW model with a

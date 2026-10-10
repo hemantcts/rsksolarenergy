@@ -24,6 +24,7 @@ cta:
   message: 'Hi RSK Solar Energy, can you check my rooftop array for soot buildup and advise on cleaning? I am in [your area].'
 ---
 
+import { F } from '../../lib/facts';
 import BarChart from '../../components/charts/BarChart.astro';
 import { SOLAR_CONFIG } from '../../config/solar-config';
 import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
@@ -31,10 +32,10 @@ import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
 export const perKwMonth = effectiveYieldPerKw(SOLAR_CONFIG) / 12;
 export const sizes = [1, 2, 3, 5, 10];
 export const rows = sizes.map((kw) => ({ label: `${kw} kW`, value: kw * perKwMonth, display: `${Math.round(kw * perKwMonth)} units`, emphasis: kw === 5 }));
-export const ticks = [0, 250, 500, 750, 1000].map((v) => ({ value: v, label: String(v) }));
+export const ticks = [0, 500, 1000, 1500].map((v) => ({ value: v, label: String(v) }));
 
 <div class="not-prose my-8">
-<BarChart title="What a clean array makes across the year" rows={rows} max={1000} ticks={ticks} valueHeading="Units a month" caption="Built from our site planning figure: 1224 units per kW per year, about 102 a month." />
+<BarChart title="What a clean array makes across the year" rows={rows} max={1500} ticks={ticks} valueHeading="Units a month" caption={`Built from our planning figure: about ${F.perKwMonth} units per kW a month. Estimates.`} />
 </div>
 
 Smoke puts a dry film on glass. In this season we suggest you check your panels weekly and clean when there is a visible layer or when your clear-day output falls below your normal. That simple routine keeps your array working as planned.
@@ -47,7 +48,7 @@ Look first, then confirm with your numbers.
 
 - Visual check: go to the roof in safe daylight. If you can see a grey or brown film, ash specks, or a smeared look after dew dries, plan a rinse.
 - Hand wipe test on the frame: run a finger across the aluminium frame, not the glass. If it comes away black or gritty, the glass likely has the same layer.
-- Compare to your normal clear-day baseline: our planning figure is about 3.4 units a day per kW across the year. On your usual clear days outside of heavy fog, your own system will have a pattern around that. If a run of clear days comes in lower than your normal for similar weather, soot may be part of it.
+- Compare to your normal clear-day baseline: our planning figure is about {F.perKwMonth} units a month per kW across the year. On your usual clear days outside of heavy fog, your own system will have a pattern around that. If a run of clear days comes in lower than your normal for similar weather, soot may be part of it.
 - Separate smoke from winter fog: in winter fog output is lower. We plan on about 75% of the annual average in deep fog. If it is a foggy spell, that is expected. If it is clear and still down against your normal clear-day baseline, clean the glass.
 - Compare strings if your inverter shows them: if two similar strings face the same way and one is consistently behind on clear days, look for local dirt or bird droppings on that side.
 
@@ -77,7 +78,7 @@ If there is baked-on grime, bird droppings, or access is risky, ask our team to 
 
 ## What to expect after cleaning
 
-When ash and soot are off the glass, the array can go back to its normal pattern for the weather. Across a full year we plan on 1224 units per kW, about 102 a month or 3.4 a day. In a foggy winter month the plan is lower. This is why we treat on-site generation, your weather, and your roof angle as the reference, not someone else’s output.
+When ash and soot are off the glass, the array can go back to its normal pattern for the weather. Across a full year we plan on about {F.perKwMonth} units per kW a month, and these are estimates. In a foggy winter month the plan is lower. This is why we treat on-site generation, your weather, and your roof angle as the reference, not someone else’s output.
 
 If you want to cross check what your system should make by size, see our note on [how many units 1 kW produces in Punjab](/blog/how-many-units-1kw-solar-produces-punjab/) and use [the calculator](/solar-calculator/) to match your roof and sanction load. If you are planning a new build, [the new-house calculator](/new-house-solar-calculator/) helps size the array and shows how use changes with ACs and other loads.
 

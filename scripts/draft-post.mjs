@@ -80,10 +80,10 @@ import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
 export const perKwMonth = effectiveYieldPerKw(SOLAR_CONFIG) / 12;
 export const sizes = [1, 2, 3, 5, 10];
 export const rows = sizes.map((kw) => ({ label: \`\${kw} kW\`, value: kw * perKwMonth, display: \`\${Math.round(kw * perKwMonth)} units\`, emphasis: kw === 3 }));
-export const ticks = [0, 250, 500, 750, 1000].map((v) => ({ value: v, label: String(v) }));
+export const ticks = [0, 500, 1000, 1500].map((v) => ({ value: v, label: String(v) }));
 
 <div class="not-prose my-8">
-<BarChart title="Units a month by system size" rows={rows} max={1000} ticks={ticks} valueHeading="Units a month" caption="Our planning figure across the year." />
+<BarChart title="Units a month by system size" rows={rows} max={1500} ticks={ticks} valueHeading="Units a month" caption="Our planning figure across the year." />
 </div>
 
 B. Installed price by size and system type, straight from the price models:

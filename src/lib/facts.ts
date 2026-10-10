@@ -7,6 +7,7 @@ import { BUSINESS } from '../config/business';
 import { digits, inr } from './calculator/format';
 import { monthlyBill } from './calculator/tariff';
 import { monthlyGenerationPerKw } from './calculator/sizing';
+import { ESTIMATE_LINE, planningLine, topconLine } from './generation-note';
 
 const domesticBill = (u: number) => monthlyBill(u, { category: 'domestic', scheme: 'general', loadKw: 5, config: C }).total;
 const dom0 = C.pspcl.domestic[0]!;
@@ -32,7 +33,14 @@ export const F = {
   bill320: inr(domesticBill(320), 10),
   perKwMonth: digits(monthlyGenerationPerKw(C)),
   perKwYear: digits(monthlyGenerationPerKw(C) * 12),
-  yieldRaw: digits(C.generation.annualYieldPerKwp),
+  /** TOPCon in the sunniest months, per kW: an "up to", never used for sizing. */
+  topconPeak: digits(C.generation.topconPeakUnitsPerKwMonth),
+  /** "We plan on about 135 units a month from each kW…" */
+  planningLine: planningLine(C),
+  /** "With TOPCon panels, output can reach up to about 180…" */
+  topconLine: topconLine(C),
+  /** "These are estimates: real output depends on…" */
+  estimateLine: ESTIMATE_LINE,
   sqFtPerKw: String(C.generation.sqFtPerKw),
   zeroTarget: String(C.sizing.zeroBillTargetUnits),
   /** Smallest system RSK installs, by type — on-grid floors at 3 kW; hybrid and off-grid go lower. */

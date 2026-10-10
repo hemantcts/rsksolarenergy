@@ -1,4 +1,5 @@
 ---
+import { ESTIMATE_LINE, topconLine } from '../lib/generation-note';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CalcModes from '../components/CalcModes.astro';
@@ -17,7 +18,6 @@ import { F } from '../lib/facts';
 import { faqPage, type QA } from '../lib/seo';
 
 const path = '/new-house-solar-calculator/';
-const perKwYear = Math.round(effectiveYieldPerKw(SOLAR_CONFIG));
 
 // Worked example: a three-bedroom home with two inverter ACs, the kind of house we are asked about most.
 const exampleFields = new URLSearchParams({
@@ -63,6 +63,8 @@ const faq: QA[] = [
 ];
 ---
 
+import { F } from '../../lib/facts';
+
 <BaseLayout
   title="Solar Calculator for a New House, Based on Appliances"
   description="No electricity bill yet? Choose your ACs, geysers, fridge and other appliances to estimate your units and the solar size your new home in Punjab needs."
@@ -105,7 +107,7 @@ const faq: QA[] = [
           <li>For each appliance, we work out the units it uses on a day it runs. Lights and fans use their wattage and hours. Fridges, routers and CCTV run all day. Washing machines, irons and ovens are counted per load or use, and geysers per hot-water use, because a geyser heats its tank and then switches off.</li>
           <li>ACs are counted at an average draw for their size and type. The compressor cycles on and off, so that average sits well below the rating on the box.</li>
           <li>In Punjab, use changes a lot with the season. ACs run only in the months you choose, fans for about {Math.round(cfg.seasons.fans / 30)} months, coolers for about {Math.round(cfg.seasons.cooler / 30)} and geysers mainly in winter. That gives a yearly total and a separate peak-summer month.</li>
-          <li>The yearly units are divided by what a kW of panels makes in Punjab: about {digits(perKwYear)} units a year after losses, give or take {Math.round((cfg.generationRange[1] - 1) * 100)}% for roof direction, shade and weather, which is why the answer is a range.</li>
+          <li>The yearly units are divided by what a kW of panels makes in Punjab: about {SOLAR_CONFIG.generation.unitsPerKwMonth} units a month, averaged over the year, give or take {Math.round((cfg.generationRange[1] - 1) * 100)}% for roof direction, shade and weather, which is why the answer is a range. {topconLine()} {ESTIMATE_LINE}</li>
           <li>An EV and anything you plan to add are shown separately, so you can size for now or for later.</li>
         </ol>
         <p>The same generation figures drive the <a href="/solar-calculator/">bill calculator</a>, so the two agree once you have a real PSPCL bill to check against.</p>

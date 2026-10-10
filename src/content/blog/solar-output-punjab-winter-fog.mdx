@@ -30,36 +30,36 @@ import { BACKUP_CONFIG } from '../../config/backup-config';
 import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
 import { digits } from '../../lib/calculator/format';
 
-export const perKwDay = effectiveYieldPerKw(SOLAR_CONFIG) / 365;
+export const perKwMonth = effectiveYieldPerKw(SOLAR_CONFIG) / 12;
 export const winter = BACKUP_CONFIG.winterYieldFactor;
 export const sizes = [1, 2, 3, 5, 10];
 export const rows = sizes.map((kw) => ({
   label: `${kw} kW`,
-  value: kw * perKwDay * winter,
-  display: `${(kw * perKwDay * winter).toFixed(1)} units`,
+  value: kw * perKwMonth * winter,
+  display: `${digits(kw * perKwMonth * winter)} units`,
   emphasis: kw === 3,
-  note: `${(kw * perKwDay).toFixed(1)} units on an average day`,
+  note: `${digits(kw * perKwMonth)} units in an average month`,
 }));
-export const ticks = [0, 10, 20, 30].map((v) => ({ value: v, label: String(v) }));
+export const ticks = [0, 500, 1000, 1500].map((v) => ({ value: v, label: String(v) }));
 
 Ask anyone in Mohali what January mornings are like and you will hear about the fog. It sits over the Tricity for days at a time, and solar panels feel it. They keep working through fog. They just make less.
 
 We plan on roughly {Math.round((1 - winter) * 100)}% less than the yearly average through the foggy weeks. That figure is our own planning allowance, used when we size off-grid systems, and it is the number behind the chart below.
 
-## What a system makes on a foggy winter day
+## What a system makes in a foggy winter month
 
 <div class="not-prose my-8">
 <BarChart
-  title="Units a day through the foggy weeks, by system size"
+  title="Units in a foggy winter month, by system size"
   rows={rows}
-  max={30}
+  max={1500}
   ticks={ticks}
-  valueHeading="Units a day"
-  caption={`Our planning figures: ${perKwDay.toFixed(1)} units per kW on an average day across the year, and about ${Math.round(winter * 100)}% of that in dense winter fog. A clear December day lands between the two.`}
+  valueHeading="Units a month"
+  caption={`Our planning figures, which are estimates: about ${Math.round(perKwMonth)} units per kW in an average month, and about ${Math.round(winter * 100)}% of that in a month of dense winter fog.`}
 />
 </div>
 
-A 3 kW system that gives you about {(3 * perKwDay).toFixed(1)} units on an average day is down to roughly {(3 * perKwDay * winter).toFixed(1)} units in the fog. Over a month that is a difference of about {digits(Math.round(3 * perKwDay * (1 - winter) * 30))} units.
+A 3 kW system that makes about {digits(3 * perKwMonth)} units in an average month is down to roughly {digits(3 * perKwMonth * winter)} units in a month of fog, a difference of about {digits(3 * perKwMonth * (1 - winter))} units.
 
 ## Why this rarely matters on a grid-connected system
 

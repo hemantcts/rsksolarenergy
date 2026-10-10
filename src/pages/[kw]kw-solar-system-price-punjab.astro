@@ -49,7 +49,7 @@ const faq: QA[] = [
   },
   {
     q: `How many units does a ${kw} kW solar system generate in Punjab?`,
-    a: `About ${digits(s.monthlyUnits)} units a month, or ${digits(s.annualUnits)} a year, at the conservative figure we use for estimates. Output is higher from March to June and lower in December and January and on hazy days.`,
+    a: `About ${digits(s.monthlyUnits)} units in an average month, with standard panels. Output is higher from March to June and lower in December and January and on hazy days. With TOPCon panels, a ${kw} kW system can reach up to about ${digits(kw * SOLAR_CONFIG.generation.topconPeakUnitsPerKwMonth)} units in the sunniest months. These are estimates.`,
   },
   {
     q: `How much roof space does a ${kw} kW system need?`,

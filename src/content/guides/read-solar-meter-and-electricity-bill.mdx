@@ -25,6 +25,8 @@ cta:
   message: 'Hi RSK Solar Energy, please help me check my solar readings. My inverter total, import and export: '
 ---
 
+import { F } from '../../lib/facts';
+
 ## The three places to read
 
 1. The inverter. Its screen, and its app if it has one, shows the units your panels made today and the total since it was installed.
@@ -61,7 +63,7 @@ Of what the panels made, the part you did not export went straight into your hom
 
 On the same date each month, write down four numbers: the inverter's total, the import total, the export total, and the date. Subtract last month's figures and you have the month's generation, import and export. A notebook or a phone note is enough.
 
-After a few months you will see the pattern. Generation is higher from spring to early summer and lower in foggy winter weeks. Averaged over a year, we plan on roughly 100 units a month for each kW of panels in Punjab; [how many units 1 kW makes](/blog/how-many-units-1kw-solar-produces-punjab/) explains the figure and how it changes by season.
+After a few months you will see the pattern. Generation is higher from spring to early summer and lower in foggy winter weeks. Averaged over a year, we plan on about {F.perKwMonth} units a month for each kW of panels in Punjab, as an estimate; [how many units 1 kW makes](/blog/how-many-units-1kw-solar-produces-punjab/) explains the figure and how it changes by season.
 
 ## When to look closer
 

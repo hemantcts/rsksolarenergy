@@ -25,16 +25,18 @@ function residentialSubsidy(kw, cfg = C) {
   return Math.min(first + second, r.cap);
 }
 
-const perKwYear = C.generation.annualYieldPerKwp * C.generation.deratingFactor;
-const perKwMonth = perKwYear / 12;
-const perKwDay = perKwYear / 365;
+// RSK Solar Energy's own planning figure, per kW per month (src/config/solar-config.ts).
+const perKwMonth = C.generation.unitsPerKwMonth;
+const perKwYear = perKwMonth * 12;
+const perKwDay = perKwMonth / 30;
+const topconPeak = C.generation.topconPeakUnitsPerKwMonth;
 
 export const FACTS_TEXT = `
 - Punjab gives homes ${C.freeUnits.perMonth} free units a month (${C.freeUnits.perBillingCycle} per two-month bill). At or below that a home's bill is already zero, so solar has nothing to save.
 - PM Surya Ghar pays ₹${C.subsidy.residential.firstBandPerKw.toLocaleString('en-IN')} per kW for the first ${C.subsidy.residential.firstBandKw} kW and ₹${C.subsidy.residential.secondBandPerKw.toLocaleString('en-IN')} for the third, capped at ₹${C.subsidy.residential.cap.toLocaleString('en-IN')}. Housing societies: ₹${C.subsidy.society.perKw.toLocaleString('en-IN')} per kW up to ${C.subsidy.society.maxKw} kW.
 - The subsidy is paid into the applicant's own bank account ${C.subsidy.disbursementDays[0]} to ${C.subsidy.disbursementDays[1]} days after the DISCOM inspection. It never comes off the invoice, and it never goes to a lender or an installer.
 - On-grid and hybrid systems qualify for the subsidy. Off-grid does not. Panels must be DCR and on the ALMM list.
-- Generation: ${C.generation.annualYieldPerKwp} units per kWp a year, less ${Math.round((1 - C.generation.deratingFactor) * 100)}% for losses, which is ${Math.round(perKwYear)} units per kW a year, about ${Math.round(perKwMonth)} a month or ${perKwDay.toFixed(1)} a day. In December and January fog, plan on about ${Math.round(B.winterYieldFactor * 100)}% of that.
+- Generation: about ${perKwMonth} units a month from each kW of panels in Punjab, averaged over the year (${Math.round(perKwYear)} a year). Quote it per month. With TOPCon panels, output can reach up to about ${topconPeak} units per kW in the sunniest months: say "up to" and "in the sunniest months", never present it as an average or size a system on it. In December and January fog, plan on about ${Math.round(B.winterYieldFactor * 100)}% of the average. Wherever a generation figure appears, say it is an estimate that depends on the roof, shade, dust and weather.
 - Roof: about ${C.generation.sqFtPerKw} sq ft of shade-free roof per kW.
 - A rooftop system can be at most ${C.netMetering.maxSystemPercentOfSanctionedLoad}% of the sanctioned load.
 - Net metering: the units a home uses as they are made are the ones worth most, because they replace units that would have been bought. Whatever is exported is settled under PSPCL's net metering rules, and our calculations give export no value at all, so no saving figure of ours depends on it. Do not state a rate or a ratio for export.
@@ -63,12 +65,11 @@ function buildSets() {
     C.subsidy.society.perKw,
     C.subsidy.residential.firstBandKw * C.subsidy.residential.firstBandPerKw,
   ]);
-  const units = new Set([C.freeUnits.perMonth, C.freeUnits.perBillingCycle, C.generation.annualYieldPerKwp, Math.round(perKwYear), Math.round(perKwMonth), Number(perKwDay.toFixed(1))]);
+  const units = new Set([C.freeUnits.perMonth, C.freeUnits.perBillingCycle, Math.round(perKwYear), Math.round(perKwMonth), Number(perKwDay.toFixed(1)), topconPeak]);
   const kw = new Set([...C.sizing.standardSizesKw, ...C.sizing.sizePagesKw, ...Object.values(C.sizing.minKwByType), ...B.inverter.sizes.map((s) => s.kva), C.subsidy.society.maxKw, ...A.ac.tons]);
   const volts = new Set(B.inverter.sizes.map((s) => s.volts));
   const area = new Set([C.generation.sqFtPerKw]);
   const percent = new Set([
-    Math.round((1 - C.generation.deratingFactor) * 100),
     C.netMetering.maxSystemPercentOfSanctionedLoad,
     C.projection.tariffEscalationPercent,
     C.projection.panelDegradationPercent,

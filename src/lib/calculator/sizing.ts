@@ -1,13 +1,19 @@
 import type { SolarConfig } from '../../config/solar-config';
 import type { SystemType } from './types';
 
-/** Effective units per kW per year after derating. */
+/** Units per kW per year: twelve of the planning month (config.generation.unitsPerKwMonth). */
 export function effectiveYieldPerKw(config: SolarConfig): number {
-  return config.generation.annualYieldPerKwp * config.generation.deratingFactor;
+  return config.generation.unitsPerKwMonth * 12;
 }
 
+/** Units per kW per month, averaged over the year. The figure the site quotes. */
 export function monthlyGenerationPerKw(config: SolarConfig): number {
-  return effectiveYieldPerKw(config) / 12;
+  return config.generation.unitsPerKwMonth;
+}
+
+/** Units per kW on an average day: the planning month over 30 days (135 a month is 4.5 a day). */
+export function dailyGenerationPerKw(config: SolarConfig): number {
+  return config.generation.unitsPerKwMonth / 30;
 }
 
 const ABSOLUTE_MAX_KW = 5000;

@@ -108,6 +108,6 @@ ${notes.length ? `<ul class="calc-notes" role="note">${notes.map((n) => `<li>${e
   ${tools}
 </div>
 
-<p class="calc-fineprint">This is an estimate for a first conversation. The inverter is sized to what runs together plus a motor starting, the battery to be used to about ${Math.round(BACKUP_CONFIG.battery.lithium.usable * 100)}% (lithium) or ${Math.round(BACKUP_CONFIG.battery.tubular.usable * 100)}% (tubular) each cycle, and the panels to ${((solar.generation.annualYieldPerKwp * solar.generation.deratingFactor) / 365).toFixed(1)} units per kW a day${hybrid ? '' : ', less for winter fog'}. We fix the design after a site survey, and we don’t promise a particular backup time, bill or saving.</p>
+<p class="calc-fineprint">This is an estimate for a first conversation. The inverter is sized to what runs together plus a motor starting, the battery to be used to about ${Math.round(BACKUP_CONFIG.battery.lithium.usable * 100)}% (lithium) or ${Math.round(BACKUP_CONFIG.battery.tubular.usable * 100)}% (tubular) each cycle, and the panels to about ${solar.generation.unitsPerKwMonth} units per kW a month${hybrid ? '' : ', less for winter fog'}, which is an estimate. We fix the design after a site survey, and we don’t promise a particular backup time, bill or saving.</p>
 </div>`;
 }

@@ -1,4 +1,5 @@
 ---
+import { generationNote } from '../lib/generation-note';
 /**
  * /hybrid-solar-calculator/ and /off-grid-solar-calculator/: one calculator, one mode per page,
  * each with its own copy, examples and FAQs (two different searches, two different buyers).
@@ -171,6 +172,7 @@ const faq: QA[] = hybrid
       </div>
       <div class="prose lg:col-span-7 lg:col-start-6">
         <ol>{steps.map((s) => <li>{s}</li>)}</ol>
+        <p>{generationNote()}</p>
         {
           hybrid ? (
             <p>

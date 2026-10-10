@@ -69,7 +69,7 @@ export function noteText(n: Note, config: SolarConfig = SOLAR_CONFIG): string {
 function assumptions(config: SolarConfig): string {
   const g = config.generation;
   const pr = config.projection;
-  return `Estimate based on ${digits(g.annualYieldPerKwp)} units per kW per year before an ${Math.round((1 - g.deratingFactor) * 100)}% allowance for losses, the PSPCL ${config.pspcl.tariffYear} tariff with ${config.pspcl.electricityDutyPercent}% electricity duty, a ${pr.tariffEscalationPercent}% yearly tariff rise and ${pr.panelDegradationPercent}% yearly panel degradation. Your actual figures depend on roof direction, shading and how you use power. A free site survey firms this up.`;
+  return `Estimate based on about ${g.unitsPerKwMonth} units per kW a month, averaged over the year, the PSPCL ${config.pspcl.tariffYear} tariff with ${config.pspcl.electricityDutyPercent}% electricity duty, a ${pr.tariffEscalationPercent}% yearly tariff rise and ${pr.panelDegradationPercent}% yearly panel degradation. With TOPCon panels, output can reach up to about ${g.topconPeakUnitsPerKwMonth} units per kW in the sunniest months. These are estimates: your actual figures depend on roof direction, shading and how you use power. A free site survey firms this up.`;
 }
 
 // Customer-facing note. Every price this calculator shows is an estimate — even the confirmed

@@ -43,6 +43,8 @@ const faq: QA[] = [
 ];
 ---
 
+import { F } from '../../lib/facts';
+
 <BaseLayout
   title="Solar Calculator for Punjab: Size, Subsidy and Payback"
   description="Enter your PSPCL bill or units. Get the right system size, the PM Surya Ghar subsidy, your cost after subsidy and payback, using the FY 2026-27 Punjab tariff."
@@ -92,7 +94,7 @@ const faq: QA[] = [
         </ol>
         <h3>The assumptions behind every result</h3>
         <ul>
-          <li>{F.yieldRaw} units per kW per year, less a {Math.round((1 - cfg.generation.deratingFactor) * 100)}% allowance for heat, dust, wiring and inverter losses: {F.perKwYear} units per kW per year.</li>
+          <li>{F.planningLine} {F.topconLine} {F.estimateLine}</li>
           <li>Tariffs rise {cfg.projection.tariffEscalationPercent}% a year and panels lose {cfg.projection.panelDegradationPercent}% of output a year, for the {cfg.projection.horizonYears}-year saving.</li>
           <li>PSPCL applies the {F.free} free units to your net units after solar. We confirm this for your connection before quoting.</li>
         </ul>
