@@ -60,7 +60,7 @@ function scenarioCard(s: Scenario, cfg: ApplianceConfig, onGridMin: number): str
     <dt>Example system</dt><dd>${esc(kw(s.exampleKw))}${s.exampleKw < onGridMin ? ' <span class="calc-sub">hybrid or off-grid at this size</span>' : ''}</dd>
     <dt>Panels</dt><dd>about ${s.panels} × ${cfg.panelWatts} W</dd>
     <dt>Roof area</dt><dd>about ${digits(s.roofSqFt)} sq ft</dd>
-    <dt>Solar generation</dt><dd>${approxUnits(s.generationRange[0])} to ${approxUnits(s.generationRange[1])} units a year</dd>
+    <dt>Solar generation</dt><dd>${approxUnits(s.generationRange[0] / 12)} to ${approxUnits(s.generationRange[1] / 12)} units a month</dd>
     <dt>Covers</dt><dd>about ${pct(Math.min(s.coverage, 9.99))} of current use</dd>
   </dl>
 </li>`;

@@ -193,7 +193,7 @@ export function renderResult(r: CalcResult, input: CalcInput, o: RenderOptions):
   const savingRows = [
     row('Your bill now', `${fig(inr(r.billBefore.total, 10), a)}<span class="calc-unit"> a month${estimate}</span>`),
     row('Your bill after solar', `${fig(inr(r.billAfter.total, 10), a)}<span class="calc-unit"> a month</span>`),
-    o.variant === 'full' ? row('Yearly generation', `${fig(digits(r.annualGeneration), a)}<span class="calc-unit"> units</span>`) : '',
+    o.variant === 'full' ? row('Generation in an average month', `${fig(digits(r.annualGeneration / 12), a)}<span class="calc-unit"> units</span>`) : '',
     row('Yearly saving', fig(inr(r.annualSaving, 100), a)),
     row('Payback', r.paybackYears ? esc(yearsRange(r.paybackYears)) : 'No bill saving to pay back against'),
     o.variant === 'full' ? row(`${config.projection.horizonYears}-year saving`, esc(inrWords(r.lifetimeSaving))) : '',
