@@ -1,0 +1,90 @@
+---
+title: 'DCR and ALMM: what the two lists mean when you buy panels'
+description: 'DCR is origin. ALMM is approval. For the subsidy, panels must be both. Here is how that affects your choice and the paperwork we issue.'
+published: '2026-10-13'
+category: 'Panels and inverters'
+tags: ['DCR', 'ALMM', 'subsidy', 'Punjab']
+faq:
+  - q: 'Do I need DCR and ALMM panels to get the PM Surya Ghar subsidy?'
+    a: 'Yes. On-grid and hybrid systems qualify for the subsidy only when the panels are DCR and on the ALMM list. Off-grid systems do not qualify.'
+  - q: 'Are DCR panels always better than non-DCR?'
+    a: 'DCR is about where the cells and modules are made. Performance comes from the panel technology and the specific model''s datasheet.'
+  - q: 'How do I confirm what panels I am actually getting?'
+    a: 'We put the exact make and model on the proposal and invoice. You can cross check the nameplates at installation and read the model''s datasheet in our guide.'
+related:
+  - href: /dcr-vs-non-dcr-solar-panels/
+    label: 'DCR vs non-DCR: price and the subsidy'
+  - href: /pm-surya-ghar-subsidy-punjab/
+    label: PM Surya Ghar subsidy amounts and steps in Punjab
+  - href: /blog/solar-panel-datasheet-what-matters/
+    label: How to read a solar panel datasheet in India
+cta:
+  heading: 'Want us to verify a panel''s DCR and ALMM status?'
+  label: Ask RSK Solar Energy on WhatsApp
+  message: 'Hi RSK Solar Energy, here is the panel make and model. Can you check if it is DCR and on ALMM, and whether it qualifies for PM Surya Ghar?'
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
+
+export const perKwMonth = effectiveYieldPerKw(SOLAR_CONFIG) / 12;
+export const sizes = [1, 2, 3, 5, 10];
+export const rows = sizes.map((kw) => ({ label: `${kw} kW`, value: kw * perKwMonth, display: `${Math.round(kw * perKwMonth)} units`, emphasis: kw === 5 }));
+export const ticks = [0, 500, 1000, 1500].map((v) => ({ value: v, label: String(v) }));
+
+DCR tells you where the solar cells and modules are made. ALMM is the government’s approved list of models and manufacturers. If you want the PM Surya Ghar subsidy on an on-grid or hybrid system, your panels must be DCR and on ALMM.
+
+That single rule decides the panel families we propose when you plan to apply for the subsidy. Without the subsidy, you can choose DCR or non-DCR. Either way, we write the exact make and model in your documents so the model you saw is the model we install.
+
+## What DCR means, and what it does not
+
+DCR stands for Domestic Content Requirement. It is an origin rule. A DCR panel uses cells made in India and is assembled in India. When a DCR panel is also on ALMM, it meets the subsidy’s panel condition.
+
+DCR is not a performance label. Output and efficiency come from the technology and the specific model. If you are comparing technologies, start with our guides on [which panel technology is best in 2026](/best-solar-panel-technology/), [mono PERC and half-cut](/mono-perc-half-cut-solar-panels/) and [TOPCon](/topcon-solar-panels/). For model-level checks, see how to read a panel sheet in our [datasheet explainer](/blog/solar-panel-datasheet-what-matters/).
+
+## What ALMM is, and where it matters
+
+ALMM is the Approved List of Models and Manufacturers for PV modules. A model on ALMM has cleared the government’s approvals. For PM Surya Ghar on rooftops, on-grid and hybrid systems qualify only when the panels are DCR and on ALMM. Off-grid systems do not qualify for the subsidy, so ALMM and DCR do not change that.
+
+When we design your subsidised system, we pick DCR models that are on ALMM and we write the exact model code in your proposal. At handover you can match the cartons and nameplates with your paperwork.
+
+## When DCR and ALMM affect your choices
+
+- You want the PM Surya Ghar subsidy: pick DCR panels that are on ALMM. The subsidy pays ₹30,000 per kW for the first 2 kW and ₹18,000 for the third, capped at ₹78,000. It is paid into your own bank account 30 to 45 days after the DISCOM inspection. It never comes off the invoice, and it never goes to a lender or an installer. See the steps in our [Punjab guide](/pm-surya-ghar-subsidy-punjab/).
+- You need backup: hybrid systems qualify when the panels meet DCR and ALMM. Off-grid does not. Compare types in our guide on [on-grid vs off-grid vs hybrid](/on-grid-vs-off-grid-vs-hybrid/).
+- You are not applying: you can choose DCR or non-DCR. Price and availability tend to decide, which we explain in [DCR vs non-DCR](/dcr-vs-non-dcr-solar-panels/).
+
+If you want to review UTL’s current panel range, browse [UTL Solar panels](/solar-panels/). For installed work in our area, see photos and notes on our [installations](/installations/).
+
+## Sizing and expected output still decide the value
+
+Lists decide eligibility. Sizing decides how the system fits your bill and roof. We plan on about 135 units a month from each kW of panels in Punjab, averaged across the year. With TOPCon, output can reach up to about 180 units per kW in the sunniest months. In December and January fog, plan on about 75% of the average. All of these are estimates and depend on your roof, shade, dust and weather.
+
+A quick way to see what size matters for your home is to compare your monthly units with what a size can make. The units you use as they are made are worth the most because they replace units you would have bought. Whatever is exported is settled under PSPCL’s rules, and our calculations give export no value at all. If you want to try sizes, use our [solar calculator](/solar-calculator/). For a new build, use the [new-house calculator](/new-house-solar-calculator/). If you need backup, the [hybrid calculator](/hybrid-solar-calculator/) helps you see how battery sizing interacts with daytime solar.
+
+<div class="not-prose my-8">
+<BarChart title="Units a month by system size" rows={rows} max={1500} ticks={ticks} valueHeading="Units a month" caption="Figures use our Punjab planning yield from the shared generation config." />
+</div>
+
+Two site rules matter in Punjab. Plan about 100 sq ft of shade-free roof for each kW. A rooftop system can be at most 100% of the sanctioned load. If you are near Punjab’s 300 free units a month line, read how size choices change here: [3 kW or 5 kW near the free-units line](/blog/3-kw-or-5-kw-when-you-sit-near-punjab-s-free-units-line/) and our 5 kW deep dive on [sizing and price](/blog/5-kw-solar-in-punjab-subsidy-price-and-right-sizing/).
+
+For price planning, our installed on-grid estimates before subsidy are:
+- 3 kW: ₹1,78,000 to ₹1,95,800
+- 5 kW: ₹2,50,000 to ₹2,75,000
+
+These are ranges. Hybrid always costs more than on-grid at the same size because of the battery and hybrid inverter. Off-grid kits are priced on a different basis and are not comparable size for size.
+
+## What we write on your documents
+
+DCR and ALMM only help if the installed panels match the model on paper. We keep it clear:
+
+- Proposal and invoice show the brand and exact model.
+- If you want, we add the model to the single-line diagram and hand over the datasheet.
+- During installation you can cross check the carton labels and module nameplates against your paperwork.
+
+If you are comparing brands, start with [UTL vs Tata Power Solar](/utl-vs-tata-power-solar/) and our [other brands overview](/utl-solar-vs-other-brands/). For how export is credited, see [PSPCL net metering](/blog/net-metering-punjab-pspcl-explained/). For care basics, read our note on [panel maintenance in Punjab](/blog/solar-panel-maintenance-punjab/).
+
+RSK Solar Energy is a UTL Solar distributor at Phase 8B, Mohali, since 2022. We install with our own team in Mohali, Kharar, Zirakpur, Derabassi, Chandigarh, Panchkula, New Chandigarh, Landran, Banur, Lalru, Naya Gaon, Kurali, Morinda, Ropar, Fatehgarh Sahib, Chamkaur Sahib and Khamanon, and supply through UTL dealers elsewhere in Punjab. Product warranties are the manufacturer’s, on their terms.
+
+Bring the panel model you have in mind to site on installation day. Read the nameplate and match it to the model on your invoice before the first frame is tightened.
