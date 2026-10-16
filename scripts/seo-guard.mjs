@@ -198,6 +198,10 @@ for (const file of sorted) {
   const bareInText = text.match(new RegExp(`[^.]{0,40}${bareBrand.source}[^.]{0,40}`));
   if (bareInText) err(page, `brand written as bare "RSK" (use "RSK Solar Energy"): "${bareInText[0].trim()}"`);
   if (!is404 && (bareBrand.test(title) || (desc && bareBrand.test(desc)))) err(page, 'brand written as bare "RSK" in the title or description');
+  // Code that leaked into the page as text: an import line placed below a page's frontmatter fence
+  // renders as "import [object Object] from ...", and an object dropped into markup as "[object Object]".
+  const leak = text.match(/[^.]{0,40}(\[object Object\]|\bundefined\b|\bimport \S+ from ['"])[^.]{0,40}/);
+  if (leak) err(page, `code showing as page text: "${leak[0].trim()}"`);
   if (!page.startsWith('/products/')) {
     const dash = text.match(/[^\s]{0,30}\s?\w[,.)]?\s?—\s?[\w(][^\s]{0,30}/);
     if (dash) err(page, `em dash in copy: "${dash[0].trim()}"`);
