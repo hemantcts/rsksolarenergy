@@ -1,6 +1,6 @@
 # Topics to write next
 
-One line each. The daily post takes the **first** line on this list. Cross a line out
+One line each. The Tuesday and Friday post takes the **first** line on this list. Cross a line out
 with `~~strikethrough~~` once its post is live, or just delete it.
 
 Leave the list empty and the draft picks its own topic from the weekly search report, which is

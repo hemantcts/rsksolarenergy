@@ -1,6 +1,6 @@
 name: Write and publish a blog post
 
-# Every day: pick a customer problem, write the post (the problem, a useful solution, a new way to
+# Tuesday and Friday: pick a customer problem, write the post (the problem, a useful solution, a new way to
 # see it), put it through four checks, draw its illustration, and publish it.
 # Nobody approves it beforehand, so the checks are what stand between a draft and the live site:
 #
@@ -28,8 +28,8 @@ name: Write and publish a blog post
 
 on:
   schedule:
-    # Every day at 05:00 UTC, which is 10:30 in Mohali.
-    - cron: '0 5 * * *'
+    # Tuesday and Friday at 05:00 UTC, which is 10:30 in Mohali.
+    - cron: '0 5 * * 2,5'
   workflow_dispatch:
     inputs:
       topic:
