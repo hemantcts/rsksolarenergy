@@ -13,7 +13,7 @@ import { load as parseYaml } from 'js-yaml';
 
 const slug = process.argv[2];
 const key = process.env.OPENAI_API_KEY;
-const IMAGE_MODEL = process.env.OPENAI_IMAGE_MODEL || 'gpt-image-1';
+const IMAGE_MODEL = process.env.OPENAI_IMAGE_MODEL;
 const CHECK_MODEL = process.env.OPENAI_MODEL || 'gpt-5';
 if (!slug || !key) {
   console.error('Usage: OPENAI_API_KEY=... node scripts/make-post-image.mjs <slug>');
@@ -64,8 +64,24 @@ async function objection(png) {
   return /^OK\b/i.test(answer) ? null : answer || 'the check gave no answer';
 }
 
+// Image model names change (gpt-image-1 was gone by October 2026), so ask the account which it has:
+// the newest full gpt-image model, else DALL-E 3.
+async function imageModel() {
+  if (IMAGE_MODEL) return IMAGE_MODEL;
+  const res = await fetch('https://api.openai.com/v1/models', { headers: { authorization: `Bearer ${key}` } });
+  const ids = res.ok ? (await res.json()).data.map((m) => m.id) : [];
+  const version = (id) => Number(id.match(/gpt-image-(\d+(?:\.\d+)?)/)?.[1] ?? 0);
+  const best = ids.filter((id) => /^gpt-image-[\d.]+$/.test(id)).sort((a, b) => version(b) - version(a))[0];
+  return best ?? 'dall-e-3';
+}
+const model = await imageModel();
+console.log(`Image model: ${model}`);
+const request = model.startsWith('dall-e')
+  ? { model, prompt: PROMPT, size: '1792x1024', quality: 'standard', response_format: 'b64_json', n: 1 }
+  : { model, prompt: PROMPT, size: '1536x1024', quality: 'medium', n: 1 };
+
 for (let attempt = 1; attempt <= 2; attempt++) {
-  const json = await openai('images/generations', { model: IMAGE_MODEL, prompt: PROMPT, size: '1536x1024', quality: 'medium', n: 1 });
+  const json = await openai('images/generations', request);
   const png = Buffer.from(json.data?.[0]?.b64_json ?? '', 'base64');
   if (!png.length) throw new Error('The image model returned no picture.');
   const why = await objection(png);

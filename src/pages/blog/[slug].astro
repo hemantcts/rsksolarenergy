@@ -5,6 +5,8 @@ import { getImage } from 'astro:assets';
 import { article, faqPage } from '../../lib/seo';
 import { photoByName } from '../../data/photos';
 import Callout from '../../components/content/Callout.astro';
+import BarChart from '../../components/charts/BarChart.astro';
+import PriceRangeChart from '../../components/charts/PriceRangeChart.astro';
 import BlogPhoto from '../../components/content/BlogPhoto.astro';
 
 // A post's own illustration, made when it was written, is src/assets/blog/<slug>.webp. Posts without
@@ -78,5 +80,5 @@ const og = await getImage({ src: hero.src, width: 1200, height: 630, fit: 'cover
   related={related}
   {...(d.cta ? { cta: d.cta } : {})}
 >
-  <Content components={{ Callout, BlogPhoto }} />
+  <Content components={{ Callout, BlogPhoto, BarChart, PriceRangeChart }} />
 </GuideLayout>
