@@ -8,6 +8,8 @@
 import { readFileSync, readdirSync, existsSync, appendFileSync } from 'node:fs';
 import { load as parseYaml } from 'js-yaml';
 import { allowedNumber } from './lib/facts.mjs';
+import { ourWarrantySentence } from './lib/warranty.mjs';
+import { failingTells } from './lib/tells.mjs';
 
 /** Where both checks record their objections, for revise-draft.mjs to act on. */
 const PROBLEMS = 'draft-problems.txt';
@@ -52,11 +54,8 @@ for (const [re, why] of FORBIDDEN) {
 }
 
 // A warranty may only be described as the manufacturer's.
-for (const sentence of prose.split(/(?<=[.?!])\s+/)) {
-  if (/\b(warranty|guarantee)\b/i.test(sentence) && /\b(we|our|RSK Solar Energy)\b/i.test(sentence) && !/manufacturer|UTL|brand|its own|not add|no warranty/i.test(sentence)) {
-    flag(`suggests a warranty of ours: “${sentence.trim().slice(0, 120)}”`);
-  }
-}
+const ours = ourWarrantySentence(prose);
+if (ours) flag(`suggests a warranty of ours: “${ours.trim().slice(0, 120)}”`);
 
 // ---- every figure has to be one of ours ----
 const NUMBER_IN_CONTEXT = /₹\s*([\d,]+(?:\.\d+)?)|([\d,]+(?:\.\d+)?)\s*(units|kWh|kW|kVA|kWp|sq ft|square feet|%|per cent|days|years|months)/gi;
@@ -109,6 +108,11 @@ if (parsed && typeof parsed === 'object') {
     if (!entry?.q || !entry?.a) flag('an FAQ entry is missing its question or its answer');
   }
 }
+// The same writing check the build runs on the finished site, here where the correction pass can act
+// on it. The description and FAQ answers count: they show on the blog index and in the FAQ.
+const tellsIn = [prose, parsed?.description, ...(Array.isArray(parsed?.faq) ? parsed.faq.map((e) => e?.a) : [])].filter(Boolean).join('\n\n');
+for (const t of failingTells(tellsIn)) flag(`reads as machine-written (${t.name}): “${t.sentence}”`);
+
 const words = prose.split(/\s+/).filter(Boolean).length;
 if (words < 500) flag(`only ${words} words`);
 

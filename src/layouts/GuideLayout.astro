@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Faq from '../components/Faq.astro';
@@ -17,20 +18,25 @@ interface Props {
   cta?: { heading: string; label: string; message: string };
   updated?: string;
   ogType?: 'website' | 'article';
+  /** A picture across the top, under the headline. */
+  hero?: { src: ImageMetadata; alt: string };
+  ogImage?: string;
+  ogImageAlt?: string;
 }
-const { title, description, h1, lead, crumbs, schema = [], faq = [], related = [], cta, updated, ogType } = Astro.props;
+const { title, description, h1, lead, crumbs, schema = [], faq = [], related = [], cta, updated, ogType, hero, ogImage, ogImageAlt } = Astro.props;
 const updatedText = updated
   ? new Date(`${updated}T00:00:00Z`).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
   : null;
 ---
 
-<BaseLayout title={title} description={description} crumbs={crumbs} schema={schema} ogType={ogType}>
+<BaseLayout title={title} description={description} crumbs={crumbs} schema={schema} ogType={ogType} {...(ogImage ? { ogImage, ogImageAlt } : {})}>
   <article>
     <header class="wrap pt-8 pb-10 lg:pt-12 lg:pb-14">
       <Breadcrumbs items={[{ name: 'Home', path: '/' }, ...crumbs]} />
       <h1 class="t-h1 mt-6 max-w-4xl">{h1}</h1>
       <p class="t-lead measure mt-5">{lead}</p>
       {updatedText && <p class="t-small mt-4 text-slate">Updated {updatedText}</p>}
+      {hero && <Image src={hero.src} alt={hero.alt} widths={[640, 960, 1280, 1600]} sizes="(min-width: 1440px) 84rem, calc(100vw - 2.5rem)" quality={72} loading="eager" fetchpriority="high" class="mt-8 aspect-[2/1] w-full rounded-sm object-cover" />}
       <div class="settle mt-10 border-t border-ink"></div>
     </header>
 

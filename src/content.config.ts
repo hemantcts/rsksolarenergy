@@ -42,6 +42,8 @@ const blog = defineCollection({
       'ROI and payback',
     ]),
     tags: z.array(z.string()).default([]),
+    // Describes the post's illustration (src/assets/blog/<slug>.webp), as its alt text.
+    imageAlt: z.string().optional(),
     faq: z.array(qa).default([]),
     related: z.array(link).default([]),
     cta: z.object({ heading: z.string(), label: z.string(), message: z.string() }).optional(),

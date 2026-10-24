@@ -1,0 +1,26 @@
+---
+/**
+ * A boxed part of a blog post: the reader's problem, what to do about it, or a different way to see
+ * it. The labels are fixed so every word the writer adds sits in the body, where the figure check
+ * reads it.
+ */
+import Icon from '../Icon.astro';
+
+interface Props {
+  kind: 'problem' | 'fix' | 'insight';
+}
+const KINDS = {
+  problem: { label: 'The problem', icon: 'alert', tone: 'border-accent', iconTone: 'text-accent' },
+  fix: { label: 'What to do', icon: 'check', tone: 'border-signal', iconTone: 'text-signal' },
+  insight: { label: 'A different way to see it', icon: 'bulb', tone: 'border-ink', iconTone: 'text-ink' },
+} as const;
+const k = KINDS[Astro.props.kind];
+---
+
+<div class={`my-8 rounded-sm border-l-4 bg-white px-5 py-4 ${k.tone}`} role="note">
+  <p class="not-prose flex items-center gap-2 font-semibold">
+    <Icon name={k.icon} size={22} class={k.iconTone} />
+    {k.label}
+  </p>
+  <slot />
+</div>

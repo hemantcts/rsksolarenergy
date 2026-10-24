@@ -1,6 +1,7 @@
 name: Write and publish a blog post
 
-# Tuesday and Friday: pick a topic, write the post, put it through four checks, and publish it.
+# Every day: pick a customer problem, write the post (the problem, a useful solution, a new way to
+# see it), put it through four checks, draw its illustration, and publish it.
 # Nobody approves it beforehand, so the checks are what stand between a draft and the live site:
 #
 # Before any of that, scripts/draft-post.mjs checks its own draft (brand, warranty wording, links,
@@ -18,12 +19,17 @@ name: Write and publish a blog post
 # Any one of them failing means nothing is published and the run goes red. Once the post is live
 # its URL is emailed, so it can be read on the site and pulled if it reads wrong.
 #
-# Secrets used: ANTHROPIC_API_KEY and/or OPENAI_API_KEY, GSC_SA_JSON, SMTP_USER, SMTP_PASS.
+# Once the checks pass, scripts/make-post-image.mjs draws the picture at the top of the post and a
+# second model looks at it for text, logos or anything odd. If no picture passes, the post still
+# goes out, opening on one of our installation photos instead.
+#
+# Secrets used: ANTHROPIC_API_KEY and/or OPENAI_API_KEY (the illustration needs OpenAI), GSC_SA_JSON,
+# SMTP_USER, SMTP_PASS.
 
 on:
   schedule:
-    # Tuesday and Friday at 05:00 UTC, which is 10:30 in Mohali.
-    - cron: '0 5 * * 2,5'
+    # Every day at 05:00 UTC, which is 10:30 in Mohali.
+    - cron: '0 5 * * *'
   workflow_dispatch:
     inputs:
       topic:
@@ -133,6 +139,13 @@ jobs:
           node scripts/check-draft.mjs "$POST"
           node scripts/review-draft.mjs "$POST"
 
+      - name: Draw the illustration
+        id: image
+        continue-on-error: true
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: node scripts/make-post-image.mjs "${{ steps.draft.outputs.slug }}"
+
       - name: Check 3, the build and the SEO guard
         run: npm run build
 
@@ -151,6 +164,7 @@ jobs:
           # next run would write the same post and fail on the duplicate slug.
           node scripts/strike-topic.mjs "$TOPIC"
           git add "src/content/blog/$SLUG.mdx" files/TOPICS.md
+          if [ -f "src/assets/blog/$SLUG.webp" ]; then git add "src/assets/blog/$SLUG.webp"; fi
           git commit -m "$TITLE" -m 'Written and checked automatically: figures, a second model, the SEO guard, the writing check.'
           # The build rewrites tracked generated files, public/llms.txt among them, and a rebase
           # refuses to run with those outstanding. They are regenerated on every build, so the post
@@ -199,7 +213,8 @@ jobs:
 
             Written by ${{ steps.draft.outputs.provider }}, checked by ${{ steps.review.outputs.reviewer || steps.checks.outputs.reviewer }}.
             It passed the figure check, the second model, the SEO guard and the writing check.${{ steps.checks.outcome == 'failure' && '
-            One check objected on the first pass, so it was corrected and both were run again.' || '' }}
+            One check objected on the first pass, so it was corrected and both were run again.' || '' }}${{ steps.image.outcome != 'success' && '
+            No illustration passed its check, so the post opens on one of our installation photos.' || '' }}
 
             Nothing sends mail back to this address, so replying here reaches nobody. If anything in
             it reads wrong, say so in a Claude Code session and it is changed or taken down from

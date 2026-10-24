@@ -1,7 +1,26 @@
 ---
 import { getCollection, render } from 'astro:content';
 import GuideLayout from '../../layouts/GuideLayout.astro';
+import { getImage } from 'astro:assets';
 import { article, faqPage } from '../../lib/seo';
+import { photoByName } from '../../data/photos';
+import Callout from '../../components/content/Callout.astro';
+import BlogPhoto from '../../components/content/BlogPhoto.astro';
+
+// A post's own illustration, made when it was written, is src/assets/blog/<slug>.webp. Posts without
+// one open on one of our installation photos, chosen by category.
+const ILLUSTRATIONS = import.meta.glob<{ default: ImageMetadata }>('../../assets/blog/*.webp', { eager: true });
+const CATEGORY_PHOTO: Record<string, string> = {
+  'Subsidy and bills': 'rooftop-solar-panels-on-house-punjab',
+  'Sizing and systems': 'rooftop-solar-array-home-punjab',
+  'Hybrid, on-grid and off-grid': 'solar-inverter-and-electrical-panel-installed',
+  'Solar pumps and agriculture': 'solar-pump-water-flowing-into-field-channel',
+  'Panels and inverters': 'solar-panel-array-close-up-punjab',
+  'Installation and maintenance': 'rooftop-solar-mounting-structure-punjab',
+  Financing: 'rooftop-solar-panels-town-punjab',
+  'Residential and commercial': 'solar-panel-canopy-commercial-punjab',
+  'ROI and payback': 'rooftop-solar-panels-on-house-punjab',
+};
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -33,6 +52,11 @@ const sameCategory = (await getCollection('blog'))
   .slice(0, 3)
   .map((p) => ({ href: `/blog/${p.id}/`, label: clean(p.data.title) }));
 const related = [...chosen, ...sameCategory];
+
+const own = ILLUSTRATIONS[`../../assets/blog/${entry.id}.webp`]?.default;
+const photo = photoByName(CATEGORY_PHOTO[d.category]!)!;
+const hero = own ? { src: own, alt: d.imageAlt ?? headline } : { src: photo.src, alt: photo.alt };
+const og = await getImage({ src: hero.src, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 75 });
 ---
 
 <GuideLayout
@@ -48,8 +72,11 @@ const related = [...chosen, ...sameCategory];
   faq={d.faq}
   updated={d.updated ?? d.published}
   ogType="article"
+  hero={hero}
+  ogImage={og.src}
+  ogImageAlt={hero.alt}
   related={related}
   {...(d.cta ? { cta: d.cta } : {})}
 >
-  <Content />
+  <Content components={{ Callout, BlogPhoto }} />
 </GuideLayout>

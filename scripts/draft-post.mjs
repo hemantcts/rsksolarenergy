@@ -7,14 +7,20 @@
 // real run was held for saying the subsidy is "paid to the bank" because that is what its own brief
 // said, while the checker's wording was "into the applicant's own bank account".
 //
-// The topic comes from the weekly Search Console report (seo-report.md) when one is present, or
-// from the TOPIC env var. The model is handed the site's own figures, the list of pages it may
+// Every post follows one plan: a real customer problem, a useful solution, and a new way to see it,
+// each problem, fix and insight in its own boxed callout, with a chart and a comparison table.
+//
+// The topic is the TOPIC env var, then the top line of files/TOPICS.md, and otherwise the model picks
+// a customer problem from the Search Console report (seo-report.md) and the questions already
+// answered across the site. The model is handed the site's own figures, the list of pages it may
 // link to, and the chart snippets it may use, so a draft cannot invent numbers or links.
 //
 // Usage: node scripts/draft-post.mjs ["a topic in plain words"]
 import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { generate } from './lib/ai.mjs';
 import { failingTells } from './lib/tells.mjs';
+import { ourWarrantySentence } from './lib/warranty.mjs';
+import { load as parseYaml } from 'js-yaml';
 import { FACTS_TEXT } from './lib/facts.mjs';
 import { SOLAR_CONFIG as C } from '../src/config/solar-config.ts';
 
@@ -39,6 +45,19 @@ const frontmatterOf = (file, dir) => {
   const title = (text.match(/^title:\s*'?"?(.*?)'?"?$/m) || [])[1] ?? file;
   return { slug: file.replace(/\.mdx$/, ''), title };
 };
+/** Questions customers ask, from the FAQs across the site: where the writer looks for a problem. */
+const QUESTIONS = [
+  ...new Set(
+    ['src/content/blog', 'src/content/guides', 'src/content/library'].flatMap((dir) =>
+      readdirSync(dir)
+        .filter((f) => f.endsWith('.mdx'))
+        .flatMap((f) => [...readFileSync(`${dir}/${f}`, 'utf8').matchAll(/^\s+- q: '?(.+?)'?\s*$/gm)].map((m) => m[1])),
+    ),
+  ),
+];
+/** Our installation photos a post may show, by name, from src/data/photos.ts. */
+const PHOTOS = [...readFileSync('src/data/photos.ts', 'utf8').matchAll(/name: '([^']+)', src: \w+, alt: '([^']+)'/g)].map((m) => ({ name: m[1], alt: m[2] }));
+
 const posts = readdirSync(BLOG).filter((f) => f.endsWith('.mdx')).map((f) => frontmatterOf(f, BLOG));
 const guides = readdirSync(GUIDES).filter((f) => f.endsWith('.mdx')).map((f) => frontmatterOf(f, GUIDES));
 
@@ -134,6 +153,11 @@ WRITING RULES (these are how a person writes, and how the site's automated check
 - Vary sentence length. Short sentences are good. Use "is", "are" and "has" rather than longer phrases.
 - Write for a homeowner or business owner in Punjab who is deciding whether to spend money.
 
+EVERY POST FOLLOWS ONE PLAN:
+- Start from one real problem a Punjab customer brings to a solar installer: what they see (a bill, a meter reading, a quote, a fault, a doubt) and why it worries them.
+- Give a useful solution: what causes it and what to do, step by step, using our figures.
+- Give a new perspective: one way of looking at the problem that most people miss and that changes the decision. It has to follow from the facts you were given. It is a way of seeing, not a new claim.
+
 FORMAT: output ONLY the .mdx file, starting with the frontmatter fence. No preamble, no code fence around the whole thing, no commentary after.`;
 
 const report = existsSync('seo-report.md') ? readFileSync('seo-report.md', 'utf8').slice(0, 4000) : '';
@@ -148,19 +172,40 @@ const backlog = existsSync(backlogFile)
 const topic = process.argv.slice(2).join(' ') || process.env.TOPIC || backlog[0] || '';
 if (!process.argv[2] && !process.env.TOPIC && backlog[0]) console.log(`Topic from the backlog: ${backlog[0]}`);
 
-const PROMPT = `${topic ? `TOPIC (use this): ${topic}` : 'Choose the topic yourself from the search report below. Pick the search with real demand that our existing posts do not already answer, and write the post that would satisfy it.'}
+const PROMPT = `${topic ? `TOPIC (use this, framed as the customer's problem): ${topic}` : 'Choose the topic yourself: one real problem a Punjab homeowner, farmer or business owner brings to a solar installer. Use the search report below for what people are searching for, and the customer questions further down. Pick a problem none of the existing posts already answers, and write the post that solves it.'}
 
 ${report ? `SEARCH CONSOLE REPORT (last 28 days):\n${report}\n` : ''}
 POSTS THAT ALREADY EXIST (do not repeat these; link to them where relevant):
 ${posts.map((p) => `- /blog/${p.slug}/ — ${p.title}`).join('\n')}
+
+QUESTIONS CUSTOMERS ASK (from our pages; a source of real problems, not a list to copy):
+${QUESTIONS.map((q) => `- ${q}`).join('\n')}
 
 GUIDES THAT ALREADY EXIST:
 ${guides.map((g) => `- /${g.slug}/ — ${g.title}`).join('\n')}
 
 FIGURES YOU MAY USE. These are the only ones, and the checks that follow use this same list, so wording that drifts from it is treated as invention:${FACTS_TEXT}
 
-CHART SNIPPETS: include exactly one chart. Copy one of these blocks as it is, changing only the title, caption and emphasis row. Put the imports directly under the frontmatter.
+CHART SNIPPETS: include one chart. Copy one of these blocks as it is, changing only the title, caption and emphasis row. Put the imports directly under the frontmatter.
 ${CHARTS}
+
+BOXES. Three boxed parts, written exactly like this, with the blank lines, and no import needed:
+
+<Callout kind="problem">
+
+The customer's problem in two to four sentences, in their terms.
+
+</Callout>
+
+- kind="problem" comes first, before any heading, right after the opening answer.
+- kind="fix" holds the short list of what to do, as a bullet list.
+- kind="insight" holds the new perspective, two to four sentences, later in the post.
+Use each kind exactly once.
+
+COMPARISON TABLE. Include one markdown table that sets two or three options side by side (for example on-grid and hybrid, 3 kW and 5 kW, before and after, cleaning now and cleaning later), with a header row. Cells are words, or figures from your list.
+
+PHOTO (optional). Where it shows what a paragraph is about, add one of our own installation photos on its own line, as <BlogPhoto name="..." />, using a name from this list. No import needed.
+${PHOTOS.map((p) => `- ${p.name}: ${p.alt}`).join('\n')}
 
 ALLOWED LINKS. Link to at least four of these from the body text, written as markdown links inside sentences, for example [the calculator](/solar-calculator/). The three related entries in the frontmatter are on top of that.
 ${LINKS.join('\n')}
@@ -173,6 +218,7 @@ description: 'One sentence, 150 characters or fewer, says what the reader gets'
 published: '${TODAY}'
 category: 'one of: ${CATEGORIES.join(' | ')}'
 tags: ['three', 'or', 'four']
+imageAlt: 'Illustration of the scene for the picture at the top of the post, in one sentence of 160 characters or fewer. Show the situation in the problem, for example a family on a Punjab rooftop looking at a bill beside solar panels. No words, numbers or brand names in the scene.'
 faq:
   - q: A real question someone asks
     a: 'A direct answer, two or three sentences.'
@@ -187,7 +233,7 @@ cta:
   message: 'Hi RSK Solar Energy, ... '
 ---
 
-BODY: 700 to 1000 words. Open with the answer in the first two sentences. Use "## " headings in sentence case. Include the chart with a caption that says where the figures come from. Use a short bullet list where it helps. End on something concrete, not a summary.`;
+BODY: 700 to 1000 words. Open with the answer in the first two sentences, then the problem box. Use "## " headings in sentence case. Include the chart with a caption that says where the figures come from, and the comparison table. End on something concrete, not a summary.`;
 
 // ---- tidied before the checks, because neither is worth a whole correction pass ----
 /**
@@ -258,26 +304,44 @@ function problem(draft) {
   if (/[—–]/.test(draft.replace(/\d\s*[–—]\s*\d/g, ''))) return 'used a dash as a connector';
   // Sentence by sentence, so "UTL gives a 10-year warranty" in one place and "we provide the
   // structure" in another is fine, while "we provide a warranty" or "our guarantee" is not.
-  const promise = draft
-    .replace(/\s+/g, ' ')
-    .split(/(?<=[.?!'])\s+/)
-    .find(
-      (s) =>
-        /\bwe guarantee\b|\bguaranteed by us\b/i.test(s) ||
-        /\bwe (offer|give|provide|include|extend)\s+(\S+\s+){0,4}(warrant(y|ies)|guarantees?)\b/i.test(s) ||
-        /\bour (own\s+)?(\S+\s+)?(warranty|warranties|guarantee)\b/i.test(s) ||
-        /\bRSK Solar Energy['’]s (\S+\s+)?(warranty|guarantee)\b/i.test(s),
-    );
+  const promise = ourWarrantySentence(draft);
   if (promise) return `implied that RSK Solar Energy gives a warranty or guarantee, in this sentence: "${promise.trim().slice(0, 160)}". Only manufacturers' warranties exist; say whose they are`;
   const bad = [...new Set(linksIn(draft))].filter((u) => !LINKS.includes(u));
   if (bad.length) return `linked to pages that are not in the allowed list: ${bad.join(', ')}`;
   const inBody = new Set(linksIn(draft.slice(draft.indexOf('\n---', 3) + 4)));
   if (inBody.size < 3) return `linked to only ${inBody.size} of our pages in the body (three at least)`;
   if (!/<BarChart|<PriceRangeChart/.test(draft)) return 'had no chart';
-  const tells = failingTells(prose(draft));
+  for (const kind of ['problem', 'fix', 'insight']) {
+    const n = draft.split(`<Callout kind="${kind}">`).length - 1;
+    if (n !== 1) return `had ${n} <Callout kind="${kind}"> boxes (exactly one)`;
+  }
+  if ((draft.match(/<Callout\b/g) ?? []).length !== (draft.match(/<\/Callout>/g) ?? []).length) return 'left a <Callout> box without its closing </Callout>';
+  if (draft.indexOf('<Callout kind="problem">') > draft.search(/^## /m)) return 'put the problem box after the first heading (it comes first)';
+  if (!/^\|.+\|\s*\n\|\s*:?-{3,}/m.test(draft)) return 'had no comparison table';
+  const photos = [...draft.matchAll(/<BlogPhoto name="([^"]*)"/g)].map((m) => m[1]);
+  const wrongPhoto = photos.find((n) => !PHOTOS.some((p) => p.name === n));
+  if (wrongPhoto !== undefined) return `used a photo that is not in the list: "${wrongPhoto}"`;
+  if (photos.length > 1) return 'used more than one photo';
+  const imageAlt = field(draft, 'imageAlt');
+  if (!/^Illustration of /.test(imageAlt) || imageAlt.length > 160) return 'needs an imageAlt starting "Illustration of", 160 characters or fewer';
+  let fm;
+  try {
+    fm = parseYaml(frontmatter(draft));
+  } catch (err) {
+    return `had frontmatter that is not valid YAML (${err.reason ?? err.message}). Put every text value in single quotes on one line`;
+  }
+  // The description and FAQ answers are checked too: they show on the blog index and in the FAQ.
+  const tells = failingTells([prose(draft), fm?.description, ...(fm?.faq ?? []).map((e) => e?.a)].filter(Boolean).join('\n\n'));
   if (tells.length) return `failed the writing check (${tells[0].name}) in this sentence: "${tells[0].sentence}"`;
   if (posts.some((p) => p.slug === slugFor(title))) return `has the same title as an existing post; choose a different title`;
   return null;
+}
+
+// `--check <file>` runs the rules above on a post already written, and writes nothing.
+if (process.argv[2] === '--check') {
+  const why = problem(readFileSync(process.argv[3], 'utf8'));
+  console.log(why ? `It ${why}.` : 'Passes every rule.');
+  process.exit(why ? 1 : 0);
 }
 
 const ATTEMPTS = 3;

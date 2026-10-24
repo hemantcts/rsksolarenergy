@@ -1,0 +1,16 @@
+---
+/** One of our own installation photos, by name, with the alt text and caption it has everywhere. */
+import { Image } from 'astro:assets';
+import { photoByName } from '../../data/photos';
+
+interface Props {
+  name: string;
+}
+const photo = photoByName(Astro.props.name);
+if (!photo) throw new Error(`No photo called "${Astro.props.name}" in src/data/photos.ts`);
+---
+
+<figure class="not-prose my-8">
+  <Image src={photo.src} alt={photo.alt} widths={[480, 800, 1200]} sizes="(min-width: 1024px) 40rem, calc(100vw - 2.5rem)" quality={70} class="w-full rounded-sm" />
+  <figcaption class="t-small mt-2 text-slate">{photo.caption}</figcaption>
+</figure>
