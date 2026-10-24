@@ -12,4 +12,4 @@ usually the better choice: it follows what people are actually searching for.
 - ~~Choosing between 3 kW and 5 kW when the bill sits near the free-units line~~
 - ~~DCR and ALMM: what the two lists mean when you are buying panels~~
 - ~~Housing society solar: who signs, and how the subsidy works for a society~~
-- Why a quote should be a range, and what moves it up or down
+- ~~Why a quote should be a range, and what moves it up or down~~
