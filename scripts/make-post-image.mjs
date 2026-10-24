@@ -9,6 +9,7 @@
 // Needs OPENAI_API_KEY. Usage: node scripts/make-post-image.mjs <slug>
 import { readFileSync, mkdirSync } from 'node:fs';
 import sharp from 'sharp';
+import { load as parseYaml } from 'js-yaml';
 
 const slug = process.argv[2];
 const key = process.env.OPENAI_API_KEY;
@@ -20,7 +21,7 @@ if (!slug || !key) {
 }
 
 const post = readFileSync(`src/content/blog/${slug}.mdx`, 'utf8');
-const scene = (post.match(/^imageAlt:\s*'(.*)'\s*$/m) || [])[1]?.replace(/''/g, "'");
+const scene = parseYaml(post.slice(3, post.indexOf('\n---', 3)))?.imageAlt;
 if (!scene) {
   console.error(`${slug} has no imageAlt to draw from.`);
   process.exit(1);

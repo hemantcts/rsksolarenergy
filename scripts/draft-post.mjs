@@ -218,7 +218,8 @@ description: 'One sentence, 150 characters or fewer, says what the reader gets'
 published: '${TODAY}'
 category: 'one of: ${CATEGORIES.join(' | ')}'
 tags: ['three', 'or', 'four']
-imageAlt: 'Illustration of the scene for the picture at the top of the post, in one sentence of 160 characters or fewer. Show the situation in the problem, for example a family on a Punjab rooftop looking at a bill beside solar panels. No words, numbers or brand names in the scene.'
+imageAlt: 'Illustration of a family on a Punjab rooftop looking at a bill beside solar panels'
+  (imageAlt describes the picture drawn for the top of the post: one short sentence starting "Illustration of", under 200 characters, showing the situation in the problem, with no words, numbers or brand names in the scene)
 faq:
   - q: A real question someone asks
     a: 'A direct answer, two or three sentences.'
@@ -291,6 +292,8 @@ const prose = (draft) =>
  * so a fixable slip (a stray phrase, one sentence that sounds like our own warranty) costs a retry
  * instead of the whole post. A draft that still breaks a rule after the last attempt is thrown away.
  */
+const usableImageAlt = (alt) => typeof alt === 'string' && /^(an? )?illustration\b/i.test(alt.trim()) && alt.length <= 200;
+
 function problem(draft) {
   if (!draft.startsWith('---')) return 'had no frontmatter';
   const title = field(draft, 'title');
@@ -322,8 +325,6 @@ function problem(draft) {
   const wrongPhoto = photos.find((n) => !PHOTOS.some((p) => p.name === n));
   if (wrongPhoto !== undefined) return `used a photo that is not in the list: "${wrongPhoto}"`;
   if (photos.length > 1) return 'used more than one photo';
-  const imageAlt = field(draft, 'imageAlt');
-  if (!/^Illustration of /.test(imageAlt) || imageAlt.length > 160) return 'needs an imageAlt starting "Illustration of", 160 characters or fewer';
   let fm;
   try {
     fm = parseYaml(frontmatter(draft));
@@ -334,6 +335,9 @@ function problem(draft) {
   const tells = failingTells([prose(draft), fm?.description, ...(fm?.faq ?? []).map((e) => e?.a)].filter(Boolean).join('\n\n'));
   if (tells.length) return `failed the writing check (${tells[0].name}) in this sentence: "${tells[0].sentence}"`;
   if (posts.some((p) => p.slug === slugFor(title))) return `has the same title as an existing post; choose a different title`;
+  // Last, so a weak picture description only ever costs the illustration: after the final attempt
+  // the post goes out without one and opens on an installation photo instead.
+  if (!usableImageAlt(fm?.imageAlt)) return `had imageAlt ${JSON.stringify(fm?.imageAlt ?? null)}; it must be one sentence starting "Illustration of", 200 characters or fewer, in single quotes`;
   return null;
 }
 
@@ -357,6 +361,12 @@ for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
   if (!why) break;
   console.log(`Attempt ${attempt} of ${ATTEMPTS} rejected: it ${why}.`);
   prompt = `${PROMPT}\n\nYOUR PREVIOUS DRAFT WAS REJECTED because it ${why}. Write the whole post again, following every rule above, and fix that. Your previous draft, for reference:\n\n${body}`;
+}
+// The picture description is checked last, so this is the only fault left: publish without it.
+if (why?.startsWith('had imageAlt')) {
+  console.log('Publishing without an illustration; the post opens on an installation photo.');
+  body = body.replace(/^imageAlt:.*\r?\n/m, '');
+  why = null;
 }
 if (why) {
   console.error(`Draft rejected after ${ATTEMPTS} attempts: it ${why}.`);
