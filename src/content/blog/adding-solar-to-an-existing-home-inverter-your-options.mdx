@@ -1,0 +1,127 @@
+---
+title: 'Adding solar to an existing home inverter: your options'
+description: 'Have a home UPS with batteries already? Here is how to add solar properly, what each route needs, and what to expect in Punjab.'
+published: '2026-11-06'
+category: 'Hybrid, on-grid and off-grid'
+tags: ['inverter', 'retrofit', 'on-grid', 'hybrid']
+imageAlt: 'Illustration of a family on a Punjab rooftop looking at a bill beside solar panels'
+faq:
+  - q: Can I keep my existing home inverter and just add solar panels?
+    a: 'Yes, by adding a solar charge controller and panels you can make it a small off-grid system. It will not qualify for the PM Surya Ghar subsidy, and it will not run during a power cut beyond what the batteries can supply.'
+  - q: Will I get the PM Surya Ghar subsidy if I add panels to my UPS?
+    a: 'Only on-grid and hybrid systems qualify, with DCR panels on the ALMM list. A UPS plus charge controller is off-grid, so it does not qualify.'
+  - q: How big should I go if I want to cut my grid use most of the year?
+    a: 'Plan from your own bills and roof space. As a planning figure, each kW makes about 135 units a month on average in Punjab, but it depends on your roof, shade, dust and weather.'
+related:
+  - href: /on-grid-vs-off-grid-vs-hybrid/
+    label: System types compared
+  - href: /mppt-vs-pwm-charge-controller/
+    label: MPPT vs PWM explained
+  - href: /pm-surya-ghar-subsidy-punjab/
+    label: PM Surya Ghar amounts and steps
+cta:
+  heading: Want us to check your current inverter and wiring?
+  label: Ask RSK Solar Energy on WhatsApp
+  message: 'Hi RSK Solar Energy, I have a home inverter already. Can you assess if I should add a charge controller, or replace it with on-grid or hybrid?'
+---
+
+You can add solar to a home that already has a UPS inverter and batteries, but the right way depends on what you want: backup, bill cutting or both. In Punjab, the cleanest bill-cutting route is on-grid; keeping backup means hybrid, and a quick add-on is off-grid with a solar charge controller.
+
+<Callout kind="problem">
+
+“I already have a home inverter with batteries. Power cuts are rare now, but my summer bills are high. Can you just add solar panels to what I have, and will I get the subsidy?”
+
+</Callout>
+
+## The three routes that actually work
+
+Here are the workable paths we install in Mohali and nearby. Pick by what you value.
+
+- Keep your UPS, add a solar charge controller and panels
+  - What it is: An off-grid setup that charges your existing batteries from solar.
+  - What you need: A suitable charge controller sized to your battery bank and panel array, panels, mounting, DC and AC protection, wiring. See our notes on [solar charge controllers](/solar-charge-controller/) and [MPPT vs PWM](/mppt-vs-pwm-charge-controller/).
+  - What it does: Runs selected loads from the UPS during sunshine and from batteries when the grid is out. It does not export to the grid, and it does not take the subsidy.
+  - When it suits: You want a modest add-on, mainly for backup continuity and a bit of daytime use, and you accept no subsidy.
+
+- Replace the UPS with a hybrid inverter, add panels
+  - What it is: A hybrid system that can power the home, charge batteries and interact with the grid.
+  - What you need: A hybrid inverter, battery bank, panels, mounting, protection, and net metering approval if you will connect to grid. Read our [hybrid guide](/hybrid-solar-systems/).
+  - What it does: Cuts your bill by using solar first, keeps backup on battery, and can qualify for the subsidy when built with DCR, ALMM-listed panels.
+  - When it suits: You want bill reduction plus backup. You accept that hybrid costs more than on-grid at the same size.
+
+- Go on-grid, no battery
+  - What it is: An on-grid system with a grid-tied inverter and net meter.
+  - What you need: On-grid inverter, panels, mounting, protection, DCR and ALMM-listed panels for subsidy, and PSPCL net metering. See [on-grid vs off-grid vs hybrid](/on-grid-vs-off-grid-vs-hybrid/).
+  - What it does: Uses solar first and exports surplus under PSPCL rules. It turns off during a power cut. It qualifies for the subsidy with DCR, ALMM-listed panels.
+  - When it suits: You want bill reduction and do not need backup.
+
+## What to check on day one
+
+- Your goal. Backup, bill cutting, or both. Write it down.
+- Your sanctioned load. A rooftop system can be at most 100 percent of your sanctioned load. If you plan on-grid or hybrid with net metering, this is the cap. See our note on [sanctioned load and size](/blog/sanctioned-load-and-rooftop-solar-size/).
+- Your roof. Allow about 100 sq ft of shade-free roof per kW.
+- Your bills. As a planning figure, each kW makes about 135 units a month on average in Punjab. In the sunniest months, output can reach up to about 180 units per kW with TOPCon panels, and in December and January fog we plan on about 75 percent of the average. These are estimates and depend on your roof, shade, dust and weather. Our [solar calculator](/solar-calculator/) can help you sense the range.
+- Your existing batteries. If you go hybrid or off-grid, plan usable energy: lithium is usually planned at 80 percent usable each cycle, tubular at 50 percent.
+
+<BlogPhoto name="utl-solar-on-grid-inverter-installed" />
+
+## Cost and subsidy, kept simple
+
+- Installed price ranges we publish today, before subsidy, as estimates:
+  - 3 kW on-grid: ₹1,78,000 to ₹1,95,800
+  - 5 kW on-grid: ₹2,50,000 to ₹2,75,000
+- Hybrid always costs more than on-grid at the same size because of the battery and hybrid inverter. Off-grid kits are priced on a different basis and are not comparable size for size.
+- PM Surya Ghar pays ₹30,000 per kW for the first 2 kW and ₹18,000 for the third, capped at ₹78,000. It is paid 30 to 45 days after the DISCOM inspection into your own bank account. It never comes off the invoice, and it never goes to a lender or an installer. On-grid and hybrid qualify, off-grid does not. Panels must be DCR and on the ALMM list. Read our [Punjab subsidy guide](/pm-surya-ghar-subsidy-punjab/) and the [loan option](/pm-surya-ghar-solar-loan/) if you plan to finance.
+
+## What your meter and bill will show
+
+On on-grid and hybrid with net metering, the units your home uses as they are made are the ones worth most, because they replace units you would have bought. Whatever is exported is settled under PSPCL net metering rules. Our own calculations give export no value at all, so no saving figure of ours depends on it. If you want to track import and export, see our walkthrough on [reading your net meter and bill](/read-solar-meter-and-electricity-bill/).
+
+## A quick size sense for common homes
+
+import BarChart from '../../components/charts/BarChart.astro';
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
+
+export const perKwMonth = effectiveYieldPerKw(SOLAR_CONFIG) / 12;
+export const sizes = [1, 2, 3, 5, 10];
+export const rows = sizes.map((kw) => ({ label: `${kw} kW`, value: kw * perKwMonth, display: `${Math.round(kw * perKwMonth)} units`, emphasis: kw === 3 }));
+export const ticks = [0, 500, 1000, 1500].map((v) => ({ value: v, label: String(v) }));
+
+<div class="not-prose my-8">
+<BarChart title="Units a month if your roof fits it" rows={rows} max={1500} ticks={ticks} valueHeading="Units a month" caption="Our planning figure across the year, from our sizing config." />
+</div>
+
+Each value is an estimate and depends on your roof, shade, dust and weather. Use it to see if your target is realistic with your sanctioned load and roof.
+
+## Retrofit choices, side by side
+
+| Option | Qualifies for PM Surya Ghar | Uses existing UPS and batteries | Exports under net metering | Keeps backup in power cuts |
+|---|---|---|---|---|
+| Add charge controller to UPS (off-grid) | No | Yes | No | Yes |
+| Replace with hybrid inverter | Yes (with DCR, ALMM-listed panels) | No (batteries can be reused if suitable) | Yes | Yes |
+| Go on-grid, no battery | Yes (with DCR, ALMM-listed panels) | No | Yes | No |
+
+If you want to compare brands while choosing panels and inverters, see our product paths for [solar panels](/products/solar-panels/) and [inverters](/products/inverters/), and brand comparisons like [UTL vs Adani](/utl-vs-adani-solar/).
+
+<Callout kind="fix">
+
+- Decide your goal: backup, bill cutting, or both.
+- Check sanctioned load and roof space against your target size.
+- If you need backup, plan a hybrid system. If you only want bill cutting, plan on-grid.
+- If you must keep the UPS, add a charge controller knowing it is off-grid and not subsidised.
+- Use our [solar calculator](/solar-calculator/) and size pages like [3 kW](/3kw-solar-system-price-punjab/) and [5 kW](/5kw-solar-system-price-punjab/) to sense fit.
+
+</Callout>
+
+## The pitfall most people miss
+
+A UPS plus charge controller can seem like a quick way to “go solar”, but it does not export, it does not take the subsidy, and its impact on the bill is small if your daytime loads are already low. In Punjab, homes at or below 300 free units a month already have a zero bill, so solar has nothing to save. The way to make a dent in paid units is to size an on-grid or hybrid system to match your daytime use and your roof, then let it feed the house whenever the sun is out.
+
+<Callout kind="insight">
+
+Think of exporting as a bonus, not the plan. The units you use right away from your own roof are the ones that matter. That single idea helps you choose between keeping a UPS for backup versus replacing it for a grid-connected system.
+
+</Callout>
+
+If you want us to check your existing inverter and battery bank in person, we are a UTL Solar distributor based in Phase 8B, Mohali, since 2022, with our own team across Mohali, Kharar, Zirakpur, Derabassi, Chandigarh, Panchkula, New Chandigarh and nearby towns. Start by sharing a photo of your inverter stickers and battery model on [contact](/contact/), then open the [hybrid calculator](/hybrid-solar-calculator/) or [off-grid calculator](/off-grid-solar-calculator/) to try both paths before we visit. We will propose DCR, ALMM-listed panels where needed for subsidy and list the manufacturer warranties as they are.
