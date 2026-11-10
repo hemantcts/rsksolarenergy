@@ -1,0 +1,119 @@
+---
+title: 'High bill after solar? Read your net meter the right way'
+description: 'If your PSPCL bill is still high after installing solar, here is how to read import and export, check output, and fix the common causes we see on rooftops.'
+published: '2026-11-10'
+category: 'Subsidy and bills'
+tags: ['net metering', 'bills', 'Punjab', 'troubleshooting']
+imageAlt: 'Illustration of a family on a Punjab rooftop looking at a bill beside solar panels'
+faq:
+  - q: My bill is still high after going solar. Is my system underperforming?
+    a: 'Start by reading import and export on the net meter and compare to the expected monthly output of your system. In most homes the gap is from when power is used, shade or dirty panels, not the hardware.'
+  - q: How many units should I plan for from my system size in Punjab?
+    a: 'About 135 units a month per kW across the year is our planning figure. It is an estimate that depends on your roof, shade, dust and weather.'
+  - q: Do exports make my bill zero under net metering?
+    a: 'The units you use as they are made are the ones that save most. Exports are settled under PSPCL rules. We do not assign any value to export in our calculations.'
+related:
+  - href: /read-solar-meter-and-electricity-bill/
+    label: How to read your solar meter and electricity bill
+  - href: /pm-surya-ghar-subsidy-punjab/
+    label: PM Surya Ghar subsidy amounts and steps
+  - href: /blog/sanctioned-load-and-rooftop-solar-size/
+    label: Sanctioned load and your maximum solar size
+cta:
+  heading: Stuck on your meter reading?
+  label: Ask RSK Solar Energy on WhatsApp
+  message: 'Hi RSK Solar Energy, my PSPCL bill is still high after solar. Can you help me read my import/export and check if my system is on track?'
+---
+
+import BarChart from '../../components/charts/BarChart.astro';
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
+
+export const perKwMonth = effectiveYieldPerKw(SOLAR_CONFIG) / 12;
+export const sizes = [1, 2, 3, 5, 10];
+export const rows = sizes.map((kw) => ({ label: `${kw} kW`, value: kw * perKwMonth, display: `${Math.round(kw * perKwMonth)} units`, emphasis: kw === 3 }));
+export const ticks = [0, 500, 1000, 1500].map((v) => ({ value: v, label: String(v) }));
+
+If your PSPCL bill is still high after installing solar, start with the net meter. Read import and export, then compare what you see to what your system should make in a month. The fix is usually in when the home uses power, the panels on the roof, or shade.
+
+<Callout kind="problem">
+
+"My 5 kW system went live, but my two month PSPCL bill is still bigger than I expected. The net meter shows export, the inverter app shows generation, and I am confused which number matters. Is something wrong with my installation?"
+
+</Callout>
+
+## What matters on the net meter
+
+- Import is the power you still bought from the grid. That is what makes up your bill.
+- Export is the surplus solar sent to the grid. It is settled under PSPCL's net metering rules, but in our own planning we give export no value at all.
+- The biggest savings come from using solar as it is made in the day. Running heavy loads at night raises import even if your total generation is healthy.
+
+For a walk through of the meter screens and where to find import and export on a PSPCL net meter, use our step by step guide: [how to read your solar meter and electricity bill](/read-solar-meter-and-electricity-bill/).
+
+## Check your system’s expected monthly output
+
+Across Punjab we plan on about 135 units a month from each kW of panels, averaged over the year. It is an estimate that depends on your roof, shade, dust and weather. In the sunniest months, systems with TOPCon panels can reach up to about 180 units per kW, and in December and January fog we plan on about 75% of the average.
+
+<div class="not-prose my-8">
+<BarChart title="Units a month by system size" rows={rows} max={1500} ticks={ticks} valueHeading="Units a month" caption="Our planning figure across the year." />
+</div>
+
+- Example for planning: a 3 kW system is about 405 units a month across the year. A 5 kW system is about 675 units a month. Again, these are estimates that depend on the roof, shade, dust and weather.
+
+You can size and recheck your expected monthly generation with [our solar calculator](/solar-calculator/). If you are still choosing panels, see how technologies differ in [our TOPCon explainer](/topcon-solar-panels/) and [mono PERC guide](/mono-perc-half-cut-solar-panels/).
+
+## Step by step when a bill looks higher than it should
+
+<Callout kind="fix">
+
+- Note your system size in kW, then multiply by about 135 to get an estimated monthly generation. Treat it as a roof and weather dependent estimate.
+- Read your net meter import and export for the bill period. Use our guide: [how to read your meter and bill](/read-solar-meter-and-electricity-bill/).
+- Compare inverter app generation to the meter’s figures. Small differences happen. Look for big gaps only.
+- Walk the roof at noon. Check for new shade from a tank, dish or a neighbour’s structure. Clean the glass if you see dust or smoke film.
+- Shift daytime loads to sunny hours. Washing machine, geyser, ironing, and EV charging in the day cut import.
+- If the issue is only in December and January, plan for lower output in fog season.
+- If usage has grown or daytime use is low, consider upsizing within your sanctioned load limit or a hybrid option. Read [sanctioned load rules](/blog/sanctioned-load-and-rooftop-solar-size/) and see [system types](/on-grid-vs-off-grid-vs-hybrid/).
+
+</Callout>
+
+<BlogPhoto name="rooftop-solar-panels-town-punjab" />
+
+## Why two similar homes get different bills from the same system
+
+| With the same size system | Day use home | Night use home |
+|---|---|---|
+| When heavy loads run | Mostly in the day | Mostly after sunset |
+| Net meter import | Lower, because solar serves loads directly | Higher, because grid serves night loads |
+| Export reading | Often higher | Often lower |
+| What to adjust first | Keep heavy appliances in sunny hours | Move some loads to the day or consider backup |
+| If still short | Check shade or cleaning | Check shade or cleaning, then consider size within sanctioned load |
+
+This is why a neighbour’s export number can be large while your bill is larger. The timing of use decides how much solar you keep for yourself.
+
+## When is it a system problem
+
+Most cases we see in Mohali and around are solved on the roof and in how power is used. Still, call us if you notice any of these:
+
+- A clear drop on the inverter app after a storm or wiring change on site
+- One string reading far lower than the other for days in similar sun
+- Repeated inverter faults or tripping
+- A sudden new shadow path across the array at many hours
+
+We will test string by string, check connectors, and trace shade. If a product fault is found, the warranty is the manufacturer’s on their terms. RSK Solar Energy does not give a separate warranty.
+
+If your roof allows, remember a rooftop system can be at most 100 percent of your sanctioned load. If you need more than that can allow, speak to us about sanctioned load changes and options. Start here: [Sanctioned load: why it caps your rooftop solar size](/blog/sanctioned-load-and-rooftop-solar-size/).
+
+## A homeowner’s tool kit for sizing, types and prices
+
+- Use the [solar calculator](/solar-calculator/) to test sizes against your monthly units.
+- If backup for evening peaks would help you use more solar, compare [on grid vs hybrid vs off grid](/on-grid-vs-off-grid-vs-hybrid/). Hybrid systems qualify for the PM Surya Ghar subsidy. Off grid does not.
+- Explore evening backup sizing with the [hybrid calculator](/hybrid-solar-calculator/).
+- If you are checking prices, our installed price ranges before subsidy are estimates: 3 kW on grid ₹1,78,000 to ₹1,95,800, and 5 kW on grid ₹2,50,000 to ₹2,75,000. Every quote we give is a range. For component options see [panels](/products/solar-panels/), [inverters](/products/inverters/) and [batteries](/products/batteries/).
+
+<Callout kind="insight">
+
+The number that saves you money is not export. It is the units you do not buy because your daytime loads ran on solar as it was made. Once you see your bill through that lens, shifting when you use power often moves the needle more than chasing a higher export reading.
+
+</Callout>
+
+If your usage pattern is fixed and you still import a lot, we can check if a larger on grid system fits your roof and sanctioned load, or if a small hybrid battery for evening peaks makes sense in your case. Use our [hybrid calculator](/hybrid-solar-calculator/) to explore sizes, then message us with your latest bill photo and a roof photo so our team in Mohali can advise what will work on your terrace.
