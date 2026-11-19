@@ -17,6 +17,15 @@ function init(root: HTMLElement) {
     for (const [k, v] of new FormData(form)) if (typeof v === 'string' && v.trim() !== '') out.append(k, v.trim());
     return out;
   };
+  // The share link carries only what differs from the pre-filled form, whose values are the same
+  // defaults the parser falls back to, so it stays short enough for WhatsApp to show as a link. The
+  // mode and the cut length always go in, so an opened link always shows its estimate.
+  const defaults = params();
+  const shareParams = () => {
+    const out = new URLSearchParams();
+    for (const [k, v] of params()) if (k === 'mode' || k === 'backup-hours' || defaults.get(k) !== v) out.append(k, v);
+    return out;
+  };
 
   /** Never negative, never above the field's max, whole numbers for counts. */
   function clean(input: HTMLInputElement) {
@@ -42,11 +51,11 @@ function init(root: HTMLElement) {
   function compute(focus: boolean) {
     const p = params();
     const { input, estimate } = estimateBackupFrom(p);
-    const shareUrl = `${location.origin}${location.pathname}?${p.toString()}`;
+    const shareUrl = `${location.origin}${location.pathname}?${shareParams().toString()}`;
     result!.innerHTML = renderBackupResult(estimate, input, { interactive: true, shareUrl });
     result!.hidden = false;
     shown = true;
-    history.replaceState(null, '', `?${p.toString()}`);
+    history.replaceState(null, '', `?${shareParams().toString()}`);
     if (focus) {
       result!.focus({ preventScroll: true });
       result!.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -78,7 +87,7 @@ function init(root: HTMLElement) {
     const t = ev.target as HTMLElement;
     if (t.closest('[data-bk-print]')) window.print();
     else if (t.closest('[data-bk-share]')) {
-      const url = `${location.origin}${location.pathname}?${params().toString()}`;
+      const url = `${location.origin}${location.pathname}?${shareParams().toString()}`;
       const out = result.querySelector<HTMLElement>('[data-bk-share-status]');
       try {
         if (navigator.share) await navigator.share({ title: 'My solar estimate', url });
