@@ -1,0 +1,128 @@
+---
+title: 'Three-phase home: do you need a three-phase solar inverter?'
+description: 'Have a three-phase supply and two different quotes? Here is when a single-phase inverter fits, when to pick three-phase, and how to size from your use.'
+published: '2026-11-27'
+category: 'Panels and inverters'
+tags: ['inverters', 'three-phase', 'sizing', 'net meter']
+imageAlt: 'Illustration of a family on a Punjab rooftop looking at a bill beside solar panels'
+faq:
+  - q: 'Can I install a single-phase on-grid inverter on a three-phase supply?'
+    a: 'Often yes for smaller systems that target loads on one phase. A rooftop system can be at most 100% of the sanctioned load.'
+  - q: 'Does a three-phase inverter generate more power than a single-phase one?'
+    a: 'No. Generation comes from the panels and the sun. As a planning estimate in Punjab, each kW makes about 135 units a month across the year, which depends on the roof, shade, dust and weather.'
+  - q: 'Is a three-phase on-grid or hybrid system eligible for PM Surya Ghar?'
+    a: 'On-grid and hybrid qualify if panels are DCR and on the ALMM list. The subsidy is paid into the applicant’s bank 30 to 45 days after DISCOM inspection and never comes off the invoice.'
+related:
+  - href: /blog/how-to-choose-solar-inverter-for-home/
+    label: 'How to choose a solar inverter for home'
+  - href: /blog/sanctioned-load-and-rooftop-solar-size/
+    label: 'Sanctioned load: why it caps your rooftop solar size'
+  - href: /blog/net-metering-punjab-pspcl-explained/
+    label: 'Net metering in Punjab explained'
+cta:
+  heading: 'Stuck between single-phase and three-phase?'
+  label: 'Ask RSK Solar Energy on WhatsApp'
+  message: 'Hi RSK Solar Energy, I have a three-phase connection. Here are my sanctioned load, last bill, and main daytime loads. Should I pick a single-phase or three-phase inverter?'
+---
+
+Most Punjab homes with a three-phase connection do not automatically need a three-phase solar inverter. If your target size is modest and your daytime loads sit on one phase, a single-phase on-grid inverter can be the right choice.
+
+<Callout kind="problem">
+
+"My meter is three-phase. One installer quoted a single-phase 3 kW, another pushed a 5 kW three-phase. I do not want a surprise at inspection or a bill that does not move."
+
+</Callout>
+
+## What changes when the supply is three-phase
+
+A three-phase service lets PSPCL balance heavier and spread-out loads. Your solar inverter can be single-phase or three-phase on such a connection. The choice affects wiring, how cleanly your daytime use lines up with generation, and how your bill settles under net metering.
+
+- Size cap: a rooftop system can be at most 100% of the sanctioned load.
+- Value: the units you use the moment they are made are worth most, because they replace units you would have bought. Whatever is exported is settled under PSPCL’s rules. Our calculations give export no value at all.
+- Roof space: plan about 100 sq ft of shade-free roof per kW.
+
+## How to decide, step by step
+
+- Open your latest PSPCL bill. Note if the supply is three-phase and what your sanctioned load is. If your target size is above the cap, see the checks in our note on [sanctioned load](/blog/sanctioned-load-and-rooftop-solar-size/).
+- List real daytime loads: fridge, lights, fans, home office, and any AC or motor that runs in the sun. If you have a true three-phase motor, that points to a three-phase inverter.
+- Fix a target size from units, not only from budget. As a planning estimate in Punjab, each kW of panels gives about 135 units a month across the year. This depends on the roof, shade, dust and weather. In December and January fog, plan on about 75% of that average. With TOPCon panels, output can reach up to about 180 units per kW in the sunniest months.
+- Match inverter type to how you use power:
+  - Single-phase on-grid fits small systems that aim to offset one main phase’s daytime use.
+  - Three-phase on-grid fits higher sizes or when loads are spread across phases or include a large three-phase motor.
+- If backup matters, compare types here: [on-grid vs off-grid vs hybrid](/on-grid-vs-off-grid-vs-hybrid/). Hybrid always costs more than on-grid at the same size because of the battery and the hybrid inverter.
+
+Our guide on [how to choose a solar inverter](/blog/how-to-choose-solar-inverter-for-home/) gives the pros and cons by type, and [this note on net metering](/blog/net-metering-punjab-pspcl-explained/) shows how import and export appear on your bill.
+
+<BlogPhoto name="utl-solar-on-grid-inverter-installed" />
+
+## Single-phase vs three-phase at a glance
+
+| What to compare | Single-phase on-grid | Three-phase on-grid |
+|---|---|---|
+| Fits best when | Targeting one phase’s daytime use | Covering use spread across phases or a big three-phase motor |
+| Cap vs sanctioned load | Up to 100% of sanctioned load | Up to 100% of sanctioned load |
+| Meter-room work | Simpler tie-in to one phase | Balanced tie-in across phases |
+| Daytime self-use | Strong if main loads sit on that phase | Strong when loads are spread |
+| Backup path | Hybrid single-phase exists and costs more | Hybrid three-phase exists and costs more |
+| Subsidy path | On-grid and hybrid qualify with DCR + ALMM panels | On-grid and hybrid qualify with DCR + ALMM panels |
+
+## Size from your use and roof, then check the cap
+
+Start with units. If you are near Punjab’s 300 free units a month line, read why [daytime use matters](/blog/daytime-use-is-the-lever-that-makes-rooftop-solar-work/) and run your numbers with [the calculator](/solar-calculator/). New build with no bill yet? Try our [new-house solar calculator](/new-house-solar-calculator/).
+
+import BarChart from '../../components/charts/BarChart.astro';
+import { SOLAR_CONFIG } from '../../config/solar-config';
+import { effectiveYieldPerKw } from '../../lib/calculator/sizing';
+
+export const perKwMonth = effectiveYieldPerKw(SOLAR_CONFIG) / 12;
+export const sizes = [1, 2, 3, 5, 10];
+export const rows = sizes.map((kw) => ({ label: `${kw} kW`, value: kw * perKwMonth, display: `${Math.round(kw * perKwMonth)} units`, emphasis: kw === 5 }));
+export const ticks = [0, 500, 1000, 1500].map((v) => ({ value: v, label: String(v) }));
+
+<div class="not-prose my-8">
+<BarChart title="Estimated units a month by system size" rows={rows} max={1500} ticks={ticks} valueHeading="Units a month" caption="Planning figures from our shared configuration for Punjab." />
+</div>
+
+For roof space, budget about 100 sq ft of shade-free area per kW. If shade forces gaps between rows, we will adjust the layout and the target size. See options in [solar panels](/products/solar-panels/) and [inverters](/products/inverters/).
+
+## Price ranges and the subsidy, to plan your spend
+
+As installed, before subsidy, our on-grid estimates are:
+
+- 3 kW on-grid: ₹1,78,000 to ₹1,95,800
+- 5 kW on-grid: ₹2,50,000 to ₹2,75,000
+
+Every price on our site is a range and is an estimate. On-grid costs less than hybrid at the same size. Off-grid kits are priced on a different basis and are not comparable size for size. See current bundles in [solar systems](/products/solar-systems/).
+
+If you plan to apply for PM Surya Ghar, remember:
+
+- PM Surya Ghar pays ₹30,000 per kW for the first 2 kW and ₹18,000 for the third, capped at ₹78,000. Housing societies: ₹18,000 per kW up to 500 kW.
+- On-grid and hybrid qualify. Off-grid does not. Panels must be DCR and on the ALMM list. Read more here: [DCR vs Non-DCR](/dcr-vs-non-dcr-solar-panels/).
+- The subsidy is paid into the applicant’s own bank account 30 to 45 days after the DISCOM inspection. It never comes off the invoice. Full steps are in our [Punjab subsidy guide](/pm-surya-ghar-subsidy-punjab/).
+
+<Callout kind="fix">
+
+- Share your latest PSPCL bill showing supply type and sanctioned load.
+- List daytime appliances and any true three-phase motor.
+- Send a noon roof photo and rough dimensions.
+- We will size from about 135 units a month per kW as a planning estimate, check roof space, and recommend single-phase or three-phase. If you need backup, compare types with our [hybrid page](/hybrid-solar-systems/).
+
+</Callout>
+
+## The meter and what to check before installation day
+
+Two readings matter with solar: what you import and what you export. The units you use instantly are the ones that cut the bill most. Whatever is exported is settled under PSPCL’s net metering rules. To read your own numbers correctly, use our guide on [how to read your solar meter and bill](/read-solar-meter-and-electricity-bill/).
+
+Keep the solar capacity within 100% of the sanctioned load. If you need a bigger system than the cap allows, see the checks in our note on [sanctioned load](/blog/sanctioned-load-and-rooftop-solar-size/). For inspection points, read what PSPCL looks for in this [net metering checklist](/blog/what-pspcl-checks-at-net-metering-and-common-holdups/).
+
+<Callout kind="insight">
+
+Most three-phase homes start from the meter label. A better first pass is to map your daytime self-use. Aligning generation with the hours and circuits you actually run changes the bill more than the inverter’s phase label.
+
+</Callout>
+
+## What we do on site, and where we work
+
+We install the smallest on-grid systems from 3 kW, and hybrid or off-grid from 1 kW. We are a UTL Solar distributor at Phase 8B, Mohali, since 2022, with our own team in Mohali, Kharar, Zirakpur, Derabassi, Chandigarh, Panchkula, New Chandigarh (Mullanpur), Landran, Banur, Lalru, Naya Gaon, Kurali, Morinda, Ropar, Fatehgarh Sahib, Chamkaur Sahib and Khamanon, and UTL dealers elsewhere in Punjab. Product warranties are the manufacturer’s, on their terms.
+
+Bring your last bill, a photo of your meter cabinet and a noon roof photo. We will size the array from your units with [the calculator](/solar-calculator/), check roof space, and show single-phase and three-phase options side by side with [inverters](/products/inverters/) and full [system bundles](/products/solar-systems/).
